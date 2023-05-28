@@ -1,7 +1,7 @@
 ## Interface: 11403
-## Author: Copperbolts
-## Version: 4.965
-## Title: |cff0070DEGuildbook|r
+## Author: TheBoringDad
+## Version: 0.1
+## Title: Guildbook_ClassicEra
 ## Notes: Guildbook for Guilds!
 ## SavedVariables: GUILDBOOK_GLOBAL
 ## SavedVariablesPerCharacter: GUILDBOOK_CHARACTER
