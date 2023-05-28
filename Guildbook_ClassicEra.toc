@@ -2,7 +2,7 @@
 ## Author: TheBoringDad
 ## Version: 0.1
 ## Title: Guildbook_ClassicEra
-## Notes: Guildbook for Guilds!
+## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL
 ## SavedVariablesPerCharacter: GUILDBOOK_CHARACTER
 
