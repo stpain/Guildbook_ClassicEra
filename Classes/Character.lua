@@ -42,6 +42,25 @@ local classData = {
     },
 }
 
+local raceFileStringToId = {
+    Human = 1,
+    Orc = 2,
+    Dwarf = 3,
+    NightElf = 4,
+    Scourge = 5,
+    Tauren = 6,
+    Gnome = 7,
+    Troll = 8,
+    Goblin = 9,
+    BloodElf = 10,
+    Draenei = 11,
+
+    Worgen = 22,
+    Pandaren = 24,
+    PandarenAlliance = 25,
+    PandarenHorde = 26,
+}
+
 function Character:GetGuid()
     return self.data.guid;
 end
@@ -92,7 +111,10 @@ end
 
 
 function Character:SetRace(race)
-    self.data.race = race;
+    if self.data.race ~= race then
+        self.data.race = race;
+        addon:TriggerEvent("Character_OnDataChanged", self)
+    end
 end
 
 function Character:GetRace()
@@ -111,7 +133,10 @@ end
 
 
 function Character:SetGender(gender)
-    self.data.gender = gender;
+    if self.data.gender ~= gender then
+        self.data.gender = gender;
+        addon:TriggerEvent("Character_OnDataChanged", self)
+    end
 end
 
 function Character:GetGender()
@@ -146,13 +171,17 @@ function Character:SetSpec(spec, specID)
 end
 
 function Character:GetSpec(spec)
-    local _, class = GetClassInfo(self.data.class);
-    if spec == "primary" then
-        local specName = classData[class].specializations[self.data.mainSpec]
-        return L[specName], specName, self.data.mainSpec;
-    elseif spec == "secondary" then
-        local specName = classData[class].specializations[self.data.offSpec]
-        return L[specName], specName, self.data.offSpec;
+    if type(self.data.class) == "number" then
+        local _, class = GetClassInfo(self.data.class);
+        if spec == "primary" then
+            local specName = classData[class].specializations[self.data.mainSpec]
+            return L[specName], specName, self.data.mainSpec;
+        elseif spec == "secondary" then
+            local specName = classData[class].specializations[self.data.offSpec]
+            return L[specName], specName, self.data.offSpec;
+        end
+    else
+
     end
 end
 
@@ -421,42 +450,24 @@ end
 -- end
 
 
-function Character:SetInventory(inventory)
-    self.data.inventory = inventory;
+function Character:SetInventory(set, inventory)
+    self.data.inventory[set] = inventory;
     addon:TriggerEvent("Character_OnDataChanged", self)
 end
 
-function Character:GetInventory()
-    return self.data.inventory;
+function Character:GetInventory(set)
+    return self.data.inventory[set] or {};
 end
 
 
--- function Character:SetCurrentPaperdollStats(stats)
---     self.data.currentPaperdollStats = stats;
--- end
-
--- function Character:GetCurrentPaperdollStats()
---     return self.data.currentPaperdollStats; 
--- end
-
-
--- function Character:SetCurrentInventory(inventory)
---     self.data.currentInventory = inventory;
--- end
-
--- function Character:GetCurrentInventory()
---     return self.data.currentInventory;
--- end
-
-
-function Character:SetPaperdollStats(name, stats)
-    self.data.paperDollStats[name] = stats;
+function Character:SetPaperdollStats(set, stats)
+    self.data.paperDollStats[set] = stats;
     addon:TriggerEvent("Character_OnDataChanged", self)
 end
 
-function Character:GetPaperdollStats(name)
-    if self.data.paperDollStats[name] then
-        return self.data.paperDollStats[name];
+function Character:GetPaperdollStats(set)
+    if self.data.paperDollStats[set] then
+        return self.data.paperDollStats[set] or {};
     end
 end
 
@@ -504,10 +515,14 @@ function Character:GetTradeskillIcon(slot)
 end
 
 function Character:GetProfileAvatar()
-    local raceInfo = C_CreatureInfo.GetRaceInfo(self.data.race)
-    --DevTools_Dump({C_CreatureInfo.GetRaceInfo(self.data.race)})
-    local gender = (self.data.gender == 1) and "female" or "male"
-    return string.format("raceicon-%s-%s", raceInfo.clientFileString:lower(), gender)
+    if type(self.data.race) == "number" and type(self.data.gender) == "number" then
+        local raceInfo = C_CreatureInfo.GetRaceInfo(self.data.race)
+        local gender = (self.data.gender == 3) and "female" or "male" --GetPlayerInfoByGUID returns 2=MALE 3=FEMALE
+        return string.format("raceicon-%s-%s", raceInfo.clientFileString:lower(), gender)
+    else
+
+    end
+    return "questlegendaryturnin"
 end
 
 function Character:GetClassSpecAtlasName(spec)
@@ -643,47 +658,22 @@ end
 
 
 function Character:CreateFromData(data)
-    print("created character from data", data.name)
-    -- self.data = {
-    --     guid = data.guid,
-    --     name = data.name,
-    --     class = data.class,
-    --     gender = data.gender,
-    --     level = data.level,
-    --     race = data.race,
-    --     rankName = data.rankName,
-    --     alts = data.alts,
-    --     mainCharacter = data.mainCharacter or false,
-    --     publicNote = data.publicNote,
-    --     mainSpec = data.mainSpec,
-    --     offSpec = data.offSpec,
-    --     mainSpecIsPvP = data.mainSpecIsPvP,
-    --     offSpecIsPvP = data.offSpecIsPvP,
-    --     profile = data.profile or {},
-    --     profession1 = data.profession1,
-    --     profession1Level = data.profession1Level,
-    --     profession1Spec = data.profession1Spec,
-    --     profession1Recipes = data.profession1Recipes or {},
-    --     profession2 = data.profession2,
-    --     profession2Level = data.profession2Level,
-    --     profession2Spec = data.profession2Spec,
-    --     profession2Recipes = data.profession2Recipes or {},
-    --     cookingLevel = data.cookingLevel,
-    --     cookingRecipes = data.cookingRecipes or {},
-    --     fishingLevel = data.fishingLevel,
-    --     firstAidLevel = data.firstAidLevel,
-    --     firstAidRecipes = data.firstAidRecipes,
-    --     talents = data.talents or {},
-    --     --glyphs = data.Glyphs or {},
-    --     inventory = data.inventory,
-    --     --currentInventory = data.currentInventory or {},
-    --     paperDollStats = data.paperDollStats,
-    --     --currentPaperdollStats = data.CurrentPaperdollStats or {},
-    --     onlineStatus = {
-    --         isOnline = false,
-    --         zone = "",
-    --     }
-    -- }
+    --print(string.format("Created Character Obj [%s] at %s", data.name or "-", date('%H:%M:%S', time())))
+
+    --lets crack player info
+    if (data.race == false) or (data.gender == false) then
+        self.ticker = C_Timer.NewTicker(1, function()
+            local _, _, _, englishRace, sex = GetPlayerInfoByGUID(data.guid)
+            if englishRace and sex then
+                if addon.characters[data.name] then
+                    addon.characters[data.name]:SetGender(sex)
+                    addon.characters[data.name]:SetRace(raceFileStringToId[englishRace])
+                    --print(string.format("Got race and gender info [%s] at %s", data.name or "-", date('%H:%M:%S', time())))
+                    addon.characters[data.name].ticker:Cancel()
+                end
+            end
+        end)
+    end
     return Mixin({data = data}, self)
 end
 

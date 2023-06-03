@@ -1,5 +1,6 @@
 local name, addon = ...;
 
+local Guild = addon.Guild;
 local Character = addon.Character;
 local Database = addon.Database;
 local Talents = addon.Talents;
@@ -29,6 +30,17 @@ e:SetScript("OnEvent", function(self, event, ...)
         self[event](self, ...)
     end
 end)
+
+function e:PLAYER_EQUIPMENT_CHANGED()
+
+    local equipment = addon.api.getPlayerEquipment()
+    local currentStats = addon.api.getPaperDollStats()
+
+    if addon.characters[addon.thisCharacter] then
+        addon.characters[addon.thisCharacter]:SetInventory("current", equipment)
+        addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats)
+    end
+end
 
 function e:CHARACTER_POINTS_CHANGED(delta)
     if delta == 1 then
@@ -65,6 +77,21 @@ function e:PLAYER_ENTERING_WORLD()
     Talents:GetPlayerTalentInfo()
 end
 
+local classFileNameToClassId = {
+    WARRIOR	= 1,
+    PALADIN	= 2,
+    HUNTER = 3,
+    ROGUE = 4,
+    PRIEST = 5,
+    DEATHKNIGHT = 6,
+    SHAMAN = 7,
+    MAGE = 8,
+    WARLOCK	= 9,
+    MONK = 10,
+    DRUID = 11,
+    DEMONHUNTER = 12,
+    EVOKER = 13,
+}
 function e:GUILD_ROSTER_UPDATE()
 
     local guildName;
@@ -72,8 +99,6 @@ function e:GUILD_ROSTER_UPDATE()
         local name, _, _, _ = GetGuildInfo('player')
         guildName = name;
     end
-
-    local playerLocation;
 
     if guildName then
 
@@ -90,74 +115,69 @@ function e:GUILD_ROSTER_UPDATE()
             }
         end
 
-        local members = {}
+        local members, guids = {},{}
         local totalMembers, onlineMember, _ = GetNumGuildMembers()
         for i = 1, totalMembers do
             --local name, rankName, rankIndex, level, classDisplayName, zone, publicNote, officerNote, isOnline, status, class, achievementPoints, achievementRank, isMobile, canSoR, repStanding, guid = GetGuildRosterInfo(i)
-            local name, rankName, rankIndex, level, _, zone, publicNote, officerNote, isOnline, status, _, _, _, _, _, _, guid = GetGuildRosterInfo(i)
+            local name, rankName, rankIndex, level, _, zone, publicNote, officerNote, isOnline, status, class, _, _, _, _, _, guid = GetGuildRosterInfo(i)
         
             members[name] = true;
-
+            table.insert(guids, guid)
             --the easiest way to do this is just access the saved variables rather than add calls just to be fancy
             if not Database.db.characterDirectory[name] then
-                if not playerLocation then
-                    playerLocation = PlayerLocation:CreateFromGUID(guid)
-                else
-                    playerLocation:SetGUID(guid)
-                end
-                if playerLocation:IsValid() then
-                    local _, _, class = C_PlayerInfo.GetClass(playerLocation)
-                    local race = C_PlayerInfo.GetRace(playerLocation)
-                    local gender = C_PlayerInfo.GetSex(playerLocation)
-
-                    local character = {
-                        guid = guid,
-                        name = name,
-                        class = class,
-                        gender = gender,
-                        level = level,
-                        race = race,
-                        rank = rankIndex,
-                        onlineStatus = {
-                            isOnline = isOnline,
-                            zone = zone,
-                        },
-                        alts = {},
-                        mainCharacter = false,
-                        --rankName = rankName,
-                        publicNote = publicNote,
-                        mainSpec = false,
-                        offSpec = false,
-                        mainSpecIsPvP = false,
-                        offSpecIsPvP = false,
-                        profile = {},
-                        profession1 = "-",
-                        profession1Level = 0,
-                        profession1Spec = false,
-                        profession1Recipes = {},
-                        profession2 = "-",
-                        profession2Level = 0,
-                        profession2Spec = false,
-                        profession2Recipes = {},
-                        cookingLevel = 0,
-                        cookingRecipes = {},
-                        fishingLevel = 0,
-                        firstAidLevel = 0,
-                        firstAidRecipes = {},
-                        talents = {},
-                        --Glyphs = glyphs,
-                        inventory = {},
-                        --CurrentInventory = currentInventory,
-                        paperDollStats = {},
-                        --CurrentPaperdollStats = currentPaperdollStats or {},
-                    }
-                    Database:InsertCharacter(character)
-                end
+                local character = {
+                    guid = guid,
+                    name = name,
+                    class = classFileNameToClassId[class],
+                    gender = false,
+                    level = level,
+                    race = false,
+                    rank = rankIndex,
+                    onlineStatus = {
+                        isOnline = isOnline,
+                        zone = zone,
+                    },
+                    alts = {},
+                    mainCharacter = false,
+                    --rankName = rankName,
+                    publicNote = publicNote,
+                    mainSpec = false,
+                    offSpec = false,
+                    mainSpecIsPvP = false,
+                    offSpecIsPvP = false,
+                    profile = {},
+                    profession1 = "-",
+                    profession1Level = 0,
+                    profession1Spec = false,
+                    profession1Recipes = {},
+                    profession2 = "-",
+                    profession2Level = 0,
+                    profession2Spec = false,
+                    profession2Recipes = {},
+                    cookingLevel = 0,
+                    cookingRecipes = {},
+                    fishingLevel = 0,
+                    firstAidLevel = 0,
+                    firstAidRecipes = {},
+                    talents = {},
+                    --Glyphs = glyphs,
+                    inventory = {
+                        current = {},
+                    },
+                    --CurrentInventory = currentInventory,
+                    paperDollStats = {
+                        current = {},
+                    },
+                    --CurrentPaperdollStats = currentPaperdollStats or {},
+                }
+                Database:InsertCharacter(character)
+                
             end
 
             if not addon.characters[name] then
                 addon.characters[name] = Character:CreateFromData(Database.db.characterDirectory[name])
                 --DevTools_Dump(addon.characters[name])
+                --print(addon.characters[name].data.class)
             end
 
             addon.characters[name]:RegisterCallbacks()
@@ -167,6 +187,7 @@ function e:GUILD_ROSTER_UPDATE()
                 zone = zone,
             })
 
+            --these values could change betwen roster updates
             addon.characters[name]:SetLevel(level)
             addon.characters[name]:SetRank(rankIndex)
             addon.characters[name]:SetPublicNote(publicNote)
@@ -178,6 +199,9 @@ function e:GUILD_ROSTER_UPDATE()
                 if not addon.guilds[guildName] then
                     addon.guilds[guildName] = Database.db.guilds[guildName]
                 end
+
+                --this is mostly just for testing
+                self:PLAYER_EQUIPMENT_CHANGED()
 
                 addon:TriggerEvent("Blizzard_OnGuildRosterUpdate", guildName)
             end

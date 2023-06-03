@@ -146,7 +146,7 @@
                     </Frame>
 
 
-                    <Frame parentKey="profile" inherits="GuildbookSmallHighlightButton" enableMouse="true">
+                    <Frame parentKey="myProfile" inherits="GuildbookSmallHighlightButton" enableMouse="true">
                         <Size x="30" y="30"/>
                         <Anchors>
                             <Anchor point="RIGHT" x="-8" y="0"/>
@@ -209,7 +209,7 @@
                         <Size x="200" y="20"/>
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.guildbank" relativePoint="RIGHT" x="15" y="0"/>
-                            <Anchor point="RIGHT" relativeKey="$parent.profile" relativePoint="LEFT" x="0" y="0"/>
+                            <Anchor point="RIGHT" relativeKey="$parent.myProfile" relativePoint="LEFT" x="0" y="0"/>
                         </Anchors>
 
                     </EditBox>

@@ -77,6 +77,7 @@ function GuildbookMixin:AddView(view)
         end)
     end
 end
+
 function addon.AddView(view)
     GuildbookUI:AddView(view)
 end

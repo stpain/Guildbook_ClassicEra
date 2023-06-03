@@ -68,6 +68,8 @@
         "ACCEPT",
         "CANCEL",
         "HideDropDownMenu",
-        "AUTOCOMPLETE_LIST"
+        "AUTOCOMPLETE_LIST",
+        "PanelTemplates_SetNumTabs",
+        "PanelTemplates_SetTab"
     ]
 }

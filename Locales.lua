@@ -187,19 +187,21 @@ L["RESET_AVATAR"]					= "Reset avatar"
 
 L["PRIVACY_HEADER"]                 = "Privacy settings"
 
---attributes
+L["attributes"] 					= "Attributes"
 L["STRENGTH"]						= "Strength"
 L["AGILITY"]						= "Agility"
 L["STAMINA"]						= "Stamina"
 L["INTELLECT"]						= "Intellect"
 L["SPIRIT"]							= "Spirit"
---defence
+
+L["defence"] 						= "Defense"
 L["ARMOR"]							= "Armor"
 L["DEFENSE"]						= "Defence"
 L["DODGE"]							= "Dodge"
 L["PARRY"]							= "Parry"
 L["BLOCK"]							= "Block"
---melee
+
+L["melee"] 							= "Melee"
 L["EXPERTISE"]						= "Expertise"
 L["HIT_CHANCE"]						= "Hit"
 L["MELEE_CRIT"]						= "Crit"
@@ -207,12 +209,14 @@ L["MH_DMG"]							= "Main hand dmg"
 L["OH_DMG"] 						= "Off hand dmg"
 L["MH_DPS"] 						= "Main hand dps"
 L["OH_DPS"] 						= "Off hand dps"
---ranged
+
+L["ranged"]							= "Ranged"
 L["RANGED_HIT"] 					= "Hit"
 L["RANGED_CRIT"] 					= "Crit"
 L["RANGED_DMG"] 					= "Damage"
 L["RANGED_DPS"] 					= "Dps"
---spells
+
+L["spell"] 							= "Spell"
 L["SPELL_HASTE"] 					= "Haste"
 L["MANA_REGEN"] 					= "Mana Regen"
 L["MANA_REGEN_CASTING"] 			= "Mana Regen (casting)"

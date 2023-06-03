@@ -818,3 +818,77 @@ end
 --     end
 
 -- end
+
+
+
+GuildbookSimpleIconLabelMixin = {}
+function GuildbookSimpleIconLabelMixin:OnLoad()
+
+end
+function GuildbookSimpleIconLabelMixin:SetDataBinding(binding, height)
+
+    self:SetScript("OnMouseDown", nil)
+
+    self.label:SetText(binding.label)
+    if binding.atlas then
+        self.icon:SetAtlas(binding.atlas)
+    elseif binding.icon then
+        self.icon:SetTexture(binding.icon)
+    end
+    self.icon:SetSize(height-4, height-4)
+
+    if binding.onMouseDown then
+        self:SetScript("OnMouseDown", binding.onMouseDown)
+        self:EnableMouse(true)
+    end
+
+    if binding.link then
+        self:SetScript("OnEnter", function()
+            GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+            GameTooltip:SetHyperlink(binding.link)
+            GameTooltip:Show()
+        end)
+        self:SetScript("OnLeave", function()
+            GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+        end)
+    end
+
+    --self.anim:Play()
+end
+function GuildbookSimpleIconLabelMixin:ResetDataBinding()
+    self:SetScript("OnMouseDown", nil)
+    self:SetScript("OnEnter", nil)
+    self:SetScript("OnLeave", nil)
+    self:EnableMouse(false)
+end
+
+
+GuildbookStatsGroupMixin = {}
+function GuildbookStatsGroupMixin:OnLoad()
+
+end
+function GuildbookStatsGroupMixin:SetDataBinding(binding, height)
+
+    self:SetHeight(height)
+
+    self.label:SetText(binding.label)
+    self.background:SetTexture(nil)
+
+    if binding.isHeader then
+        self.background:SetAtlas("UI-Character-Info-Title")
+        self.background:SetAlpha(1)
+        self.background:SetHeight(height * 1.4)
+        --self:EnableMouse(false)
+    else
+        if binding.showBounce then
+            self.background:SetAtlas("UI-Character-Info-Line-Bounce")
+            self.background:SetAlpha(0.6)
+            self.background:SetHeight(height * 1.1)
+            --self:EnableMouse(false)
+        end
+    end
+
+end
+function GuildbookStatsGroupMixin:ResetDataBinding()
+
+end
