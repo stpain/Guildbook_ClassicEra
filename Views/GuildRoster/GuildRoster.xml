@@ -1,0 +1,24 @@
+<Ui>
+    <Frame name="GuildbookGuildRoster" mixin="GuildbookGuildRosterMixin">
+        <Layers>
+        
+        </Layers>
+        <Frames>
+            <Frame parentKey="rosterListview" inherits="GuildbookWidgetsListviewTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="-24"/>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+                <KeyValues>
+                    <KeyValue key="frameType" value="FRAME" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookRosterListviewItem" type="string"/>
+                    <KeyValue key="elementHeight" value="26" type="number"/>
+                </KeyValues>
+            </Frame>
+        </Frames>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnShow method="OnShow"/>
+        </Scripts>  
+    </Frame>
+</Ui>

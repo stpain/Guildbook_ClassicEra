@@ -1,0 +1,722 @@
+<Ui>
+    <Frame name="GuildbookProfile" mixin="GuildbookProfileMixin">
+        <!-- <Animations>
+            <AnimationGroup parentKey="fadeOut" setToFinalAlpha="true">
+                <Alpha duration="0.1" fromAlpha="1" toAlpha="0"/>
+            </AnimationGroup>
+            <AnimationGroup parentKey="fadeIn" setToFinalAlpha="true">
+                <Alpha duration="0.8" fromAlpha="0" toAlpha="1"/>
+            </AnimationGroup>
+        </Animations> -->
+
+        <Frames>
+
+            <Frame parentKey="sidePane" useParentLevel="true">
+                <!-- <Animations>
+                    <AnimationGroup parentKey="anim" setToFinalAlpha="true">
+                        <Alpha parentKey="fadeOut" duration="0.5" fromAlpha="1" toAlpha="0"/>
+                        <Alpha parentKey="fadeIn" startDelay="0.5" duration="0.8" fromAlpha="0" toAlpha="1"/>
+                    </AnimationGroup>
+                </Animations> -->
+                <Size x="240"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                    <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND" textureSubLevel="1">
+                        <Texture parentKey="background" atlas="transmog-background-race-human" setAllPoints="true" alpha="1">
+                            <!-- <Color r="0" g="0" b="0"/> -->
+                        </Texture>
+                    </Layer>
+                    <Layer level="OVERLAY">
+                        <!-- <Texture parentKey="avatar" atlas="raceicon-draenei-female" setAllPoints="true">
+                            <Size x="30" y="30"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="20" y="-260"/>
+                            </Anchors>
+                        </Texture> -->
+                        <FontString parentKey="name" inherits="GameFontNormalLarge" text="-">
+                            <Color r="1" g="1" b="1"/>
+                            <Size x="200" y="25"/>
+                            <Anchors>
+                                <Anchor point="TOP" x="0" y="-250"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString parentKey="mainSpec" inherits="GameFontNormal" text="-">
+                            <Color r="1" g="1" b="1"/>
+                            <Size x="200" y="25"/>
+                            <Anchors>
+                                <Anchor point="TOP" relativePoint="BOTTOM" relativeKey="$parent.name" x="0" y="-5"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                
+                <Frames>
+                    <Frame parentKey="prof1" inherits="GuildbookSimpleIconLabelFrame" enableMouse="true">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativePoint="BOTTOM" relativeKey="$parent.mainSpec" x="0" y="-5"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="prof2" inherits="GuildbookSimpleIconLabelFrame">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativePoint="BOTTOM" relativeKey="$parent.prof1" x="0" y="-5"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="cooking" inherits="GuildbookSimpleIconLabelFrame">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativePoint="BOTTOM" relativeKey="$parent.prof2" x="0" y="-5"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="firstAid" inherits="GuildbookSimpleIconLabelFrame">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativePoint="BOTTOM" relativeKey="$parent.cooking" x="0" y="-5"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="fishing" inherits="GuildbookSimpleIconLabelFrame">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" relativePoint="BOTTOM" relativeKey="$parent.firstAid" x="0" y="-5"/>
+                        </Anchors>
+                    </Frame>
+                </Frames>
+
+
+            </Frame>
+
+            <!-- <Frame parentKey="avatarPicker" mixin="GuildbookAvatarPickerMixin" inherits="BasicFrameTemplate" hidden="true">
+                <Size x="275"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeTo="GuildbookUI" x="5" y="0"/>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" relativeTo="GuildbookUI" x="5" y="0"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad method="OnLoad"/>
+                </Scripts>
+                <Frames>
+                    <Button parentKey="resetAvatar" inherits="UIPanelButtonTemplate">
+                        <Size x="100" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOP" x="0" y="0"/>
+                        </Anchors>
+                    </Button>
+                    <Slider parentKey="scrollBar" inherits="UIPanelScrollBarTemplate" orientation="VERTICAL">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-6" y="-42"/>
+                            <Anchor point="BOTTOMRIGHT" x="-6" y="20"/>
+                        </Anchors>
+                        <Scripts>
+                            <OnValueChanged>
+                                self:GetParent():ScrollBar_OnValueChanged()
+                            </OnValueChanged>
+                        </Scripts>
+                    </Slider>
+                </Frames>
+                <Scripts>
+                    <OnMouseWheel method="OnMouseWheel"/>
+                </Scripts>
+            </Frame> -->
+
+            <ScrollFrame parentKey="contentPane" inherits="UIPanelScrollFrameTemplate">
+                <!-- <Size x="240" y="350"/> -->
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.sidePane" x="5" y="-5"/>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" relativeKey="$parent.sidePane" x="5" y="5"/>
+                    <Anchor point="RIGHT" x="-30" y="0"/>
+                </Anchors>
+                <ScrollChild>
+                    <Frame parentKey="scrollChild">
+                        <!-- <Animations>
+                            <AnimationGroup parentKey="anim" setToFinalAlpha="true">
+                                <Alpha parentKey="fadeOut" startDelay="0.0" duration="0.5" fromAlpha="1" toAlpha="0"/>
+                                <Alpha parentKey="fadeIn" startDelay="0.5" duration="0.8" fromAlpha="0" toAlpha="1"/>
+                            </AnimationGroup>
+                        </Animations> -->
+                        <Anchors>
+                            <Anchor point="LEFT" x="0" y="0"/>
+                            <Anchor point="RIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <Frames>
+
+                            <Frame parentKey="profile" parentArray="frames">
+                                <Size y="350"/>
+                                <Layers>
+                                    <Layer level="BACKGROUND">
+
+                                    </Layer>
+                                    <Layer level="OVERLAY">
+                                        <FontString parentKey="title" inherits="GameFontNormalLarge" parentArray="localStrings">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Anchors>
+                                                <Anchor point="TOP" x="0" y="0"/>
+                                            </Anchors>
+                                            <KeyValues>
+                                                <KeyValue key="locale" value="PROFILE_TITLE" type="string"/>
+                                            </KeyValues>
+                                        </FontString>
+
+                                        <FontString parentKey="realNameLabel" parentArray="localStrings" inherits="GameFontNormal" justifyH="LEFT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="75" y="25"/>
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="20" y="-25"/>
+                                            </Anchors>
+                                            <KeyValues>
+                                                <KeyValue key="locale" value="REAL_NAME" type="string"/>
+                                            </KeyValues>
+                                        </FontString>
+                                        <FontString parentKey="realName" parentArray="displayStrings" inherits="GameFontNormal" justifyH="LEFT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="175" y="25"/>
+                                            <Anchors>
+                                                <Anchor relativeKey="$parent.realNameLabel" relativePoint="RIGHT" point="LEFT" x="20" y="0"/>
+                                            </Anchors>
+                                        </FontString>
+
+                                        <FontString parentKey="avatarLabel" parentArray="localStrings" inherits="GameFontNormal" justifyH="LEFT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="75" y="25"/>
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="355" y="-25"/>
+                                            </Anchors>
+                                            <KeyValues>
+                                                <KeyValue key="locale" value="AVATAR" type="string"/>
+                                            </KeyValues>
+                                        </FontString>
+
+                                        <FontString parentKey="realDobLabel" parentArray="localStrings" inherits="GameFontNormal" justifyH="LEFT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="75" y="25"/>
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="20" y="-45"/>
+                                            </Anchors>
+                                            <KeyValues>
+                                                <KeyValue key="locale" value="REAL_DOB" type="string"/>
+                                            </KeyValues>
+                                        </FontString>
+                                        <FontString parentKey="realDob" parentArray="displayStrings" inherits="GameFontNormal" justifyH="LEFT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="175" y="25"/>
+                                            <Anchors>
+                                                <Anchor relativeKey="$parent.realDobLabel" relativePoint="RIGHT" point="LEFT" x="20" y="0"/>
+                                            </Anchors>
+                                        </FontString>
+
+                                        <FontString parentKey="realBioLabel" parentArray="localStrings" inherits="GameFontNormal" justifyH="LEFT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="75" y="25"/>
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="20" y="-70"/>
+                                            </Anchors>
+                                            <KeyValues>
+                                                <KeyValue key="locale" value="REAL_BIO" type="string"/>
+                                            </KeyValues>
+                                        </FontString>
+                                        <FontString parentKey="realBio" parentArray="displayStrings" inherits="GameFontNormal" justifyH="LEFT" justifyV="TOP">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="230" y="90"/>
+                                            <Anchors>
+                                                <Anchor relativeKey="$parent.realBioLabel" relativePoint="TOPRIGHT" point="TOPLEFT" x="20" y="-6"/>
+                                            </Anchors>
+                                        </FontString>
+
+                                        <FontString parentKey="mainSpecLabel" parentArray="localStrings" inherits="GameFontNormal" justifyH="LEFT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="75" y="25"/>
+                                            <Anchors>
+                                                <Anchor relativeKey="$parent.realBioLabel" relativePoint="BOTTOMLEFT" point="TOPLEFT" x="0" y="-100"/>
+                                            </Anchors>
+                                            <KeyValues>
+                                                <KeyValue key="locale" value="MAIN_SPEC" type="string"/>
+                                            </KeyValues>
+                                        </FontString>
+                                        <FontString parentKey="mainSpec" parentArray="displayStrings" inherits="GameFontNormal" justifyH="LEFT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="175" y="25"/>
+                                            <Anchors>
+                                                <Anchor relativeKey="$parent.mainSpecLabel" relativePoint="RIGHT" point="LEFT" x="20" y="0"/>
+                                            </Anchors>
+                                        </FontString>
+
+                                        <FontString parentKey="offSpecLabel" parentArray="localStrings" inherits="GameFontNormal" justifyH="LEFT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="75" y="25"/>
+                                            <Anchors>
+                                                <Anchor relativeKey="$parent.mainSpecLabel" relativePoint="RIGHT" point="LEFT" x="255" y="0"/>
+                                            </Anchors>
+                                            <KeyValues>
+                                                <KeyValue key="locale" value="OFF_SPEC" type="string"/>
+                                            </KeyValues>
+                                        </FontString>
+                                        <FontString parentKey="offSpec" parentArray="displayStrings" inherits="GameFontNormal" justifyH="LEFT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="175" y="25"/>
+                                            <Anchors>
+                                                <Anchor relativeKey="$parent.offSpecLabel" relativePoint="RIGHT" point="LEFT" x="20" y="0"/>
+                                            </Anchors>
+                                        </FontString>
+
+                                        <FontString parentKey="mainCharacterLabel" parentArray="localStrings" inherits="GameFontNormal" justifyH="LEFT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="75" y="30"/>
+                                            <Anchors>
+                                                <Anchor relativeKey="$parent.realBioLabel" relativePoint="BOTTOMLEFT" point="TOPLEFT" x="0" y="-130"/>
+                                            </Anchors>
+                                            <KeyValues>
+                                                <KeyValue key="locale" value="MAIN_CHARACTER" type="string"/>
+                                            </KeyValues>
+                                        </FontString>
+                                        <FontString parentKey="mainCharacter" parentArray="displayStrings" inherits="GameFontNormal" justifyH="LEFT" justifyV="TOP">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="230" y="25"/>
+                                            <Anchors>
+                                                <Anchor relativeKey="$parent.mainCharacterLabel" relativePoint="RIGHT" point="LEFT" x="20" y="0"/>
+                                            </Anchors>
+                                        </FontString>
+                                        <FontString parentKey="altCharactersLabel" parentArray="localStrings" inherits="GameFontNormal" justifyH="LEFT">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Size x="75" y="30"/>
+                                            <Anchors>
+                                                <Anchor relativeKey="$parent.mainCharacterLabel" relativePoint="BOTTOMLEFT" point="TOPLEFT" x="0" y="-20"/>
+                                            </Anchors>
+                                            <KeyValues>
+                                                <KeyValue key="locale" value="ALT_CHARACTERS" type="string"/>
+                                            </KeyValues>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                                <Frames>
+                                    <Frame parentKey="edit" inherits="GuildbookSmallHighlightButton">
+                                        <Size x="20" y="20"/>
+                                        <Anchors>
+                                            <Anchor point="TOPRIGHT" x="-5" y="--5"/>
+                                        </Anchors>
+                                        <Layers>
+                                            <Layer level="BACKGROUND">
+                                                <Texture atlas="AdventureMap-combatally-empty" setAllPoints="true"/>
+                                            </Layer>
+                                        </Layers>
+                                        <KeyValues>
+                                            <KeyValue key="tooltipText" value="EDIT"/>
+                                        </KeyValues>
+                                        <!-- <Scripts>
+                                            <OnLoad>
+                                                self.editOpen = false;
+                                            </OnLoad> 
+                                            <OnMouseDown>
+                                                self:GetParent():GetParent():GetParent():GetParent():Edit_OnMouseDown(self)
+                                            </OnMouseDown>
+                                        </Scripts> -->
+                                    </Frame>
+
+                                    <CheckButton parentKey="useMainProfile" parentArray="displayEdit" inherits="ChatConfigCheckButtonTemplate" hidden="true">
+                                        <Size x="24" y="24"/>
+                                        <Layers>
+                                            <Layer>
+                                                <FontString parentKey="label" parentArray="localStrings" inherits="GameFontNormalSmall">
+                                                    <Color r="1" g="1" b="1" a="1"/>
+                                                    <!-- <FontHeight val="12"/> -->
+                                                    <Anchors>
+                                                        <Anchor point="LEFT">
+                                                            <offset x="24" y="0"/>
+                                                        </Anchor>
+                                                    </Anchors>
+                                                    <KeyValues>
+                                                        <KeyValue key="locale" value="USE_MAIN_PROFILE" type="string"/>
+                                                    </KeyValues>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>                
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="5" y="--5"/>
+                                        </Anchors>
+                                        <!-- <Scripts>
+                                            <OnLoad>
+                                            </OnLoad>
+                                            <OnClick>
+                                                self:GetParent():GetParent():GetParent():GetParent():UseMainProfile_OnMouseDown(self)
+                                            </OnClick>
+                                        </Scripts> -->
+                                    </CheckButton>
+
+                                    <EditBox parentKey="realNameInput" parentArray="displayEdit" inherits="InputBoxTemplate" autoFocus="false" hidden="true">
+                                        <Size x="150" y="20"/>
+                                        <Anchors>
+                                            <Anchor relativeKey="$parent.realNameLabel" relativePoint="RIGHT" point="LEFT" x="20" y="0"/>
+                                        </Anchors>
+                                        <!-- <Scripts>
+                                            <OnTextChanged>
+                                                self:GetParent():GetParent():GetParent():GetParent():MyProfile_OnEditChanged("realName", self:GetText())
+                                            </OnTextChanged>
+                                        </Scripts> -->
+                                    </EditBox>
+                                    <EditBox parentKey="realDobInput" parentArray="displayEdit" inherits="InputBoxTemplate" autoFocus="false" hidden="true">
+                                        <Size x="150" y="20"/>
+                                        <Anchors>
+                                            <Anchor relativeKey="$parent.realDobLabel" relativePoint="RIGHT" point="LEFT" x="20" y="0"/>
+                                        </Anchors>
+                                        <!-- <Scripts>
+                                            <OnTextChanged>
+                                                self:GetParent():GetParent():GetParent():GetParent():MyProfile_OnEditChanged("realDob", self:GetText())
+                                            </OnTextChanged>
+                                        </Scripts> -->
+                                    </EditBox>
+                                    <ScrollFrame parentKey="realBioInput" parentArray="displayEdit" inherits="InputScrollFrameTemplate" hidden="true">
+                                        <Size x="220" y="50"/>
+                                        <KeyValue key="maxLetters" value="200" type="number"/>
+                                        <KeyValue key="hideCharCount" value="false" type="boolean"/>
+                                        <Anchors>
+                                            <Anchor relativeKey="$parent.realBioLabel" relativePoint="TOPRIGHT" point="TOPLEFT" x="20" y="-6"/>
+                                        </Anchors>
+                                    </ScrollFrame>
+
+                                    <!-- <Frame parentKey="avatar" inherits="GuildbookAvatarFrame"> -->
+                                    <Frame parentKey="avatar" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+                                        <Size x="60" y="60"/>
+                                        <Anchors>
+                                            <Anchor relativeKey="$parent.avatarLabel" relativePoint="TOPRIGHT" point="TOPLEFT" x="0" y="0"/>
+                                        </Anchors>
+                                        <Scripts>
+                                            <!-- <OnEnter>
+                                                self.Highlight:Hide()
+                                            </OnEnter>
+                                            <OnLeave>
+                                                self.Highlight:Show()
+                                            </OnLeave> -->
+                                            <!-- <OnMouseDown>
+                                                if self:GetParent().edit.editOpen == true then
+                                                    GuildbookUI.profiles.avatarPicker:Show()
+                                                end
+                                            </OnMouseDown> -->
+                                        </Scripts>
+                                    </Frame>
+
+                                    <Frame parentKey="mainCharacterDropDown" parentArray="displayEdit" inherits="GuildbookDropdown" hidden="true">
+                                        <!-- <Size x="125" y="24"/> -->
+                                        <Anchors>
+                                            <Anchor relativeKey="$parent.mainCharacterLabel" relativePoint="RIGHT" point="LEFT" x="20" y="0"/>
+                                        </Anchors>
+                                    </Frame>
+
+                                    <Frame parentKey="altCharactersContainer">
+                                        <Size y="50"/>
+                                        <Anchors>
+                                            <Anchor relativeKey="$parent.altCharactersLabel" relativePoint="RIGHT" point="LEFT" x="20" y="0"/>
+                                            <Anchor point="RIGHT" x="-5" y="0"/>
+                                        </Anchors>
+                                        <Frames> 
+                                            <Frame parentKey="avatar1" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" x="5" y="0"/>
+                                                </Anchors>
+                                            </Frame>
+                                            <Frame parentKey="avatar2" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeKey="$parent.avatar1" relativePoint="RIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                            </Frame>
+                                            <Frame parentKey="avatar3" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeKey="$parent.avatar2" relativePoint="RIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                            </Frame>
+                                            <Frame parentKey="avatar4" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeKey="$parent.avatar3" relativePoint="RIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                            </Frame>
+                                            <Frame parentKey="avatar5" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeKey="$parent.avatar4" relativePoint="RIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                            </Frame>
+                                            <Frame parentKey="avatar6" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeKey="$parent.avatar5" relativePoint="RIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                            </Frame>
+                                            <Frame parentKey="avatar7" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeKey="$parent.avatar6" relativePoint="RIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                            </Frame>
+                                            <Frame parentKey="avatar8" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeKey="$parent.avatar7" relativePoint="RIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                            </Frame>
+                                            <Frame parentKey="avatar9" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeKey="$parent.avatar8" relativePoint="RIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                            </Frame>
+                                            <Frame parentKey="scrollRight" enableMouse="true">
+                                                <Size x="35"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPRIGHT" x="0" y="0"/>
+                                                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                                <Layers>
+                                                    <Layer level="ARTWORK" textureSubLevel="-1">
+                                                        <Texture parentKey="glow" atlas="NPE_ArrowRightGlow" hidden="true"/>
+                                                    </Layer>
+                                                    <Layer level="ARTWORK">
+                                                        <Texture atlas="NPE_ArrowRight"/>
+                                                    </Layer>
+                                                </Layers>
+                                                <Scripts>
+                                                    <OnEnter>
+                                                        self.glow:Show()
+                                                    </OnEnter>
+                                                    <OnLeave>
+                                                        self.glow:Hide()
+                                                    </OnLeave>
+                                                </Scripts>
+                                            </Frame>
+                                        </Frames>
+                                    </Frame>
+
+                                    <Frame parentKey="mainSpecDropDown" parentArray="displayEdit" inherits="GuildbookDropdown" hidden="true">
+                                        <!-- <Size x="125" y="26"/> -->
+                                        <Anchors>
+                                            <Anchor relativeKey="$parent.mainSpecLabel" relativePoint="RIGHT" point="LEFT" x="20" y="0"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentKey="offSpecDropDown" parentArray="displayEdit" inherits="GuildbookDropdown" hidden="true">
+                                        <!-- <Size x="125" y="24"/> -->
+                                        <Anchors>
+                                            <Anchor relativeKey="$parent.offSpecLabel" relativePoint="RIGHT" point="LEFT" x="20" y="0"/>
+                                        </Anchors>
+                                    </Frame>
+                                </Frames>
+                            </Frame>
+
+                            <Frame parentKey="inventory" parentArray="frames">
+                                <Size y="350"/>
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                                    <Anchor point="TOPRIGHT" x="0" y="0"/>
+                                </Anchors>
+                                <Layers>
+                                    <Layer level="ARTWORK">
+                                        <FontString parentKey="title" inherits="GameFontNormalLarge" text="Inventory">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Anchors>
+                                                <Anchor point="TOP" x="0" y="-5"/>
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                                <Frames>
+                                    <Frame parentArray="slots" parentKey="HEADSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="10" y="-40"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="NECKSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="10" y="-70"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="SHOULDERSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="10" y="-100"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="BACKSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="10" y="-130"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="CHESTSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="10" y="-160"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="SHIRTSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="10" y="-190"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="TABARDSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="10" y="-220"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="WRISTSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="10" y="-250"/>
+                                        </Anchors>
+                                    </Frame>
+
+                                    <!-- column 2 -->
+                                    <Frame parentArray="slots" parentKey="HANDSSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="335" y="-40"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="WAISTSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="335" y="-70"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="LEGSSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="335" y="-100"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="FEETSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="335" y="-130"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="FINGER0SLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="335" y="-160"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="FINGER1SLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="335" y="-190"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="TRINKET0SLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="335" y="-220"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="TRINKET1SLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="335" y="-250"/>
+                                        </Anchors>
+                                    </Frame>
+
+                                    <!-- weapons -->
+                                    <Frame parentArray="slots" parentKey="MAINHANDSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="10" y="-280"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="SECONDARYHANDSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="335" y="-280"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="slots" parentKey="RANGEDSLOT" inherits="GuildbookItemIconLinkFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="10" y="-310"/>
+                                        </Anchors>
+                                    </Frame>
+                                </Frames>
+                            </Frame>
+
+                            <Frame parentKey="stats" parentArray="frames">
+                                <Size y="400"/>
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="0" y="-350"/>
+                                    <Anchor point="TOPRIGHT" x="0" y="-350"/>
+                                </Anchors>
+                                <Layers>
+                                    <Layer level="ARTWORK">
+                                        <FontString parentKey="title" inherits="GameFontNormalLarge" text="Stats">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Anchors>
+                                                <Anchor point="TOP" x="0" y="-5"/>
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                                <Frames>
+                                    <Frame parentArray="statgroup" parentKey="attributes" inherits="GuildbookStatsGroup">
+                                        <Size x="180" y="150"/>
+                                        <Anchors>
+                                            <Anchor point="TOP" x="-200" y="-35"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="statgroup" parentKey="defence" inherits="GuildbookStatsGroup">
+                                        <Size x="180" y="150"/>
+                                        <Anchors>
+                                            <Anchor point="TOP" x="0" y="-35"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="statgroup" parentKey="spells" inherits="GuildbookStatsGroup">
+                                        <Size x="180" y="150"/>
+                                        <Anchors>
+                                            <Anchor point="TOP" x="200" y="-35"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="statgroup" parentKey="melee" inherits="GuildbookStatsGroup">
+                                        <Size x="180" y="150"/>
+                                        <Anchors>
+                                            <Anchor point="TOP" x="-200" y="-215"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame parentArray="statgroup" parentKey="ranged" inherits="GuildbookStatsGroup">
+                                        <Size x="180" y="150"/>
+                                        <Anchors>
+                                            <Anchor point="TOP" x="0" y="-215"/>
+                                        </Anchors>
+                                    </Frame>
+                                </Frames>
+                            </Frame>
+
+                            <Frame parentKey="talents" parentArray="frames">
+                                <Size y="480"/>
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="0" y="-750"/>
+                                    <Anchor point="TOPRIGHT" x="0" y="-750"/>
+                                </Anchors>
+                                <Layers>
+                                    <Layer level="ARTWORK">
+                                        <FontString parentKey="title" inherits="GameFontNormalLarge" text="Talents">
+                                            <Color r="1" g="1" b="1"/>
+                                            <Anchors>
+                                                <Anchor point="TOP" x="0" y="-5"/>
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                    <Layer level="BACKGROUND" >
+                                        <Texture parentKey="tree1">
+                                            <TexCoords left="0.0" right="0.556640625" top="0.0" bottom="0.611328125"/>
+                                            <Size x="217"/>
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="0" y="-34"/>
+                                                <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                                            </Anchors>
+                                        </Texture>
+                                        <Texture parentKey="tree2">
+                                            <TexCoords left="0.0" right="0.556640625" top="0.0" bottom="0.611328125"/>
+                                            <Size x="217"/>
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="217" y="-34"/>
+                                                <Anchor point="BOTTOMLEFT" x="217" y="0"/>
+                                            </Anchors>
+                                        </Texture>
+                                        <Texture parentKey="tree3">
+                                            <TexCoords left="0.0" right="0.556640625" top="0.0" bottom="0.611328125"/>
+                                            <Size x="217"/>
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="434" y="-34"/>
+                                                <Anchor point="BOTTOMLEFT" x="434" y="0"/>
+                                            </Anchors>
+                                        </Texture>
+                                    </Layer>
+                                </Layers>
+                            </Frame>
+                        </Frames>
+                    </Frame>
+                </ScrollChild>
+            </ScrollFrame>
+
+        </Frames>
+
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+</Ui>

@@ -1,10 +1,10 @@
 ## Interface: 11403
 ## Author: TheBoringDad
-## Version: 0.1
+## Version: 0.12
 ## Title: Guildbook_ClassicEra
 ## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL
-## SavedVariablesPerCharacter: GUILDBOOK_CHARACTER
+## SavedVariablesPerCharacter: GB_TALENTS_DATA
 
 
 Libs\LibStub\LibStub.lua
@@ -18,22 +18,60 @@ Libs\AceComm-3.0\AceComm-3.0.xml
 Libs\LibSerialize\lib.xml
 Libs\LibCraftInfo-1.0\LibCraftInfo-1.0.xml
 
-Debugger.lua
+Globals.lua
+Callbacks.lua
+
+Database.lua
+
+#Debugger.lua
 
 Locales.lua
-ModBlizzUI.lua
-Data.lua
-Core.lua
-Calendar.lua
-Dialogs.lua
-Options.lua
+#ModBlizzUI.lua
+
+Data2.lua
+#Core.lua
+#Calendar.lua
+#Dialogs.lua
+#Options.lua
+
+ItemData.lua
+
+#Guildbook.lua
+#Guildbook.xml
+
+#Options.xml
+
+#TextureViewer.lua
+
+
+Widgets\Listview.lua
+Widgets\Listview.xml
+Widgets\Gridview.lua
+Widgets\Gridview.xml
+Widgets\Dropdown.lua
+Widgets\Dropdown.xml
+
+Classes\Tradeskills.lua
+Classes\Character.lua
+Classes\Guild.lua
+Classes\Talents.lua
 
 Templates.lua
 Templates.xml
 
-Guildbook.lua
-Guildbook.xml
+GuildbookMixin.lua
+GuildbookUI.xml
 
-Options.xml
+Views\Calendar\Calendar.lua
+Views\Calendar\Calendar.xml
 
-#TextureViewer.lua
+Views\Tradeskills\Tradeskills.lua
+Views\Tradeskills\Tradeskills.xml
+
+Views\GuildRoster\GuildRoster.lua
+Views\GuildRoster\GuildRoster.xml
+
+Views\Profile\Profile.lua
+Views\Profile\Profile.xml
+
+Events.lua

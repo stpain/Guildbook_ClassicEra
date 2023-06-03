@@ -1,0 +1,75 @@
+<Ui>
+    <Frame name="GuildbookWidgetsDropDownListviewItemTemplate" mixin="GuildbookWidgetsDropDownListviewItemTemplateMixin" enableMouse="true" virtual="true">
+        <Layers>
+            <Layer level="BACKGROND">
+                <Texture parentKey="background">
+                    <Color r="0" g="0" b="0" a="0.9"/>
+                </Texture>
+            </Layer>
+            <Layer level="HIGHLIGHT">
+                <Texture parentKey="highlight" atlas="search-highlight-large" setAllPoints="true"/>
+            </Layer>
+            <Layer level="ARTWORK">
+                <Texture parentKey="icon">
+                    <Anchors>
+                        <Anchor point="LEFT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+
+                <FontString parentKey="text" inherits="GameFontNormal" justifyH="LEFT">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.icon" relativePoint="RIGHT" x="2" y="0"/>
+                        <Anchor point="RIGHT" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+
+    <Button name="GuildbookWidgetsDropDownTemplate" mixin="GuildbookWidgetsDropDownTemplateMixin" virtual="true">
+        <NormalTexture atlas="ClickCastList-ButtonBackground"/>
+        <HighlightTexture atlas="ClickCastList-ButtonHighlight"/>
+        <Frames>
+            <Frame parentKey="label" setAllPoints="true">
+                <Layers>
+                    <Layer level="OVERLAY" textureSubLevel="7">
+                        <FontString parentKey="text" inherits="GameFontNormal" setAllPoints="true">
+                            <Color r="1" g="1" b="1"/>
+                            <Anchors>
+                                <Anchor point="CENTER" x="0" y="0"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <Frame parentKey="flyout" frameStrata="DIALOG" hidden="true" inherits="InsetFrameTemplate">
+                <Size y="230"/>
+                <Anchors>
+                    <Anchor point="TOP" relativePoint="BOTTOM" x="0" y="8"/>
+                    <!-- <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" x="10" y="5"/> -->
+                </Anchors>
+                <Frames>
+                    <Frame parentKey="listview" useParentLevel="true" inherits="GuildbookWidgetsListviewTemplate">
+                        <Anchors>
+                            <Anchor point="TOP" x="0" y="-14"/>
+                            <Anchor point="BOTTOM" x="0" y="14"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="itemTemplate" value="GuildbookWidgetsDropDownListviewItemTemplate" type="string"/>
+                            <KeyValue key="elementHeight" value="24" type="number"/>
+                        </KeyValues>
+                    </Frame>
+                </Frames>
+            </Frame>
+        </Frames>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Button>
+</Ui>

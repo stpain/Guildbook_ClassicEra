@@ -1,4 +1,4 @@
-<UI xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ https://raw.githubusercontent.com/Meorawr/wow-ui-schema/main/UI-Retail.xsd">
+<Ui>
     
     <Frame name="GuildbookDataShare" mixin="GuildbookDataShareMixin" parent="UIParent" enableMouse="true" movable="true" inherits="BackdropTemplate" hidden="true">
         <Size x="540" y="400"/>
@@ -106,41 +106,6 @@
                 <BarColor r="0.859" g="0.128" b="0.593" a="0.15"/>
             </StatusBar>
 
-            <!-- <Frame frameStrata="DIALOG">
-                <Size x="50" y="50"/>
-                <Anchors>
-                    <Anchor point="BOTTOMRIGHT" x="5" y="-5"/>
-                </Anchors>
-                <Layers>
-                    <Layer level="DIALOG">
-                        <Texture parentKey="background" atlas="Talent-BottomRightCurlies" setAllPoints="true" alpha="0.4"/>
-                    </Layer>
-                </Layers>
-                <Scripts>
-                    <OnLoad>
-                        self:RegisterForDrag("LeftButton")
-                    </OnLoad>
-                    <OnDragStart>
-                        self:GetParent():StartSizing()
-                    </OnDragStart>
-                    <OnDragStop>
-                        self:GetParent():StopMovingOrSizing()
-                    </OnDragStop>
-                    <OnEnter>
-                        self:SetAlpha(1)
-                    </OnEnter>
-                    <OnLeave>
-                        self:SetAlpha(0.4)
-                    </OnLeave>
-                </Scripts>
-            </Frame> -->
-
-            <!-- <Frame parentKey="dropdown" inherits="GuildbookDropdown">
-                <Anchors>
-                    <Anchor point="TOP" x="0" y="50"/> _GarrMissionLocation-Valsharah-Mid
-                </Anchors>
-            </Frame> -->
-
             <Frame parentKey="portraitButton">
                 <Size x="50" y="50"/>
                 <Anchors>
@@ -212,7 +177,7 @@
                             <KeyValue key="tooltipText" value="CHAT" type="string"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="roster" inherits="GuildbookSmallHighlightButton" hidden="false">
+                    <Frame parentKey="guildroster" inherits="GuildbookSmallHighlightButton" hidden="false">
                         <Anchors>
                             <Anchor point="LEFT" x="150" y="0"/>
                         </Anchors>
@@ -2010,4 +1975,4 @@
         
     </Frame>
 
-</UI>
+</Ui>

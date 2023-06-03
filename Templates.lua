@@ -1,6 +1,7 @@
-local _, gb = ...
-local L = gb.Locales
+local _, addon = ...
+local L = addon.Locales
 
+local Talents = addon.Talents;
 
 --- basic button mixin
 GuildbookButtonMixin = {}
@@ -8,28 +9,28 @@ GuildbookButtonMixin = {}
 function GuildbookButtonMixin:OnLoad()
     --self.anchor = AnchorUtil.CreateAnchor(self:GetPoint());
 
-    self.point, self.relativeTo, self.relativePoint, self.xOfs, self.yOfs = self:GetPoint()
+    --self.point, self.relativeTo, self.relativePoint, self.xOfs, self.yOfs = self:GetPoint()
 end
 
 function GuildbookButtonMixin:OnShow()
     --self.anchor:SetPoint(self);
-    if self.point and self.relativeTo and self.relativePoint and self.xOfs and self.yOfs then
-        self:SetPoint(self.point, self.relativeTo, self.relativePoint, self.xOfs, self.yOfs)
-    end
+    -- if self.point and self.relativeTo and self.relativePoint and self.xOfs and self.yOfs then
+    --     self:SetPoint(self.point, self.relativeTo, self.relativePoint, self.xOfs, self.yOfs)
+    -- end
 end
 
 function GuildbookButtonMixin:OnMouseDown()
     if self.disabled then
         return;
     end
-    self:AdjustPointsOffset(-1,-1)
+    --self:AdjustPointsOffset(-1,-1)
 end
 
 function GuildbookButtonMixin:OnMouseUp()
     if self.disabled then
         return;
     end
-    self:AdjustPointsOffset(1,1)
+    --self:AdjustPointsOffset(1,1)
     if self.func then
         C_Timer.After(0, self.func)
     end
@@ -66,20 +67,31 @@ function GuildbookListviewItemMixin:OnLoad()
     -- self.Text:SetFont([[Interface\Addons\Guildbook\Media\Fonts\Acme-Regular.ttf]], size+4, flags)
 end
 
-function GuildbookListviewItemMixin:SetItem(info)
-    self.Icon:SetAtlas(info.Atlas)
-    self.Text:SetText(gb.ProfessionNames[GetLocale()][info.id])
+function GuildbookListviewItemMixin:ResetDataBinding()
+
 end
 
-function GuildbookListviewItemMixin:OnMouseDown()
-    self:AdjustPointsOffset(-1,-1)
+function GuildbookListviewItemMixin:SetDataBinding(info)
+    self.icon:SetAtlas(info.atlas)
+    self.Text:SetText(info.label)
+
+    if info.showMask then
+        self.mask:Show()
+        local x, y = self.icon:GetSize()
+        self.icon:SetSize(x + 2, y + 2)
+
+    end
+
+    self:SetScript("OnMouseDown", function()
+        self:AdjustPointsOffset(-1,-1)
+        if info.func then
+            info.func()
+        end
+    end)
 end
 
 function GuildbookListviewItemMixin:OnMouseUp()
     self:AdjustPointsOffset(1,1)
-    if self.func then
-        C_Timer.After(0, self.func)
-    end
 end
 
 
@@ -106,7 +118,7 @@ function GuildbookItemIconFrameMixin:OnMouseDown()
     end
 end
 
-function GuildbookItemIconFrameMixin:SetItem(itemID)
+function GuildbookItemIconFrameMixin:SetItem(itemID, count)
     local item = Item:CreateFromItemID(itemID)
     local link = item:GetItemLink()
     local icon = item:GetItemIcon()
@@ -119,6 +131,7 @@ function GuildbookItemIconFrameMixin:SetItem(itemID)
         self.link = link
         self.icon:SetTexture(icon)
     end
+    self.count:SetText(count)
 end
 
 
@@ -227,10 +240,10 @@ function GuildbookDropdownMixin:OnLoad()
     end
     self.Button:SetHeight(self:GetHeight())
 
-    if not gb.dropdownWidgets then
-        gb.dropdownWidgets = {}
+    if not addon.dropdownWidgets then
+       addon.dropdownWidgets = {}
     end
-    table.insert(gb.dropdownWidgets, self)
+    table.insert(addon.dropdownWidgets, self)
 end
 
 function GuildbookDropdownMixin:OnShow()
@@ -257,8 +270,8 @@ function GuildbookDropdownButtonMixin:OnMouseDown()
     self.ButtonUp:Hide()
     self.ButtonDown:Show()
 
-    if gb.dropdownWidgets and #gb.dropdownWidgets > 0 then -- quick fix, need to make sure all dropdowns/flyouts are in table
-        for k, dd in ipairs(gb.dropdownWidgets) do
+    if addon.dropdownWidgets and (#addon.dropdownWidgets > 0) then -- quick fix, need to make sure all dropdowns/flyouts are in table
+        for k, dd in ipairs(addon.dropdownWidgets) do
             dd.Flyout:Hide()
         end
     end
@@ -282,10 +295,10 @@ end
 GuildbookDropdownFlyoutMixin = {}
 
 function GuildbookDropdownFlyoutMixin:OnLoad()
-    if not gb.dropdownFlyouts then
-        gb.dropdownFlyouts = {}
+    if notaddon.dropdownFlyouts then
+       addon.dropdownFlyouts = {}
     end
-    table.insert(gb.dropdownFlyouts, self)
+    table.insert(addon.dropdownFlyouts, self)
 end
 
 function GuildbookDropdownFlyoutMixin:OnLeave()
@@ -298,7 +311,7 @@ end
 
 function GuildbookDropdownFlyoutMixin:OnShow()
 
-    for k, flyout in ipairs(gb.dropdownFlyouts) do
+    for k, flyout in ipairs(addon.dropdownFlyouts) do
         flyout:Hide()
     end
     self:Show()
@@ -362,7 +375,7 @@ function GuildbookProfileSummaryRowAvatarTemplateMixin:SetCharacter(guid)
     if not guid then
         return
     end
-    self.character = gb:GetCharacterFromCache(guid)
+    self.character = addon:GetCharacterFromCache(guid)
     if not self.character then
         return
     end
@@ -371,8 +384,8 @@ function GuildbookProfileSummaryRowAvatarTemplateMixin:SetCharacter(guid)
     else
         self.avatar:SetAtlas(string.format("raceicon-%s-%s", self.character.Race, self.character.Gender))
     end
-    self.name:SetText(gb.Data.Class[self.character.Class:upper()].FontColour..self.character.Name)
-    local rgb = gb.Data.Class[self.character.Class].RGB
+    self.name:SetText(addon.Data.Class[self.character.Class:upper()].FontColour..self.character.Name)
+    local rgb =addon.Data.Class[self.character.Class].RGB
     self.border:SetVertexColor(rgb[1], rgb[2], rgb[3])
 end
 
@@ -402,3 +415,406 @@ function GuildbookProfileSummaryRowAvatarTemplateMixin:OnMouseUp()
         end
     end
 end
+
+
+
+
+GuildbookRecipeListviewItemMixin = {}
+
+function GuildbookRecipeListviewItemMixin:OnLoad()
+    addon:RegisterCallback("UI_OnSizeChanged", self.UpdateLayout, self)
+end
+
+function GuildbookRecipeListviewItemMixin:UpdateLayout()
+
+    local reagentWidth = self:GetWidth() - 200;
+
+    if reagentWidth < 169 then
+        for k, v in ipairs(self.reagentIcons) do
+            v:Hide()
+        end
+    else
+        for k, v in ipairs(self.reagentIcons) do
+            v:Show()
+        end
+    end
+end
+
+function GuildbookRecipeListviewItemMixin:SetDataBinding(binding, height)
+    self.icon:SetWidth(height - 2)
+    self.icon:SetTexture(binding.icon)
+
+    self.item = binding;
+
+    for k, v in ipairs(self.reagentIcons) do
+        v:Hide()
+    end
+
+    if binding.professionID == 333 then
+        self.label:SetText(binding.itemName)
+        self.anim:Play()
+    else
+        local item = Item:CreateFromItemID(self.item.itemID)
+        if not item:IsItemEmpty() then
+            item:ContinueOnItemLoad(function()
+                self.label:SetText(item:GetItemLink())
+                self.anim:Play()
+            end)
+        end
+    end
+
+    local i = 1;
+    local reagents = {}
+    for k, v in pairs(self.item.reagents) do
+        table.insert(reagents, {
+            itemID = k,
+            count = v
+        })
+    end
+    C_Timer.NewTicker(0.01, function()
+        self.reagentIcons[i]:SetItem(reagents[i].itemID, reagents[i].count)
+        self.reagentIcons[i]:Show()
+        i = i + 1;
+    end, #reagents)
+
+    self:SetScript("OnEnter", function()
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        GameTooltip:SetHyperlink(binding.itemLink)
+        GameTooltip:Show()
+    end)
+    self:SetScript("OnLeave", function()
+        GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+    end)
+
+    self:SetScript("OnMouseDown", function()
+        if binding.func then
+            binding.func()
+        end
+    end)
+
+end
+
+function GuildbookRecipeListviewItemMixin:ResetDataBinding()
+    for k, v in ipairs(self.reagentIcons) do
+        v:Hide()
+    end
+end
+
+
+
+GuildbookRosterListviewItemMixin = {}
+function GuildbookRosterListviewItemMixin:OnLoad()
+    
+end
+
+function GuildbookRosterListviewItemMixin:SetDataBinding(binding, height)
+
+    self.character = binding;
+
+    self.anim:Play()
+
+    self.classIcon:SetAtlas(self.character:GetClassSpecAtlasName())
+    self.name:SetText(self.character.data.name)
+
+    self:SetScript("OnMouseDown", function()
+
+    end)
+
+    self.prof1:SetScript("OnMouseDown", function()
+        addon:TriggerEvent("Character_OnTradeskillSelected", self.character.data.profession1, self.character.data.profession1Recipes)
+    end)
+    self.prof2:SetScript("OnMouseDown", function()
+        addon:TriggerEvent("Character_OnTradeskillSelected", self.character.data.profession2, self.character.data.profession2Recipes)
+    end)
+
+    self.openProfile:SetScript("OnMouseDown", function()
+        addon:TriggerEvent("Character_OnProfileSelected", self.character)
+    end)
+
+    self:Update()
+
+    addon:RegisterCallback("UI_OnSizeChanged", self.UpdateLayout, self)
+    addon:RegisterCallback("Character_OnDataChanged", self.Character_OnDataChanged, self)
+
+end
+
+function GuildbookRosterListviewItemMixin:UpdateLayout()
+    local x, y = self:GetSize()
+
+    if x > 850 then
+        self.rank:SetWidth(110)
+        self.rank:Show()
+        self.zone:SetWidth(110)
+        self.zone:Show()
+        self.publicNote:SetWidth(150)
+        self.publicNote:Show()
+
+    elseif x < 850 and x > 740 then
+        self.rank:SetWidth(1)
+        self.rank:Hide()
+        self.zone:SetWidth(110)
+        self.zone:Show()
+        self.publicNote:SetWidth(150)
+        self.publicNote:Show()
+
+    elseif x < 741 and x > 630 then
+        self.rank:SetWidth(1)
+        self.rank:Hide()
+        self.zone:SetWidth(1)
+        self.zone:Hide()
+        self.publicNote:SetWidth(150)
+        self.publicNote:Show()
+
+    elseif x < 631 then
+        self.publicNote:SetWidth(1)
+        self.publicNote:Hide()
+        self.rank:SetWidth(1)
+        self.rank:Hide()
+        self.zone:SetWidth(1)
+        self.zone:Hide()
+    end
+end
+
+function GuildbookRosterListviewItemMixin:Update()
+    self.level:SetText(self.character.data.level)
+    self.zone:SetText(self.character.data.onlineStatus.zone)
+    self.rank:SetText(GuildControlGetRankName(self.character.data.rank + 1))
+    self.prof1.icon:SetAtlas(self.character:GetTradeskillIcon(1))
+    self.prof2.icon:SetAtlas(self.character:GetTradeskillIcon(2))
+    if self.character.data.mainSpec == false then
+        --self.mainSpecIcon:SetAtlas(self.character:GetClassSpecAtlasName())
+        self.mainSpecIcon:Hide()
+        self.mainSpec:SetText("|cff7f7f7f".."No Spec")
+    else
+        self.mainSpecIcon:SetAtlas(self.character:GetClassSpecAtlasName("primary"))
+        self.mainSpecIcon:Show()
+        self.mainSpec:SetText("|cff7f7f7f".."No Spec")
+    end
+    self.publicNote:SetText(self.character.data.publicNote)
+    self.openProfile.background:SetAtlas(self.character:GetProfileAvatar())
+end
+
+function GuildbookRosterListviewItemMixin:Character_OnDataChanged(character)
+    if self.character.data.guid == character.data.guid then
+        self:Update()
+    end
+end
+
+function GuildbookRosterListviewItemMixin:ResetDataBinding()
+    
+end
+
+
+-- GuildbookRosterListviewItemMixin = {}
+-- GuildbookRosterListviewItemMixin.tooltipIcon = CreateFrame("FRAME", "GuildbookRosterListviewItemTooltipIcon")
+-- GuildbookRosterListviewItemMixin.tooltipIcon:SetSize(24, 24)
+-- GuildbookRosterListviewItemMixin.tooltipIcon.icon = GuildbookRosterListviewItemMixin.tooltipIcon:CreateTexture(nil, "BACKGROUND")
+-- GuildbookRosterListviewItemMixin.tooltipIcon.icon:SetPoint("CENTER", 0, 0)
+-- GuildbookRosterListviewItemMixin.tooltipIcon.icon:SetSize(56, 56)
+-- GuildbookRosterListviewItemMixin.tooltipIcon.mask = GuildbookRosterListviewItemMixin.tooltipIcon:CreateMaskTexture()
+-- GuildbookRosterListviewItemMixin.tooltipIcon.mask:SetSize(50,50)
+-- GuildbookRosterListviewItemMixin.tooltipIcon.mask:SetPoint("CENTER", 0, 0)
+-- GuildbookRosterListviewItemMixin.tooltipIcon.mask:SetTexture("Interface/CHARACTERFRAME/TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+-- GuildbookRosterListviewItemMixin.tooltipIcon.icon:AddMaskTexture(GuildbookRosterListviewItemMixin.tooltipIcon.mask)
+-- GuildbookRosterListviewItemMixin.tooltipBackground = GuildbookRosterListviewItemMixin.tooltipIcon:CreateTexture("GuildbookRosterTooltipBackground", "BACKGROUND")
+-- GuildbookRosterListviewItemMixin.tooltipBackground:SetDrawLayer("BACKGROUND", -7)
+
+
+-- function GuildbookRosterListviewItemMixin:OnEnter()
+--     if not self.character then
+--         return;
+--     end
+--     local character = gb:GetCharacterFromCache(self.guid)
+--     if not character then
+--         return;
+--     end
+--     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+--     -- self.tooltipBackground:SetAtlas(string.format("UI-Character-Info-%s-BG", character.Class:sub(1,1):upper()..character.Class:sub(2)))
+--     -- self.tooltipBackground:SetAllPoints(GameTooltip)
+--     local rPerc, gPerc, bPerc, argbHex = GetClassColor(character.Class:upper())
+--     GameTooltip_SetTitle(GameTooltip, character.Name.."\n\n|cffffffff"..L['level'].." "..character.Level, CreateColor(rPerc, gPerc, bPerc), nil)
+--     if self.tooltipIcon then
+--         if character.profile and character.profile.avatar then
+--             self.tooltipIcon.icon:SetTexture(character.profile.avatar)
+--         elseif character.Race and character.Gender then
+--             local race;
+--             if character.Race:lower() == "scourge" then
+--                 race = "undead";
+--             else
+--                 race = character.Race:lower()
+--             end
+--             self.tooltipIcon.icon:SetAtlas(string.format("raceicon-%s-%s", race, character.Gender:lower()))
+--         end
+--         GameTooltip_InsertFrame(GameTooltip, self.tooltipIcon)
+--         for k, frame in pairs(GameTooltip.insertedFrames) do
+--             if frame:GetName() == "GuildbookRosterListviewItemTooltipIcon" then
+--                 frame:ClearAllPoints()
+--                 frame:SetPoint("TOPRIGHT", -20, -20)
+--             end
+--         end
+--     end
+
+--     local function formatTradeskill(prof, spec)
+--         if spec then
+--             return string.format("%s [|cff40C7EB%s|r]", prof, (GetSpellInfo(spec)));
+--         elseif prof then
+--             return prof;
+--         else
+--             return "-";
+--         end
+--     end
+
+--     GameTooltip:AddLine(L["TRADESKILLS"])
+--     --local prof1 = character.Profession1Spec and string.format("%s [|cff40C7EB%s|r]", character.Profession1, GetSpellInfo(self.character.Profession1Spec)) or (character.Profession1 and character.Profession1 or "-")
+--     GameTooltip:AddDoubleLine(formatTradeskill(character.Profession1, character.Profession1Spec), character.Profession1Level or 0, 1,1,1,1, 1,1,1,1)
+--     -- GameTooltip_ShowStatusBar(GameTooltip, 0, 300, 245)
+--     -- GameTooltip_ShowProgressBar(GameTooltip, 0, 300, 245)
+--     --local prof2 = character.Profession2Spec and string.format("%s [|cff40C7EB%s|r]", character.Profession2, GetSpellInfo(self.character.Profession2Spec)) or (character.Profession2 and character.Profession2 or "-")
+--     GameTooltip:AddDoubleLine(formatTradeskill(character.Profession2, character.Profession2Spec), character.Profession2Level or 0, 1,1,1,1, 1,1,1,1)
+--     -- if self.PublicNote:GetText() and #self.PublicNote:GetText() > 0 then
+--     --     GameTooltip:AddLine(" ")
+--     --     GameTooltip:AddDoubleLine(L['publicNote'], "|cffffffff"..self.PublicNote:GetText())
+--     -- end
+
+--     if character.MainCharacter and GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][character.MainCharacter] then
+--         GameTooltip:AddLine(" ")
+--         GameTooltip:AddLine(L['MAIN_CHARACTER'])
+--         local s = string.format("%s %s %s",
+--         gb.Data.Class[GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][character.MainCharacter].Class].FontStringIconMEDIUM,
+--         gb.Data.Class[GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][character.MainCharacter].Class].FontColour,
+--         GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][character.MainCharacter].Name
+--         )
+--         GameTooltip:AddLine(s)
+--     end
+--     if character.Alts then
+--         GameTooltip:AddLine(" ")
+--         GameTooltip:AddLine(L['ALTS'])
+--         for _, guid in pairs(character.Alts) do
+--             if guid ~= character.MainCharacter then
+--                 local s = string.format("%s %s %s",
+--                 gb.Data.Class[GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][guid].Class].FontStringIconMEDIUM,
+--                 gb.Data.Class[GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][guid].Class].FontColour,
+--                 GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][guid].Name
+--                 )
+--                 GameTooltip:AddLine(s)
+--             end
+--             --GameTooltip:AddTexture(gb.Data.Class[GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][guid].Class].Icon)
+--         end
+--     end
+--     --GameTooltip:AddLine(" ")
+
+--     -- i contacted the author of attune to check it was ok to add their addon data 
+--     if Attune_DB and Attune_DB.toons[character.Name.."-"..GetRealmName()] then
+--         GameTooltip:AddLine(" ")
+--         GameTooltip:AddLine(L["attunements"])
+
+--         local db = Attune_DB.toons[character.Name.."-"..GetRealmName()]
+
+--         for _, instance in ipairs(Attune_Data.attunes) do
+--             if db.attuned[instance.ID] and (instance.FACTION == "Both" or instance.FACTION == character.Faction) then
+--                 local formatPercent = db.attuned[instance.ID] < 100 and "|cffff0000"..db.attuned[instance.ID].."%" or "|cff00ff00"..db.attuned[instance.ID].."%"
+--                 GameTooltip:AddDoubleLine("|cffffffff"..instance.NAME, formatPercent)
+--             end
+--         end
+--     end
+
+--     GameTooltip:Show()
+-- end
+
+
+function GuildbookRosterListviewItemMixin:OnLeave()
+    if GameTooltip.insertedFrames and next(GameTooltip.insertedFrames) ~= nil then
+        for k, frame in pairs(GameTooltip.insertedFrames) do
+            if frame:GetName() == "GuildbookRosterListviewItemTooltipIcon" then
+                frame:Hide()
+            end
+        end
+    end
+    GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+end
+
+
+
+
+
+-- this function needs to be cleaned up, its using a nasty set of variables
+-- function GuildbookRosterListviewItemMixin:SetCharacter(member)
+--     self.guid = member.guid
+--     self.character = gb:GetCharacterFromCache(member.guid)
+
+--     self.ClassIcon:SetAtlas(string.format("GarrMission_ClassIcon-%s", self.character.Class))
+--     self.ClassIcon:Show()
+--     --self.Name:SetText(character.isOnline and self.character.Name or "|cffB1B3AB"..self.character.Name)
+--     self.Name:SetText(self.character.Name)
+--     self.Level:SetText(self.character.Level)
+--     local mainSpec = false;
+--     if self.character.MainSpec == "Bear" then
+--         mainSpec = "Guardian"
+--     elseif self.character.MainSpec == "Cat" then
+--         mainSpec = "Feral"
+--     elseif self.character.MainSpec == "Beast Master" or self.character.MainSpec == "BeastMaster" then
+--         mainSpec = "BeastMastery"
+--     elseif self.character.MainSpec == "Combat" then
+--         mainSpec = "Outlaw"
+--     end
+--     if self.character.MainSpec and self.character.MainSpec ~= "-" then
+--         --print(mainSpec, self.character.MainSpec, self.character.Name)
+--         self.MainSpecIcon:SetAtlas(string.format("GarrMission_ClassIcon-%s-%s", self.character.Class, mainSpec and mainSpec or self.character.MainSpec))
+--         self.MainSpecIcon:Show()
+--         self.MainSpec:SetText(L[self.character.MainSpec])
+--     else
+--         self.MainSpecIcon:Hide()
+--     end
+--     local prof1 = false;
+--     if self.character.Profession1 == "Engineering" then -- blizz has a spelling error on this atlasname
+--         prof1 = "Enginnering";
+--     end
+--     if self.character.Profession1 ~= "-" then
+--         local prof = prof1 and prof1 or self.character.Profession1
+--         self.Prof1.icon:SetAtlas(string.format("Mobile-%s", prof))
+--         if self.character.Profession1Spec then
+--             --local profSpec = GetSpellDescription(self.character.Profession1Spec)
+--             local profSpec = GetSpellInfo(self.character.Profession1Spec)
+--             self.Prof1.tooltipText = gb:GetLocaleProf(prof).." |cffffffff"..profSpec
+--         else
+--             self.Prof1.tooltipText = gb:GetLocaleProf(prof)
+--         end
+--         self.Prof1.func = function()
+--             loadGuildMemberTradeskills(self.guid, prof)
+--         end
+--         self.Prof1:Show()
+--     else
+--         self.Prof1:Hide()
+--     end
+--     local prof2 = false;
+--     if self.character.Profession2 == "Engineering" then -- blizz has a spelling error on this atlasname
+--         prof2 = "Enginnering";
+--     end
+--     if self.character.Profession2 ~= "-" then
+--         local prof = prof2 and prof2 or self.character.Profession2
+--         self.Prof2.icon:SetAtlas(string.format("Mobile-%s", prof))
+--         if self.character.Profession2Spec then
+--             --local profSpec = GetSpellDescription(self.character.Profession2Spec)
+--             local profSpec = GetSpellInfo(self.character.Profession2Spec)
+--             self.Prof2.tooltipText = gb:GetLocaleProf(prof).." |cffffffff"..profSpec
+--         else
+--             self.Prof2.tooltipText = gb:GetLocaleProf(prof)
+--         end
+--         self.Prof2.func = function()
+--             loadGuildMemberTradeskills(self.guid, prof)
+--         end
+--         self.Prof2:Show()
+--     else
+--         self.Prof2:Hide()
+--     end
+--     self.Location:SetText(member.location)
+--     self.Rank:SetText(member.rankName)
+--     self.PublicNote:SetText(member.publicNote)
+
+--     if self.character and self.character.profile and self.character.profile.avatar then
+--         self.openProfile.background:SetTexture(self.character.profile.avatar)
+--     else
+--         self.openProfile.background:SetAtlas(string.format("raceicon-%s-%s", self.character.Race:lower(), self.character.Gender:lower()))
+--     end
+
+-- end
