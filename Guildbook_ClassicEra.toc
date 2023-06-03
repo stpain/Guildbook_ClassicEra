@@ -1,6 +1,6 @@
 ## Interface: 11403
 ## Author: TheBoringDad
-## Version: 0.12
+## Version: 0.13
 ## Title: Guildbook_ClassicEra
 ## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL
