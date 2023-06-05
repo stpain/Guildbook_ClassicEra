@@ -1,6 +1,6 @@
 
 
-local addonName, tbdui = ...;
+local name, addon = ...;
 
 --[[
 

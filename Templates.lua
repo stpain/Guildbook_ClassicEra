@@ -931,11 +931,60 @@ end
 
 GuildbookTalentIconFrameMixin = {}
 function GuildbookTalentIconFrameMixin:OnLoad()
-    
+    self:SetScript("OnLeave", function()
+        GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+    end)
+
+    self.pointsBackground:SetTexture(136960)
+    self.pointsLabel:SetText(1)
 end
 function GuildbookTalentIconFrameMixin:SetDataBinding(binding)
-    self.label:SetText(binding.label)
+
+    --this func is only called once and is used to set some frame attribute and scripts
+    if binding.rowId then
+        self.rowId = binding.rowId
+    end
+    if binding.colId then
+        self.colId = binding.colId
+    end
+
+    self:SetScript("OnEnter", function()
+        if self.talent then
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:SetSpellByID(self.talent.spellId)
+            GameTooltip:Show()
+        end
+    end)
+
+end
+function GuildbookTalentIconFrameMixin:UpdateLayout()
+    local x, y = self:GetSize()
+    self.pointsBackground:SetSize(x*0.3, x*0.3)
+    self.pointsLabel:SetSize(x*0.3, x*0.3)
 end
 function GuildbookTalentIconFrameMixin:ResetDataBinding()
     
+end
+function GuildbookTalentIconFrameMixin:SetTalent(talent)
+    self.talent = talent;
+    local name, _, icon = GetSpellInfo(self.talent.spellId)
+    self.icon:SetTexture(icon)
+    self.border:Show()
+    self.pointsBackground:Show()
+    self.pointsLabel:Show()
+    self.pointsLabel:SetText(self.talent.rank)
+
+    if self.talent.rank == self.talent.maxRank then
+        self.border:SetAtlas("orderhalltalents-spellborder-yellow")
+    elseif self.talent.rank == 0 then
+        self.border:SetAtlas("orderhalltalents-spellborder")
+    else
+        self.border:SetAtlas("orderhalltalents-spellborder-green")
+    end
+end
+function GuildbookTalentIconFrameMixin:ClearTalent()
+    self.spellId = nil
+    self.border:Hide()
+    self.pointsBackground:Hide()
+    self.pointsLabel:Hide()
 end

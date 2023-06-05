@@ -17,6 +17,7 @@ e:RegisterEvent('RAID_ROSTER_UPDATE')
 e:RegisterEvent('BANKFRAME_OPENED')
 e:RegisterEvent('BANKFRAME_CLOSED')
 e:RegisterEvent('BAG_UPDATE')
+e:RegisterEvent('BAG_UPDATE_DELAYED')
 e:RegisterEvent('CHAT_MSG_GUILD')
 e:RegisterEvent('CHAT_MSG_WHISPER')
 --e:RegisterEvent('CHAT_MSG_SYSTEM')
@@ -24,6 +25,7 @@ e:RegisterEvent('UPDATE_MOUSEOVER_UNIT')
 e:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
 e:RegisterEvent('ZONE_CHANGED_NEW_AREA')
 e:RegisterEvent('CHARACTER_POINTS_CHANGED')
+e:RegisterEvent('UNIT_AURA')
 
 e:SetScript("OnEvent", function(self, event, ...)
     if self[event] then
@@ -31,26 +33,45 @@ e:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 
+function e:BAG_UPDATE_DELAYED()
+    if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
+        local bags, copper = addon.api.scanPlayerContainers()
+        addon.characters[addon.thisCharacter]:SetContainers({
+            bags = bags,
+            copper = copper,
+        })
+    end
+end
+
+function e:UNIT_AURA()
+    local auras = addon.api.getPlayerAuras()
+    if addon.characters[addon.thisCharacter] then
+        addon.characters[addon.thisCharacter]:SetAuras("current", auras)
+    end
+end
+
 function e:PLAYER_EQUIPMENT_CHANGED()
 
+    --when equipment changes it can change stats, resistances so grab those as well
     local equipment = addon.api.getPlayerEquipment()
     local currentStats = addon.api.getPaperDollStats()
     local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
-    local auras = addon.api.getPlayerAuras()
 
     if addon.characters[addon.thisCharacter] then
         addon.characters[addon.thisCharacter]:SetInventory("current", equipment)
         addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats)
         addon.characters[addon.thisCharacter]:SetResistances("current", resistances)
-        addon.characters[addon.thisCharacter]:SetAuras("current", auras)
     end
 end
 
 function e:CHARACTER_POINTS_CHANGED(delta)
     if delta == 1 then
         --leveled up
-    elseif delta == -1 then
-        Talents:GetPlayerTalentInfo()
+        --addon.characters[addon.thisCharacter]:SetLevel()
+    end
+    local talents = addon.api.getPlayerTalents()
+    if addon.characters[addon.thisCharacter] then
+        addon.characters[addon.thisCharacter]:SetTalents("current", talents)
     end
 end
 
@@ -178,6 +199,7 @@ function e:GUILD_ROSTER_UPDATE()
                     auras = {
                         current = {},
                     },
+                    containers = {},
                     --CurrentPaperdollStats = currentPaperdollStats or {},
                 }
                 Database:InsertCharacter(character)

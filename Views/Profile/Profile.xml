@@ -151,7 +151,7 @@
                 </Frames>
             </Frame>
 
-            <Frame parentKey="talents" parentArray="contentViews">
+            <Frame parentKey="talents" parentArray="contentViews" hidden="true">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.sidePane" relativePoint="TOPRIGHT" x="0" y="0"/>
                     <Anchor point="BOTTOMLEFT" relativeKey="$parent.sidePane" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
@@ -192,6 +192,14 @@
                                 </Texture>
                             </Layer>
                         </Layers>
+                        <Frames>
+                            <ScrollFrame parentKey="talentsGridview" inherits="GuildbookWidgetsGridviewTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                </Anchors>
+                            </ScrollFrame>
+                        </Frames>
                     </Frame>
                     <Frame parentKey="tree3">
                         <Anchors>
@@ -206,6 +214,14 @@
                                 </Texture>
                             </Layer>
                         </Layers>
+                        <Frames>
+                            <ScrollFrame parentKey="talentsGridview" inherits="GuildbookWidgetsGridviewTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                </Anchors>
+                            </ScrollFrame>
+                        </Frames>
                     </Frame>
                 </Frames>
             </Frame>

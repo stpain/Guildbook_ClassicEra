@@ -5,6 +5,429 @@ local Talents = addon.Talents;
 local Tradeskills = addon.Tradeskills;
 local Character = addon.Character;
 
+
+local talentData = {
+	["tabs"] = {
+		{
+			["fileName"] = "WarlockCurses",
+			["pointsSpent"] = 0,
+		}, -- [1]
+		{
+			["fileName"] = "WarlockSummoning",
+			["pointsSpent"] = 0,
+		}, -- [2]
+		{
+			["fileName"] = "WarlockDestruction",
+			["pointsSpent"] = 0,
+		}, -- [3]
+	},
+	["talents"] = {
+		{
+			["tabID"] = 1,
+			["spellId"] = 18174,
+			["col"] = 2,
+			["maxRank"] = 5,
+			["row"] = 1,
+			["rank"] = 0,
+		}, -- [1]
+		{
+			["tabID"] = 1,
+			["spellId"] = 17810,
+			["col"] = 3,
+			["maxRank"] = 5,
+			["row"] = 1,
+			["rank"] = 0,
+		}, -- [2]
+		{
+			["tabID"] = 1,
+			["spellId"] = 18179,
+			["col"] = 1,
+			["maxRank"] = 3,
+			["row"] = 2,
+			["rank"] = 0,
+		}, -- [3]
+		{
+			["tabID"] = 1,
+			["spellId"] = 18213,
+			["col"] = 2,
+			["maxRank"] = 2,
+			["row"] = 2,
+			["rank"] = 0,
+		}, -- [4]
+		{
+			["tabID"] = 1,
+			["spellId"] = 18182,
+			["col"] = 3,
+			["maxRank"] = 2,
+			["row"] = 2,
+			["rank"] = 0,
+		}, -- [5]
+		{
+			["tabID"] = 1,
+			["spellId"] = 17804,
+			["col"] = 4,
+			["maxRank"] = 5,
+			["row"] = 2,
+			["rank"] = 0,
+		}, -- [6]
+		{
+			["tabID"] = 1,
+			["spellId"] = 18827,
+			["col"] = 1,
+			["maxRank"] = 3,
+			["row"] = 3,
+			["rank"] = 0,
+		}, -- [7]
+		{
+			["tabID"] = 1,
+			["spellId"] = 17783,
+			["col"] = 2,
+			["maxRank"] = 5,
+			["row"] = 3,
+			["rank"] = 0,
+		}, -- [8]
+		{
+			["tabID"] = 1,
+			["spellId"] = 18288,
+			["col"] = 3,
+			["maxRank"] = 1,
+			["row"] = 3,
+			["rank"] = 0,
+		}, -- [9]
+		{
+			["tabID"] = 1,
+			["spellId"] = 18218,
+			["col"] = 1,
+			["maxRank"] = 2,
+			["row"] = 4,
+			["rank"] = 0,
+		}, -- [10]
+		{
+			["tabID"] = 1,
+			["spellId"] = 18094,
+			["col"] = 2,
+			["maxRank"] = 2,
+			["row"] = 4,
+			["rank"] = 0,
+		}, -- [11]
+		{
+			["tabID"] = 1,
+			["spellId"] = 17864,
+			["col"] = 4,
+			["maxRank"] = 2,
+			["row"] = 4,
+			["rank"] = 0,
+		}, -- [12]
+		{
+			["tabID"] = 1,
+			["spellId"] = 18265,
+			["col"] = 2,
+			["maxRank"] = 1,
+			["row"] = 5,
+			["rank"] = 0,
+		}, -- [13]
+		{
+			["tabID"] = 1,
+			["spellId"] = 18223,
+			["col"] = 3,
+			["maxRank"] = 1,
+			["row"] = 5,
+			["rank"] = 0,
+		}, -- [14]
+		{
+			["tabID"] = 1,
+			["spellId"] = 18310,
+			["col"] = 4,
+			["maxRank"] = 4,
+			["row"] = 5,
+			["rank"] = 0,
+		}, -- [15]
+		{
+			["tabID"] = 1,
+			["spellId"] = 18271,
+			["col"] = 2,
+			["maxRank"] = 5,
+			["row"] = 6,
+			["rank"] = 0,
+		}, -- [16]
+		{
+			["tabID"] = 1,
+			["spellId"] = 18220,
+			["col"] = 2,
+			["maxRank"] = 1,
+			["row"] = 7,
+			["rank"] = 0,
+		}, -- [17]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18692,
+			["col"] = 1,
+			["maxRank"] = 2,
+			["row"] = 1,
+			["rank"] = 0,
+		}, -- [18]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18696,
+			["col"] = 2,
+			["maxRank"] = 3,
+			["row"] = 1,
+			["rank"] = 3,
+		}, -- [19]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18698,
+			["col"] = 3,
+			["maxRank"] = 5,
+			["row"] = 1,
+			["rank"] = 2,
+		}, -- [20]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18703,
+			["col"] = 1,
+			["maxRank"] = 2,
+			["row"] = 2,
+			["rank"] = 0,
+		}, -- [21]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18705,
+			["col"] = 2,
+			["maxRank"] = 3,
+			["row"] = 2,
+			["rank"] = 0,
+		}, -- [22]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18731,
+			["col"] = 3,
+			["maxRank"] = 5,
+			["row"] = 2,
+			["rank"] = 0,
+		}, -- [23]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18754,
+			["col"] = 1,
+			["maxRank"] = 3,
+			["row"] = 3,
+			["rank"] = 0,
+		}, -- [24]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18708,
+			["col"] = 2,
+			["maxRank"] = 1,
+			["row"] = 3,
+			["rank"] = 0,
+		}, -- [25]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18748,
+			["col"] = 3,
+			["maxRank"] = 5,
+			["row"] = 3,
+			["rank"] = 0,
+		}, -- [26]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18709,
+			["col"] = 2,
+			["maxRank"] = 2,
+			["row"] = 4,
+			["rank"] = 0,
+		}, -- [27]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18769,
+			["col"] = 3,
+			["maxRank"] = 5,
+			["row"] = 4,
+			["rank"] = 0,
+		}, -- [28]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18821,
+			["col"] = 1,
+			["maxRank"] = 5,
+			["row"] = 5,
+			["rank"] = 0,
+		}, -- [29]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18788,
+			["col"] = 2,
+			["maxRank"] = 1,
+			["row"] = 5,
+			["rank"] = 0,
+		}, -- [30]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18767,
+			["col"] = 4,
+			["maxRank"] = 2,
+			["row"] = 5,
+			["rank"] = 0,
+		}, -- [31]
+		{
+			["tabID"] = 2,
+			["spellId"] = 23785,
+			["col"] = 3,
+			["maxRank"] = 5,
+			["row"] = 6,
+			["rank"] = 0,
+		}, -- [32]
+		{
+			["tabID"] = 2,
+			["spellId"] = 19028,
+			["col"] = 2,
+			["maxRank"] = 1,
+			["row"] = 7,
+			["rank"] = 0,
+		}, -- [33]
+		{
+			["tabID"] = 2,
+			["spellId"] = 18774,
+			["col"] = 3,
+			["maxRank"] = 2,
+			["row"] = 7,
+			["rank"] = 0,
+		}, -- [34]
+		{
+			["tabID"] = 3,
+			["spellId"] = 17793,
+			["col"] = 2,
+			["maxRank"] = 5,
+			["row"] = 1,
+			["rank"] = 0,
+		}, -- [35]
+		{
+			["tabID"] = 3,
+			["spellId"] = 17778,
+			["col"] = 3,
+			["maxRank"] = 5,
+			["row"] = 1,
+			["rank"] = 0,
+		}, -- [36]
+		{
+			["tabID"] = 3,
+			["spellId"] = 17788,
+			["col"] = 2,
+			["maxRank"] = 5,
+			["row"] = 2,
+			["rank"] = 0,
+		}, -- [37]
+		{
+			["tabID"] = 3,
+			["spellId"] = 18119,
+			["col"] = 3,
+			["maxRank"] = 5,
+			["row"] = 2,
+			["rank"] = 0,
+		}, -- [38]
+		{
+			["tabID"] = 3,
+			["spellId"] = 18126,
+			["col"] = 1,
+			["maxRank"] = 2,
+			["row"] = 3,
+			["rank"] = 0,
+		}, -- [39]
+		{
+			["tabID"] = 3,
+			["spellId"] = 18128,
+			["col"] = 2,
+			["maxRank"] = 2,
+			["row"] = 3,
+			["rank"] = 0,
+		}, -- [40]
+		{
+			["tabID"] = 3,
+			["spellId"] = 18130,
+			["col"] = 3,
+			["maxRank"] = 5,
+			["row"] = 3,
+			["rank"] = 0,
+		}, -- [41]
+		{
+			["tabID"] = 3,
+			["spellId"] = 17877,
+			["col"] = 4,
+			["maxRank"] = 1,
+			["row"] = 3,
+			["rank"] = 0,
+		}, -- [42]
+		{
+			["tabID"] = 3,
+			["spellId"] = 18135,
+			["col"] = 1,
+			["maxRank"] = 2,
+			["row"] = 4,
+			["rank"] = 0,
+		}, -- [43]
+		{
+			["tabID"] = 3,
+			["spellId"] = 17917,
+			["col"] = 2,
+			["maxRank"] = 2,
+			["row"] = 4,
+			["rank"] = 0,
+		}, -- [44]
+		{
+			["tabID"] = 3,
+			["spellId"] = 17927,
+			["col"] = 4,
+			["maxRank"] = 5,
+			["row"] = 4,
+			["rank"] = 0,
+		}, -- [45]
+		{
+			["tabID"] = 3,
+			["spellId"] = 18096,
+			["col"] = 1,
+			["maxRank"] = 2,
+			["row"] = 5,
+			["rank"] = 0,
+		}, -- [46]
+		{
+			["tabID"] = 3,
+			["spellId"] = 17815,
+			["col"] = 2,
+			["maxRank"] = 5,
+			["row"] = 5,
+			["rank"] = 0,
+		}, -- [47]
+		{
+			["tabID"] = 3,
+			["spellId"] = 17959,
+			["col"] = 3,
+			["maxRank"] = 1,
+			["row"] = 5,
+			["rank"] = 0,
+		}, -- [48]
+		{
+			["tabID"] = 3,
+			["spellId"] = 17954,
+			["col"] = 3,
+			["maxRank"] = 5,
+			["row"] = 6,
+			["rank"] = 0,
+		}, -- [49]
+		{
+			["tabID"] = 3,
+			["spellId"] = 17962,
+			["col"] = 2,
+			["maxRank"] = 1,
+			["row"] = 7,
+			["rank"] = 0,
+		}, -- [50]
+	},
+}
+
+
+
+
 local statsSchema = {
     {
         header = "attributes",
@@ -118,18 +541,23 @@ function GuildbookProfileMixin:OnLoad()
     self.inventory.auraGridview.ScrollBar:Hide()
 
 
-    self.talents.tree1.talentsGridview:InitFramePool("FRAME", "GuildbookTalentIconFrame")
-    self.talents.tree1.talentsGridview:SetFixedColumnCount(4)
-    self.talents.tree1.talentsGridview.ScrollBar:Hide()
+    for i = 1, 3 do
+        self.talents["tree"..i].talentsGridview:InitFramePool("FRAME", "GuildbookTalentIconFrame")
+        self.talents["tree"..i].talentsGridview:SetFixedColumnCount(4)
+        self.talents["tree"..i].talentsGridview.ScrollBar:Hide()
 
-    C_Timer.After(1, function()
-        for i = 1, 28 do
-            self.talents.tree1.talentsGridview:Insert({
-                label = string.format("Talent\n%d", i)
-            })
-        end
-    end)
-    
+        C_Timer.After(0.1, function()
+            for row = 1, 7 do
+                for col = 1, 4 do
+                    self.talents["tree"..i].talentsGridview:Insert({
+                        rowId = row,
+                        colId = col,
+                    })
+                end
+            end
+        end)
+    end
+
     addon.AddView(self)
 
     addon:RegisterCallback("Character_OnProfileSelected", self.LoadCharacter, self)
@@ -184,11 +612,12 @@ function GuildbookProfileMixin:UpdateLayout()
 
 
     self.talents:SetWidth(x-sidePaneWidth)
-    self.talents.tree1:SetWidth((x-sidePaneWidth) / 3)
-    self.talents.tree2:SetWidth((x-sidePaneWidth) / 3)
-    self.talents.tree3:SetWidth((x-sidePaneWidth) / 3)
 
-    self.talents.tree1.talentsGridview:SetSize((x-sidePaneWidth) / 3, y)
+    for i = 1, 3 do
+        self.talents["tree"..i]:SetWidth((x-sidePaneWidth) / 3)
+        self.talents["tree"..i].talentsGridview:SetSize((x-sidePaneWidth) / 3, y)        
+    end
+
 
 
     if x < 600 then
@@ -211,17 +640,18 @@ function GuildbookProfileMixin:UpdateLayout()
         end
 
         self.talents:SetWidth(x-1)
-        self.talents.tree1:SetWidth((x-1) / 3)
-        self.talents.tree2:SetWidth((x-1) / 3)
-        self.talents.tree3:SetWidth((x-1) / 3)
-
-        self.talents.tree1.talentsGridview:SetSize((x-1) / 3, y)
+        for i = 1, 3 do
+            self.talents["tree"..i]:SetWidth((x-1) / 3)
+            self.talents["tree"..i].talentsGridview:SetSize((x-1) / 3, y)        
+        end
     end
 
     self.inventory.resistanceGridview:UpdateLayout()
     self.inventory.auraGridview:UpdateLayout()
 
     self.talents.tree1.talentsGridview:UpdateLayout()
+    self.talents.tree2.talentsGridview:UpdateLayout()
+    self.talents.tree3.talentsGridview:UpdateLayout()
 end
 
 
@@ -462,58 +892,34 @@ function GuildbookProfileMixin:Update()
     self.talents.tree2.background:SetTexture(artwork[2])
     self.talents.tree3.background:SetTexture(artwork[3])
 
-end
+    local talentTress = {
+        [1] = {},
+        [2] = {},
+        [3] = {},
+    }
 
+    for k, v in ipairs(talentData.talents) do
 
-function GuildbookProfileMixin:CreateTalentUI()
-    -- create talent grid
-    self.talentIconframes = {}
-    local colPoints = { 19.0, 78.0, 137.0, 196.0 }
-    local rowPoints = { 19.0, 78.0, 137.0, 196.0, 255.0, 314.0, 373.0, 432.0, 491.0, 550.0, 609.0 } --257
-    for spec = 1, 3 do
-        self.talentIconframes[spec] = {}
-        for row = 1, 7 do
-            self.talentIconframes[spec][row] = {}
-            for col = 1, 4 do
-                local f = CreateFrame('FRAME', string.format("GuildbookProfileTalentsTree%dRow%dCol%d", spec, row, col), self.talents["tree"..spec], BackdropTemplateMixin and "BackdropTemplate")
-                f:SetSize(28, 28)
-                f:SetPoint('TOPLEFT', 13+((colPoints[col] * 0.83)), ((rowPoints[row] * 0.83) * -1) - 34)
-
-                -- background texture inc border
-                f.border = f:CreateTexture('$parentborder', 'BORDER')
-                f.border:SetPoint('TOPLEFT', -7, 7)
-                f.border:SetPoint('BOTTOMRIGHT', 7, -7)
-                f.border:SetAtlas("orderhalltalents-spellborder")
-                -- talent icon texture
-                f.Icon = f:CreateTexture('$parentIcon', 'BACKGROUND')
-                f.Icon:SetPoint('TOPLEFT', -2,2)
-                f.Icon:SetPoint('BOTTOMRIGHT', 2,-2)
-                -- talent points texture
-                f.pointsBackground = f:CreateTexture('$parentPointsBackground', 'ARTWORK')
-                f.pointsBackground:SetTexture(136960)
-                f.pointsBackground:SetPoint('BOTTOMRIGHT', 16, -16)
-                -- talents points font string
-                f.Points = f:CreateFontString('$parentPointsText', 'OVERLAY', 'GameFontNormalSmall')
-                f.Points:SetPoint('CENTER', f.pointsBackground, 'CENTER', 1, 0)
-
-                f:SetScript('OnEnter', function(self)
-                    if self.name then
-                        GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
-                        --GameTooltip:SetSpellByID(self.spellID)
-                        GameTooltip:AddLine(self.name)
-                        GameTooltip:AddLine(string.format("|cffffffff%s / %s|r", self.rank, self.maxRank))
-                        GameTooltip:Show()
-                    else
-                        GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-                    end
-                end)
-                f:SetScript('OnLeave', function(self)
-                    GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-                end)
-
-
-                self.talentIconframes[spec][row][col] = f
+        for i = 1, 3 do
+            if v.tabID == i then
+                if not talentTress[i][v.row] then
+                    talentTress[i][v.row] = {}
+                end
+                talentTress[i][v.row][v.col] = v
             end
         end
     end
+
+    for i = 1, 3 do
+        for k, frame in ipairs(self.talents["tree"..i].talentsGridview:GetFrames()) do
+            if talentTress[i][frame.rowId][frame.colId] then
+                frame:SetTalent(talentTress[i][frame.rowId][frame.colId])
+            else
+                frame:ClearTalent()
+            end
+        end
+    end
+
+
 end
+

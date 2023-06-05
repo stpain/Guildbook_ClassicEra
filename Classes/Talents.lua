@@ -616,7 +616,7 @@ function Talents:GetTalentSpellId(fileName, row, col, rank)
                 -- local name, rank = GetSpellInfo(v[12 + (rank - 1)])
                 -- print(name, rank)
                 -- return string.format("|Hspell:%d" ,v[12 + (rank - 1)])
-                return v[12 + (rank - 1)];
+                return v[12 + (rank)];
             end
         end
     end
@@ -634,13 +634,14 @@ function Talents:GetPlayerTalentInfo()
         })
         for talentIndex = 1, GetNumTalents(tabIndex) do
             local name, iconTexture, row, column, rank, maxRank, isExceptional, available = GetTalentInfo(tabIndex, talentIndex)
-            --print(link)
+            local spellId = Talents:GetTalentSpellId(fileName, row, column, rank)
             table.insert(talents, {
                 tabID = tabIndex,
                 row = row,
                 col = column,
                 rank = rank,
                 maxRank = maxRank,
+                spellId = spellId,
             })
         end
     end

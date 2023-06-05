@@ -72,6 +72,7 @@ end
 function Character:SetOnlineStatus(info)
     self.data.onlineStatus = info;
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "onlineStatus", self.data.name))
 end
 
 function Character:GetOnlineStatus()
@@ -91,6 +92,7 @@ function Character:SetRank(index)
     if self.data.rank ~= index then
         self.data.rank = index;
         addon:TriggerEvent("Character_OnDataChanged", self)
+        addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "rank", self.data.name))
     end
 end
 
@@ -102,6 +104,7 @@ function Character:SetLevel(level)
     if self.data.level ~= level then
         self.data.level = level;
         addon:TriggerEvent("Character_OnDataChanged", self)
+        addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "level", self.data.name))
     end
 end
 
@@ -114,6 +117,7 @@ function Character:SetRace(race)
     if self.data.race ~= race then
         self.data.race = race;
         addon:TriggerEvent("Character_OnDataChanged", self)
+        addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "race", self.data.name))
     end
 end
 
@@ -136,6 +140,7 @@ function Character:SetGender(gender)
     if self.data.gender ~= gender then
         self.data.gender = gender;
         addon:TriggerEvent("Character_OnDataChanged", self)
+        addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "gender", self.data.name))
     end
 end
 
@@ -148,6 +153,7 @@ function Character:SetPublicNote(note)
     if self.data.publicNote ~= note then
         self.data.publicNote = note;
         addon:TriggerEvent("Character_OnDataChanged", self)
+        addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "public note", self.data.name))
     end
 end
 
@@ -155,6 +161,15 @@ function Character:GetPublicNote()
     return self.data.publicNote;
 end
 
+function Character:SetContainers(containers)
+    self.data.containers = containers;
+    addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "containers", self.data.name))
+end
+
+function Character:GetContainers(containers)
+    return self.data.containers;
+end
 
 function Character:GetSpecializations()
     return classData[self.data.class].specializations;
@@ -168,6 +183,7 @@ function Character:SetSpec(spec, specID)
     end
     --print("set spec", spec, specID)
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "spec", self.data.name))
 end
 
 function Character:GetSpec(spec)
@@ -212,6 +228,7 @@ function Character:SetTradeskill(slot, id)
         self.data.profession2 = id;
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "tradeskill", self.data.name))
 end
 
 function Character:GetTradeskill(slot)
@@ -230,6 +247,7 @@ function Character:SetTradeskillLevel(slot, level)
         self.data.profession2Level = level;
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "tradeskill level", self.data.name))
 end
 
 function Character:GetTradeskillLevel(slot)
@@ -248,6 +266,7 @@ function Character:SetTradeskillSpec(slot, spec)
         self.data.profession2Spec = spec;
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "tradeskill spec", self.data.name))
 end
 
 function Character:GetTradeskillSpec(slot)
@@ -266,6 +285,7 @@ function Character:SetTradeskillRecipes(slot, recipes)
         self.data.profession2Recipes = recipes;
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "tradeskill recipes", self.data.name))
 end
 
 function Character:GetTradeskillRecipes(slot)
@@ -280,6 +300,7 @@ end
 function Character:SetCookingRecipes(recipes)
     self.data.cookingRecipes = recipes;
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "cooking recipes", self.data.name))
 end
 
 function Character:GetCookingRecipes()
@@ -330,6 +351,7 @@ end
 function Character:SetCookingLevel(level)
     self.data.cookingLevel = level;
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "cooking level", self.data.name))
 end
 
 function Character:GetCookingLevel()
@@ -340,6 +362,7 @@ end
 function Character:SetFishingLevel(level)
     self.data.fishingLevel = level;
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "fishing level", self.data.name))
 end
 
 function Character:GetFishingLevel()
@@ -349,6 +372,7 @@ end
 function Character:SetFirstAidRecipes(recipes)
     self.data.firstAidRecipes = recipes;
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "first aid recipes", self.data.name))
 end
 
 function Character:GetFirstAidRecipes()
@@ -358,6 +382,7 @@ end
 function Character:SetFirstAidLevel(level)
     self.data.firstAidLevel = level;
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "first aid level", self.data.name))
 end
 
 function Character:GetFirstAidLevel()
@@ -425,6 +450,7 @@ function Character:SetTalents(spec, talents)
         self.data.talents[spec] = talents;
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "talents", self.data.name))
 end
 
 function Character:GetTalents(spec)
@@ -453,6 +479,7 @@ end
 function Character:SetInventory(set, inventory)
     self.data.inventory[set] = inventory;
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "inventory (gear)", self.data.name))
 end
 
 function Character:GetInventory(set)
@@ -462,6 +489,7 @@ end
 function Character:SetAuras(set, res)
     self.data.auras[set] = res;
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "auras", self.data.name))
 end
 
 function Character:GetAuras(set)
@@ -471,6 +499,7 @@ end
 function Character:SetResistances(set, res)
     self.data.resistances[set] = res;
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "resistances", self.data.name))
 end
 
 function Character:GetResistances(set)
@@ -480,6 +509,7 @@ end
 function Character:SetPaperdollStats(set, stats)
     self.data.paperDollStats[set] = stats;
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "stats", self.data.name))
 end
 
 function Character:GetPaperdollStats(set)
@@ -492,6 +522,7 @@ end
 function Character:SetMainCharacter(main)
     self.data.mainCharacter = main;
     addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "main character", self.data.name))
 end
 
 function Character:GetMainCharacter()

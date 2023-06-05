@@ -1479,8 +1479,19 @@
 
     <Frame name="GuildbookTalentIconFrame" mixin="GuildbookTalentIconFrameMixin" virtual="true">
         <Layers>
-            <Layer level="BACKGROUND">
-            
+            <Layer level="OVERLAY">
+                <Texture parentKey="pointsBackground">
+                    <TexCoords left="0.28" right="0.72" top="0.28" bottom="0.72" />
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+                <FontString parentKey="pointsLabel" inherits="GameFontNormal" justifyH="CENTER" justifyV="MIDDLE">
+                	<Anchors>
+                		<Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                	</Anchors>
+                	<Color r="1" g="1" b="1"/>
+                </FontString>
             </Layer>
             <Layer level="ARTWORK">
                 <FontString parentKey="label" inherits="GameFontNormal_NoShadow">
@@ -1490,11 +1501,19 @@
                 	<Color r="1" g="1" b="1"/>
                 </FontString>
             </Layer>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="icon">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="9" y="-9"/>
+                        <Anchor point="BOTTOMRIGHT" x="-9" y="9"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
             <Layer level="BORDER">
-                <Texture atlas="orderhalltalents-spellborder">
+                <Texture parentKey="border" atlas="orderhalltalents-spellborder">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="5" y="-5"/>
-                        <Anchor point="BOTTOMRIGHT" x="-5" y="5"/>
+                        <Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
                     </Anchors>
                 </Texture>
             </Layer>

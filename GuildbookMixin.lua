@@ -33,6 +33,7 @@ function GuildbookMixin:OnLoad()
     SetPortraitToTexture(GuildbookUIPortrait,134068)
 
     addon:RegisterCallback("Database_OnInitialised", self.Database_OnInitialised, self)
+    addon:RegisterCallback("StatusText_OnChanged", self.SetStatausText, self)
 
 
     -- self:SetScript("OnMouseDown", function()
@@ -41,6 +42,10 @@ function GuildbookMixin:OnLoad()
     --     GameTooltip:Show()
     -- end)
 
+end
+
+function GuildbookMixin:SetStatausText(text)
+    self.statusText:SetText(text)
 end
 
 function GuildbookMixin:OnUpdate()

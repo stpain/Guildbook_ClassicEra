@@ -13,6 +13,8 @@ addon:GenerateCallbackEvents({
     "Blizzard_OnTradeskillUpdate",
     "Blizzard_OnGuildRosterUpdate",
 
-    "UI_OnSizeChanged"
+    "UI_OnSizeChanged",
+
+    "StatusText_OnChanged",
 })
 CallbackRegistryMixin.OnLoad(addon);

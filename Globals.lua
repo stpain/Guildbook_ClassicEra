@@ -1,5 +1,7 @@
 local name, addon = ...;
 
+local Talents = addon.Talents;
+
 --create these at addon level
 addon.thisCharacter = "";
 addon.guilds = {}
@@ -13,6 +15,105 @@ function addon.api.trimNumber(num)
     else
         return 1
     end
+end
+
+function addon.api.scanPlayerContainers(includeBanks)
+
+    local copper = GetMoney()
+
+    local playerBags = {}
+
+    -- player bags
+    for bag = 0, 4 do
+        playerBags[bag] = {}
+        for slot = 1, GetContainerNumSlots(bag) do
+            playerBags[bag][slot] = {
+                id = -1,
+                count = -1,
+            }
+            local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bag, slot)
+            if id and count then
+                playerBags[bag][slot] = {
+                    id = id,
+                    count = count,
+                }
+            end
+        end
+    end
+
+    if includeBanks then
+        -- main bank
+        local bankBagId = -1
+        for slot = 1, 28 do
+            playerBags[bankBagId] = {}
+            for slot = 1, GetContainerNumSlots(bankBagId) do
+                playerBags[bankBagId][slot] = {
+                    id = -1,
+                    count = -1,
+                }
+                local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bankBagId, slot)
+                if id and count then
+                    playerBags[bankBagId][slot] = {
+                        id = id,
+                        count = count,
+                    }
+                end
+            end
+        end
+
+        -- bank bags
+        for bag = 5, 11 do
+            playerBags[bag] = {}
+            for slot = 1, GetContainerNumSlots(bag) do
+                playerBags[bag][slot] = {
+                    id = -1,
+                    count = -1,
+                }
+                local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bag, slot)
+                if id and count then
+                    playerBags[bag][slot] = {
+                        id = id,
+                        count = count,
+                    }
+                end
+            end
+        end
+    end
+
+    return playerBags, copper;
+end
+
+function addon.api.getPlayerTalents()
+    local talents = {}
+    local tabs = {}
+    for tabIndex = 1, GetNumTalentTabs() do
+        local spec, texture, pointsSpent, fileName = GetTalentTabInfo(tabIndex)
+        local engSpec = Talents.TalentBackgroundToSpec[fileName]
+        table.insert(tabs, {
+            fileName = fileName,
+            pointsSpent = pointsSpent,
+        })
+        for talentIndex = 1, GetNumTalents(tabIndex) do
+            local name, iconTexture, row, column, rank, maxRank, isExceptional, available = GetTalentInfo(tabIndex, talentIndex)
+            local spellId = Talents:GetTalentSpellId(fileName, row, column, rank)
+            table.insert(talents, {
+                tabID = tabIndex,
+                row = row,
+                col = column,
+                rank = rank,
+                maxRank = maxRank,
+                spellId = spellId,
+            })
+        end
+    end
+    -- find the tab with most points and set spec if not already set, the user can always change this if wrong and this will probably cause them to actually update it.
+    table.sort(tabs, function(a, b)
+        return a.pointsSpent > b.pointsSpent;
+    end)
+    return {
+        tabs = tabs,
+        talents = talents,
+    }
 end
 
 function addon.api.getPlayerAuras()

@@ -1,3 +1,30 @@
 <Ui>
+    <Frame name="GuildbookGuildBank" mixin="GuildbookGuildBankMixin">
 
+        <Layers>
+            <Layer level="background">
+            
+            </Layer>
+        </Layers>
+
+        <Frames>
+            <Frame parentKey="charactersListview" inherits="GuildbookWidgetsListviewTemplate">
+                <Size x="200"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                    <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                </Anchors>
+                <KeyValues>
+                    <KeyValue key="frameType" value="FRAME" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookListviewItem" type="string"/>
+                    <KeyValue key="elementHeight" value="40" type="number"/>
+                </KeyValues>
+            </Frame>
+        </Frames>
+    
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnShow method="OnShow"/>
+        </Scripts>  
+    </Frame>
 </Ui>
