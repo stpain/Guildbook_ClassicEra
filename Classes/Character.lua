@@ -459,6 +459,23 @@ function Character:GetInventory(set)
     return self.data.inventory[set] or {};
 end
 
+function Character:SetAuras(set, res)
+    self.data.auras[set] = res;
+    addon:TriggerEvent("Character_OnDataChanged", self)
+end
+
+function Character:GetAuras(set)
+    return self.data.auras[set] or {};
+end
+
+function Character:SetResistances(set, res)
+    self.data.resistances[set] = res;
+    addon:TriggerEvent("Character_OnDataChanged", self)
+end
+
+function Character:GetResistances(set)
+    return self.data.resistances[set] or {};
+end
 
 function Character:SetPaperdollStats(set, stats)
     self.data.paperDollStats[set] = stats;

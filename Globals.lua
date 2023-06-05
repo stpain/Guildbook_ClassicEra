@@ -8,11 +8,39 @@ addon.characters = {}
 addon.api = {}
 function addon.api.trimNumber(num)
     if type(num) == 'number' then
-        local trimmed = string.format("%.2f", num)
+        local trimmed = string.format("%.1f", num)
         return tonumber(trimmed)
     else
         return 1
     end
+end
+
+function addon.api.getPlayerAuras()
+    local buffs = {}
+    for i = 1, 40 do
+        local name, icon, count, dispellType, duration, expirationTime, source, isStealable, _, spellId = UnitAura("player", i)
+        if name then
+            table.insert(buffs, {
+                spellId = spellId,
+                expirationTime = expirationTime,
+                count = count,
+            })
+        end
+    end
+    return buffs;
+end
+
+function addon.api.getPlayerResistances(level)
+    local res = {}
+    res.physical = addon.api.trimNumber(ResistancePercent(0,level))
+    res.holy = addon.api.trimNumber(ResistancePercent(1,level))
+    res.fire = addon.api.trimNumber(ResistancePercent(2,level))
+    res.nature = addon.api.trimNumber(ResistancePercent(3,level))
+    res.frost = addon.api.trimNumber(ResistancePercent(4,level))
+    res.shadow = addon.api.trimNumber(ResistancePercent(5,level))
+    res.arcane = addon.api.trimNumber(ResistancePercent(6,level))
+
+    return res;
 end
 
 local spellSchools = {
@@ -31,6 +59,7 @@ local statIDs = {
     [5] = 'Spirit',
 }
 function addon.api.getPaperDollStats()
+
     local stats = {
         attributes = {},
         defence = {},

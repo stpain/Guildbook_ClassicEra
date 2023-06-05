@@ -96,13 +96,26 @@
             <Frame parentKey="inventory" parentArray="contentViews">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.sidePane" relativePoint="TOPRIGHT" x="0" y="0"/>
+                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.sidePane" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                    <Anchor point="TOPRIGHT" x="0" y="0"/>
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
                 <Frames>
-                    <Frame parentKey="statsListview" inherits="GuildbookWidgetsListviewTemplate">
-                        <Size x="180"/>
+                    <ScrollFrame parentKey="resistanceGridview" inherits="GuildbookWidgetsGridviewTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" x="0" y="0"/>
+                        </Anchors>
+                    </ScrollFrame>
+                    <ScrollFrame parentKey="auraGridview" inherits="GuildbookWidgetsGridviewTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeKey="$parent.resistanceGridview" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.resistanceGridview" relativePoint="BOTTOMLEFT" x="0" y="0"/>
+                        </Anchors>
+                    </ScrollFrame>
+                    <Frame parentKey="statsListview" inherits="GuildbookWidgetsListviewTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeKey="$parent.auraGridview" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.auraGridview" relativePoint="BOTTOMLEFT" x="0" y="0"/>
                             <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                         </Anchors>
                         <Layers>
@@ -120,6 +133,7 @@
                     <Frame parentKey="equipmentListview" inherits="GuildbookWidgetsListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="0" y="0"/>
+                            <Anchor point="BOTTOMLEFT" x="0" y="0"/>
                             <Anchor point="BOTTOMRIGHT" relativeKey="$parent.statsListview" relativePoint="BOTTOMLEFT" x="0" y="0"/>
                         </Anchors>
                         <Layers>
@@ -137,6 +151,64 @@
                 </Frames>
             </Frame>
 
+            <Frame parentKey="talents" parentArray="contentViews">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.sidePane" relativePoint="TOPRIGHT" x="0" y="0"/>
+                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.sidePane" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                    <Anchor point="TOPRIGHT" x="0" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Frames>
+                    <Frame parentKey="tree1">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="0"/>
+                            <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture parentKey="background" setAllPoints="true">
+                                
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <ScrollFrame parentKey="talentsGridview" inherits="GuildbookWidgetsGridviewTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                </Anchors>
+                            </ScrollFrame>
+                        </Frames>
+                    </Frame>
+                    <Frame parentKey="tree2">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.tree1" relativePoint="TOPRIGHT" x="0" y="0"/>
+                            <Anchor point="BOTTOMLEFT" relativeKey="$parent.tree1" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture parentKey="background" setAllPoints="true">
+                                
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                    <Frame parentKey="tree3">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.tree2" relativePoint="TOPRIGHT" x="0" y="0"/>
+                            <Anchor point="BOTTOMLEFT" relativeKey="$parent.tree2" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                            <Anchor point="RIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture parentKey="background" setAllPoints="true">
+                                
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                </Frames>
+            </Frame>
         </Frames>
 
         <Scripts>

@@ -472,6 +472,32 @@
         </Scripts>
     </Frame>
 
+    <Frame name="GuildbookResistanceFrame" mixin="GuildbookResistanceFrameMixin" virtual="true">
+        <Animations>
+            <AnimationGroup parentKey="anim" setToFinalAlpha="true">
+                <Alpha parentKey="fadeIn" duration="0.2" fromAlpha="0" toAlpha="1"/>
+            </AnimationGroup>
+        </Animations>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture parentKey="icon" alpha="0.8" setAllPoints="true">
+
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="label" inherits="GameFontNormalLargeOutline">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+
     <Frame name="GuildbookItemIconFrame" mixin="GuildbookItemIconFrameMixin" virtual="true">
         <Animations>
             <AnimationGroup parentKey="anim" setToFinalAlpha="true">
@@ -1447,6 +1473,34 @@
             <OnEnter method="OnEnter"/>
             <OnLeave method="OnLeave"/>
             <OnMouseDown method="OnMouseDown"/>
+		</Scripts>
+    </Frame>
+
+
+    <Frame name="GuildbookTalentIconFrame" mixin="GuildbookTalentIconFrameMixin" virtual="true">
+        <Layers>
+            <Layer level="BACKGROUND">
+            
+            </Layer>
+            <Layer level="ARTWORK">
+                <FontString parentKey="label" inherits="GameFontNormal_NoShadow">
+                	<Anchors>
+                		<Anchor point="CENTER" x="0" y="0"/>
+                	</Anchors>
+                	<Color r="1" g="1" b="1"/>
+                </FontString>
+            </Layer>
+            <Layer level="BORDER">
+                <Texture atlas="orderhalltalents-spellborder">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="5" y="-5"/>
+                        <Anchor point="BOTTOMRIGHT" x="-5" y="5"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+		<Scripts>
+			<OnLoad method="OnLoad"/>
 		</Scripts>
     </Frame>
 

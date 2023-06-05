@@ -892,3 +892,50 @@ end
 function GuildbookStatsGroupMixin:ResetDataBinding()
 
 end
+
+
+GuildbookResistanceFrameMixin = {}
+function GuildbookResistanceFrameMixin:OnLoad()
+    --addon:RegisterCallback("Character_OnDataChanged", self.Character_OnDataChanged, self)
+    self:SetScript("OnLeave", function()
+        GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+    end)
+end
+-- function GuildbookResistanceFrameMixin:Character_OnDataChanged()
+    
+-- end
+function GuildbookResistanceFrameMixin:SetDataBinding(binding)
+    if binding.textureId then
+        self.icon:SetTexture(binding.textureId)
+    else
+
+    end
+    self.label:SetText(binding.label)
+
+    --reusing this for auras so check if this isd a res binding
+    if binding.type == "resistance" then
+        self.resistanceId = binding.resistanceId;
+        self.resistanceName = binding.resistanceName;
+    end
+
+    if binding.onEnter then
+        self:SetScript("OnEnter", binding.onEnter)
+    end
+end
+function GuildbookResistanceFrameMixin:ResetDataBinding()
+    
+end
+
+
+
+
+GuildbookTalentIconFrameMixin = {}
+function GuildbookTalentIconFrameMixin:OnLoad()
+    
+end
+function GuildbookTalentIconFrameMixin:SetDataBinding(binding)
+    self.label:SetText(binding.label)
+end
+function GuildbookTalentIconFrameMixin:ResetDataBinding()
+    
+end

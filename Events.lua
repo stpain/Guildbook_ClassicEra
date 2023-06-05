@@ -35,10 +35,14 @@ function e:PLAYER_EQUIPMENT_CHANGED()
 
     local equipment = addon.api.getPlayerEquipment()
     local currentStats = addon.api.getPaperDollStats()
+    local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
+    local auras = addon.api.getPlayerAuras()
 
     if addon.characters[addon.thisCharacter] then
         addon.characters[addon.thisCharacter]:SetInventory("current", equipment)
         addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats)
+        addon.characters[addon.thisCharacter]:SetResistances("current", resistances)
+        addon.characters[addon.thisCharacter]:SetAuras("current", auras)
     end
 end
 
@@ -166,6 +170,12 @@ function e:GUILD_ROSTER_UPDATE()
                     },
                     --CurrentInventory = currentInventory,
                     paperDollStats = {
+                        current = {},
+                    },
+                    resistances = {
+                        current = {},
+                    },
+                    auras = {
                         current = {},
                     },
                     --CurrentPaperdollStats = currentPaperdollStats or {},

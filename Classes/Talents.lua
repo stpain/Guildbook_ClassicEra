@@ -2,7 +2,7 @@ local name, addon = ...;
 
 local Talents = {}
 
-Talents.ClassTalentIndexToFileName = {
+Talents.ClassTalentTreeIndexToFileName = {
     DEATHKNIGHT = {
         [1] = "DeathKnightBlood",
         [2] = "DeathKnightFrost",
@@ -88,6 +88,19 @@ Talents.TalentBackgrounds = {
 	["WarriorFury"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\WARRIOR\\Fury",  
 	["WarriorProtection"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\WARRIOR\\Protection", 
 }
+
+function Talents:GetClassTalentTreeArtwork(classID)
+    local _, class = GetClassInfo(classID)
+    if self.ClassTalentTreeIndexToFileName[class] then
+        local art = {}
+        local fileNames = self.ClassTalentTreeIndexToFileName[class];
+        for k, v in ipairs(fileNames) do
+            --art[k] = self.TalentBackgrounds[v]
+            art[k] = string.format("interface/talentframe/%s-topleft.blp", v)
+        end
+        return art;
+    end
+end
 
 Talents.TalentBackgroundToSpec = {
 	["DeathKnightBlood"] = "Blood",

@@ -28,15 +28,20 @@ function GuildbookWidgetsGridviewMixin:OnLoad()
     self.colIndex = 0
     self.rowIndex = 0
     self.numItemsPerRow = 1
+    self.fixedColumnCount = false;
 end
 
 function GuildbookWidgetsGridviewMixin:InitFramePool(type, template)
-    self.framePool = CreateFramePool(type, self, template);
+    self.framePool = CreateFramePool(type, self.scrollChild, template);
 end
 
 function GuildbookWidgetsGridviewMixin:SetMinMaxSize(min, max)
     self.itemMinWidth = min;
     self.itemMaxWidth = max;
+end
+
+function GuildbookWidgetsGridviewMixin:SetFixedColumnCount(count)
+    self.fixedColumnCount = count;
 end
 
 function GuildbookWidgetsGridviewMixin:Insert(info)
@@ -91,12 +96,19 @@ end
 function GuildbookWidgetsGridviewMixin:GetItemSize()
     local width = self:GetWidth()
 
-    local numItemsPerRowMinWidth = width / self.itemMinWidth;
-    local numItemsPerRowMaxWidth = width / self.itemMaxWidth;
+    if type(self.fixedColumnCount) == "number" then
+        self.itemSize = (width / self.fixedColumnCount)
+        self.numItemsPerRow = self.fixedColumnCount;
 
-    self.numItemsPerRow =  math.ceil(((numItemsPerRowMinWidth + numItemsPerRowMaxWidth) / 2))
+    else
 
-    self.itemSize = (width / self.numItemsPerRow)
+        local numItemsPerRowMinWidth = width / self.itemMinWidth;
+        local numItemsPerRowMaxWidth = width / self.itemMaxWidth;
+    
+        self.numItemsPerRow =  math.ceil(((numItemsPerRowMinWidth + numItemsPerRowMaxWidth) / 2))
+
+        self.itemSize = (width / self.numItemsPerRow)
+    end
 
     --[[
         this next bit was a first attempt to fix the min/max sizes
@@ -120,6 +132,10 @@ function GuildbookWidgetsGridviewMixin:UpdateLayout()
 
     self.colIndex = 0;
     self.rowIndex = 0;
+
+    self.scrollChild:SetHeight(self:GetHeight())
+    self.scrollChild:SetWidth(self:GetWidth())
+    self.ScrollBar:Hide()
 
     for k, f in ipairs(self.frames) do
         f:ClearAllPoints()
