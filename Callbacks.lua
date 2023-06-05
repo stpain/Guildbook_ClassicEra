@@ -16,5 +16,7 @@ addon:GenerateCallbackEvents({
     "UI_OnSizeChanged",
 
     "StatusText_OnChanged",
+    
+    "Comms_OnMessageReceived",
 })
 CallbackRegistryMixin.OnLoad(addon);

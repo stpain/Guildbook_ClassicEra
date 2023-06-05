@@ -1,5 +1,5 @@
 <UI>
-    <Frame name="GuildbookProfilesRowTemplate" virtual="true">
+    <Frame name="GuildbookProfilesRowTemplate" mixin="GuildbookProfilesRowMixin" virtual="true">
         <Layers>
             <Layer level="BACKGROUND">
 
@@ -24,7 +24,7 @@
         <Frames> 
             <Frame parentKey="avatar1" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
                 <Anchors>
-                    <Anchor point="LEFT" x="20" y="0"/>
+                    <Anchor point="BOTTOM" x="0" y="0"/>
                 </Anchors>
             </Frame>
             <Frame parentKey="avatar2" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
@@ -63,6 +63,9 @@
                 </Anchors>
             </Frame>
         </Frames>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
     </Frame>
 
     <Frame name="GuildbookProfileSummaryRowAvatarTemplate" mixin="GuildbookProfileSummaryRowAvatarTemplateMixin" virtual="true" enableMouse="true" useParentLevel="true">
@@ -124,6 +127,7 @@
             <OnMouseUp method="OnMouseUp"/>
             <OnEnter method="OnEnter"/>
             <OnLeave method="OnLeave"/>
+            <OnLoad method="OnLoad"/>
         </Scripts>
     </Frame>
 
@@ -867,7 +871,7 @@
     </Frame>
 
 
-    <Frame name="GuildbookGuildBankListviewItem" mixin="GuildbookMySacksListviewItemMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookGuildBankListviewItem" mixin="GuildbookGuildBankListviewItemMixin" virtual="true" enableMouse="true">
         <Animations>
             <AnimationGroup parentKey="anim" setToFinalAlpha="true">
                 <Alpha parentKey="fadeIn" duration="0.33" fromAlpha="0" toAlpha="1"/>
@@ -881,50 +885,21 @@
 				<Texture parentKey="Highlight" atlas="search-highlight-large" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
             <Layer level="ARTWORK">
-                <Texture parentKey="Icon">
+                <Texture parentKey="icon">
                     <TexCoords left="0.08" right="0.92" top="0.08" bottom="0.92"/>
-                    <Size x="26" y="26"/>
                     <Anchors>
                         <Anchor point="LEFT" x="0" y="0"/>
                     </Anchors>
                 </Texture>
-                <FontString parentArray="fontstrings" parentKey="Link" inherits="GameFontNormal" justifyH="LEFT">
+                <FontString parentKey="link" inherits="GameFontNormal" justifyH="LEFT">
                     <Size x="280" y="26"/>
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Icon" relativePoint="RIGHT" x="5" y="0"/>
+                        <Anchor point="LEFT" relativeKey="$parent.icon" relativePoint="RIGHT" x="5" y="0"/>
                     </Anchors>
                 </FontString>
-                <FontString parentArray="fontstrings" parentKey="Count" inherits="GameFontNormal"  justifyH="LEFT">
+                <FontString parentKey="info" inherits="GameFontNormal"  justifyH="RIGHT">
                     <Color r="1" g="1" b="1"/>
                     <Size x="40" y="26"/>
-                    <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Link" relativePoint="RIGHT" x="5" y="0"/>
-                    </Anchors>
-                </FontString>
-                <FontString parentArray="fontstrings" parentKey="Type" inherits="GameFontNormal" justifyH="LEFT">
-                    <Color r="1" g="1" b="1"/>
-                    <Size x="150" y="26"/>
-                    <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Count" relativePoint="RIGHT" x="5" y="0"/>
-                    </Anchors>
-                </FontString>
-                <FontString parentArray="fontstrings" parentKey="SubType" inherits="GameFontNormal"  justifyH="LEFT">
-                    <Color r="1" g="1" b="1"/>
-                    <Size x="150" y="26"/>
-                    <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Type" relativePoint="RIGHT" x="5" y="0"/>
-                    </Anchors>
-                </FontString>
-                <FontString parentArray="fontstrings" parentKey="Bank" inherits="GameFontNormal"  justifyH="LEFT">
-                    <Color r="1" g="1" b="1"/>
-                    <Size x="100" y="26"/>
-                    <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.SubType" relativePoint="RIGHT" x="5" y="0"/>
-                    </Anchors>
-                </FontString>
-                <FontString parentArray="fontstrings" parentKey="Index" inherits="GameFontNormal"  justifyH="RIGHT">
-                    <Color r="1" g="1" b="1"/>
-                    <Size x="100" y="26"/>
                     <Anchors>
                         <Anchor point="RIGHT" x="-5" y="0"/>
                     </Anchors>
@@ -932,17 +907,7 @@
             </Layer>
         </Layers>
         <Scripts>
-            <OnEnter>
-                if self.link then
-                    GameTooltip:SetOwner(self, 'ANCHOR_LEFT')
-                    GameTooltip:SetHyperlink(self.link)
-                    GameTooltip:Show()
-                end
-            </OnEnter>
-            <OnLeave>
-                GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-                <!-- GameTooltip:Hide() -->
-            </OnLeave>
+            <OnLoad method="OnLoad"/>
         </Scripts>
     </Frame>
 

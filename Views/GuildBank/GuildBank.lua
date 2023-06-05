@@ -2,9 +2,12 @@ local name, addon = ...;
 
 GuildbookGuildBankMixin = {
     name = "GuildBank",
+    selectedCharacter = "",
 }
 
 function GuildbookGuildBankMixin:OnLoad()
+
+    addon:RegisterCallback("Character_OnDataChanged", self.Character_OnDataChanged, self)
 
     addon.AddView(self)
 end
@@ -22,7 +25,8 @@ function GuildbookGuildBankMixin:OnShow()
                     showMask = true,
     
                     func = function()
-                        self:LoadCharacterContainers(character.data.containers)
+                        self.selectedCharacter = character.data.name;
+                        self:LoadCharacterContainers(character.data.name, character.data.containers)
                     end,
                 })
             end
@@ -31,6 +35,37 @@ function GuildbookGuildBankMixin:OnShow()
 
 end
 
-function GuildbookGuildBankMixin:LoadCharacterContainers(containers)
+function GuildbookGuildBankMixin:Character_OnDataChanged(character)
+    if self.selectedCharacter == character.data.name then
+        self:LoadCharacterContainers(self.selectedCharacter, character.data.containers)
+    end
+end
+
+function GuildbookGuildBankMixin:LoadCharacterContainers(name, containers)
+
+    -- local containers = {
+    --     bags = {},
+    --     slotsUsed = 0,
+    --     slotsFree = 0,
+    --     copper = GetMoney(),
+    -- }
+
+    --DevTools_Dump(containers)
+
+    self.containerInfo.itemsListview.DataProvider:Flush()
+
+    if not containers.bags then
+        self.containerInfo.characterInfo:SetText(string.format("No data for %s", name))
+        return;
+    end
     
+    self.containerInfo.characterInfo:SetText(string.format("[%s] %d slots (%d used %d free) Gold: %s",
+        name,
+        containers.slotsUsed + containers.slotsFree,
+        containers.slotsUsed,
+        containers.slotsFree,
+        GetCoinTextureString(containers.copper)
+    ))
+
+    self.containerInfo.itemsListview.DataProvider:InsertTable(containers.bags)
 end

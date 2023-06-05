@@ -49,7 +49,7 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="profiles" inherits="GuildbookSmallHighlightButton" hidden="false">
+                    <Frame parentKey="guildtree" inherits="GuildbookSmallHighlightButton" hidden="false">
                         <Anchors>
                             <Anchor point="LEFT" x="60" y="0"/>
                         </Anchors>
@@ -223,6 +223,28 @@
                     <Anchor point="BOTTOMRIGHT" x="-6" y="16"/>
                 </Anchors>
             </Frame>
+
+            <Frame parentKey="debug" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.ribbon" relativePoint="BOTTOMLEFT" x="2" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="16"/>
+                </Anchors>
+                <Frames>
+                    <Frame parentKey="messageLogListview" inherits="GuildbookWidgetsListviewTemplate,InsetFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="1" y="-1"/>
+                            <Anchor point="BOTTOMRIGHT" x="-1" y="1"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="frameType" value="FRAME" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookSimpleIconLabelFrame" type="string"/>
+                            <KeyValue key="elementHeight" value="26" type="number"/>
+                        </KeyValues>
+                    </Frame>
+                </Frames>
+            </Frame>
+
+            
         </Frames>
 
         <Scripts>

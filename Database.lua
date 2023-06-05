@@ -4,7 +4,7 @@ local Database = {}
 
 function Database:Init()
 
-    GUILDBOOK_GLOBAL = nil
+    --GUILDBOOK_GLOBAL = nil
 
     if not GUILDBOOK_GLOBAL then
         GUILDBOOK_GLOBAL = {
@@ -20,12 +20,14 @@ function Database:Init()
 
     self.db = GUILDBOOK_GLOBAL;
 
+    addon:TriggerEvent("StatusText_OnChanged", "[Database_OnInitialised]")
     addon:TriggerEvent("Database_OnInitialised")
 end
 
 function Database:InsertCharacter(character)
     if self.db then
         self.db.characterDirectory[character.name] = character;
+        addon:TriggerEvent("StatusText_OnChanged", string.format("[InsertCharacter] %s", character.name))
     end
 end
 

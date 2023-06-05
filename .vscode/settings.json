@@ -70,6 +70,7 @@
         "HideDropDownMenu",
         "AUTOCOMPLETE_LIST",
         "PanelTemplates_SetNumTabs",
-        "PanelTemplates_SetTab"
+        "PanelTemplates_SetTab",
+        "RAID"
     ]
 }

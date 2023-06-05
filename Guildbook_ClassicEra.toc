@@ -1,6 +1,6 @@
 ## Interface: 11403
 ## Author: TheBoringDad
-## Version: 0.15
+## Version: 0.16
 ## Title: Guildbook_ClassicEra
 ## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL
@@ -59,6 +59,14 @@ Views\GuildBank\GuildBank.xml
 
 Views\Profile\Profile.lua
 Views\Profile\Profile.xml
+
+Views\Chat\Chat.lua
+Views\Chat\Chat.xml
+
+Views\GuildTree\GuildTree.lua
+Views\GuildTree\GuildTree.xml
+
+Comms.lua
 
 Events.lua
 

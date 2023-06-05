@@ -1,0 +1,14 @@
+<Ui>
+    <Frame name="GuildbookChat" mixin="GuildbookChatMixin">
+        <Layers>
+            <Layer level="background">
+            
+            </Layer>
+        </Layers>
+
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <!-- <OnShow method="OnShow"/> -->
+        </Scripts> 
+    </Frame>
+</Ui>

@@ -21,66 +21,71 @@ function addon.api.scanPlayerContainers(includeBanks)
 
     local copper = GetMoney()
 
-    local playerBags = {}
+    local containers = {
+        bags = {},
+        slotsUsed = 0,
+        slotsFree = 0,
+        copper = copper,
+    }
 
     -- player bags
     for bag = 0, 4 do
-        playerBags[bag] = {}
-        for slot = 1, GetContainerNumSlots(bag) do
-            playerBags[bag][slot] = {
-                id = -1,
-                count = -1,
-            }
+        local numSlots = GetContainerNumSlots(bag);
+        local slotsUsed = 0;
+        for slot = 1, numSlots do
             local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bag, slot)
             if id and count then
-                playerBags[bag][slot] = {
+                table.insert(containers.bags, {
                     id = id,
                     count = count,
-                }
+                })
+                slotsUsed = slotsUsed + 1;
             end
         end
+
+        containers.slotsUsed = containers.slotsUsed + slotsUsed;
+        containers.slotsFree = containers.slotsFree + (numSlots - slotsUsed);
     end
 
     if includeBanks then
         -- main bank
         local bankBagId = -1
-        for slot = 1, 28 do
-            playerBags[bankBagId] = {}
-            for slot = 1, GetContainerNumSlots(bankBagId) do
-                playerBags[bankBagId][slot] = {
-                    id = -1,
-                    count = -1,
-                }
-                local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bankBagId, slot)
-                if id and count then
-                    playerBags[bankBagId][slot] = {
-                        id = id,
-                        count = count,
-                    }
-                end
+        local numSlots = GetContainerNumSlots(bankBagId);
+        local slotsUsed = 0;
+        for slot = 1, numSlots do
+            local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bankBagId, slot)
+            if id and count then
+                table.insert(containers.bags, {
+                    id = id,
+                    count = count,
+                })
+                slotsUsed = slotsUsed + 1;
             end
         end
+        containers.slotsUsed = containers.slotsUsed + slotsUsed;
+        containers.slotsFree = containers.slotsFree + (numSlots - slotsUsed);
 
         -- bank bags
         for bag = 5, 11 do
-            playerBags[bag] = {}
-            for slot = 1, GetContainerNumSlots(bag) do
-                playerBags[bag][slot] = {
-                    id = -1,
-                    count = -1,
-                }
+            local numSlots = GetContainerNumSlots(bag);
+            local slotsUsed = 0;
+            for slot = 1, numSlots do
                 local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bag, slot)
                 if id and count then
-                    playerBags[bag][slot] = {
+                    table.insert(containers.bags, {
                         id = id,
                         count = count,
-                    }
+                    })
+                    slotsUsed = slotsUsed + 1;
                 end
             end
+
+            containers.slotsUsed = containers.slotsUsed + slotsUsed;
+            containers.slotsFree = containers.slotsFree + (numSlots - slotsUsed);
         end
     end
 
-    return playerBags, copper;
+    return containers;
 end
 
 function addon.api.getPlayerTalents()

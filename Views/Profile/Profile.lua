@@ -578,7 +578,6 @@ function GuildbookProfileMixin:LoadCharacter(character)
     self.sidePane.background:SetAtlas(string.format("transmog-background-race-%s", self.character:GetRace().clientFileString:lower()))
 
     self:Update()
-    self:UpdateLayout()
     GuildbookUI:SelectView(self.name)
     self.anim:Play()
 
@@ -748,6 +747,7 @@ function GuildbookProfileMixin:Update()
     --resistances
     for k, frame in ipairs(self.inventory.resistanceGridview:GetFrames()) do
         --DevTools_Dump(frame)
+		frame.label:SetText("?")
         if self.character.data.resistances.current[frame.resistanceName] then
             frame.label:SetText(self.character.data.resistances.current[frame.resistanceName])
             frame:SetScript("OnEnter", function()
@@ -765,35 +765,7 @@ function GuildbookProfileMixin:Update()
     --auras
     self.inventory.auraGridview:Flush()
     local auras = self.character.data.auras.current;
-    -- local auras = {
-    --     {
-    --     spellId = 1459,
-    --     },
-    --     {
-    --     spellId = 21850,
-    --     },
-    --     {
-    --     spellId = 1459,
-    --     },
-    --     {
-    --     spellId = 467,
-    --     },
-    --     {
-    --     spellId = 1459,
-    --     },
-    --     {
-    --     spellId = 774,
-    --     },
-    --     {
-    --     spellId = 1459,
-    --     },
-    --     {
-    --     spellId = 8936,
-    --     },
-    --     {
-    --     spellId = 1459,
-    --     },
-    -- }
+	--DevTools_Dump(auras)
     if #auras > 0 then
         for k, aura in ipairs(auras) do
             local name, rank, icon = GetSpellInfo(aura.spellId)
@@ -920,6 +892,6 @@ function GuildbookProfileMixin:Update()
         end
     end
 
-
+	self:UpdateLayout()
 end
 

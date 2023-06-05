@@ -5,6 +5,7 @@ local Character = addon.Character;
 
 GuildbookMixin = {
     views = {},
+    debugLog = {},
 }
 
 function GuildbookMixin:UpdateLayout()
@@ -35,17 +36,30 @@ function GuildbookMixin:OnLoad()
     addon:RegisterCallback("Database_OnInitialised", self.Database_OnInitialised, self)
     addon:RegisterCallback("StatusText_OnChanged", self.SetStatausText, self)
 
-
-    -- self:SetScript("OnMouseDown", function()
-    --     GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
-    --     GameTooltip:SetTalent(2,6)
-    --     GameTooltip:Show()
-    -- end)
+    self.ribbon.searchBox:SetScript("OnTextChanged", function(searchBox)
+        if searchBox:GetText() == ">debug" then
+            self.content:Hide()
+            self.debug:Show()
+        else
+            self.content:Show()
+            self.debug:Hide()
+        end
+    end)
 
 end
 
 function GuildbookMixin:SetStatausText(text)
     self.statusText:SetText(text)
+
+    -- table.insert(self.debugLog, {
+    --     label = string.format("[%s] %s", date("*T"), text)
+    -- })
+
+    self.debug.messageLogListview.DataProvider:Insert({
+        label = string.format("[%s] %s", date("%T"), text),
+        atlas = "services-icon-warning",
+    })
+    self.debug.messageLogListview.scrollBox:ScrollToEnd()
 end
 
 function GuildbookMixin:OnUpdate()
@@ -62,6 +76,8 @@ function GuildbookMixin:OnEvent()
 end
 
 function GuildbookMixin:SelectView(view)
+    self.content:Show()
+    self.debug:Hide()
     for k, v in pairs(self.views) do
         v:Hide()
     end

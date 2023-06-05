@@ -7,6 +7,7 @@ local Talents = addon.Talents;
 
 local e = CreateFrame("FRAME");
 e:RegisterEvent('GUILD_ROSTER_UPDATE')
+e:RegisterEvent('GUILD_RANKS_UPDATE')
 e:RegisterEvent('ADDON_LOADED')
 e:RegisterEvent('PLAYER_ENTERING_WORLD')
 e:RegisterEvent('PLAYER_LEVEL_UP')
@@ -33,13 +34,14 @@ e:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 
+function e:GUILD_RANKS_UPDATE()
+    
+end
+
 function e:BAG_UPDATE_DELAYED()
     if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
-        local bags, copper = addon.api.scanPlayerContainers()
-        addon.characters[addon.thisCharacter]:SetContainers({
-            bags = bags,
-            copper = copper,
-        })
+        local bags = addon.api.scanPlayerContainers()
+        addon.characters[addon.thisCharacter]:SetContainers(bags)
     end
 end
 

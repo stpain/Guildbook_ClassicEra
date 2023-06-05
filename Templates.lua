@@ -371,32 +371,32 @@ end
 
 GuildbookProfileSummaryRowAvatarTemplateMixin = {}
 
-function GuildbookProfileSummaryRowAvatarTemplateMixin:SetCharacter(guid)
-    if not guid then
-        return
+function GuildbookProfileSummaryRowAvatarTemplateMixin:OnLoad()
+    addon:RegisterCallback("Character_OnDataChanged", self.Character_OnDataChanged, self)
+end
+function GuildbookProfileSummaryRowAvatarTemplateMixin:Character_OnDataChanged(character)
+    if self.character and (self.character.data.name == character.data.name) then
+        self.avatar:SetAtlas(self.character:GetProfileAvatar())
     end
-    self.character = addon:GetCharacterFromCache(guid)
-    if not self.character then
-        return
-    end
-    if self.character.profile and self.character.profile.avatar then
-        self.avatar:SetTexture(self.character.profile.avatar)
-    else
-        self.avatar:SetAtlas(string.format("raceicon-%s-%s", self.character.Race, self.character.Gender))
-    end
-    self.name:SetText(addon.Data.Class[self.character.Class:upper()].FontColour..self.character.Name)
-    local rgb =addon.Data.Class[self.character.Class].RGB
-    self.border:SetVertexColor(rgb[1], rgb[2], rgb[3])
+end
+
+function GuildbookProfileSummaryRowAvatarTemplateMixin:SetCharacter(character)
+    self.character = character;
+    self.avatar:SetAtlas(self.character:GetProfileAvatar())
+    self.name:SetText("|cffffffff"..Ambiguate(self.character.data.name, "short"))
+
+    local _, class = GetClassInfo(self.character.data.class)
+    local colour = RAID_CLASS_COLORS[class]
+    self.border:SetVertexColor(colour:GetRGB())
 end
 
 function GuildbookProfileSummaryRowAvatarTemplateMixin:OnEnter()
-    if self.playAnim then
-        if self:IsVisible() then
-            self.whirl:Show()
-            self.anim:Play()
-        end
+    if self:IsVisible() then
+        self.whirl:Show()
+        self.anim:Play()
     else
         self.whirl:Hide()
+        self.anim:Stop()
     end
     if self.showTooltip then
         
@@ -409,10 +409,7 @@ end
 
 function GuildbookProfileSummaryRowAvatarTemplateMixin:OnMouseUp()
     if self.character then
-        GuildbookUI.profiles.character = self.character
-        if GuildbookUI.profiles.character then
-            GuildbookUI.profiles:LoadCharacter()
-        end
+        addon:TriggerEvent("Character_OnProfileSelected", self.character)
     end
 end
 
@@ -987,4 +984,75 @@ function GuildbookTalentIconFrameMixin:ClearTalent()
     self.border:Hide()
     self.pointsBackground:Hide()
     self.pointsLabel:Hide()
+end
+
+
+GuildbookGuildBankListviewItemMixin = {}
+function GuildbookGuildBankListviewItemMixin:OnLoad()
+    self:SetScript("OnLeave", function()
+        GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+    end)
+end
+function GuildbookGuildBankListviewItemMixin:SetDataBinding(binding, height)
+    
+    self:SetHeight(height)
+
+    local item = Item:CreateFromItemID(binding.id)
+    if not item:IsItemEmpty() then
+        item:ContinueOnItemLoad(function()
+            self.icon:SetTexture(item:GetItemIcon())
+            self.link:SetText(item:GetItemLink())
+        end)
+    end
+
+    local y = self:GetHeight()
+    self.icon:SetSize(y-2, y-2)
+
+    self.info:SetText(string.format("[%d]", binding.count))
+end
+function GuildbookGuildBankListviewItemMixin:ResetDataBinding()
+    self.icon:SetTexture(nil)
+    self.link:SetText(nil)
+end
+
+
+local avatarOffsets = {
+    [1] = 0,
+    [2] = -50,
+    [3] = -100,
+    [4] = -150,
+    [5] = -200,
+    [6] = -250,
+    [7] = -300,
+    [8] = -350,
+}
+GuildbookProfilesRowMixin = {}
+function GuildbookProfilesRowMixin:OnLoad()
+
+end
+
+function GuildbookProfilesRowMixin:SetDataBinding(binding)
+    if binding.showHeader then
+        self.header:Show()
+        self.headerBackground:Show()
+        self.header:SetText(binding.header)
+    else
+        self.header:Hide()
+        self.headerBackground:Hide()
+    end
+
+    local numCharacters = #binding.characters;
+    self.avatar1:ClearAllPoints()
+    self.avatar1:SetPoint("BOTTOM", avatarOffsets[numCharacters], 10)
+
+    for i = 1, 8 do
+        self["avatar"..i]:Hide()
+        if binding.characters[i] then
+            self["avatar"..i]:Show()
+            self["avatar"..i]:SetCharacter(binding.characters[i])
+        end
+    end
+end
+function GuildbookProfilesRowMixin:ResetDataBinding()
+
 end
