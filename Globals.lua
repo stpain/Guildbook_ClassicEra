@@ -4,6 +4,7 @@ local Talents = addon.Talents;
 
 --create these at addon level
 addon.thisCharacter = "";
+addon.thisGuild = "";
 addon.guilds = {}
 addon.characters = {}
 

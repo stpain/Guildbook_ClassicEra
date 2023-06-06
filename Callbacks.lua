@@ -9,6 +9,12 @@ addon:GenerateCallbackEvents({
     "Character_OnProfileSelected",
     "Character_OnDataChanged",
     "Character_OnTradeskillSelected",
+    "Character_BroadcastChange",
+
+    "Guildbank_TimeStampRequest",
+    "Guildbank_OnTimestampsReceived",
+    "Guildbank_DataRequest",
+    "Guildbank_OnDataReceived",
     
     "Blizzard_OnTradeskillUpdate",
     "Blizzard_OnGuildRosterUpdate",
@@ -16,6 +22,7 @@ addon:GenerateCallbackEvents({
     "UI_OnSizeChanged",
 
     "StatusText_OnChanged",
+    "LogDebugMessage",
     
     "Comms_OnMessageReceived",
 })

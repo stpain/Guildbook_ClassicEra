@@ -29,8 +29,8 @@ function Guild:GetBanks()
     return self.banks;
 end
 
-function Guild:SetBank(bank)
-    self.banks[bank.name] = bank;
+function Guild:AddBank(bank)
+    self.banks[bank.name] = 0;
 end
 
 function Guild:SetCalendar(cal)

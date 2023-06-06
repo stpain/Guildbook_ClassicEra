@@ -69,10 +69,13 @@ function Character:SetGuid(guid)
     self.data.guid = guid;
 end
 
-function Character:SetOnlineStatus(info)
+function Character:SetOnlineStatus(info, broadcast)
     self.data.onlineStatus = info;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "onlineStatus", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetOnlineStatus", "onlineStatus")
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "onlineStatus", self.data.name))
 end
 
 function Character:GetOnlineStatus()
@@ -92,7 +95,7 @@ function Character:SetRank(index)
     if self.data.rank ~= index then
         self.data.rank = index;
         addon:TriggerEvent("Character_OnDataChanged", self)
-        addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "rank", self.data.name))
+        addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "rank", self.data.name))
     end
 end
 
@@ -100,11 +103,14 @@ function Character:GetRank()
     return self.data.rank;
 end
 
-function Character:SetLevel(level)
+function Character:SetLevel(level, broadcast)
     if self.data.level ~= level then
         self.data.level = level;
         addon:TriggerEvent("Character_OnDataChanged", self)
-        addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "level", self.data.name))
+        if broadcast then
+            addon:TriggerEvent("Character_BroadcastChange", self, "SetLevel", "level")
+        end
+        addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "level", self.data.name))
     end
 end
 
@@ -113,11 +119,14 @@ function Character:GetLevel()
 end
 
 
-function Character:SetRace(race)
+function Character:SetRace(race, broadcast)
     if self.data.race ~= race then
         self.data.race = race;
         addon:TriggerEvent("Character_OnDataChanged", self)
-        addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "race", self.data.name))
+        if broadcast then
+            addon:TriggerEvent("Character_BroadcastChange", self, "SetRace", "race")
+        end
+        addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "race", self.data.name))
     end
 end
 
@@ -136,11 +145,14 @@ function Character:GetClass()
 end
 
 
-function Character:SetGender(gender)
+function Character:SetGender(gender, broadcast)
     if self.data.gender ~= gender then
         self.data.gender = gender;
         addon:TriggerEvent("Character_OnDataChanged", self)
-        addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "gender", self.data.name))
+        if broadcast then
+            addon:TriggerEvent("Character_BroadcastChange", self, "SetGender", "gender")
+        end
+        addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "gender", self.data.name))
     end
 end
 
@@ -149,11 +161,14 @@ function Character:GetGender()
 end
 
 
-function Character:SetPublicNote(note)
+function Character:SetPublicNote(note, broadcast)
     if self.data.publicNote ~= note then
         self.data.publicNote = note;
         addon:TriggerEvent("Character_OnDataChanged", self)
-        addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "public note", self.data.name))
+        if broadcast then
+            addon:TriggerEvent("Character_BroadcastChange", self, "SetPublicNote", "publicNote")
+        end
+        addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "public note", self.data.name))
     end
 end
 
@@ -161,13 +176,16 @@ function Character:GetPublicNote()
     return self.data.publicNote;
 end
 
-function Character:SetContainers(containers)
+function Character:SetContainers(containers, broadcast)
     self.data.containers = containers;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "containers", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetContainers", "containers")
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "containers", self.data.name))
 end
 
-function Character:GetContainers(containers)
+function Character:GetContainers()
     return self.data.containers;
 end
 
@@ -175,15 +193,20 @@ function Character:GetSpecializations()
     return classData[self.data.class].specializations;
 end
 
-function Character:SetSpec(spec, specID)
+function Character:SetSpec(spec, specID, broadcast)
+    local k;
     if spec == "primary" then
-        self.data.mainSpec = specID; 
+        self.data.mainSpec = specID;
+        k = "mainSpec";
     elseif spec == "secondary" then
         self.data.offSpec = specID;
+        k = "offSpec";
     end
-    --print("set spec", spec, specID)
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "spec", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetSpec", k)
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "spec", self.data.name))
 end
 
 function Character:GetSpec(spec)
@@ -209,7 +232,7 @@ function Character:SetSpecIsPvp(spec, isPvp)
     elseif spec == "secondary" then
         self.data.offSpecIsPvP = isPvp;
     end
-    addon:TriggerEvent("Character_OnDataChanged", self)
+    --addon:TriggerEvent("Character_OnDataChanged", self)
 end
 
 function Character:GetSpecIsPvp(spec)
@@ -221,14 +244,20 @@ function Character:GetSpecIsPvp(spec)
 end
 
 
-function Character:SetTradeskill(slot, id)
+function Character:SetTradeskill(slot, id, broadcast)
+    local k;
     if slot == 1 then
         self.data.profession1 = id;
+        k = "profession1"
     elseif slot == 2 then
         self.data.profession2 = id;
+        k = "profession2"
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "tradeskill", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetTradeskill", k)
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "tradeskill", self.data.name))
 end
 
 function Character:GetTradeskill(slot)
@@ -240,14 +269,20 @@ function Character:GetTradeskill(slot)
 end
 
 
-function Character:SetTradeskillLevel(slot, level)
+function Character:SetTradeskillLevel(slot, level, broadcast)
+    local k;
     if slot == 1 then
         self.data.profession1Level = level;
+        k = "profession1Level"
     elseif slot == 2 then
         self.data.profession2Level = level;
+        k = "profession2Level"
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "tradeskill level", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetTradeskillLevel", k)
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "tradeskill level", self.data.name))
 end
 
 function Character:GetTradeskillLevel(slot)
@@ -259,14 +294,20 @@ function Character:GetTradeskillLevel(slot)
 end
 
 
-function Character:SetTradeskillSpec(slot, spec)
+function Character:SetTradeskillSpec(slot, spec, broadcast)
+    local k
     if slot == 1 then
         self.data.profession1Spec = spec;
+        k = "profession1Spec"
     elseif slot == 2 then
         self.data.profession2Spec = spec;
+        k = "profession2Spec"
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "tradeskill spec", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetTradeskillSpec", k)
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "tradeskill spec", self.data.name))
 end
 
 function Character:GetTradeskillSpec(slot)
@@ -278,14 +319,20 @@ function Character:GetTradeskillSpec(slot)
 end
 
 
-function Character:SetTradeskillRecipes(slot, recipes)
+function Character:SetTradeskillRecipes(slot, recipes, broadcast)
+    local k;
     if slot == 1 then
         self.data.profession1Recipes = recipes;
+        k = "profession1Recipes"
     elseif slot == 2 then
         self.data.profession2Recipes = recipes;
+        k = "profession2Recipes"
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "tradeskill recipes", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self,"SetTradeskillRecipes", k)
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "tradeskill recipes", self.data.name))
 end
 
 function Character:GetTradeskillRecipes(slot)
@@ -297,10 +344,13 @@ function Character:GetTradeskillRecipes(slot)
 end
 
 
-function Character:SetCookingRecipes(recipes)
+function Character:SetCookingRecipes(recipes, broadcast)
     self.data.cookingRecipes = recipes;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "cooking recipes", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetCookingRecipes", "cookingRecipes")
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "cooking recipes", self.data.name))
 end
 
 function Character:GetCookingRecipes()
@@ -348,10 +398,13 @@ function Character:CanCraftItem(item)
 end
 
 
-function Character:SetCookingLevel(level)
+function Character:SetCookingLevel(level, broadcast)
     self.data.cookingLevel = level;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "cooking level", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetCookingLevel", "cookingLevel")
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "cooking level", self.data.name))
 end
 
 function Character:GetCookingLevel()
@@ -359,30 +412,39 @@ function Character:GetCookingLevel()
 end
 
 
-function Character:SetFishingLevel(level)
+function Character:SetFishingLevel(level, broadcast)
     self.data.fishingLevel = level;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "fishing level", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetFishingLevel", "fishingLevel")
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "fishing level", self.data.name))
 end
 
 function Character:GetFishingLevel()
     return self.data.fishingLevel;
 end
 
-function Character:SetFirstAidRecipes(recipes)
+function Character:SetFirstAidRecipes(recipes, broadcast)
     self.data.firstAidRecipes = recipes;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "first aid recipes", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetFirstAidRecipes", "firstAidRecipes")
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "first aid recipes", self.data.name))
 end
 
 function Character:GetFirstAidRecipes()
     return self.data.firstAidRecipes;
 end
 
-function Character:SetFirstAidLevel(level)
+function Character:SetFirstAidLevel(level, broadcast)
     self.data.firstAidLevel = level;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "first aid level", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetFirstAidLevel", "firstAidLevel")
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "first aid level", self.data.name))
 end
 
 function Character:GetFirstAidLevel()
@@ -445,12 +507,15 @@ function Character:GetProfile()
     return t;
 end
 
-function Character:SetTalents(spec, talents)
+function Character:SetTalents(spec, talents, broadcast)
     if (#talents > 0) then
         self.data.talents[spec] = talents;
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "talents", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetTalents", "talents", spec)
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "talents", self.data.name))
 end
 
 function Character:GetTalents(spec)
@@ -476,40 +541,52 @@ end
 -- end
 
 
-function Character:SetInventory(set, inventory)
+function Character:SetInventory(set, inventory, broadcast)
     self.data.inventory[set] = inventory;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "inventory (gear)", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetInventory", "inventory", set)
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "inventory (gear)", self.data.name))
 end
 
 function Character:GetInventory(set)
     return self.data.inventory[set] or {};
 end
 
-function Character:SetAuras(set, res)
+function Character:SetAuras(set, res, broadcast)
     self.data.auras[set] = res;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "auras", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetAuras", "auras", set)
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "auras", self.data.name))
 end
 
 function Character:GetAuras(set)
     return self.data.auras[set] or {};
 end
 
-function Character:SetResistances(set, res)
+function Character:SetResistances(set, res, broadcast)
     self.data.resistances[set] = res;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "resistances", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetResistances", "resistances", set)
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "resistances", self.data.name))
 end
 
 function Character:GetResistances(set)
     return self.data.resistances[set] or {};
 end
 
-function Character:SetPaperdollStats(set, stats)
+function Character:SetPaperdollStats(set, stats, broadcast)
     self.data.paperDollStats[set] = stats;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "stats", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetPaperdollStats", "paperDollStats", set)
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "stats", self.data.name))
 end
 
 function Character:GetPaperdollStats(set)
@@ -519,10 +596,13 @@ function Character:GetPaperdollStats(set)
 end
 
 
-function Character:SetMainCharacter(main)
+function Character:SetMainCharacter(main, broadcast)
     self.data.mainCharacter = main;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format("[Character_OnDataChanged] set %s for %s", "main character", self.data.name))
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetMainCharacter", "mainCharacter")
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "main character", self.data.name))
 end
 
 function Character:GetMainCharacter()
@@ -531,7 +611,7 @@ end
 
 function Character:SetAlts(alts)
     self.data.alts = alts;
-    addon:TriggerEvent("Character_OnDataChanged", self)
+    addon:TriggerEvent("Character_OnDataChanged", self, "alts")
 end
 
 function Character:GetAlts()
@@ -657,53 +737,6 @@ function Character:Blizzard_OnTradeskillUpdate(prof, recipes)
     end
 end
 
-function Character:CreateFromData_Old(data)
-    if type(data) == "table" then
-        return Mixin({
-            data = {
-                guid = data.guid,
-                name = data.name,
-                class = data.class,
-                gender = data.gender,
-                level = data.level,
-                race = data.race,
-                rankName = data.rankName,
-                alts = data.alts,
-                mainCharacter = data.mainCharacter or false,
-                publicNote = data.publicNote,
-                mainSpec = data.mainSpec,
-                offSpec = data.offSpec,
-                mainSpecIsPvP = data.mainSpecIsPvP,
-                offSpecIsPvP = data.offSpecIsPvP,
-                profile = data.profile or {},
-                profession1 = data.profession1,
-                profession1Level = data.profession1Level,
-                profession1Spec = data.profession1Spec,
-                profession1Recipes = data.profession1Recipes or {},
-                profession2 = data.profession2,
-                profession2Level = data.profession2Level,
-                profession2Spec = data.profession2Spec,
-                profession2Recipes = data.profession2Recipes or {},
-                cookingLevel = data.cookingLevel,
-                cookingRecipes = data.cookingRecipes or {},
-                fishingLevel = data.fishingLevel,
-                firstAidLevel = data.firstAidLevel,
-                firstAidRecipes = data.firstAidRecipes,
-                talents = data.talents or {},
-                --glyphs = data.Glyphs or {},
-                inventory = data.inventory,
-                --currentInventory = data.currentInventory or {},
-                paperDollStats = data.paperDollStats,
-                --currentPaperdollStats = data.CurrentPaperdollStats or {},
-                onlineStatus = {
-                    isOnline = false,
-                    zone = "",
-                }
-            },
-        }, self)
-    end
-end
-
 
 function Character:CreateFromData(data)
     --print(string.format("Created Character Obj [%s] at %s", data.name or "-", date('%H:%M:%S', time())))
@@ -726,45 +759,6 @@ function Character:CreateFromData(data)
 end
 
 
-function Character:GetSavedVariablesData()
-    local data = {
-        guid = self.data.guid,
-        name = self.data.name,
-        class = self.data.class,
-        gender = self.data.gender,
-        level = self.data.level,
-        race = self.data.race,
-        alts = self.data.alts,
-        mainCharacter = self.data.mainCharacter,
-        rankName = self.data.rankName,
-        publicNote = self.data.publicNote,
-        mainSpec = self.data.mainSpec,
-        offSpec = self.data.offSpec,
-        mainSpecIsPvP = self.data.mainSpecIsPvP,
-        offSpecIsPvP = self.data.offSpecIsPvP,
-        profile = self.data.profile or {}, --profile here is lower on purpose, it was a typo error long time ago and teh saved var ended up with a lower p
-        profession1 = self.data.profession1,
-        profession1Level = self.data.profession1Level,
-        profession1Spec = self.data.profession1Spec,
-        profession1Recipes = self.data.profession1Recipes,
-        profession2 = self.data.profession2,
-        profession2Level = self.data.profession2Level,
-        profession2Spec = self.data.profession2Spec,
-        profession2Recipes = self.data.profession2Recipes,
-        cookingLevel = self.data.cookingLevel,
-        cookingRecipes = self.data.cookingRecipes or {},
-        fishingLevel = self.data.fishingLevel,
-        firstAidLevel = self.data.firstAidLevel,
-        firstAidRecipes = self.data.firstAidRecipes or {},
-        talents = self.data.talents,
-        --Glyphs = self.data.glyphs,
-        inventory = self.data.inventory,
-        --CurrentInventory = self.data.currentInventory,
-        paperDollStats = self.data.paperDollStats,
-        --CurrentPaperdollStats = self.data.currentPaperdollStats or {},
-    }
-    return data;
-end
 
 function Character:ResetData()
     local name = self.data.name;
@@ -840,68 +834,5 @@ function Character:ResetData()
     --addon.DEBUG("func", "Character:ResetData", string.format("reset data for %s", name))
 end
 
-function Character:New()
-    return Mixin({ 
-        data = {
-            name = "",
-            level = 0;
-            class = "",
-            race = "",
-            gender = "",
-
-            mainCharacter = false,
-            publicNote = "",
-            alts = {},
-
-            mainSpec = 1,
-            mainSpecIsPvP = false,
-            offSpec = 2,
-            offSpecIsPvP = false,
-
-            profession1 = "-",
-            profession2 = "-",
-            profession1Level = 0,
-            profession2Level = 0,
-            profession1Recipes = {},
-            profession2Recipes = {},
-            profession1Spec = 0,
-            profession2Spec = 0,
-
-            cooking = {},
-
-            cookingLevel = 0,
-            firstAidLevel = 0,
-            firstAidRecipes = {},
-            fishingLevel = 0,
-
-            talents = {
-                primary = {},
-                secondary = {},
-            },
-            -- glyphs = {
-            --     primary = {},
-            --     secondary = {},
-            -- },
-
-            inventory = {},
-            --currentInventory = {},
-
-            rankName = "",
-            profile = {
-                dob = false,
-                name = "",
-                bio = "",
-                avatar = false,
-            },
-
-            paperDollStats = {
-                current = {},
-                primary = {},
-                secondary = {},
-            },
-            --CurrentPaperdollStats = {},
-        },
-    }, self)
-end
 
 addon.Character = Character;

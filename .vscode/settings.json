@@ -71,6 +71,8 @@
         "AUTOCOMPLETE_LIST",
         "PanelTemplates_SetNumTabs",
         "PanelTemplates_SetTab",
-        "RAID"
+        "RAID",
+        "message",
+        "GUILD"
     ]
 }

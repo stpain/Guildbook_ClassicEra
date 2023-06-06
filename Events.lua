@@ -17,8 +17,8 @@ e:RegisterEvent('CRAFT_UPDATE')
 e:RegisterEvent('RAID_ROSTER_UPDATE')
 e:RegisterEvent('BANKFRAME_OPENED')
 e:RegisterEvent('BANKFRAME_CLOSED')
-e:RegisterEvent('BAG_UPDATE')
-e:RegisterEvent('BAG_UPDATE_DELAYED')
+--e:RegisterEvent('BAG_UPDATE')
+--e:RegisterEvent('BAG_UPDATE_DELAYED') --this would cause any character bag changes to overwrite whats in the bank
 e:RegisterEvent('CHAT_MSG_GUILD')
 e:RegisterEvent('CHAT_MSG_WHISPER')
 --e:RegisterEvent('CHAT_MSG_SYSTEM')
@@ -38,17 +38,49 @@ function e:GUILD_RANKS_UPDATE()
     
 end
 
-function e:BAG_UPDATE_DELAYED()
+--[[
+    GUILD BANK EVENTS
+
+    the job here is to scan the players bags and bank if they have the guildbank keyword in their public not
+]]
+local bankScanned = false
+function e:BANKFRAME_CLOSED()
+    if bankScanned == false then
+        if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
+            local bags = addon.api.scanPlayerContainers(true)
+            addon.characters[addon.thisCharacter]:SetContainers(bags, true)
+            if addon.guilds[addon.thisGuild] then
+                addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
+            end
+        end    
+    end
+    bankScanned = not bankScanned;
+end
+function e:BANKFRAME_OPENED()
     if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
-        local bags = addon.api.scanPlayerContainers()
-        addon.characters[addon.thisCharacter]:SetContainers(bags)
+        local bags = addon.api.scanPlayerContainers(true)
+        addon.characters[addon.thisCharacter]:SetContainers(bags, true)
+        if addon.guilds[addon.thisGuild] then
+            addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
+        end
     end
 end
+-- function e:BAG_UPDATE_DELAYED()
+--     if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
+--         local bags = addon.api.scanPlayerContainers()
+--         addon.characters[addon.thisCharacter]:SetContainers(bags, true)
+--         if addon.guilds[addon.thisGuild] then
+--             addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
+--         end
+--     end
+-- end
+
+
 
 function e:UNIT_AURA()
     local auras = addon.api.getPlayerAuras()
     if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetAuras("current", auras)
+        addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
     end
 end
 
@@ -60,9 +92,9 @@ function e:PLAYER_EQUIPMENT_CHANGED()
     local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
 
     if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetInventory("current", equipment)
-        addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats)
-        addon.characters[addon.thisCharacter]:SetResistances("current", resistances)
+        addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
+        addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats, true)
+        addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
     end
 end
 
@@ -73,7 +105,7 @@ function e:CHARACTER_POINTS_CHANGED(delta)
     end
     local talents = addon.api.getPlayerTalents()
     if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetTalents("current", talents)
+        addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
     end
 end
 
@@ -86,7 +118,7 @@ function e:ZONE_CHANGED_NEW_AREA()
         addon.characters[addon.thisCharacter]:SetOnlineStatus({
             zone = zone,
             isOnline = true,
-        })
+        }, true)
         --print("event zone changed",zone)
     end
 end
@@ -129,6 +161,8 @@ function e:GUILD_ROSTER_UPDATE()
 
     if guildName then
 
+        addon.thisGuild = guildName;
+
         if not Database.db.guilds[guildName] then
             Database.db.guilds[guildName] = {
                 members = {},
@@ -142,13 +176,21 @@ function e:GUILD_ROSTER_UPDATE()
             }
         end
 
-        local members, guids = {},{}
+        local members, guids, banks = {},{},{}
         local totalMembers, onlineMember, _ = GetNumGuildMembers()
         for i = 1, totalMembers do
             --local name, rankName, rankIndex, level, classDisplayName, zone, publicNote, officerNote, isOnline, status, class, achievementPoints, achievementRank, isMobile, canSoR, repStanding, guid = GetGuildRosterInfo(i)
             local name, rankName, rankIndex, level, _, zone, publicNote, officerNote, isOnline, status, class, _, _, _, _, _, guid = GetGuildRosterInfo(i)
         
+            if publicNote:lower() == "guildbank" then
+                banks[name] = true;
+            else
+                if Database.db.guilds[guildName].banks[name] then
+                    Database.db.guilds[guildName].banks[name] = nil
+                end
+            end
             members[name] = true;
+
             table.insert(guids, guid)
             --the easiest way to do this is just access the saved variables rather than add calls just to be fancy
             if not Database.db.characterDirectory[name] then
@@ -219,12 +261,12 @@ function e:GUILD_ROSTER_UPDATE()
             addon.characters[name]:SetOnlineStatus({
                 isOnline = isOnline,
                 zone = zone,
-            })
+            }, true)
 
             --these values could change betwen roster updates
-            addon.characters[name]:SetLevel(level)
-            addon.characters[name]:SetRank(rankIndex)
-            addon.characters[name]:SetPublicNote(publicNote)
+            addon.characters[name]:SetLevel(level, true)
+            addon.characters[name]:SetRank(rankIndex, true)
+            addon.characters[name]:SetPublicNote(publicNote, true)
             
             if i == totalMembers then
 
@@ -232,6 +274,12 @@ function e:GUILD_ROSTER_UPDATE()
 
                 if not addon.guilds[guildName] then
                     addon.guilds[guildName] = Database.db.guilds[guildName]
+                end
+
+                for name, _ in pairs(banks) do
+                    if not addon.guilds[guildName].banks[name] then
+                        addon.guilds[guildName].banks[name] = 0;
+                    end
                 end
 
                 --this is mostly just for testing

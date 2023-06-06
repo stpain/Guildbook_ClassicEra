@@ -137,6 +137,7 @@ L["OFF_SPEC"]                       = "Off spec"
 L["PRIVACY"]                        = "Privacy"
 L["PRIVACY_ABOUT"]                  = "Set the lowest rank you wish to share data with."
 L["INVENTORY"]                      = "Inventory"
+L["EQUIPMENT"]                      = "Equipment"
 L["TALENTS"]                        = "Talents"
 
 L["ROSTER_ALL_CLASSES"]				= "All"

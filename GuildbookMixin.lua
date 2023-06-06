@@ -35,6 +35,7 @@ function GuildbookMixin:OnLoad()
 
     addon:RegisterCallback("Database_OnInitialised", self.Database_OnInitialised, self)
     addon:RegisterCallback("StatusText_OnChanged", self.SetStatausText, self)
+    addon:RegisterCallback("LogDebugMessage", self.LogDebugMessage, self)
 
     self.ribbon.searchBox:SetScript("OnTextChanged", function(searchBox)
         if searchBox:GetText() == ">debug" then
@@ -50,16 +51,22 @@ end
 
 function GuildbookMixin:SetStatausText(text)
     self.statusText:SetText(text)
+    self:LogDebugMessage("info", text)
+end
 
-    -- table.insert(self.debugLog, {
-    --     label = string.format("[%s] %s", date("*T"), text)
-    -- })
-
-    self.debug.messageLogListview.DataProvider:Insert({
-        label = string.format("[%s] %s", date("%T"), text),
-        atlas = "services-icon-warning",
-    })
-    self.debug.messageLogListview.scrollBox:ScrollToEnd()
+local debugTypeIcons = {
+    warning = "services-icon-warning",
+    info = "glueannouncementpopup-icon-info",
+    comms = "chatframe-button-icon-voicechat",
+}
+function GuildbookMixin:LogDebugMessage(debugType, debugMessage)
+    if 1 == 1 then
+        self.debug.messageLogListview.DataProvider:Insert({
+            label = string.format("[%s] %s", date("%T"), debugMessage),
+            atlas = debugTypeIcons[debugType],
+        })
+        self.debug.messageLogListview.scrollBox:ScrollToEnd()
+    end
 end
 
 function GuildbookMixin:OnUpdate()

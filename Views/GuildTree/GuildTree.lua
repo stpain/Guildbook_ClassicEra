@@ -6,6 +6,7 @@ GuildbookGuildTreeMixin = {
 
 function GuildbookGuildTreeMixin:OnLoad()
 
+    addon:RegisterCallback("UI_OnSizeChanged", self.Update, self)
     addon:RegisterCallback("Blizzard_OnGuildRosterUpdate", self.Blizzard_OnGuildRosterUpdate, self)
 
     addon.AddView(self)
@@ -38,33 +39,43 @@ function GuildbookGuildTreeMixin:Update()
         end
     end
 
+    local numPerRow = math.floor(self:GetWidth() / 100)
     local rankHeadersAdded = {}
     for i = 0, 20 do
         if ranks[i] then
             local rank = ranks[i]
             if not rankHeadersAdded[rank.name] then
-                rankHeadersAdded[rank.name] = true
 
-                if #rank.members < 9 then
+                if #rank.members <= numPerRow then
                     self.listview.DataProvider:Insert({
                         showHeader = true,
                         header = rank.name,
                         characters = rank.members,
                     })
+                    rankHeadersAdded[rank.name] = true
                 else
-                    local numRows = math.ceil(#rank.members / 8)
+                    local numRows = math.ceil(#rank.members / numPerRow)
                     for i = 1, numRows do
                         local charactersThisRow = {}
-                        for j = ((i * 8) - 7), (i * 8) do
+                        for j = ((i * numPerRow) - (numPerRow - 1)), (i * numPerRow) do
                             if rank.members[j] then
                                 table.insert(charactersThisRow, rank.members[j])
                             end
                         end
-                        self.listview.DataProvider:Insert({
-                            showHeader = false,
-                            header = "",
-                            characters = charactersThisRow,
-                        })
+                        if not rankHeadersAdded[rank.name] then
+                            self.listview.DataProvider:Insert({
+                                showHeader = true,
+                                header = rank.name,
+                                characters = charactersThisRow,
+                            })
+                            rankHeadersAdded[rank.name] = true
+                        else
+                            self.listview.DataProvider:Insert({
+                                showHeader = false,
+                                header = "",
+                                characters = charactersThisRow,
+                            })
+                        end
                     end
                 end
             end

@@ -848,6 +848,14 @@ function GuildbookSimpleIconLabelMixin:SetDataBinding(binding, height)
         self:SetScript("OnLeave", function()
             GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
         end)
+
+        --if we have a link its very likely we want to display it
+        local item = Item:CreateFromItemLink(binding.link)
+        if not item:IsItemEmpty() then
+            item:ContinueOnItemLoad(function()
+                self.label:SetText(item:GetItemLink())
+            end)
+        end
     end
 
     --self.anim:Play()

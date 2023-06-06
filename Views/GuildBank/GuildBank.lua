@@ -3,11 +3,13 @@ local name, addon = ...;
 GuildbookGuildBankMixin = {
     name = "GuildBank",
     selectedCharacter = "",
+    banks = {},
 }
 
 function GuildbookGuildBankMixin:OnLoad()
 
     addon:RegisterCallback("Character_OnDataChanged", self.Character_OnDataChanged, self)
+    addon:RegisterCallback("Guildbank_OnTimestampsReceived", self.Guildbank_OnTimestampsReceived, self)
 
     addon.AddView(self)
 end
@@ -17,10 +19,17 @@ function GuildbookGuildBankMixin:OnShow()
     self.charactersListview.DataProvider:Flush()
 
     if addon.characters then
+        local i = 0;
         for k, character in pairs(addon.characters) do
             if character.data.publicNote:lower() == "guildbank" then
+
+                i = i + 1;
+                C_Timer.After(i * 0.5, function()
+                    addon:TriggerEvent("Guildbank_TimeStampRequest", character.data.name)
+                end)
+
                 self.charactersListview.DataProvider:Insert({
-                    label = character:GetName(),
+                    label = character.data.name,
                     atlas = character:GetProfileAvatar(),
                     showMask = true,
     
@@ -30,8 +39,40 @@ function GuildbookGuildBankMixin:OnShow()
                     end,
                 })
             end
-        end        
+        end
     end
+
+end
+
+function GuildbookGuildBankMixin:Guildbank_OnTimestampsReceived(sender, data)
+
+    if not self.banks[data.payload.bank] then
+        self.banks[data.payload.bank] = {}
+    end
+    table.insert(self.banks[data.payload.bank], {
+        timestamp = data.payload.timestamp,
+        sender = sender,
+    })
+
+    --table.sort()
+    -- for character, timestamp in pairs(data) do
+    --     if not self.banks[character] then
+    --         self.banks[character] = {};
+    --     end
+    --     table.insert(self.banks[character], {
+    --         sender = sender,
+    --         timestamp = timestamp,
+    --     })
+    -- end
+    -- for character, info in pairs(self.banks) do
+    --     table.sort(info, function(a, b)
+    --         return a.timestamp > b.timestamp;
+    --     end)
+    -- end
+    -- for character, info in pairs(self.banks) do
+    --     local latestBankData = info[1];
+    --     addon:TriggerEvent("Guildbank_DataRequest", latestBankData.sender, character)
+    -- end
 
 end
 

@@ -728,7 +728,7 @@ function GuildbookProfileMixin:Update()
     --inventory select button
     self.sidePane.listview.DataProvider:Insert({
         atlas = "Mobile-CombatIcon",
-        label = L["INVENTORY"], 
+        label = L["EQUIPMENT"],
         onMouseDown = function()
             self.talents:Hide()
             self.inventory:Show()
@@ -870,27 +870,30 @@ function GuildbookProfileMixin:Update()
         [3] = {},
     }
 
-    for k, v in ipairs(talentData.talents) do
+	local talents = self.character.data.talents.current;
+	if talents then
+		for k, v in ipairs(talents) do
 
-        for i = 1, 3 do
-            if v.tabID == i then
-                if not talentTress[i][v.row] then
-                    talentTress[i][v.row] = {}
-                end
-                talentTress[i][v.row][v.col] = v
-            end
-        end
-    end
+			for i = 1, 3 do
+				if v.tabID == i then
+					if not talentTress[i][v.row] then
+						talentTress[i][v.row] = {}
+					end
+					talentTress[i][v.row][v.col] = v
+				end
+			end
+		end
 
-    for i = 1, 3 do
-        for k, frame in ipairs(self.talents["tree"..i].talentsGridview:GetFrames()) do
-            if talentTress[i][frame.rowId][frame.colId] then
-                frame:SetTalent(talentTress[i][frame.rowId][frame.colId])
-            else
-                frame:ClearTalent()
-            end
-        end
-    end
+		for i = 1, 3 do
+			for k, frame in ipairs(self.talents["tree"..i].talentsGridview:GetFrames()) do
+				if talentTress[i][frame.rowId][frame.colId] then
+					frame:SetTalent(talentTress[i][frame.rowId][frame.colId])
+				else
+					frame:ClearTalent()
+				end
+			end
+		end
+	end
 
 	self:UpdateLayout()
 end
