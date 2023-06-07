@@ -203,6 +203,13 @@ function Comms:TransmitToGuild(event, data, method, subKey)
     Comms:QueueMessage(msg.event, msg, "GUILD", nil)
 end
 
+function Comms:Transmit_NoQueue(msg, channel, target)
+    local serialized = LibSerialize:Serialize(msg);
+    local compressed = LibDeflate:CompressDeflate(serialized);
+    local encoded    = LibDeflate:EncodeForWoWAddonChannel(compressed);
+    self:SendCommMessage(self.prefix, encoded, channel, target, "NORMAL")
+end
+
 function Comms:OnCommReceived(prefix, message, distribution, sender)
 
     if prefix ~= self.prefix then 
@@ -286,10 +293,7 @@ function Comms:Guildbank_TimeStampRequest(bank)
             bank = bank,
         }
     }
-    local serialized = LibSerialize:Serialize(msg);
-    local compressed = LibDeflate:CompressDeflate(serialized);
-    local encoded    = LibDeflate:EncodeForWoWAddonChannel(compressed);
-    self:SendCommMessage(self.prefix, encoded, "GUILD", nil, "NORMAL")
+    self:Transmit_NoQueue(msg, "GUILD", nil)
 end
 
 function Comms:Guildbank_OnTimestampsRequested(sender, message)
@@ -298,15 +302,9 @@ function Comms:Guildbank_OnTimestampsRequested(sender, message)
         local msg = {
             event = "GUILDBANK_TIMESTAMPS_TRANSMIT",
             version = self.version,
-            payload = {
-                timestamp = addon.guilds[addon.thisGuild].banks[message.payload.bank],
-                bank = message.payload.bank,
-            },
+            payload = addon.guilds[addon.thisGuild].banks,
         }
-        local serialized = LibSerialize:Serialize(msg);
-        local compressed = LibDeflate:CompressDeflate(serialized);
-        local encoded    = LibDeflate:EncodeForWoWAddonChannel(compressed);
-        self:SendCommMessage(self.prefix, encoded, "GUILD", nil, "NORMAL")
+        self:Transmit_NoQueue(msg, "WHISPER", sender)
     end
 end
 
@@ -314,6 +312,35 @@ function Comms:Guildbank_OnTimestampsReceived(sender, message)
     addon:TriggerEvent("Guildbank_OnTimestampsReceived", sender, message)
 end
 
+function Comms:Guildbank_DataRequest(target, bank)
+    local msg = {
+        event = "GUILDBANK_DATA_REQUEST",
+        version = self.version,
+        payload = {
+            bank = bank,
+        }
+    }
+    self:Transmit_NoQueue(msg, "WHISPER", target)
+end
+
+function Comms:Guildbank_OnDataRequested(sender, message)
+
+    if addon.characters and addon.characters[message.payload.bank] then
+        local msg = {
+            event = "GUILDBANK_DATA_TRANSMIT",
+            version = self.version,
+            payload = {
+                bank = message.payload.bank,
+                containers = addon.characters[message.payload.bank].data.containers
+            }
+        }
+        self:Transmit_NoQueue(msg, "WHISPER", sender)
+    end
+end
+
+function Comms:Guildbank_OnDataReceived(sender, message)
+    addon:TriggerEvent("Guildbank_OnDataReceived", sender, message)
+end
 
 Comms.events = {
 
@@ -330,11 +357,12 @@ Comms.events = {
 
     --guild bank events
     GUILDBANK_TIMESTAMPS_REQUEST = Comms.Guildbank_OnTimestampsRequested,
-    GUILDBANK_DATA_REQUEST = "",
+    GUILDBANK_DATA_REQUEST = Comms.Guildbank_OnDataRequested,
     GUILDBANK_TIMESTAMPS_TRANSMIT = Comms.Guildbank_OnTimestampsReceived,
-    GUILDBANK_DATA_TRANSMIT = "",
+    GUILDBANK_DATA_TRANSMIT = Comms.Guildbank_OnDataReceived,
 }
 
+addon:RegisterCallback("Guildbank_DataRequest", Comms.Guildbank_DataRequest, Comms)
 addon:RegisterCallback("Guildbank_TimeStampRequest", Comms.Guildbank_TimeStampRequest, Comms)
 addon:RegisterCallback("Character_BroadcastChange", Comms.Character_BroadcastChange, Comms)
 addon:RegisterCallback("Database_OnInitialised", Comms.Init, Comms)

@@ -15,6 +15,7 @@ addon:GenerateCallbackEvents({
     "Guildbank_OnTimestampsReceived",
     "Guildbank_DataRequest",
     "Guildbank_OnDataReceived",
+    "Guildbank_StatusInfo",
     
     "Blizzard_OnTradeskillUpdate",
     "Blizzard_OnGuildRosterUpdate",

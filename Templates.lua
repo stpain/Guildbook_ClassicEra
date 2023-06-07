@@ -96,6 +96,52 @@ end
 
 
 
+
+GuildbookGuildbankCharacterListviewItemMixin = {}
+function GuildbookGuildbankCharacterListviewItemMixin:OnLoad()
+    addon:RegisterCallback("Guildbank_StatusInfo", self.UpdateInfo, self)
+end
+
+function GuildbookGuildbankCharacterListviewItemMixin:ResetDataBinding()
+
+end
+
+function GuildbookGuildbankCharacterListviewItemMixin:UpdateInfo(info)
+    if info.characterName == self.characterName then
+        self.info:SetText(info.status)
+    end
+end
+
+function GuildbookGuildbankCharacterListviewItemMixin:SetDataBinding(info)
+    self.characterName = info.label
+    self.icon:SetAtlas(info.atlas)
+    self.text:SetText(Ambiguate(info.label, "short"))
+
+    if info.showMask then
+        self.mask:Show()
+        local x, y = self.icon:GetSize()
+        self.icon:SetSize(x + 2, y + 2)
+        local x, y = self.icon:GetSize()
+        self.text:SetHeight(y/2)
+        self.info:SetHeight(y/2)
+    end
+
+    self:SetScript("OnMouseDown", function()
+        self:AdjustPointsOffset(-1,-1)
+        if info.func then
+            info.func()
+        end
+    end)
+end
+
+function GuildbookGuildbankCharacterListviewItemMixin:OnMouseUp()
+    self:AdjustPointsOffset(1,1)
+end
+
+
+
+
+
 GuildbookItemIconFrameMixin = {}
 
 function GuildbookItemIconFrameMixin:OnEnter()

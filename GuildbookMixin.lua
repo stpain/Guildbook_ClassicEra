@@ -58,6 +58,7 @@ local debugTypeIcons = {
     warning = "services-icon-warning",
     info = "glueannouncementpopup-icon-info",
     comms = "chatframe-button-icon-voicechat",
+    bank = "ShipMissionIcon-Treasure-Mission",
 }
 function GuildbookMixin:LogDebugMessage(debugType, debugMessage)
     if 1 == 1 then

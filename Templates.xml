@@ -171,6 +171,51 @@
             <OnMouseUp method="OnMouseUp"/>
         </Scripts>
     </Frame>
+
+    <Frame name="GuildbookGuildbankCharacterListviewItem" mixin="GuildbookGuildbankCharacterListviewItemMixin" virtual="true" enableMouse="true">
+        <Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Background" atlas="PetList-ButtonBackground" useAtlasSize="false" setAllPoints="true"/>
+			</Layer>
+			<Layer level="HIGHLIGHT">
+				<Texture parentKey="Highlight" atlas="PetList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
+			</Layer>
+            <Layer level="OVERLAY">
+				<Texture parentKey="icon">
+					<!-- <TexCoords left="0.0" right="0.46875" top="0.0" bottom="0.96875" /> -->
+					<Size x="32" y="32"/>				
+					<Anchors>
+						<Anchor point="LEFT" x="3" y="0"/>
+					</Anchors>
+				</Texture>
+                <MaskTexture parentKey="mask" file="Interface/CHARACTERFRAME/TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE" hidden="true">
+                    <Size x="30" y="30"/>	
+                    <Anchors>
+                        <Anchor point="LEFT" x="5" y="0"/>
+                    </Anchors>
+                    <MaskedTextures>
+                        <MaskedTexture childKey="icon"/>
+                    </MaskedTextures>
+                </MaskTexture>
+				<FontString parentKey="text" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.icon" x="5" y="0"/>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+				<FontString parentKey="info" inherits="GameFontNormalSmall">
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" relativeKey="$parent.icon" x="5" y="0"/>
+					</Anchors>
+				</FontString>
+            </Layer>
+        </Layers>
+
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnMouseUp method="OnMouseUp"/>
+        </Scripts>
+    </Frame>
                         <!-- <Texture atlas="socialqueuing-icon-group"> -->
                         <!-- <Texture atlas="auctionhouse-ui-filter-redx"> -->
                         <!-- <Texture atlas="transmog-icon-remove"> -->

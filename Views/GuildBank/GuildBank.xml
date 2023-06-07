@@ -2,8 +2,26 @@
     <Frame name="GuildbookGuildBank" mixin="GuildbookGuildBankMixin">
 
         <Layers>
-            <Layer level="background">
+            <Layer level="BACKGROUND">
             
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="charactersHeader" inherits="GameFontNormalLarge" text="Banks">
+                    <Size x="200" y="26"/>
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                        <Anchor point="TOPRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="guildBankInfo" inherits="GameFontNormalLarge" justifyH="LEFT">
+                    <Size x="200" y="26"/>
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.charactersHeader" relativePoint="TOPRIGHT" x="0" y="0"/>
+                        <Anchor point="TOPRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
             </Layer>
         </Layers>
 
@@ -11,12 +29,12 @@
             <Frame parentKey="charactersListview" inherits="GuildbookWidgetsListviewTemplate">
                 <Size x="200"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                    <Anchor point="TOPLEFT" x="0" y="-30"/>
                     <Anchor point="BOTTOMLEFT" x="0" y="0"/>
                 </Anchors>
                 <KeyValues>
                     <KeyValue key="frameType" value="FRAME" type="string"/>
-                    <KeyValue key="itemTemplate" value="GuildbookListviewItem" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookGuildbankCharacterListviewItem" type="string"/>
                     <KeyValue key="elementHeight" value="40" type="number"/>
                 </KeyValues>
             </Frame>
@@ -29,7 +47,7 @@
 
                 <Layers>
                     <Layer level="OVERLAY">
-                        <FontString parentKey="characterInfo" inherits="GameFontNormalLarge" justifyH="LEFT">
+                        <FontString parentKey="characterInfo" inherits="GameFontNormal" justifyH="LEFT">
                             <Size y="26"/>
                             <Color r="1" g="1" b="1"/>
                             <Anchors>
