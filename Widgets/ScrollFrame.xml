@@ -1,0 +1,12 @@
+<Ui>
+    <!-- <ScrollFrame name="GuildbookScrollFrameTemplate" inherits="UIPanelScrollFrameTemplate,InsetFrameTemplate3"> -->
+    <ScrollFrame name="GuildbookScrollFrameTemplate" mixin="GuildbookScrollFrameMixin" inherits="UIPanelScrollFrameTemplate,InsetFrameTemplate3" virtual="true">
+        <ScrollChild>
+            <Frame parentKey="scrollChild">
+            </Frame>
+        </ScrollChild>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </ScrollFrame>
+</Ui>

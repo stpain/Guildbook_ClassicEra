@@ -1,5 +1,7 @@
 local name, addon = ...;
 
+local json = LibStub('JsonLua-1.0');
+
 local Database = {}
 
 function Database:Init()
@@ -22,6 +24,36 @@ function Database:Init()
 
     addon:TriggerEvent("StatusText_OnChanged", "[Database_OnInitialised]")
     addon:TriggerEvent("Database_OnInitialised")
+end
+
+function Database:Reset()
+
+    GUILDBOOK_GLOBAL = {
+        config = {},
+        minimapButton = {},
+        calendarButton = {},
+        guilds = {},
+        worldEvents = {},
+        myCharacters = {},
+        characterDirectory = {},
+    }
+
+    self.db = GUILDBOOK_GLOBAL;
+
+    addon.guilds = {}
+    addon.characters = {}
+
+    addon:TriggerEvent("StatusText_OnChanged", "[Database:Reset]")
+    addon:TriggerEvent("Database_OnInitialised")
+end
+
+function Database:ImportData(data)
+    local import = json.decode(data)
+    if import then
+        if import.name and import.data and import.version then
+            DevTools_Dump(import)
+        end
+    end
 end
 
 function Database:InsertCharacter(character)

@@ -44,6 +44,21 @@ function GuildbookWidgetsGridviewMixin:SetFixedColumnCount(count)
     self.fixedColumnCount = count;
 end
 
+function GuildbookWidgetsGridviewMixin:InsertCustomFrame(frame)
+    if self.frames then
+        local id = #self.frames
+        frame:SetID(id + 1);
+        frame:SetParent(self.scrollChild)
+        table.insert(self.frames, frame)
+        frame:Show()
+        frame:SetSize(100,100)
+        frame:ClearAllPoints()
+        frame:SetPoint("TOPLEFT", 0, 0)
+        print("added frame", frame:GetID())
+    end
+    --self:UpdateLayout()
+end
+
 function GuildbookWidgetsGridviewMixin:Insert(info)
     table.insert(self.data, info)
 

@@ -26,5 +26,7 @@ addon:GenerateCallbackEvents({
     "LogDebugMessage",
     
     "Comms_OnMessageReceived",
+
+    "Guildbook_OnSearch",
 })
 CallbackRegistryMixin.OnLoad(addon);

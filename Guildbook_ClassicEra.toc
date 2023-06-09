@@ -1,10 +1,10 @@
 ## Interface: 11403
 ## Author: TheBoringDad
-## Version: 0.17
+## Version: 1.0
 ## Title: Guildbook_ClassicEra
 ## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL
-## SavedVariablesPerCharacter: GB_TALENTS_DATA
+## SavedVariablesPerCharacter: GUILDBOOK_CHARACTER
 
 
 Libs\LibStub\LibStub.lua
@@ -13,6 +13,7 @@ Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDbIcon-1.0\LibDbIcon-1.0.lua
 Libs\ChatThrottleLib.lua
+Libs\json.lua
 Libs\LibDeflate\LibDeflate.lua
 Libs\AceComm-3.0\AceComm-3.0.xml
 Libs\LibSerialize\lib.xml
@@ -24,10 +25,15 @@ Widgets\Gridview.lua
 Widgets\Gridview.xml
 Widgets\Dropdown.lua
 Widgets\Dropdown.xml
+Widgets\Checkbox.xml
+Widgets\ScrollFrame.lua
+Widgets\ScrollFrame.xml
 
 Locales.lua
 Data2.lua
 ItemData.lua
+
+Database.lua
 
 Classes\Tradeskills.lua
 Classes\Character.lua
@@ -36,8 +42,6 @@ Classes\Talents.lua
 
 Globals.lua
 Callbacks.lua
-
-Database.lua
 
 Templates.lua
 Templates.xml
@@ -66,35 +70,12 @@ Views\Chat\Chat.xml
 Views\GuildTree\GuildTree.lua
 Views\GuildTree\GuildTree.xml
 
+Views\Settings\Settings.lua
+Views\Settings\Settings.xml
+
+Views\Search\Search.lua
+Views\Search\Search.xml
+
 Comms.lua
 
 Events.lua
-
-
-
-
-
-
-
-
-
-
-#Debugger.lua
-
-#ModBlizzUI.lua
-
-#Core.lua
-#Calendar.lua
-#Dialogs.lua
-#Options.lua
-
-
-#Guildbook.lua
-#Guildbook.xml
-
-#Options.xml
-
-#TextureViewer.lua
-
-
-

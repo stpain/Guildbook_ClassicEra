@@ -118,7 +118,7 @@ function GuildbookTradskillsMixin:LoadCharactersWithRecipe(item)
         -- DevTools_Dump({character:GetTradeskillRecipes(2)})
         if character:CanCraftItem(item) then
             self.charactersListview.DataProvider:Insert({
-                label = character:GetName(),
+                label = character.data.name,
                 atlas = character:GetProfileAvatar(),
                 showMask = true,
 

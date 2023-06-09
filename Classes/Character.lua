@@ -2,6 +2,7 @@
 
 local _, addon = ...;
 
+local Database = addon.Database;
 local Character = {};
 local Tradeskills = addon.Tradeskills;
 local L = addon.Locales;
@@ -29,7 +30,7 @@ local classData = {
         specializations={'Discipline','Holy','Shadow',} 
     },
     ROGUE = { 
-        specializations={'Assassination','Combat','Subtlety',} -- outlaw could need adding in here
+        specializations={'Assassination','Outlaw','Subtlety',} -- outlaw = combat
     },
     SHAMAN = { 
         specializations={'Elemental', 'Enhancement', 'Restoration'} 
@@ -190,7 +191,11 @@ function Character:GetContainers()
 end
 
 function Character:GetSpecializations()
-    return classData[self.data.class].specializations;
+    if type(self.data.class) == "number" then
+        local _, class = GetClassInfo(self.data.class);
+        return classData[class].specializations;
+    end
+    return {}
 end
 
 function Character:SetSpec(spec, specID, broadcast)
@@ -204,7 +209,7 @@ function Character:SetSpec(spec, specID, broadcast)
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
     if broadcast then
-        addon:TriggerEvent("Character_BroadcastChange", self, "SetSpec", k)
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetSpec", spec, specID)
     end
     addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "spec", self.data.name))
 end
@@ -598,6 +603,17 @@ end
 
 function Character:SetMainCharacter(main, broadcast)
     self.data.mainCharacter = main;
+    if Database.db.myCharacters then
+        for name, val in pairs(Database.db.myCharacters) do
+            val = false;
+
+            --do not call this func in here just set the data directly
+            if addon.characters and addon.characters[name] then
+                addon.characters[name].data.mainCharacter = self.data.mainCharacter
+            end
+        end
+        Database.db.myCharacters[self.data.name] = true;
+    end
     addon:TriggerEvent("Character_OnDataChanged", self)
     if broadcast then
         addon:TriggerEvent("Character_BroadcastChange", self, "SetMainCharacter", "mainCharacter")
@@ -653,32 +669,50 @@ function Character:GetProfileAvatar()
     return "questlegendaryturnin"
 end
 
+function Character:GetClassSpecAtlasInfo()
+    if type(self.data.class) == "number" then
+        local _, class = GetClassInfo(self.data.class)
+        if class then
+            local t = {}
+            for k, v in ipairs(classData[class].specializations) do
+                table.insert(t, string.format("GarrMission_ClassIcon-%s-%s", class, v))
+            end
+            return t
+        end
+    end
+    return {}
+end
+
 function Character:GetClassSpecAtlasName(spec)
 
-    local _, s = self:GetSpec(spec)
-
-    if s == "Beast Master" then
-        s = "BeastMastery";
-    end
-    if s == "Cat" then
-        s = "Feral";
-    end
-    if s == "Bear" then
-        s = "Guardian";
-    end
-    if s == "Combat" then
-        s = "Outlaw";
-    end
-
     if type(self.data.class) == "number" then
-        local _, c = GetClassInfo(self.data.class)
-        
-        if c and s then
-            return string.format("GarrMission_ClassIcon-%s-%s", c, s)
+        local _, class = GetClassInfo(self.data.class)
+
+        if not spec then
+            return string.format("classicon-%s", class):lower()
         else
-            if c then
-                return string.format("classicon-%s", c):lower()
+            
+            local s;
+            if spec == "primary" then
+                s = classData[class].specializations[self.data.mainSpec]
+            else
+                s = classData[class].specializations[self.data.offSpec]
             end
+
+            if s == "Beast Master" then
+                s = "BeastMastery";
+            end
+            if s == "Cat" then
+                s = "Feral";
+            end
+            if s == "Bear" then
+                s = "Guardian";
+            end
+            if s == "Combat" then
+                s = "Outlaw";
+            end
+
+            return string.format("GarrMission_ClassIcon-%s-%s", class, s)
         end
     end
 

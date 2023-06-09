@@ -4,6 +4,7 @@ local Guild = addon.Guild;
 local Character = addon.Character;
 local Database = addon.Database;
 local Talents = addon.Talents;
+local Tradeskills = addon.Tradeskills;
 
 local e = CreateFrame("FRAME");
 e:RegisterEvent('GUILD_ROSTER_UPDATE')
@@ -12,7 +13,7 @@ e:RegisterEvent('ADDON_LOADED')
 e:RegisterEvent('PLAYER_ENTERING_WORLD')
 e:RegisterEvent('PLAYER_LEVEL_UP')
 e:RegisterEvent('TRADE_SKILL_UPDATE')
---e:RegisterEvent('TRADE_SKILL_SHOW')
+e:RegisterEvent('TRADE_SKILL_SHOW')
 e:RegisterEvent('CRAFT_UPDATE')
 e:RegisterEvent('RAID_ROSTER_UPDATE')
 e:RegisterEvent('BANKFRAME_OPENED')
@@ -34,8 +35,52 @@ e:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 
+--[[
+--- not used at the moment
+function Guildbook.GetInstanceInfo()
+    local t = {}
+    if GetNumSavedInstances() > 0 then
+        for i = 1, GetNumSavedInstances() do
+            local name, id, reset, difficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
+            tinsert(t, { Name = name, ID = id, Resets = reset, Encounters = numEncounters, Progress = encounterProgress })
+            local msg = string.format("name=%s, id=%s, reset=%s, difficulty=%s, locked=%s, numEncounters=%s", tostring(name), tostring(id), tostring(reset), tostring(difficulty), tostring(locked), tostring(numEncounters))
+            --print(msg)
+        end
+    end
+    return t
+end
+
+
+--- check the players current gear and calculate the mean item level
+function Guildbook.GetItemLevel()
+    local character, itemLevel, itemCount = {}, 0, 0
+	for k, slot in ipairs(Guildbook.Data.InventorySlots) do
+		character[slot.Name] = GetInventoryItemID('player', slot.Name)
+		if character[slot.Name] ~= nil then
+			local iName, iLink, iRarety, ilvl = GetItemInfo(character[slot.Name])
+            if not ilvl then ilvl = 0 end
+			itemLevel = itemLevel + ilvl
+			itemCount = itemCount + 1
+		end
+    end
+    -- due to an error with LibSerialize which is now fixed we make sure we return a number
+    if math.floor(itemLevel/itemCount) > 0 then
+        return math.floor(itemLevel/itemCount)
+    else
+        return 0
+    end
+end
+]]
+
 function e:GUILD_RANKS_UPDATE()
     
+end
+function e:TRADE_SKILL_SHOW()
+    local myCharacter = { Fishing = 0, Cooking = 0, FirstAid = 0, Prof1 = '-', Prof1Level = 0, Prof2 = '-', Prof2Level = 0 }
+    for s = 1, GetNumSkillLines() do
+        local skill, _, _, level, _, _, _, _, _, _, _, _, _ = GetSkillLineInfo(s)
+        print(skill, level)
+    end
 end
 
 --[[
@@ -112,28 +157,30 @@ end
 function e:ZONE_CHANGED_NEW_AREA()
     --print("zone changed")
 	local mapID = C_Map.GetBestMapForUnit("player")
-    local zone = C_Map.GetMapInfo(mapID).name
-	--print(GetZoneText(), zone)
-    if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetOnlineStatus({
-            zone = zone,
-            isOnline = true,
-        }, true)
-        --print("event zone changed",zone)
+    if type(mapID) == "number" then
+        local zone = C_Map.GetMapInfo(mapID).name
+        --print(GetZoneText(), zone)
+        if zone and addon.characters[addon.thisCharacter] then
+            addon.characters[addon.thisCharacter]:SetOnlineStatus({
+                zone = zone,
+                isOnline = true,
+            }, true)
+            --print("event zone changed",zone)
+        end
     end
 end
 
 function e:PLAYER_ENTERING_WORLD()
-    Database:Init()
     local name, realm = UnitFullName("player")
     if not realm then
         realm = GetNormalizedRealmName()
     end
     addon.thisCharacter = string.format("%s-%s", name, realm)
     self:UnregisterEvent("PLAYER_ENTERING_WORLD");
-    print("Registered character:", addon.thisCharacter)
 
-    Talents:GetPlayerTalentInfo()
+    -- Talents:GetPlayerTalentInfo()
+
+    Database:Init()
 end
 
 local classFileNameToClassId = {
@@ -293,6 +340,32 @@ end
 
 function e:CRAFT_UPDATE()
 
+
+    for s = 1, GetNumSkillLines() do
+        local skill, _, _, level, _, _, _, _, _, _, _, _, _ = GetSkillLineInfo(s)
+        if skill and level then
+            local tradeskillId = Tradeskills:GetTradeskillIDFromLocale(skill)
+            if tradeskillId then
+                if addon.characters and addon.characters[addon.thisCharacter] then
+                    if tradeskillId == 129 then
+                        addon.characters[addon.thisCharacter]:SetFirstAidLevel(level)
+                    elseif tradeskillId == 185 then
+                        addon.characters[addon.thisCharacter]:SetCookingLevel(level)
+                    elseif tradeskillId == 356 then
+                        addon.characters[addon.thisCharacter]:SetFishingLevel(level)
+                    else
+                        if addon.characters[addon.thisCharacter].data.profession1 == tradeskillId then
+                            addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level)
+
+                        elseif addon.characters[addon.thisCharacter].data.profession2 == tradeskillId then
+                            addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
     local recipes = {}
     local prof;
     local numTradeskills = GetNumCrafts()
@@ -345,6 +418,11 @@ end
 
 function e:Database_OnInitialised()
     GuildRoster()
+
+    if not Database.db.myCharacters[addon.thisCharacter] then
+        Database.db.myCharacters[addon.thisCharacter] = false;
+        print("Registered character:", addon.thisCharacter)
+    end
 end
 
 addon:RegisterCallback("Database_OnInitialised", e.Database_OnInitialised, e)

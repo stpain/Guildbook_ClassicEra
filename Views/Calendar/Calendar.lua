@@ -2,36 +2,30 @@ local name , addon = ...;
 
 local L = addon.Locales;
 
-local CURRENT_CHARACTER;
 
 local Calendar = {}
 
 Calendar.Event = {}
 function Calendar.Event:New(title, desc, type, starts)
-    local event = {
-        title = title,
-        desc = desc,
-        type = type,
-        starts = starts,
-        group = {},
-        owner = CURRENT_CHARACTER,
-        id = string.format("%s-%d", CURRENT_CHARACTER, starts)
-    }
-    return Mixin(event, self)
+    if addon.thisCharacter then
+        local event = {
+            title = title,
+            desc = desc,
+            type = type,
+            starts = starts,
+            group = {},
+            owner = addon.thisCharacter,
+            id = string.format("%s-%d", addon.thisCharacter, starts)
+        }
+        return Mixin(event, self)
+    end
 end
 
 function Calendar.Event:CreateFromData(data)
     if data.title and data.desc and data.type and data.starts and data.group and data.owner and data.id then
         local event = {
-            title = data.title,
-            desc = data.desc,
-            type = data.type,
-            starts = data.starts,
-            group = data.group,
-            owner = data.owner,
-            id = data.id,
+            data = data,
         }
-
         return Mixin(event, self)
     end
 end
@@ -99,6 +93,8 @@ end
 
 
 
+
+
 GuildbookCalendarMixin = {
     name = "Calendar",
 }
@@ -135,6 +131,10 @@ function GuildbookCalendarMixin:UpdateLayout()
     end
 
     self.monthView:SetSize(monthViewWidth, y)
+end
+
+function GuildbookCalendarMixin:OnShow()
+    self:UpdateLayout()
 end
 
 function GuildbookCalendarMixin:OnLoad()
@@ -414,22 +414,4 @@ function GuildbookCalendarMixin:MonthChanged()
             nextMonthDay = nextMonthDay + 1
         end
     end
-end
-
-function GuildbookCalendarMixin:OnEvent(event, ...)
-
-    if self[event] then
-        self[event](self, ...)
-    end
-end
-
-function GuildbookCalendarMixin:PLAYER_ENTERING_WORLD()
-    
-    local name, realm = UnitName("player");
-    if not realm then
-        realm = GetNormalizedRealmName()
-    end
-    CURRENT_CHARACTER = string.format("%s-%s", name, realm)
-
-    self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end

@@ -73,13 +73,19 @@ end
 
 function GuildbookListviewItemMixin:SetDataBinding(info)
     self.icon:SetAtlas(info.atlas)
-    self.Text:SetText(info.label)
+    self.text:SetText(info.label)
 
     if info.showMask then
         self.mask:Show()
         local x, y = self.icon:GetSize()
         self.icon:SetSize(x + 2, y + 2)
 
+    end
+
+    if info.showSelected then
+        self.selected:Show()
+    else
+        self.selected:Hide()
     end
 
     self:SetScript("OnMouseDown", function()
@@ -93,6 +99,57 @@ end
 function GuildbookListviewItemMixin:OnMouseUp()
     self:AdjustPointsOffset(1,1)
 end
+
+
+
+
+GuildbookSearchListviewItemMixin = {}
+function GuildbookSearchListviewItemMixin:OnLoad()
+    addon:RegisterCallback("Guildbank_StatusInfo", self.UpdateInfo, self)
+end
+
+function GuildbookSearchListviewItemMixin:ResetDataBinding()
+
+end
+
+function GuildbookSearchListviewItemMixin:UpdateInfo(info)
+    if info.characterName == self.characterName then
+        self.info:SetText(info.status)
+    end
+end
+
+function GuildbookSearchListviewItemMixin:SetDataBinding(binding)
+
+    -- self.icon:SetAtlas(info.atlas)
+    -- self.text:SetText(Ambiguate(info.label, "short"))
+
+    -- if info.showMask then
+    --     self.mask:Show()
+    --     local x, y = self.icon:GetSize()
+    --     self.icon:SetSize(x + 2, y + 2)
+    -- end
+
+    if binding.type == "tradeskillItem" then
+        
+        self.text:SetText(binding.data.itemLink)
+
+    elseif binding.type == "character" then
+
+        self.text:SetText(binding.data.data.name)
+
+    elseif binding.type == "bankItem" then
+
+        self.text:SetText(binding.data:GetItemLink())
+
+    end
+
+    self:SetScript("OnMouseDown", function()
+
+    end)
+end
+
+
+
 
 
 
@@ -631,7 +688,8 @@ function GuildbookRosterListviewItemMixin:Update()
     else
         self.mainSpecIcon:SetAtlas(self.character:GetClassSpecAtlasName("primary"))
         self.mainSpecIcon:Show()
-        self.mainSpec:SetText("|cff7f7f7f".."No Spec")
+        local localeName, engName, Id = self.character:GetSpec("primary")
+        self.mainSpec:SetText(engName)
     end
     self.publicNote:SetText(self.character.data.publicNote)
     self.openProfile.background:SetAtlas(self.character:GetProfileAvatar())
@@ -880,6 +938,18 @@ function GuildbookSimpleIconLabelMixin:SetDataBinding(binding, height)
     end
     self.icon:SetSize(height-4, height-4)
 
+    if binding.showMask then
+        self.mask:Show()
+        local x, y = self.icon:GetSize()
+        self.icon:SetSize(x + 6, y + 6)
+        self.icon:ClearAllPoints()
+        self.icon:SetPoint("LEFT", 3, 0)
+    else
+        self.mask:Hide()
+        -- local x, y = self.icon:GetSize()
+        -- self.icon:SetSize(x - 2, y - 2)
+    end
+
     if binding.onMouseDown then
         self:SetScript("OnMouseDown", binding.onMouseDown)
         self:EnableMouse(true)
@@ -1109,4 +1179,37 @@ function GuildbookProfilesRowMixin:SetDataBinding(binding)
 end
 function GuildbookProfilesRowMixin:ResetDataBinding()
 
+end
+
+
+
+
+
+
+
+GuildbookMyCharactersListviewItemMixin = {}
+function GuildbookMyCharactersListviewItemMixin:OnLoad()
+    addon:RegisterCallback("Character_OnDataChanged", self.Update, self)
+end
+function GuildbookMyCharactersListviewItemMixin:SetDataBinding(binding, height)
+    self.character = binding.character
+    self:Update(self.character)
+    self.isMain:SetScript("OnClick", function()
+        self.character:SetMainCharacter(self.character.data.name)
+    end)
+end
+function GuildbookMyCharactersListviewItemMixin:ResetDataBinding()
+    
+end
+function GuildbookMyCharactersListviewItemMixin:Update(character)
+    if self.character.data.guid == character.data.guid then
+        self.text:SetText(self.character.data.name)
+        self.icon:SetAtlas(self.character:GetProfileAvatar())
+    end
+
+    if self.character.data.mainCharacter == self.character.data.name then
+        self.isMain:SetChecked(true)
+    else
+        self.isMain:SetChecked(false)
+    end
 end

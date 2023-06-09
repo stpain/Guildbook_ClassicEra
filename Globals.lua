@@ -1,5 +1,6 @@
 local name, addon = ...;
 
+local Database = addon.Database;
 local Talents = addon.Talents;
 
 --create these at addon level
@@ -16,6 +17,21 @@ function addon.api.trimNumber(num)
     else
         return 1
     end
+end
+
+function addon.api.getCharacterAlts(main)
+    if type(main) == "string" then
+        local alts = {}
+        if addon.characters and addon.characters then
+            for name, character in pairs(addon.characters) do
+                if character.data.mainCharacter == main then
+                    table.insert(alts, name)
+                end
+            end
+        end
+        return alts;
+    end
+    return {}
 end
 
 function addon.api.scanPlayerContainers(includeBanks)

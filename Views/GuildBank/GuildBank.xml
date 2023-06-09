@@ -11,7 +11,6 @@
                     <Color r="1" g="1" b="1"/>
                     <Anchors>
                         <Anchor point="TOPLEFT" x="0" y="0"/>
-                        <Anchor point="TOPRIGHT" x="0" y="0"/>
                     </Anchors>
                 </FontString>
                 <FontString parentKey="guildBankInfo" inherits="GameFontNormalLarge" justifyH="LEFT">
@@ -19,13 +18,29 @@
                     <Color r="1" g="1" b="1"/>
                     <Anchors>
                         <Anchor point="TOPLEFT" relativeKey="$parent.charactersHeader" relativePoint="TOPRIGHT" x="0" y="0"/>
-                        <Anchor point="TOPRIGHT" x="0" y="0"/>
+                        <Anchor point="TOPRIGHT" x="0" y="-30"/>
                     </Anchors>
                 </FontString>
             </Layer>
         </Layers>
 
         <Frames>
+            <Frame parentKey="refresh" inherits="GuildbookSmallHighlightButton" hidden="false">
+                <Size x="30" y="30"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture atlas="transmog-icon-revert">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="0" y="0"/>
+                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </Frame>
             <Frame parentKey="charactersListview" inherits="GuildbookWidgetsListviewTemplate">
                 <Size x="200"/>
                 <Anchors>

@@ -664,7 +664,18 @@ function GuildbookProfileMixin:Update()
     end
 
     self.sidePane.name:SetText(self.character.data.name)
-    self.sidePane.mainSpec:SetText(self.character.data.mainSpec)
+
+	if self.character.data.mainCharacter then
+		self.sidePane.mainCharacter:SetText(string.format("(%s)", self.character.data.mainCharacter))
+		self.sidePane.mainCharacter:SetHeight(16)
+	else
+		self.sidePane.mainCharacter:SetText("")
+		self.sidePane.mainCharacter:SetHeight(1)
+	end
+
+
+	local localeSpec, engSpec, id =self.character:GetSpec("primary")
+    self.sidePane.mainSpec:SetText(engSpec)
 
     self.sidePane.listview.DataProvider:Flush()
     
@@ -743,6 +754,24 @@ function GuildbookProfileMixin:Update()
             self.talents:Show()
         end,
     })
+
+	local alts = addon.api.getCharacterAlts(self.character.data.mainCharacter)
+	--DevTools_Dump(alts)
+	if alts and #alts > 0 then
+		for k, name in ipairs(alts) do
+			--print("adding alt to profile", name)
+			if addon.characters[name] then
+				self.sidePane.listview.DataProvider:Insert({
+					atlas = addon.characters[name]:GetProfileAvatar(),
+					label = name, 
+					onMouseDown = function()
+						self:LoadCharacter(addon.characters[name])
+					end,
+					showMask = true
+				})
+			end
+		end
+	end
 
     --resistances
     for k, frame in ipairs(self.inventory.resistanceGridview:GetFrames()) do
