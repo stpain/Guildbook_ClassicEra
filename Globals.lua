@@ -2,6 +2,7 @@ local name, addon = ...;
 
 local Database = addon.Database;
 local Talents = addon.Talents;
+local Tradeskills = addon.Tradeskills;
 
 --create these at addon level
 addon.thisCharacter = "";
@@ -19,7 +20,40 @@ function addon.api.trimNumber(num)
     end
 end
 
-function addon.api.getCharacterAlts(main)
+function addon.api.getPlayerItemLevel()
+    local itemLevel, itemCount = {}, 0, 0
+	for k, slot in ipairs(addon.data.inventorySlots) do
+		local link = GetInventoryItemLink('player', slot.Name)
+		if link then
+			local _, _, _, ilvl = GetItemInfo(link)
+            if not ilvl then ilvl = 0 end
+			itemLevel = itemLevel + ilvl
+			itemCount = itemCount + 1
+		end
+    end
+    -- due to an error with LibSerialize which is now fixed we make sure we return a number
+    if math.floor(itemLevel/itemCount) > 0 then
+        return addon.api.trimNumber(itemLevel/itemCount)
+    else
+        return 0
+    end
+end
+
+function addon.api.getPlayerSkillLevels()
+    local skills = {}
+    for s = 1, GetNumSkillLines() do
+        local skill, _, _, level, _, _, _, _, _, _, _, _, _ = GetSkillLineInfo(s)
+        if skill and level then
+            local tradeskillId = Tradeskills:GetTradeskillIDFromLocale(skill)
+            if tradeskillId then
+                skills[tradeskillId] = level
+            end
+        end
+    end
+    return skills;
+end
+
+function addon.api.getPlayerAlts(main)
     if type(main) == "string" then
         local alts = {}
         if addon.characters and addon.characters then

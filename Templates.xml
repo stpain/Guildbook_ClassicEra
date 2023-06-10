@@ -62,6 +62,16 @@
                     <Anchor point="LEFT" relativeKey="$parent.avatar7" relativePoint="RIGHT" x="0" y="0"/>
                 </Anchors>
             </Frame>
+            <Frame parentKey="avatar9" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.avatar8" relativePoint="RIGHT" x="0" y="0"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="avatar10" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.avatar9" relativePoint="RIGHT" x="0" y="0"/>
+                </Anchors>
+            </Frame>
         </Frames>
         <Scripts>
             <OnLoad method="OnLoad"/>
@@ -353,7 +363,7 @@
 					</Anchors>
 				</Texture>
 				<FontString parentArray="fontstrings" parentKey="name" inherits="GameFontNormal" justifyH="LEFT">
-                    <Size x="108" y="26"/>
+                    <Size x="120" y="26"/>
 					<Anchors>
 						<Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.classIcon" x="7" y="0"/>
 					</Anchors>

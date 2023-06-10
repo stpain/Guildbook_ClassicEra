@@ -642,14 +642,16 @@ function GuildbookRosterListviewItemMixin:UpdateLayout()
     local x, y = self:GetSize()
 
     if x > 850 then
+        --self.name:SetWidth(160)
         self.rank:SetWidth(110)
         self.rank:Show()
         self.zone:SetWidth(110)
         self.zone:Show()
-        self.publicNote:SetWidth(150)
+        self.publicNote:SetWidth(250)
         self.publicNote:Show()
 
     elseif x < 850 and x > 740 then
+        --self.name:SetWidth(140)
         self.rank:SetWidth(1)
         self.rank:Hide()
         self.zone:SetWidth(110)
@@ -658,6 +660,7 @@ function GuildbookRosterListviewItemMixin:UpdateLayout()
         self.publicNote:Show()
 
     elseif x < 741 and x > 630 then
+        --self.name:SetWidth(120)
         self.rank:SetWidth(1)
         self.rank:Hide()
         self.zone:SetWidth(1)
@@ -666,6 +669,7 @@ function GuildbookRosterListviewItemMixin:UpdateLayout()
         self.publicNote:Show()
 
     elseif x < 631 then
+        --self.name:SetWidth(110)
         self.publicNote:SetWidth(1)
         self.publicNote:Hide()
         self.rank:SetWidth(1)
@@ -693,6 +697,22 @@ function GuildbookRosterListviewItemMixin:Update()
     end
     self.publicNote:SetText(self.character.data.publicNote)
     self.openProfile.background:SetAtlas(self.character:GetProfileAvatar())
+
+    if self.character.data.onlineStatus.isOnline == true then
+        self.name:SetTextColor(1,1,1)
+        self.publicNote:SetTextColor(1,1,1)
+        self.level:SetTextColor(1,1,1)
+        self.mainSpec:SetTextColor(1,1,1)
+        self.zone:SetTextColor(1,1,1)
+        self.rank:SetTextColor(1,1,1)
+    else
+        self.name:SetTextColor(0.5,0.5,0.5)
+        self.publicNote:SetTextColor(0.5,0.5,0.5)
+        self.level:SetTextColor(0.5,0.5,0.5)
+        self.mainSpec:SetTextColor(0.5,0.5,0.5)
+        self.zone:SetTextColor(0.5,0.5,0.5)
+        self.rank:SetTextColor(0.5,0.5,0.5)
+    end
 end
 
 function GuildbookRosterListviewItemMixin:Character_OnDataChanged(character)
@@ -1149,6 +1169,8 @@ local avatarOffsets = {
     [6] = -250,
     [7] = -300,
     [8] = -350,
+    [9] = -400,
+    [10] = -450,
 }
 GuildbookProfilesRowMixin = {}
 function GuildbookProfilesRowMixin:OnLoad()
@@ -1169,7 +1191,7 @@ function GuildbookProfilesRowMixin:SetDataBinding(binding)
     self.avatar1:ClearAllPoints()
     self.avatar1:SetPoint("BOTTOM", avatarOffsets[numCharacters], 10)
 
-    for i = 1, 8 do
+    for i = 1, 10 do
         self["avatar"..i]:Hide()
         if binding.characters[i] then
             self["avatar"..i]:Show()

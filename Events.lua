@@ -52,34 +52,31 @@ end
 
 
 --- check the players current gear and calculate the mean item level
-function Guildbook.GetItemLevel()
-    local character, itemLevel, itemCount = {}, 0, 0
-	for k, slot in ipairs(Guildbook.Data.InventorySlots) do
-		character[slot.Name] = GetInventoryItemID('player', slot.Name)
-		if character[slot.Name] ~= nil then
-			local iName, iLink, iRarety, ilvl = GetItemInfo(character[slot.Name])
-            if not ilvl then ilvl = 0 end
-			itemLevel = itemLevel + ilvl
-			itemCount = itemCount + 1
-		end
-    end
-    -- due to an error with LibSerialize which is now fixed we make sure we return a number
-    if math.floor(itemLevel/itemCount) > 0 then
-        return math.floor(itemLevel/itemCount)
-    else
-        return 0
-    end
-end
+
 ]]
 
 function e:GUILD_RANKS_UPDATE()
     
 end
 function e:TRADE_SKILL_SHOW()
-    local myCharacter = { Fishing = 0, Cooking = 0, FirstAid = 0, Prof1 = '-', Prof1Level = 0, Prof2 = '-', Prof2Level = 0 }
-    for s = 1, GetNumSkillLines() do
-        local skill, _, _, level, _, _, _, _, _, _, _, _, _ = GetSkillLineInfo(s)
-        print(skill, level)
+    local skills = addon.api.getPlayerSkillLevels()
+    if addon.characters and addon.characters[addon.thisCharacter] then
+        for tradeskillId, level in pairs(skills) do
+            if tradeskillId == 129 then
+                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level)
+            elseif tradeskillId == 185 then
+                addon.characters[addon.thisCharacter]:SetCookingLevel(level)
+            elseif tradeskillId == 356 then
+                addon.characters[addon.thisCharacter]:SetFishingLevel(level)
+            else
+                if addon.characters[addon.thisCharacter].data.profession1 == tradeskillId then
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level)
+
+                elseif addon.characters[addon.thisCharacter].data.profession2 == tradeskillId then
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level)
+                end
+            end
+        end
     end
 end
 
@@ -93,7 +90,7 @@ function e:BANKFRAME_CLOSED()
     if bankScanned == false then
         if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
             local bags = addon.api.scanPlayerContainers(true)
-            addon.characters[addon.thisCharacter]:SetContainers(bags, true)
+            addon.characters[addon.thisCharacter]:SetContainers(bags, true) --broadcast this as it is the guildbank data
             if addon.guilds[addon.thisGuild] then
                 addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
             end
@@ -125,7 +122,7 @@ end
 function e:UNIT_AURA()
     local auras = addon.api.getPlayerAuras()
     if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
+        addon.characters[addon.thisCharacter]:SetAuras("current", auras)
     end
 end
 
@@ -137,9 +134,9 @@ function e:PLAYER_EQUIPMENT_CHANGED()
     local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
 
     if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
-        addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats, true)
-        addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
+        addon.characters[addon.thisCharacter]:SetInventory("current", equipment)
+        addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats)
+        addon.characters[addon.thisCharacter]:SetResistances("current", resistances)
     end
 end
 
@@ -150,7 +147,7 @@ function e:CHARACTER_POINTS_CHANGED(delta)
     end
     local talents = addon.api.getPlayerTalents()
     if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
+        addon.characters[addon.thisCharacter]:SetTalents("current", talents)
     end
 end
 
@@ -164,8 +161,7 @@ function e:ZONE_CHANGED_NEW_AREA()
             addon.characters[addon.thisCharacter]:SetOnlineStatus({
                 zone = zone,
                 isOnline = true,
-            }, true)
-            --print("event zone changed",zone)
+            }, true) --broadcast this info as it sets where you are and if you are online
         end
     end
 end
@@ -308,12 +304,12 @@ function e:GUILD_ROSTER_UPDATE()
             addon.characters[name]:SetOnlineStatus({
                 isOnline = isOnline,
                 zone = zone,
-            }, true)
+            })
 
             --these values could change betwen roster updates
-            addon.characters[name]:SetLevel(level, true)
-            addon.characters[name]:SetRank(rankIndex, true)
-            addon.characters[name]:SetPublicNote(publicNote, true)
+            addon.characters[name]:SetLevel(level)
+            addon.characters[name]:SetRank(rankIndex)
+            addon.characters[name]:SetPublicNote(publicNote)
             
             if i == totalMembers then
 
@@ -329,9 +325,6 @@ function e:GUILD_ROSTER_UPDATE()
                     end
                 end
 
-                --this is mostly just for testing
-                self:PLAYER_EQUIPMENT_CHANGED()
-
                 addon:TriggerEvent("Blizzard_OnGuildRosterUpdate", guildName)
             end
         end
@@ -340,27 +333,21 @@ end
 
 function e:CRAFT_UPDATE()
 
+    local skills = addon.api.getPlayerSkillLevels()
+    if addon.characters and addon.characters[addon.thisCharacter] then
+        for tradeskillId, level in pairs(skills) do
+            if tradeskillId == 129 then
+                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level)
+            elseif tradeskillId == 185 then
+                addon.characters[addon.thisCharacter]:SetCookingLevel(level)
+            elseif tradeskillId == 356 then
+                addon.characters[addon.thisCharacter]:SetFishingLevel(level)
+            else
+                if addon.characters[addon.thisCharacter].data.profession1 == tradeskillId then
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level)
 
-    for s = 1, GetNumSkillLines() do
-        local skill, _, _, level, _, _, _, _, _, _, _, _, _ = GetSkillLineInfo(s)
-        if skill and level then
-            local tradeskillId = Tradeskills:GetTradeskillIDFromLocale(skill)
-            if tradeskillId then
-                if addon.characters and addon.characters[addon.thisCharacter] then
-                    if tradeskillId == 129 then
-                        addon.characters[addon.thisCharacter]:SetFirstAidLevel(level)
-                    elseif tradeskillId == 185 then
-                        addon.characters[addon.thisCharacter]:SetCookingLevel(level)
-                    elseif tradeskillId == 356 then
-                        addon.characters[addon.thisCharacter]:SetFishingLevel(level)
-                    else
-                        if addon.characters[addon.thisCharacter].data.profession1 == tradeskillId then
-                            addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level)
-
-                        elseif addon.characters[addon.thisCharacter].data.profession2 == tradeskillId then
-                            addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level)
-                        end
-                    end
+                elseif addon.characters[addon.thisCharacter].data.profession2 == tradeskillId then
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level)
                 end
             end
         end
@@ -389,6 +376,26 @@ function e:CRAFT_UPDATE()
 end
 
 function e:TRADE_SKILL_UPDATE()
+
+    local skills = addon.api.getPlayerSkillLevels()
+    if addon.characters and addon.characters[addon.thisCharacter] then
+        for tradeskillId, level in pairs(skills) do
+            if tradeskillId == 129 then
+                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level)
+            elseif tradeskillId == 185 then
+                addon.characters[addon.thisCharacter]:SetCookingLevel(level)
+            elseif tradeskillId == 356 then
+                addon.characters[addon.thisCharacter]:SetFishingLevel(level)
+            else
+                if addon.characters[addon.thisCharacter].data.profession1 == tradeskillId then
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level)
+
+                elseif addon.characters[addon.thisCharacter].data.profession2 == tradeskillId then
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level)
+                end
+            end
+        end
+    end
 
     local recipes = {}
     local prof;

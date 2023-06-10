@@ -322,8 +322,20 @@ end
 
 function GuildbookMixin:Database_OnInitialised()
     self:CreateMinimapButtons()
+    self:CreateSlashCommands()
     if addon.characters[addon.thisCharacter] then
         self.ribbon.myProfile.background:SetAtlas(addon.characters[addon.thisCharacter]:GetProfileAvatar())
+    end
+end
+
+function GuildbookMixin:CreateSlashCommands()
+    SLASH_GUILDBOOK1 = '/guildbook'
+    SLASH_GUILDBOOK2 = '/gbk'
+    SLASH_GUILDBOOK3 = '/gb'
+    SlashCmdList['GUILDBOOK'] = function(msg)
+        if msg == "" then
+            self:Show()
+        end
     end
 end
 

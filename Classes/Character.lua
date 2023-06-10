@@ -30,7 +30,7 @@ local classData = {
         specializations={'Discipline','Holy','Shadow',} 
     },
     ROGUE = { 
-        specializations={'Assassination','Outlaw','Subtlety',} -- outlaw = combat
+        specializations={'Assassination','Combat','Subtlety',} -- outlaw = combat
     },
     SHAMAN = { 
         specializations={'Elemental', 'Enhancement', 'Restoration'} 
@@ -674,8 +674,20 @@ function Character:GetClassSpecAtlasInfo()
         local _, class = GetClassInfo(self.data.class)
         if class then
             local t = {}
-            for k, v in ipairs(classData[class].specializations) do
-                table.insert(t, string.format("GarrMission_ClassIcon-%s-%s", class, v))
+            for k, s in ipairs(classData[class].specializations) do
+                if s == "Beast Master" then
+                    s = "BeastMastery";
+                end
+                if s == "Cat" then
+                    s = "Feral";
+                end
+                if s == "Bear" then
+                    s = "Guardian";
+                end
+                if s == "Combat" then
+                    s = "Outlaw";
+                end
+                table.insert(t, string.format("GarrMission_ClassIcon-%s-%s", class, s))
             end
             return t
         end

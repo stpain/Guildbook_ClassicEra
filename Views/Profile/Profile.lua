@@ -755,7 +755,7 @@ function GuildbookProfileMixin:Update()
         end,
     })
 
-	local alts = addon.api.getCharacterAlts(self.character.data.mainCharacter)
+	local alts = addon.api.getPlayerAlts(self.character.data.mainCharacter)
 	--DevTools_Dump(alts)
 	if alts and #alts > 0 then
 		for k, name in ipairs(alts) do
