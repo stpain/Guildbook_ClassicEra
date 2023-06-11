@@ -210,7 +210,20 @@
                                     </Anchors>
                                 </FontString>
                             </Layer>
-                        </Layers>                        
+                        </Layers>
+                        <Frames>
+                            <Frame parentKey="listview" inherits="GuildbookWidgetsListviewTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="0" y="-46"/>
+                                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                </Anchors>
+                                <KeyValues>
+                                    <KeyValue key="frameType" value="FRAME" type="string"/>
+                                    <KeyValue key="itemTemplate" value="GuildbookBankCharactersListviewItem" type="string"/>
+                                    <KeyValue key="elementHeight" value="40" type="number"/>
+                                </KeyValues>
+                            </Frame>
+                        </Frames>
                     </Frame>
 
                     <Frame parentKey="addon" parentArray="panels" hidden="true" inherits="InsetFrameTemplate3">

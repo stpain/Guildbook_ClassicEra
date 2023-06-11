@@ -4,6 +4,12 @@
         
         </Layers>
         <Frames>
+
+            <CheckButton parentKey="showOffline" inherits="GuildbookCheckButton">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-140" y="0"/>
+                </Anchors>
+            </CheckButton>
             <Frame parentKey="rosterListview" inherits="GuildbookWidgetsListviewTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="-24"/>

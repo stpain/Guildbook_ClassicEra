@@ -49,6 +49,9 @@ function GuildbookSettingsMixin:OnLoad()
     self.content.character:SetScript("OnShow", function()
         self:CharacterPanel_OnShow()
     end)
+    self.content.guildBank:SetScript("OnShow", function()
+        self:GuildBankPanel_OnShow()
+    end)
 
     self.categoryListview.DataProvider:InsertTable(categories)
 
@@ -129,6 +132,23 @@ function GuildbookSettingsMixin:CharacterPanel_OnShow()
         end
     end
     panel.myCharacters.listview.DataProvider:InsertTable(alts)
+end
+
+function GuildbookSettingsMixin:GuildBankPanel_OnShow()
+
+    self.content.guildBank.listview.DataProvider:Flush()
+    local t = {}
+    if addon.characters then
+        for k, character in pairs(addon.characters) do
+            if character.data.publicNote:lower() == "guildbank" then
+                table.insert(t, {
+                    character = character,
+                })
+            end
+        end
+    end
+
+    self.content.guildBank.listview.DataProvider:InsertTable(t)
 end
 
 function GuildbookSettingsMixin:SelectCategory(category)

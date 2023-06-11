@@ -293,12 +293,32 @@ function Comms:Guildbank_TimeStampRequest(bank)
             bank = bank,
         }
     }
-    self:Transmit_NoQueue(msg, "GUILD", nil)
+    self:Transmit_NoQueue(msg, "GUILD", nil) --this goes out to everyone, data replies use whisper channel
 end
 
 function Comms:Guildbank_OnTimestampsRequested(sender, message)
 
-    if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].banks[message.payload.bank] then
+    local transmit = false;
+
+    if not sender:find("-") then
+        local realm = GetNormalizedRealmName()
+        sender = string.format("%s-%s", sender, realm)
+    end
+
+    --see if this sender has access to any banks
+    if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].banks[message.payload.bank] and addon.guilds[addon.thisGuild].bankRules[message.payload.bank] then
+        if addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareBags or addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareBank then
+            --DevTools_Dump(addon.characters[sender])
+            if addon.characters[sender] and addon.characters[sender].data.rank then
+                print("ranks", addon.characters[sender].data.rank, addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareRank)
+                if addon.characters[sender].data.rank <= addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareRank then
+                    transmit = true;
+                end
+            end
+        end
+    end
+
+    if transmit == true then
         local msg = {
             event = "GUILDBANK_TIMESTAMPS_TRANSMIT",
             version = self.version,
@@ -325,13 +345,36 @@ end
 
 function Comms:Guildbank_OnDataRequested(sender, message)
 
+    if not sender:find("-") then
+        local realm = GetNormalizedRealmName()
+        sender = string.format("%s-%s", sender, realm)
+    end
+
     if addon.characters and addon.characters[message.payload.bank] then
+
+        local containers = {
+            copper = 0,
+            bags = {},
+            bank = {},
+        }
+
+        --check if sharing gold as this could be different from items
+        if addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareCopper then
+            containers.copper = addon.characters[message.payload.bank].data.containers.copper
+        end
+        if addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareBags then
+            containers.bags = addon.characters[message.payload.bank].data.containers.bags
+        end
+        if addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareBank then
+            containers.bank = addon.characters[message.payload.bank].data.containers.bank
+        end
+
         local msg = {
             event = "GUILDBANK_DATA_TRANSMIT",
             version = self.version,
             payload = {
                 bank = message.payload.bank,
-                containers = addon.characters[message.payload.bank].data.containers
+                containers = containers
             }
         }
         self:Transmit_NoQueue(msg, "WHISPER", sender)

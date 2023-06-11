@@ -149,14 +149,14 @@ function GuildbookGuildBankMixin:Guildbank_OnDataReceived(sender, message)
         addon.characters[message.payload.bank]:SetContainers(message.payload.containers)
     end
 
-    local guildbanks = self:GetAllBanksInfo()
-    self.guildBankInfo:SetText(string.format("%d Banks %d slots (%d used %d free) Gold: %s", 
-        guildbanks.numBanks,
-        (guildbanks.totalSlotsUsed + guildbanks.totalSlotsFree),
-        guildbanks.totalSlotsUsed,
-        guildbanks.totalSlotsFree,
-        GetCoinTextureString(guildbanks.copper)
-    ))
+    -- local guildbanks = self:GetAllBanksInfo()
+    -- self.guildBankInfo:SetText(string.format("%d Banks %d slots (%d used %d free) Gold: %s", 
+    --     guildbanks.numBanks,
+    --     (guildbanks.totalSlotsUsed + guildbanks.totalSlotsFree),
+    --     guildbanks.totalSlotsUsed,
+    --     guildbanks.totalSlotsFree,
+    --     GetCoinTextureString(guildbanks.copper)
+    -- ))
 end
 
 function GuildbookGuildBankMixin:GetAllBanksInfo()
@@ -192,18 +192,34 @@ function GuildbookGuildBankMixin:LoadCharacterContainers(name, containers)
 
     self.containerInfo.itemsListview.DataProvider:Flush()
 
-    if not containers.bags then
-        self.containerInfo.characterInfo:SetText(string.format("No data for %s", name))
-        return;
-    end
-    
-    self.containerInfo.characterInfo:SetText(string.format("[%s] %d slots (%d used %d free) Gold: %s",
-        name,
-        containers.slotsUsed + containers.slotsFree,
-        containers.slotsUsed,
-        containers.slotsFree,
-        GetCoinTextureString(containers.copper)
-    ))
+    local info = "";
+   
+    -- self.containerInfo.characterInfo:SetText(string.format("[%s] %d slots (%d used %d free) Gold: %s",
+    --     name,
+    --     containers.slotsUsed + containers.slotsFree,
+    --     containers.slotsUsed,
+    --     containers.slotsFree,
+    --     GetCoinTextureString(containers.copper)
+    -- ))
 
-    self.containerInfo.itemsListview.DataProvider:InsertTable(containers.bags)
+    local t = {}
+    if containers.bags and containers.bags.items then
+        for k, v in ipairs(containers.bags.items) do
+            table.insert(t, v)
+        end
+    else
+        info = string.format("%s no bags data", info)
+    end
+    if containers.bank and containers.bank.items then
+        for k, v in ipairs(containers.bank.items) do
+            table.insert(t, v)
+        end    else
+        info = string.format("%s no bank data", info)
+    end
+
+    if #t > 0 then
+        self.containerInfo.itemsListview.DataProvider:InsertTable(t)
+    end
+
+    self.containerInfo.characterInfo:SetText(info)
 end

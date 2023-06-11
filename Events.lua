@@ -90,20 +90,44 @@ function e:BANKFRAME_CLOSED()
     if bankScanned == false then
         if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
             local bags = addon.api.scanPlayerContainers(true)
-            addon.characters[addon.thisCharacter]:SetContainers(bags, true) --broadcast this as it is the guildbank data
+    
             if addon.guilds[addon.thisGuild] then
                 addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
+    
+                if not addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] then
+                    addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] = {
+                        shareBags = false,
+                        shareBank = false,
+                        shareCopper = false,
+                        shareRank = 0,
+                    }
+                    print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
+                end
+
+                addon.characters[addon.thisCharacter]:SetContainers(bags)
             end
-        end    
+        end
     end
     bankScanned = not bankScanned;
 end
 function e:BANKFRAME_OPENED()
     if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
         local bags = addon.api.scanPlayerContainers(true)
-        addon.characters[addon.thisCharacter]:SetContainers(bags, true)
+
         if addon.guilds[addon.thisGuild] then
             addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
+
+            if not addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] then
+                addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] = {
+                    shareBags = false,
+                    shareBank = false,
+                    shareCopper = false,
+                    shareRank = 0,
+                }
+                print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
+            end
+
+            addon.characters[addon.thisCharacter]:SetContainers(bags)
         end
     end
 end
@@ -214,6 +238,12 @@ function e:GUILD_ROSTER_UPDATE()
                     deletedEvents = {},
                 },
                 banks = {},
+                bankRules = {
+                    shareBanks = false,
+                    shareBags = false,
+                    shareMinRank = 0,
+                    shareCopper = false,
+                },
                 logs = {},
                 info = {},
             }

@@ -1212,6 +1212,11 @@ end
 GuildbookMyCharactersListviewItemMixin = {}
 function GuildbookMyCharactersListviewItemMixin:OnLoad()
     addon:RegisterCallback("Character_OnDataChanged", self.Update, self)
+    -- self:SetScript("OnMouseDown", function()
+    --     if self.character then
+    --         addon:TriggerEvent("Character_OnProfileSelected", self.character)
+    --     end
+    -- end)
 end
 function GuildbookMyCharactersListviewItemMixin:SetDataBinding(binding, height)
     self.character = binding.character
@@ -1234,4 +1239,65 @@ function GuildbookMyCharactersListviewItemMixin:Update(character)
     else
         self.isMain:SetChecked(false)
     end
+end
+
+
+
+
+GuildbookBankCharactersListviewItemMixin = {}
+function GuildbookBankCharactersListviewItemMixin:OnLoad()
+    addon:RegisterCallback("Character_OnDataChanged", self.Update, self)
+
+    self.shareBank.label:SetText("Banks")
+    self.shareBank:SetScript("OnClick", function(cb)
+        if self.character then
+            if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].bankRules[self.character.data.name] then
+                addon.guilds[addon.thisGuild].bankRules[self.character.data.name].shareBank = cb:GetChecked()
+            end
+        end
+    end)
+
+    self.shareBags.label:SetText("Bags")
+    self.shareBags:SetScript("OnClick", function(cb)
+        if self.character then
+            if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].bankRules[self.character.data.name] then
+                addon.guilds[addon.thisGuild].bankRules[self.character.data.name].shareBags = cb:GetChecked()
+            end
+        end
+    end)
+
+    self.shareCopper.label:SetText("Copper")
+    self.shareCopper:SetScript("OnClick", function(cb)
+        if self.character then
+            if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].bankRules[self.character.data.name] then
+                addon.guilds[addon.thisGuild].bankRules[self.character.data.name].shareCopper = cb:GetChecked()
+            end
+        end
+    end)
+
+end
+function GuildbookBankCharactersListviewItemMixin:SetDataBinding(binding, height)
+    self.character = binding.character
+    self:Update(self.character)
+    self:SetHeight(height)
+
+end
+function GuildbookBankCharactersListviewItemMixin:ResetDataBinding()
+    self.shareBank:SetChecked(false)
+    self.shareBags:SetChecked(false)
+    self.shareCopper:SetChecked(false)
+end
+function GuildbookBankCharactersListviewItemMixin:Update(character)
+    if self.character.data.guid == character.data.guid then
+        self.text:SetText(self.character.data.name)
+        self.icon:SetAtlas(self.character:GetProfileAvatar())
+
+        if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].bankRules[self.character.data.name] then
+            local rules = addon.guilds[addon.thisGuild].bankRules[self.character.data.name];
+            self.shareBank:SetChecked(rules.shareBank)
+            self.shareBags:SetChecked(rules.shareBags)
+            self.shareCopper:SetChecked(rules.shareCopper)
+        end
+    end
+
 end

@@ -73,9 +73,16 @@ function addon.api.scanPlayerContainers(includeBanks)
     local copper = GetMoney()
 
     local containers = {
-        bags = {},
-        slotsUsed = 0,
-        slotsFree = 0,
+        bags = {
+            slotsUsed = 0,
+            slotsFree = 0,
+            items = {},
+        },
+        bank = {
+            slotsUsed = 0,
+            slotsFree = 0,
+            items = {},
+        },
         copper = copper,
     }
 
@@ -86,7 +93,7 @@ function addon.api.scanPlayerContainers(includeBanks)
         for slot = 1, numSlots do
             local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bag, slot)
             if id and count then
-                table.insert(containers.bags, {
+                table.insert(containers.bags.items, {
                     id = id,
                     count = count,
                 })
@@ -94,8 +101,8 @@ function addon.api.scanPlayerContainers(includeBanks)
             end
         end
 
-        containers.slotsUsed = containers.slotsUsed + slotsUsed;
-        containers.slotsFree = containers.slotsFree + (numSlots - slotsUsed);
+        containers.bags.slotsUsed = containers.bags.slotsUsed + slotsUsed;
+        containers.bags.slotsFree = containers.bags.slotsFree + (numSlots - slotsUsed);
     end
 
     if includeBanks then
@@ -106,15 +113,15 @@ function addon.api.scanPlayerContainers(includeBanks)
         for slot = 1, numSlots do
             local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bankBagId, slot)
             if id and count then
-                table.insert(containers.bags, {
+                table.insert(containers.bank.items, {
                     id = id,
                     count = count,
                 })
                 slotsUsed = slotsUsed + 1;
             end
         end
-        containers.slotsUsed = containers.slotsUsed + slotsUsed;
-        containers.slotsFree = containers.slotsFree + (numSlots - slotsUsed);
+        containers.bank.slotsUsed = containers.bank.slotsUsed + slotsUsed;
+        containers.bank.slotsFree = containers.bank.slotsFree + (numSlots - slotsUsed);
 
         -- bank bags
         for bag = 5, 11 do
@@ -123,7 +130,7 @@ function addon.api.scanPlayerContainers(includeBanks)
             for slot = 1, numSlots do
                 local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bag, slot)
                 if id and count then
-                    table.insert(containers.bags, {
+                    table.insert(containers.bank.items, {
                         id = id,
                         count = count,
                     })
@@ -131,8 +138,8 @@ function addon.api.scanPlayerContainers(includeBanks)
                 end
             end
 
-            containers.slotsUsed = containers.slotsUsed + slotsUsed;
-            containers.slotsFree = containers.slotsFree + (numSlots - slotsUsed);
+            containers.bank.slotsUsed = containers.bank.slotsUsed + slotsUsed;
+            containers.bank.slotsFree = containers.bank.slotsFree + (numSlots - slotsUsed);
         end
     end
 
