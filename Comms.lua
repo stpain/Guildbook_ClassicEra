@@ -310,7 +310,6 @@ function Comms:Guildbank_OnTimestampsRequested(sender, message)
         if addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareBags or addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareBank then
             --DevTools_Dump(addon.characters[sender])
             if addon.characters[sender] and addon.characters[sender].data.rank then
-                print("ranks", addon.characters[sender].data.rank, addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareRank)
                 if addon.characters[sender].data.rank <= addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareRank then
                     transmit = true;
                 end

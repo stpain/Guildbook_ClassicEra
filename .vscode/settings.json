@@ -73,6 +73,7 @@
         "PanelTemplates_SetTab",
         "RAID",
         "message",
-        "GUILD"
+        "GUILD",
+        "ALL"
     ]
 }

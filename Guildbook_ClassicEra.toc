@@ -1,6 +1,6 @@
 ## Interface: 11403
 ## Author: TheBoringDad
-## Version: 1.01
+## Version: 1.1
 ## Title: Guildbook_ClassicEra
 ## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL
@@ -28,6 +28,7 @@ Widgets\Dropdown.xml
 Widgets\Checkbox.xml
 Widgets\ScrollFrame.lua
 Widgets\ScrollFrame.xml
+Widgets\Slider.xml
 
 Locales.lua
 Data2.lua

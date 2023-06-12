@@ -611,8 +611,6 @@ function GuildbookRosterListviewItemMixin:SetDataBinding(binding, height)
 
     self.character = binding;
 
-    self.anim:Play()
-
     self.classIcon:SetAtlas(self.character:GetClassSpecAtlasName())
     self.name:SetText(self.character.data.name)
 
@@ -627,6 +625,11 @@ function GuildbookRosterListviewItemMixin:SetDataBinding(binding, height)
         addon:TriggerEvent("Character_OnTradeskillSelected", self.character.data.profession2, self.character.data.profession2Recipes)
     end)
 
+    self.inviteToGroup:SetScript("OnMouseDown", function()
+        if self.character then
+            InviteUnit(self.character.data.name)
+        end
+    end)
     self.openProfile:SetScript("OnMouseDown", function()
         addon:TriggerEvent("Character_OnProfileSelected", self.character)
     end)

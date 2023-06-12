@@ -72,8 +72,8 @@ function GuildbookWidgetsDropDownListviewItemTemplateMixin:SetDataBinding(bindin
         self.dropdown.maxWidth = w;
         self.dropdown.flyout:SetWidth(self.dropdown.maxWidth + 44)
         self.dropdown.flyout.listview:ClearAllPoints()
-        self.dropdown.flyout.listview:SetPoint("TOP", 0, -14)
-        self.dropdown.flyout.listview:SetPoint("BOTTOM", 0, 14)
+        self.dropdown.flyout.listview:SetPoint("TOPLEFT", 0, 0)
+        self.dropdown.flyout.listview:SetPoint("BOTTOMRIGHT", 0, 0)
         self.dropdown.flyout.listview:SetWidth(self.dropdown.maxWidth)
     end
 

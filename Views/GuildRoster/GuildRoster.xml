@@ -1,13 +1,35 @@
 <Ui>
     <Frame name="GuildbookGuildRoster" mixin="GuildbookGuildRosterMixin">
         <Layers>
-        
+            <Layer level="BACKGROUND">
+                <!-- <Texture parentKey="background" atlas="loottab-background"> -->
+                <Texture parentKey="background" atlas="ClassHall_StoneFrame-BackgroundTile" horizTile="true" vertTile="true">
+                
+                </Texture>
+            </Layer>
         </Layers>
         <Frames>
-
-            <CheckButton parentKey="showOffline" inherits="GuildbookCheckButton">
+            <Button parentKey="classFilter" inherits="GuildbookWidgetsDropDownTemplate">
                 <Anchors>
-                    <Anchor point="TOPRIGHT" x="-140" y="0"/>
+                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                </Anchors>
+                <Size x="120" y="24"/>
+            </Button>
+            <Slider name="GuildbookGuildRosterMinLevelSlider" parentKey="minLevel" inherits="GuildbookSlider">
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.classFilter" relativePoint="RIGHT" x="70" y="0"/>
+                </Anchors>
+                <Size x="80" y="16"/>
+            </Slider>
+            <Slider name="GuildbookGuildRosterMaxLevelSlider" parentKey="maxLevel" inherits="GuildbookSlider">
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.minLevel" relativePoint="RIGHT" x="70" y="0"/>
+                </Anchors>
+                <Size x="80" y="16"/>
+            </Slider>
+            <CheckButton parentKey="showOfflineCheckbox" inherits="GuildbookCheckButton">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-120" y="0"/>
                 </Anchors>
             </CheckButton>
             <Frame parentKey="rosterListview" inherits="GuildbookWidgetsListviewTemplate">
