@@ -169,18 +169,13 @@ function GuildbookGuildbankCharacterListviewItemMixin:UpdateInfo(info)
     end
 end
 
-function GuildbookGuildbankCharacterListviewItemMixin:SetDataBinding(info)
+function GuildbookGuildbankCharacterListviewItemMixin:SetDataBinding(info, height)
     self.characterName = info.label
     self.icon:SetAtlas(info.atlas)
     self.text:SetText(Ambiguate(info.label, "short"))
-
+    self.icon:SetSize(height-2, height-2)
     if info.showMask then
         self.mask:Show()
-        local x, y = self.icon:GetSize()
-        self.icon:SetSize(x + 2, y + 2)
-        local x, y = self.icon:GetSize()
-        self.text:SetHeight(y/2)
-        self.info:SetHeight(y/2)
     end
 
     self:SetScript("OnMouseDown", function()
@@ -604,25 +599,16 @@ end
 
 GuildbookRosterListviewItemMixin = {}
 function GuildbookRosterListviewItemMixin:OnLoad()
-    
-end
-
-function GuildbookRosterListviewItemMixin:SetDataBinding(binding, height)
-
-    self.character = binding;
-
-    self.classIcon:SetAtlas(self.character:GetClassSpecAtlasName())
-    self.name:SetText(self.character.data.name)
-
-    self:SetScript("OnMouseDown", function()
-
-    end)
 
     self.prof1:SetScript("OnMouseDown", function()
-        addon:TriggerEvent("Character_OnTradeskillSelected", self.character.data.profession1, self.character.data.profession1Recipes)
+        if self.character then
+            addon:TriggerEvent("Character_OnTradeskillSelected", self.character.data.profession1, self.character.data.profession1Recipes)
+        end
     end)
     self.prof2:SetScript("OnMouseDown", function()
-        addon:TriggerEvent("Character_OnTradeskillSelected", self.character.data.profession2, self.character.data.profession2Recipes)
+        if self.character then
+            addon:TriggerEvent("Character_OnTradeskillSelected", self.character.data.profession2, self.character.data.profession2Recipes)
+        end
     end)
 
     self.inviteToGroup:SetScript("OnMouseDown", function()
@@ -631,14 +617,23 @@ function GuildbookRosterListviewItemMixin:SetDataBinding(binding, height)
         end
     end)
     self.openProfile:SetScript("OnMouseDown", function()
-        addon:TriggerEvent("Character_OnProfileSelected", self.character)
+        if self.character then
+            addon:TriggerEvent("Character_OnProfileSelected", self.character)
+        end
     end)
-
-    self:Update()
-
+    
     addon:RegisterCallback("UI_OnSizeChanged", self.UpdateLayout, self)
     addon:RegisterCallback("Character_OnDataChanged", self.Character_OnDataChanged, self)
+end
 
+function GuildbookRosterListviewItemMixin:SetDataBinding(binding, height)
+
+    self.character = binding;
+
+    self.classIcon:SetAtlas(self.character:GetClassSpecAtlasName())
+    self.name:SetText(Ambiguate(self.character.data.name, "short"))
+
+    self:Update()
 end
 
 function GuildbookRosterListviewItemMixin:UpdateLayout()
@@ -729,131 +724,30 @@ function GuildbookRosterListviewItemMixin:ResetDataBinding()
 end
 
 
--- GuildbookRosterListviewItemMixin = {}
--- GuildbookRosterListviewItemMixin.tooltipIcon = CreateFrame("FRAME", "GuildbookRosterListviewItemTooltipIcon")
--- GuildbookRosterListviewItemMixin.tooltipIcon:SetSize(24, 24)
--- GuildbookRosterListviewItemMixin.tooltipIcon.icon = GuildbookRosterListviewItemMixin.tooltipIcon:CreateTexture(nil, "BACKGROUND")
--- GuildbookRosterListviewItemMixin.tooltipIcon.icon:SetPoint("CENTER", 0, 0)
--- GuildbookRosterListviewItemMixin.tooltipIcon.icon:SetSize(56, 56)
--- GuildbookRosterListviewItemMixin.tooltipIcon.mask = GuildbookRosterListviewItemMixin.tooltipIcon:CreateMaskTexture()
--- GuildbookRosterListviewItemMixin.tooltipIcon.mask:SetSize(50,50)
--- GuildbookRosterListviewItemMixin.tooltipIcon.mask:SetPoint("CENTER", 0, 0)
--- GuildbookRosterListviewItemMixin.tooltipIcon.mask:SetTexture("Interface/CHARACTERFRAME/TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
--- GuildbookRosterListviewItemMixin.tooltipIcon.icon:AddMaskTexture(GuildbookRosterListviewItemMixin.tooltipIcon.mask)
--- GuildbookRosterListviewItemMixin.tooltipBackground = GuildbookRosterListviewItemMixin.tooltipIcon:CreateTexture("GuildbookRosterTooltipBackground", "BACKGROUND")
--- GuildbookRosterListviewItemMixin.tooltipBackground:SetDrawLayer("BACKGROUND", -7)
+function GuildbookRosterListviewItemMixin:OnEnter()
 
+    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 
--- function GuildbookRosterListviewItemMixin:OnEnter()
---     if not self.character then
---         return;
---     end
---     local character = gb:GetCharacterFromCache(self.guid)
---     if not character then
---         return;
---     end
---     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
---     -- self.tooltipBackground:SetAtlas(string.format("UI-Character-Info-%s-BG", character.Class:sub(1,1):upper()..character.Class:sub(2)))
---     -- self.tooltipBackground:SetAllPoints(GameTooltip)
---     local rPerc, gPerc, bPerc, argbHex = GetClassColor(character.Class:upper())
---     GameTooltip_SetTitle(GameTooltip, character.Name.."\n\n|cffffffff"..L['level'].." "..character.Level, CreateColor(rPerc, gPerc, bPerc), nil)
---     if self.tooltipIcon then
---         if character.profile and character.profile.avatar then
---             self.tooltipIcon.icon:SetTexture(character.profile.avatar)
---         elseif character.Race and character.Gender then
---             local race;
---             if character.Race:lower() == "scourge" then
---                 race = "undead";
---             else
---                 race = character.Race:lower()
---             end
---             self.tooltipIcon.icon:SetAtlas(string.format("raceicon-%s-%s", race, character.Gender:lower()))
---         end
---         GameTooltip_InsertFrame(GameTooltip, self.tooltipIcon)
---         for k, frame in pairs(GameTooltip.insertedFrames) do
---             if frame:GetName() == "GuildbookRosterListviewItemTooltipIcon" then
---                 frame:ClearAllPoints()
---                 frame:SetPoint("TOPRIGHT", -20, -20)
---             end
---         end
---     end
+    -- i contacted the author of attune to check it was ok to add their addon data 
+    if Attune_DB and Attune_DB.toons[self.character.data.name] then
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine(L["attunements"])
 
---     local function formatTradeskill(prof, spec)
---         if spec then
---             return string.format("%s [|cff40C7EB%s|r]", prof, (GetSpellInfo(spec)));
---         elseif prof then
---             return prof;
---         else
---             return "-";
---         end
---     end
+        local db = Attune_DB.toons[character.Name.."-"..GetRealmName()]
 
---     GameTooltip:AddLine(L["TRADESKILLS"])
---     --local prof1 = character.Profession1Spec and string.format("%s [|cff40C7EB%s|r]", character.Profession1, GetSpellInfo(self.character.Profession1Spec)) or (character.Profession1 and character.Profession1 or "-")
---     GameTooltip:AddDoubleLine(formatTradeskill(character.Profession1, character.Profession1Spec), character.Profession1Level or 0, 1,1,1,1, 1,1,1,1)
---     -- GameTooltip_ShowStatusBar(GameTooltip, 0, 300, 245)
---     -- GameTooltip_ShowProgressBar(GameTooltip, 0, 300, 245)
---     --local prof2 = character.Profession2Spec and string.format("%s [|cff40C7EB%s|r]", character.Profession2, GetSpellInfo(self.character.Profession2Spec)) or (character.Profession2 and character.Profession2 or "-")
---     GameTooltip:AddDoubleLine(formatTradeskill(character.Profession2, character.Profession2Spec), character.Profession2Level or 0, 1,1,1,1, 1,1,1,1)
---     -- if self.PublicNote:GetText() and #self.PublicNote:GetText() > 0 then
---     --     GameTooltip:AddLine(" ")
---     --     GameTooltip:AddDoubleLine(L['publicNote'], "|cffffffff"..self.PublicNote:GetText())
---     -- end
-
---     if character.MainCharacter and GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][character.MainCharacter] then
---         GameTooltip:AddLine(" ")
---         GameTooltip:AddLine(L['MAIN_CHARACTER'])
---         local s = string.format("%s %s %s",
---         gb.Data.Class[GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][character.MainCharacter].Class].FontStringIconMEDIUM,
---         gb.Data.Class[GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][character.MainCharacter].Class].FontColour,
---         GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][character.MainCharacter].Name
---         )
---         GameTooltip:AddLine(s)
---     end
---     if character.Alts then
---         GameTooltip:AddLine(" ")
---         GameTooltip:AddLine(L['ALTS'])
---         for _, guid in pairs(character.Alts) do
---             if guid ~= character.MainCharacter then
---                 local s = string.format("%s %s %s",
---                 gb.Data.Class[GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][guid].Class].FontStringIconMEDIUM,
---                 gb.Data.Class[GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][guid].Class].FontColour,
---                 GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][guid].Name
---                 )
---                 GameTooltip:AddLine(s)
---             end
---             --GameTooltip:AddTexture(gb.Data.Class[GUILDBOOK_GLOBAL.GuildRosterCache[GUILD_NAME][guid].Class].Icon)
---         end
---     end
---     --GameTooltip:AddLine(" ")
-
---     -- i contacted the author of attune to check it was ok to add their addon data 
---     if Attune_DB and Attune_DB.toons[character.Name.."-"..GetRealmName()] then
---         GameTooltip:AddLine(" ")
---         GameTooltip:AddLine(L["attunements"])
-
---         local db = Attune_DB.toons[character.Name.."-"..GetRealmName()]
-
---         for _, instance in ipairs(Attune_Data.attunes) do
---             if db.attuned[instance.ID] and (instance.FACTION == "Both" or instance.FACTION == character.Faction) then
---                 local formatPercent = db.attuned[instance.ID] < 100 and "|cffff0000"..db.attuned[instance.ID].."%" or "|cff00ff00"..db.attuned[instance.ID].."%"
---                 GameTooltip:AddDoubleLine("|cffffffff"..instance.NAME, formatPercent)
---             end
---         end
---     end
-
---     GameTooltip:Show()
--- end
-
-
-function GuildbookRosterListviewItemMixin:OnLeave()
-    if GameTooltip.insertedFrames and next(GameTooltip.insertedFrames) ~= nil then
-        for k, frame in pairs(GameTooltip.insertedFrames) do
-            if frame:GetName() == "GuildbookRosterListviewItemTooltipIcon" then
-                frame:Hide()
+        for _, instance in ipairs(Attune_Data.attunes) do
+            if db.attuned[instance.ID] and (instance.FACTION == "Both" or instance.FACTION == character.Faction) then
+                local formatPercent = db.attuned[instance.ID] < 100 and "|cffff0000"..db.attuned[instance.ID].."%" or "|cff00ff00"..db.attuned[instance.ID].."%"
+                GameTooltip:AddDoubleLine("|cffffffff"..instance.NAME, formatPercent)
             end
         end
     end
+
+    GameTooltip:Show()
+end
+
+
+function GuildbookRosterListviewItemMixin:OnLeave()
     GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
 end
 
@@ -1303,4 +1197,17 @@ function GuildbookBankCharactersListviewItemMixin:Update(character)
         end
     end
 
+end
+
+
+
+GuildbookChatBubbleMixin = {}
+function GuildbookChatBubbleMixin:OnLoad()
+    
+end
+function GuildbookChatBubbleMixin:SetDataBinding(binding)
+    self.message:SetText(binding.message)
+end
+function GuildbookChatBubbleMixin:ResetDataBinding()
+    
 end

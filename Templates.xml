@@ -342,9 +342,8 @@
 			</Layer>
             <Layer level="OVERLAY">
 				<Texture parentKey="icon">
-					<Size x="32" y="32"/>				
 					<Anchors>
-						<Anchor point="LEFT" x="3" y="0"/>
+						<Anchor point="LEFT" x="1" y="0"/>
 					</Anchors>
 				</Texture>
                 <MaskTexture parentKey="mask" file="Interface/CHARACTERFRAME/TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE" hidden="true">
@@ -356,15 +355,17 @@
                         <MaskedTexture childKey="icon"/>
                     </MaskedTextures>
                 </MaskTexture>
-				<FontString parentKey="text" inherits="GameFontNormal">
+				<FontString parentKey="text" inherits="GameFontNormal" justifyH="LEFT">
+                    <Size x="150"/>
 					<Anchors>
-						<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.icon" x="5" y="0"/>
+						<Anchor point="TOPRIGHT" x="-5" y="-5"/>
 					</Anchors>
 					<Color r="1" g="1" b="1"/>
 				</FontString>
-				<FontString parentKey="info" inherits="GameFontNormalSmall">
+				<FontString parentKey="info" inherits="GameFontNormalSmall" justifyH="LEFT">
+                    <Size x="150"/>
 					<Anchors>
-						<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" relativeKey="$parent.icon" x="5" y="0"/>
+						<Anchor point="BOTTOMRIGHT" x="-5" y="5"/>
 					</Anchors>
 				</FontString>
             </Layer>
@@ -590,6 +591,8 @@
 
         <Scripts>
             <OnLoad method="OnLoad"/>
+            <OnEnter method="OnEnter"/>
+            <OnLeave method="OnLeave"/>
         </Scripts>
     </Frame>
 
@@ -865,29 +868,20 @@
         </Scripts>
     </Frame>
     
-    <Frame name="GuildbookChatBubble" virtual="true" hyperlinksEnabled="true" enableMouse="true">
+    <Frame name="GuildbookChatBubble" mixin="GuildbookChatBubbleMixin" virtual="true" hyperlinksEnabled="true" enableMouse="true">
         <Layers>
             <Layer level="BACKGROUND">
-                <Texture parentKey="Icon">
-                    <Size x="44" y="44"/>
-                    <Anchors>
-                        <Anchor point="RIGHT" x="-5" y="0"/>
-                    </Anchors>
-                </Texture>
                 <Texture parentKey="Background" setAllPoints="true">
                     <Color r="0.1" g="0.1" b="0.1" a="0.0"/>
                 </Texture>
             </Layer>
             <Layer level="OVERLAY">
-				<FontString parentKey="Message" inherits="GameFontNormal" justifyH="LEFT" justifyV="CENTER">
+				<FontString parentKey="message" inherits="GameFontNormal" justifyH="LEFT" justifyV="CENTER">
 					<Color r="1" g="1" b="1"/>
 				</FontString>
             </Layer>
         </Layers>
         <Scripts>
-            <OnMouseDown>
-                self:GetParent():ChatBubble_OnMouseDown(self)
-            </OnMouseDown>
             <OnHyperlinkEnter>
                 if link then
                     GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT')

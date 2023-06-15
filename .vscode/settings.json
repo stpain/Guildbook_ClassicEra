@@ -74,6 +74,7 @@
         "RAID",
         "message",
         "GUILD",
-        "ALL"
+        "ALL",
+        "ERR_GUILD_DEMOTE_SSS"
     ]
 }

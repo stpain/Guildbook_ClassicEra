@@ -1,14 +1,67 @@
 <Ui>
     <Frame name="GuildbookChat" mixin="GuildbookChatMixin">
+
         <Layers>
-            <Layer level="background">
+            <Layer level="BACKGROUND">
             
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="charactersHeader" inherits="GameFontNormalLarge" text="Chats">
+                    <Size x="200" y="26"/>
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="chatInfo" inherits="GameFontNormalLarge" justifyH="LEFT">
+                    <Size x="300" y="26"/>
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.charactersHeader" relativePoint="RIGHT" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
             </Layer>
         </Layers>
 
+        <Frames>
+
+            <Frame parentKey="charactersListview" inherits="GuildbookWidgetsListviewTemplate">
+                <Size x="200"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="-30"/>
+                    <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                </Anchors>
+                <KeyValues>
+                    <KeyValue key="frameType" value="FRAME" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookGuildbankCharacterListviewItem" type="string"/>
+                    <KeyValue key="elementHeight" value="40" type="number"/>
+                </KeyValues>
+            </Frame>
+
+            <Frame parentKey="chatHistory" inherits="GuildbookWidgetsListviewTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.charactersListview" relativePoint="TOPRIGHT" x="6" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="60"/>
+                </Anchors>
+                <KeyValues>
+                    <KeyValue key="frameType" value="FRAME" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookChatBubble" type="string"/>
+                    <KeyValue key="elementHeight" value="40" type="number"/>
+                </KeyValues>
+            </Frame>
+
+            <ScrollFrame parentKey="messageInput" inherits="InputScrollFrameTemplate">
+                <Size y="42"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.charactersListview" relativePoint="BOTTOMRIGHT" x="12" y="12"/>
+                    <Anchor point="BOTTOMRIGHT" x="-12" y="12"/>
+                </Anchors>
+            </ScrollFrame>
+        </Frames>
+    
         <Scripts>
             <OnLoad method="OnLoad"/>
-            <!-- <OnShow method="OnShow"/> -->
-        </Scripts> 
+            <OnShow method="OnShow"/>
+        </Scripts>  
     </Frame>
 </Ui>

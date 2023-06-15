@@ -22,6 +22,8 @@ addon:GenerateCallbackEvents({
 
     "UI_OnSizeChanged",
 
+    "Chat_OnMessageReceived",
+
     "StatusText_OnChanged",
     "LogDebugMessage",
     

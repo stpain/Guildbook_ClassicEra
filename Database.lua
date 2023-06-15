@@ -17,6 +17,9 @@ function Database:Init()
             worldEvents = {},
             myCharacters = {},
             characterDirectory = {},
+            chats = {
+                guild = {},
+            },
         }
     end
 
@@ -36,6 +39,9 @@ function Database:Reset()
         worldEvents = {},
         myCharacters = {},
         characterDirectory = {},
+        chats = {
+            guild = {},
+        },
     }
 
     self.db = GUILDBOOK_GLOBAL;

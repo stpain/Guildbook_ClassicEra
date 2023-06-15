@@ -23,6 +23,12 @@
                         <Anchor point="BOTTOMLEFT" x="5" y="4"/>
                     </Anchors>
                 </FontString>
+                <FontString parentKey="memoryUsage" inherits="GameFontNormalSmall" justifyH="LEFT" text="mem">
+                    <Size x="80" y="10"/>
+                    <Anchors>
+                        <Anchor point="TOPRIGHT" x="-70" y="-6"/>
+                    </Anchors>
+                </FontString>
             </Layer>
         </Layers>
 

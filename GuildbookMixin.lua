@@ -4,23 +4,7 @@ local name, addon = ...;
     Guildbook.ContextMenu_Separator = "|TInterface/COMMON/UI-TooltipDivider:8:150|t"
 Guildbook.ContextMenu_Separator_Wide = "|TInterface/COMMON/UI-TooltipDivider:8:250|t"
 
-local prepared= false;
-SLASH_GUILDBOOK1 = '/guildbook'
-SLASH_GUILDBOOK2 = '/gbk'
-SLASH_GUILDBOOK3 = '/gb'
-SlashCmdList['GUILDBOOK'] = function(msg)
-    --print("["..msg.."]")
-    if msg == 'open' then
-        GuildbookUI:Show()
 
-    elseif GuildbookUI[msg] then
-        GuildbookUI:OpenTo(msg)
-
-
-    elseif msg == "test" then
-        GuildbookDataShare:Show()
-    end
-end
 
                 privacy = {
                     shareInventoryMinRank = lowestRank,
@@ -41,7 +25,7 @@ end
                 blockCommsDuringCombat = true,
                 blockCommsDuringInstance = true,
 
-                    GameTooltip:HookScript("OnTooltipSetItem", function(self)
+    GameTooltip:HookScript("OnTooltipSetItem", function(self)
         if not GUILDBOOK_GLOBAL then
             return;
         end
@@ -199,6 +183,10 @@ function GuildbookMixin:OnLoad()
         self.isRefreshEnabled = false;
     end)
 
+    self:SetScript("OnHide", function()
+        collectgarbage("collect")
+    end)
+
     SetPortraitToTexture(GuildbookUIPortrait,134068)
 
     addon:RegisterCallback("Database_OnInitialised", self.Database_OnInitialised, self)
@@ -284,6 +272,10 @@ function GuildbookMixin:OnUpdate()
     if self.isRefreshEnabled then
         self:UpdateLayout()
     end
+
+    UpdateAddOnMemoryUsage()
+    local mem = GetAddOnMemoryUsage(name)
+    self.memoryUsage:SetText(mem)
 end
 
 function GuildbookMixin:OnEvent()
