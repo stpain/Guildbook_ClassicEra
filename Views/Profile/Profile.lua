@@ -755,7 +755,7 @@ function GuildbookProfileMixin:Update()
         end,
     })
 
-	local alts = addon.api.getPlayerAlts(self.character.data.mainCharacter)
+	local alts = addon.api.classic.getPlayerAlts(self.character.data.mainCharacter)
 	--DevTools_Dump(alts)
 	if alts and #alts > 0 then
 		for k, name in ipairs(alts) do
@@ -874,6 +874,14 @@ function GuildbookProfileMixin:Update()
                 label = self.character.data.inventory.current[v.slot],
                 icon = v.icon,
                 link = self.character.data.inventory.current[v.slot],
+
+				onMouseDown = function()
+					if IsControlKeyDown() then
+						DressUpItemLink(self.character.data.inventory.current[v.slot])
+					elseif IsShiftKeyDown() then
+						HandleModifiedItemClick(self.character.data.inventory.current[v.slot])
+					end
+				end,
             })
         else
             self.inventory.equipmentListview.DataProvider:Insert({

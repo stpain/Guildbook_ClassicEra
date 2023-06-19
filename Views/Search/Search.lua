@@ -11,6 +11,8 @@ function GuildbookSearchMixin:OnLoad()
     addon.AddView(self)
 end
 
+
+--this needs some work, ideally only return 1 result per item and avoid extra api calls/mixins
 function GuildbookSearchMixin:Search(term)
 
     self.resultsListview.DataProvider:Flush()
@@ -43,6 +45,25 @@ function GuildbookSearchMixin:Search(term)
                             })
                         end
                     end)
+                end
+            end
+        end
+        if v.data.inventory then
+            for set, links in pairs(v.data.inventory) do
+                for slot, link in pairs(links) do
+                    if link and (link:find(term)) then
+                        local item = Item:CreateFromItemLink(link)
+                        if not item:IsItemEmpty() then
+                            item:ContinueOnItemLoad(function()
+                                if item:GetItemName():find(term) then
+                                    self.resultsListview.DataProvider:Insert({
+                                        type = "inventory",
+                                        data = item,
+                                    })
+                                end
+                            end)
+                        end
+                    end
                 end
             end
         end

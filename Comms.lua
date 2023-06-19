@@ -1,4 +1,17 @@
+--[[
+    Comms:
+        The Comms class is used to send and receive data on the GUILD channel and WHISPER channel
 
+        There is a queue system to prevent the addon spamming chat channels and disrupting other addon communications.
+        The queue is simple, messages get added to the queue and are held for n number of seconds, during this time
+        and new data of the same message type will cause the currently queued message to be updated rather than a new
+        message added to the queue.
+        Once a message dispatch time arrives the message will be sent and the remaining queued messages will have their
+        dispatch time increased by n seconds. This means the addon will only send a message once every n seconds, and 
+        where cases exists that a message might be spammed, it'll be caught by the initial delay.
+
+        The guild bank messages ignore the queue and mostly use the WHISPER channel.
+]]
 
 local name, addon = ...;
 
@@ -6,29 +19,33 @@ local AceComm = LibStub:GetLibrary("AceComm-3.0")
 local LibDeflate = LibStub:GetLibrary("LibDeflate")
 local LibSerialize = LibStub:GetLibrary("LibSerialize")
 
-local Comms = {};
-Comms.prefix = "GuildbookEra";
-Comms.version = 0;
-Comms.queueWaitingTime = 15.0; --delay from transmit request to first dispatch attempt, this prevents spamming if a player opens/closes a panel that triggers a transmit
-Comms.dispatcherElapsedDelay = 1.0; --stagger effect for the onUpdate func on dispatcher, limits the onUpdate to once per second
-Comms.queue = {};
-Comms.queueExtendTime = 5.0; --the time added to each message waiting in the queue, this limits how often a message can be dispatched
-Comms.dispatcher = CreateFrame("FRAME");
-Comms.dispatcherElapsed = 0;
-Comms.pause = false;
+local Comms = {
+    prefix = "GuildbookEra", --name var was to long
+    version = 1,
+
+    --delay from transmit request to first dispatch attempt, this prevents spamming if a player opens/closes a panel that triggers a transmit
+    queueWaitingTime = 20.0,
+    --the time added to each message waiting in the queue, this limits how often a message can be dispatched
+    queueExtendTime = 6.0,
+
+     --stagger effect for the onUpdate func on dispatcher, limits the onUpdate to once per second
+    dispatcherElapsedDelay = 1.0,
+    
+    queue = {},
+    dispatcher = CreateFrame("FRAME"),
+    dispatcherElapsed = 0,
+    pause = false,
+};
+
 
 --this table should contain only the character.data[key] keys which we want to send
 Comms.characterKeyToEventName = {
-    containers = "CONTAINERS_TRANSMIT", --for guild banks
+    --containers = "CONTAINERS_TRANSMIT", --for guild banks -REMOVED THIS SYSTEM
     inventory = "INVENTORY_TRANSMIT",
     paperDollStats = "PAPERDOLL_STATS_TRANSMIT",
     talents = "TALENT_TRANSMIT",
-
-    -- name = self.data.name,
-    -- class = self.data.class,
-    -- gender = self.data.gender,
-    -- level = self.data.level,
-    -- race = self.data.race,
+    resistances = "RESISTANCE_TRANSMIT",
+    auras = "AURA_TRANSMIT",
     -- alts = self.data.alts,
     -- mainCharacter = self.data.mainCharacter,
     -- publicNote = self.data.publicNote,
@@ -75,7 +92,7 @@ end
 ---the pourpose of this function is to check the queued mesages once per second and take action
 ---if there is a message and its dispatch time has been reached then push the message, then update remaining messages to dispatch at n secon intervals
 ---if the queue is empty remove the onUpdate script
----@param self table Comms object
+---@param self frame the dispatch frame
 ---@param elapsed number elapsed since last OnUpdate
 function Comms.DispatcherOnUpdate(self, elapsed)
 
@@ -104,21 +121,21 @@ function Comms.DispatcherOnUpdate(self, elapsed)
             local encoded    = LibDeflate:EncodeForWoWAddonChannel(compressed);
 
             Comms:SendCommMessage(Comms.prefix, encoded, message.channel, message.target, "NORMAL")
-            addon:TriggerEvent("LogDebugMessage", "comms", string.format("sending message [%s] on channel [%s]", message.event, message.channel))
+            addon.LogDebugMessage("comms_out", string.format("sending message [%s] on channel [%s]", message.event, message.channel))
 
             --set remaining messages to dispatch in 'n' second intervals
             for i = 2, #Comms.queue do
                 Comms.queue[i].dispatchTime = now + ((i - 1) * Comms.queueExtendTime)
-                addon:TriggerEvent("LogDebugMessage", "comms", string.format("updated dispatch time for [%s] will dispatch at %s", Comms.queue[i].event, date("%T", Comms.queue[i].dispatchTime)))
+                addon.LogDebugMessage("comms", string.format("updated dispatch time for [%s] will dispatch at %s", Comms.queue[i].event, date("%T", Comms.queue[i].dispatchTime)))
             end
 
             --remove the message
             table.remove(Comms.queue, 1)
             if #Comms.queue == 0 then
                 self:SetScript("OnUpdate", nil)
-                addon:TriggerEvent("LogDebugMessage", "comms", "Queue is empty, removed OnUpdate script")
+                addon.LogDebugMessage("comms", "Queue is empty, removed OnUpdate script")
             else
-                addon:TriggerEvent("LogDebugMessage", "comms", string.format("%d messages left in queue", #Comms.queue))
+                addon.LogDebugMessage("comms", string.format("%d messages left in queue", #Comms.queue))
             end
         end
     end
@@ -154,7 +171,7 @@ function Comms:QueueMessage(event, message, channel, target)
         if message.event == event then
             exists = true;
             message.payload = message
-            addon:TriggerEvent("LogDebugMessage", "comms", string.format("updated message payload for [%s]", event))
+            addon.LogDebugMessage("comms", string.format("updated message payload for [%s]", event))
         end
     end
 
@@ -168,7 +185,7 @@ function Comms:QueueMessage(event, message, channel, target)
             dispatchTime = dispatchTime;
         })
 
-        addon:TriggerEvent("LogDebugMessage", "comms", string.format("queued [%s] dispatch time %s", event, date("%T", dispatchTime)))
+        addon.LogDebugMessage("comms", string.format("queued [%s] dispatch time %s", event, date("%T", dispatchTime)))
     end
 
     if self.dispatcher:GetScript("OnUpdate") == nil then
@@ -177,14 +194,14 @@ function Comms:QueueMessage(event, message, channel, target)
 end
 
 
-function Comms:TransmitToTarget(event, data, key, subKey, target)
+function Comms:TransmitToTarget(event, data, method, subKey, target)
     local msg = {
         event = event,
         version = self.version,
         payload = {
-            key = key,
-            subKey = subKey,
-            data = data,
+            method = method, --the character:method
+            subKey = subKey, --a subkey if used
+            data = data, --the value being sent
         },
     }
     Comms:QueueMessage(msg.event, msg, "WHISPER", target)
@@ -208,6 +225,7 @@ function Comms:Transmit_NoQueue(msg, channel, target)
     local compressed = LibDeflate:CompressDeflate(serialized);
     local encoded    = LibDeflate:EncodeForWoWAddonChannel(compressed);
     self:SendCommMessage(self.prefix, encoded, channel, target, "NORMAL")
+    addon.LogDebugMessage("comms_out", string.format("No queue message [%s] to %s", (msg.event or "-"), (target or "-")))
 end
 
 function Comms:OnCommReceived(prefix, message, distribution, sender)
@@ -232,6 +250,7 @@ function Comms:OnCommReceived(prefix, message, distribution, sender)
     if Comms.events[data.event] then
         addon:TriggerEvent("StatusText_OnChanged", string.format("received [%s] from %s", data.event, sender))
         Comms.events[data.event](Comms, sender, data)
+        addon.LogDebugMessage("comms_in", string.format("[%s] data incoming from %s", data.event, sender))
     end
 end
 
@@ -261,11 +280,16 @@ function Comms:Character_BroadcastChange(character, ...)
 
     if addon.thisCharacter and (character.data.name == addon.thisCharacter) then
 
+        --addon:TriggerEvent("Character_BroadcastChange", self, "SetAuras", "auras", set) > method, key, subKey
+        --Character:SetPaperdollStats(set, stats, broadcast) > method=SetPaperdollStats, key=stats, subKey=set
+
+        --doing things this way adds addition text to the message but greatly simplifies the addon code required
+        --the addon will take the method sent if it exists rather than having to hard code message.event > character.method (although this could be better as time goes on)
         local method, key, subKey = ...;
 
         if self.characterKeyToEventName[key] then
 
-            addon:TriggerEvent("LogDebugMessage", "comms", string.format("received %s", self.characterKeyToEventName[key]))
+            addon.LogDebugMessage("comms", string.format("received %s", key))
 
             local data;
             if subKey then
@@ -317,6 +341,7 @@ function Comms:Guildbank_OnTimestampsRequested(sender, message)
         end
     end
 
+    --
     if transmit == true then
         local msg = {
             event = "GUILDBANK_TIMESTAMPS_TRANSMIT",
@@ -387,9 +412,11 @@ end
 Comms.events = {
 
     --character events
-    CONTAINERS_TRANSMIT = Comms.Character_OnDataReceived,
+    --CONTAINERS_TRANSMIT = Comms.Character_OnDataReceived,
     INVENTORY_TRANSMIT = Comms.Character_OnDataReceived,
     PAPERDOLL_STATS_TRANSMIT = Comms.Character_OnDataReceived,
+    RESISTANCE_TRANSMIT = Comms.Character_OnDataReceived,
+    AURA_TRANSMIT = Comms.Character_OnDataReceived,
     TALENT_TRANSMIT = Comms.Character_OnDataReceived,
     SPEC_TRANSMIT = Comms.Character_OnDataReceived,
     TRADESKILL_TRANSMIT = Comms.Character_OnDataReceived,

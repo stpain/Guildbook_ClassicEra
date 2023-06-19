@@ -160,7 +160,7 @@ function GuildbookGuildRosterMixin:Blizzard_OnGuildRosterUpdate()
 end
 
 function GuildbookGuildRosterMixin:OnShow()
-    --GuildRoster() --this will trigger a callback to self:Update
+    GuildRoster() --this will trigger a callback to self:Update
 
-    self:Update()
+    --self:Update()
 end

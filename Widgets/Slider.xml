@@ -15,4 +15,20 @@
             </Layer>
         </Layers>
     </Slider>
+    <Slider name="GuildbookSliderTopLabel" minValue="1" maxValue="60" valueStep="1" inherits="OptionsSliderTemplate" virtual="true">
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="label" inherits="GameFontNormalSmall">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="0" y="10"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="value" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="LEFT" relativePoint="RIGHT" x="5" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Slider>
 </Ui>

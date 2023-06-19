@@ -19,9 +19,10 @@ e:RegisterEvent('RAID_ROSTER_UPDATE')
 e:RegisterEvent('BANKFRAME_OPENED')
 e:RegisterEvent('BANKFRAME_CLOSED')
 --e:RegisterEvent('BAG_UPDATE')
---e:RegisterEvent('BAG_UPDATE_DELAYED') --this would cause any character bag changes to overwrite whats in the bank
+e:RegisterEvent('BAG_UPDATE_DELAYED')
 e:RegisterEvent('CHAT_MSG_GUILD')
 e:RegisterEvent('CHAT_MSG_WHISPER')
+e:RegisterEvent('CHAT_MSG_WHISPER_INFORM')
 e:RegisterEvent('CHAT_MSG_SYSTEM')
 e:RegisterEvent('UPDATE_MOUSEOVER_UNIT')
 e:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
@@ -34,6 +35,17 @@ e:SetScript("OnEvent", function(self, event, ...)
         self[event](self, ...)
     end
 end)
+
+function e:CHAT_MSG_WHISPER_INFORM(...)
+    local msg, target = ...;
+    local guid = select(12, ...)
+    addon:TriggerEvent("Chat_OnMessageSent", {
+        target = target,
+        message = msg,
+        guid = guid,
+        channel = "whisper",
+    })
+end
 
 function e:CHAT_MSG_WHISPER(...)
     local msg, sender = ...;
@@ -167,12 +179,12 @@ ERR_GUILD_WITHDRAW_LIMIT = "You cannot withdraw that much from the guild bank.";
 function e:ADDON_LOADED()
     
     --hooks
-    GuildFramePromoteButton:HookScript("OnClick", function()
+    -- GuildFramePromoteButton:HookScript("OnClick", function()
     
-    end)
-    GuildFrameDemoteButton:HookScript("OnClick", function()
+    -- end)
+    -- GuildFrameDemoteButton:HookScript("OnClick", function()
     
-    end)
+    -- end)
 end
 
 
@@ -181,6 +193,14 @@ function e:CHAT_MSG_SYSTEM(...)
     if msg:find(ERR_GUILD_DEMOTE_SSS:gsub("%%s", "(.*)")) then
         local who, _, _, member, _, rank = strsplit(" ", msg)
         print("guild demote", who, member, rank)
+
+    elseif msg:find(ERR_GUILD_PROMOTE_SSS:gsub("%%s", "(.*)")) then
+        local who, _, _, member, _, rank = strsplit(" ", msg)
+        print("guild promote", who, member, rank)
+
+    elseif msg:find(ERR_GUILD_JOIN_S:gsub("%%s", "(.*)")) then
+        local who = strsplit(" ", msg)
+        print("guild join", who)
     end
 end
 
@@ -189,21 +209,21 @@ function e:GUILD_RANKS_UPDATE()
 end
 
 function e:TRADE_SKILL_SHOW()
-    local skills = addon.api.getPlayerSkillLevels()
+    local skills = addon.api.classic.getPlayerSkillLevels()
     if addon.characters and addon.characters[addon.thisCharacter] then
         for tradeskillId, level in pairs(skills) do
             if tradeskillId == 129 then
-                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level)
+                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level, true)
             elseif tradeskillId == 185 then
-                addon.characters[addon.thisCharacter]:SetCookingLevel(level)
+                addon.characters[addon.thisCharacter]:SetCookingLevel(level, true)
             elseif tradeskillId == 356 then
-                addon.characters[addon.thisCharacter]:SetFishingLevel(level)
+                addon.characters[addon.thisCharacter]:SetFishingLevel(level, true)
             else
                 if addon.characters[addon.thisCharacter].data.profession1 == tradeskillId then
-                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level)
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level, true)
 
                 elseif addon.characters[addon.thisCharacter].data.profession2 == tradeskillId then
-                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level)
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level, true)
                 end
             end
         end
@@ -218,8 +238,8 @@ end
 local bankScanned = false
 function e:BANKFRAME_CLOSED()
     if bankScanned == false then
-        if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
-            local bags = addon.api.scanPlayerContainers(true)
+        --if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
+            local bags = addon.api.classic.scanPlayerContainers(true)
     
             if addon.guilds[addon.thisGuild] then
                 addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
@@ -234,15 +254,15 @@ function e:BANKFRAME_CLOSED()
                     print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
                 end
 
-                addon.characters[addon.thisCharacter]:SetContainers(bags)
             end
-        end
+            addon.characters[addon.thisCharacter]:SetContainers(bags)
+        --end
     end
     bankScanned = not bankScanned;
 end
 function e:BANKFRAME_OPENED()
-    if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
-        local bags = addon.api.scanPlayerContainers(true)
+    --if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
+        local bags = addon.api.classic.scanPlayerContainers(true)
 
         if addon.guilds[addon.thisGuild] then
             addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
@@ -259,38 +279,40 @@ function e:BANKFRAME_OPENED()
 
             addon.characters[addon.thisCharacter]:SetContainers(bags)
         end
+        addon.characters[addon.thisCharacter]:SetContainers(bags)
+    --end
+end
+
+--this means you can view your alts items
+function e:BAG_UPDATE_DELAYED()
+    if addon.characters and addon.characters[addon.thisCharacter] then
+        local bags = addon.api.classic.scanPlayerContainers()
+        addon.characters[addon.thisCharacter]:SetContainers(bags)
     end
 end
--- function e:BAG_UPDATE_DELAYED()
---     if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
---         local bags = addon.api.scanPlayerContainers()
---         addon.characters[addon.thisCharacter]:SetContainers(bags, true)
---         if addon.guilds[addon.thisGuild] then
---             addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
---         end
---     end
--- end
 
 
-
+--dont need to send aura info everytime they change
 function e:UNIT_AURA()
-    local auras = addon.api.getPlayerAuras()
-    if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetAuras("current", auras)
-    end
+    -- local auras = addon.api.classic.getPlayerAuras()
+    -- if addon.characters[addon.thisCharacter] then
+    --     addon.characters[addon.thisCharacter]:SetAuras("current", auras)
+    -- end
 end
 
 function e:PLAYER_EQUIPMENT_CHANGED()
 
     --when equipment changes it can change stats, resistances so grab those as well
-    local equipment = addon.api.getPlayerEquipment()
-    local currentStats = addon.api.getPaperDollStats()
-    local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
+    local equipment = addon.api.classic.getPlayerEquipment()
+    local currentStats = addon.api.classic.getPaperDollStats()
+    local resistances = addon.api.classic.getPlayerResistances(UnitLevel("player"))
+    local auras = addon.api.classic.getPlayerAuras()
 
     if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetInventory("current", equipment)
-        addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats)
-        addon.characters[addon.thisCharacter]:SetResistances("current", resistances)
+        addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
+        addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats, true)
+        addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
+        addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
     end
 end
 
@@ -299,9 +321,9 @@ function e:CHARACTER_POINTS_CHANGED(delta)
         --leveled up
         --addon.characters[addon.thisCharacter]:SetLevel()
     end
-    local talents = addon.api.getPlayerTalents()
+    local talents = addon.api.classic.getPlayerTalents()
     if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetTalents("current", talents)
+        addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
     end
 end
 
@@ -348,6 +370,7 @@ local classFileNameToClassId = {
     DEMONHUNTER = 12,
     EVOKER = 13,
 }
+addon.initialGuildRosterScanned = false
 function e:GUILD_ROSTER_UPDATE()
 
     local guildName;
@@ -360,6 +383,14 @@ function e:GUILD_ROSTER_UPDATE()
 
         addon.thisGuild = guildName;
 
+        if not Database.db.chats.guild[guildName] then
+            Database.db.chats.guild[guildName] = {
+                history = {},
+                lastActive = 0,
+
+            }
+        end
+
         local isNew = false;
         if not Database.db.guilds[guildName] then
             Database.db.guilds[guildName] = {
@@ -369,12 +400,7 @@ function e:GUILD_ROSTER_UPDATE()
                     deletedEvents = {},
                 },
                 banks = {},
-                bankRules = {
-                    shareBanks = false,
-                    shareBags = false,
-                    shareMinRank = 0,
-                    shareCopper = false,
-                },
+                bankRules = {},
                 logs = {
                     general = {},
                     members = {}, --use this for people joining/leaving the guild
@@ -398,9 +424,15 @@ function e:GUILD_ROSTER_UPDATE()
         
             if publicNote:lower() == "guildbank" then
 
-                --add the bank character ifnot exists
+                --add the bank character if not exists
                 if not addon.guilds[guildName].banks[name] then
                     addon.guilds[guildName].banks[name] = 0;
+                    addon.guilds[guildName].bankRules[name] = {
+                        shareBanks = false,
+                        shareBags = false,
+                        shareRank = 0,
+                        shareCopper = false,
+                    }
                 end
             else
 
@@ -471,7 +503,7 @@ function e:GUILD_ROSTER_UPDATE()
 
             if not addon.characters[name] then
                 addon.characters[name] = Character:CreateFromData(Database.db.characterDirectory[name])
-                addon.characters[name]:RegisterCallbacks()
+                --addon.characters[name]:RegisterCallbacks()
             end
 
             -- addon.characters[name]:SetOnlineStatus({
@@ -499,15 +531,76 @@ function e:GUILD_ROSTER_UPDATE()
                         timestamp = now,
                         message = string.format("%s created", guildName)
                     })
-                    for name, _ in pairs(members) do
-                        table.insert(addon.guilds[guildName].logs.members, {
-                            timestamp = now,
-                            message = string.format("%s joined the guild", name)
-                        })
+                    -- for name, _ in pairs(members) do
+                    --     table.insert(addon.guilds[guildName].logs.members, {
+                    --         timestamp = now,
+                    --         message = string.format("%s joined the guild", name)
+                    --     })
+                    -- end
+                end
+
+                local objsRemoved = false;
+                for name, obj in pairs(addon.characters) do
+                    if not members[obj.data.name] then
+                        addon.characters[name] = nil;
+                        objsRemoved = true;
                     end
+                end
+                if objsRemoved then
+                    collectgarbage()
                 end
 
                 addon:TriggerEvent("Blizzard_OnGuildRosterUpdate", guildName)
+
+                if addon.initialGuildRosterScanned == false then
+                    addon:TriggerEvent("Blizzard_OnInitialGuildRosterScan", guildName)
+                    addon.initialGuildRosterScanned = true;
+                end
+            end
+        end
+    end
+end
+
+--rather than have this method on all character objs when only the players character needs it
+--i just made it a local func here
+local function setCharacterTradeskill(prof, recipes)
+
+    if addon.characters and addon.characters[addon.thisCharacter] then
+        
+        if prof == 185 then
+            addon.characters[addon.thisCharacter]:SetCookingRecipes(recipes, true)
+            return;
+        end
+
+        if prof == 129 then
+            addon.characters[addon.thisCharacter]:SetFirstAidRecipes(recipes, true)
+            return
+        end
+
+        if prof == 356 then
+            
+            return;
+        end
+
+        if addon.characters[addon.thisCharacter].data.profession1 == "-" then
+            addon.characters[addon.thisCharacter]:SetTradeskill(1, prof, true);
+            addon.characters[addon.thisCharacter]:SetTradeskillRecipes(1, recipes, true)
+            return;
+        else
+            if addon.characters[addon.thisCharacter].data.profession1 == prof then
+                addon.characters[addon.thisCharacter]:SetTradeskillRecipes(1, recipes, true)
+                return;
+            end
+        end
+
+        if addon.characters[addon.thisCharacter].data.profession2 == "-" then
+            addon.characters[addon.thisCharacter]:SetTradeskill(2, prof, true);
+            addon.characters[addon.thisCharacter]:SetTradeskillRecipes(2, recipes, true)
+            return;
+        else
+            if addon.characters[addon.thisCharacter].data.profession2 == prof then
+                addon.characters[addon.thisCharacter]:SetTradeskillRecipes(2, recipes, true)
+                return;
             end
         end
     end
@@ -515,21 +608,21 @@ end
 
 function e:CRAFT_UPDATE()
 
-    local skills = addon.api.getPlayerSkillLevels()
+    local skills = addon.api.classic.getPlayerSkillLevels()
     if addon.characters and addon.characters[addon.thisCharacter] then
         for tradeskillId, level in pairs(skills) do
             if tradeskillId == 129 then
-                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level)
+                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level, true)
             elseif tradeskillId == 185 then
-                addon.characters[addon.thisCharacter]:SetCookingLevel(level)
+                addon.characters[addon.thisCharacter]:SetCookingLevel(level, true)
             elseif tradeskillId == 356 then
-                addon.characters[addon.thisCharacter]:SetFishingLevel(level)
+                addon.characters[addon.thisCharacter]:SetFishingLevel(level, true)
             else
                 if addon.characters[addon.thisCharacter].data.profession1 == tradeskillId then
-                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level)
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level, true)
 
                 elseif addon.characters[addon.thisCharacter].data.profession2 == tradeskillId then
-                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level)
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level, true)
                 end
             end
         end
@@ -554,26 +647,27 @@ function e:CRAFT_UPDATE()
         end
     end
 
-    addon:TriggerEvent("Blizzard_OnTradeskillUpdate", prof, recipes)
+    setCharacterTradeskill(prof, recipes)
+    --addon:TriggerEvent("Blizzard_OnTradeskillUpdate", prof, recipes)
 end
 
 function e:TRADE_SKILL_UPDATE()
 
-    local skills = addon.api.getPlayerSkillLevels()
+    local skills = addon.api.classic.getPlayerSkillLevels()
     if addon.characters and addon.characters[addon.thisCharacter] then
         for tradeskillId, level in pairs(skills) do
             if tradeskillId == 129 then
-                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level)
+                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level, true)
             elseif tradeskillId == 185 then
-                addon.characters[addon.thisCharacter]:SetCookingLevel(level)
+                addon.characters[addon.thisCharacter]:SetCookingLevel(level, true)
             elseif tradeskillId == 356 then
-                addon.characters[addon.thisCharacter]:SetFishingLevel(level)
+                addon.characters[addon.thisCharacter]:SetFishingLevel(level, true)
             else
                 if addon.characters[addon.thisCharacter].data.profession1 == tradeskillId then
-                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level)
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level, true)
 
                 elseif addon.characters[addon.thisCharacter].data.profession2 == tradeskillId then
-                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level)
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level, true)
                 end
             end
         end
@@ -601,7 +695,8 @@ function e:TRADE_SKILL_UPDATE()
         end
     end
 
-    addon:TriggerEvent("Blizzard_OnTradeskillUpdate", prof, recipes)
+    setCharacterTradeskill(prof, recipes)
+    --addon:TriggerEvent("Blizzard_OnTradeskillUpdate", prof, recipes)
 end
 
 

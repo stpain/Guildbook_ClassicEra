@@ -34,10 +34,10 @@ function GuildbookWidgetsDropDownTemplateMixin:SetMenu(t)
     --self.flyout.listview.menu = t
 
     local menulength = #t;
-    if menulength > 8 then
-        self.flyout:SetHeight(230)
+    if menulength > 7 then
+        self.flyout:SetHeight(182)
     else
-        self.flyout:SetHeight((menulength * 24) + 36)
+        self.flyout:SetHeight(menulength * 26)
     end
 
     self.maxWidth = 0.0;

@@ -158,6 +158,7 @@ local json = LibStub('JsonLua-1.0');
 GuildbookMixin = {
     views = {},
     debugLog = {},
+    viewHistory = {},
 }
 
 function GuildbookMixin:UpdateLayout()
@@ -191,7 +192,8 @@ function GuildbookMixin:OnLoad()
 
     addon:RegisterCallback("Database_OnInitialised", self.Database_OnInitialised, self)
     addon:RegisterCallback("StatusText_OnChanged", self.SetStatausText, self)
-    addon:RegisterCallback("LogDebugMessage", self.LogDebugMessage, self)
+    --addon:RegisterCallback("LogDebugMessage", self.LogDebugMessage, self)
+    addon:RegisterCallback("Blizzard_OnInitialGuildRosterScan", self.Blizzard_OnInitialGuildRosterScan, self)
 
     self.ribbon.searchBox:SetScript("OnEnterPressed", function(searchBox)
         self:SelectView("Search")
@@ -200,6 +202,17 @@ function GuildbookMixin:OnLoad()
     self.ribbon.searchBox:SetScript("OnTextChanged", function(searchBox)
         if searchBox:GetText():sub(1,1) == ">" then
             self:ShowSpecialFrame(searchBox:GetText():sub(2))
+        end
+    end)
+
+    self.ribbon.viewHistoryBack.background:SetAtlas("glueannouncementpopup-arrow")
+    self.ribbon.viewHistoryBack.background:SetTexCoord(1.0, 0.0, 0.0, 1.0)
+    self.ribbon.viewHistoryBack:SetScript("OnMouseDown", function ()
+        local viewHistoryLen = #self.viewHistory;
+        if viewHistoryLen > 1 then
+            self:SelectView(self.viewHistory[(viewHistoryLen - 1)])
+            table.remove(self.viewHistory, viewHistoryLen)
+            table.remove(self.viewHistory, viewHistoryLen - 1) --as we just selected the previous view it needs to be removed else its doubled
         end
     end)
 
@@ -246,23 +259,7 @@ end
 
 function GuildbookMixin:SetStatausText(text)
     self.statusText:SetText(text)
-    self:LogDebugMessage("info", text)
-end
-
-local debugTypeIcons = {
-    warning = "services-icon-warning",
-    info = "glueannouncementpopup-icon-info",
-    comms = "chatframe-button-icon-voicechat",
-    bank = "ShipMissionIcon-Treasure-Mission",
-}
-function GuildbookMixin:LogDebugMessage(debugType, debugMessage)
-    if 1 == 1 then
-        self.debug.messageLogListview.DataProvider:Insert({
-            label = string.format("[%s] %s", date("%T"), debugMessage),
-            atlas = debugTypeIcons[debugType],
-        })
-        self.debug.messageLogListview.scrollBox:ScrollToEnd()
-    end
+    --self:LogDebugMessage("info", text)
 end
 
 function GuildbookMixin:OnUpdate()
@@ -273,9 +270,12 @@ function GuildbookMixin:OnUpdate()
         self:UpdateLayout()
     end
 
-    UpdateAddOnMemoryUsage()
-    local mem = GetAddOnMemoryUsage(name)
-    self.memoryUsage:SetText(mem)
+    -- UpdateAddOnMemoryUsage()
+    -- local mem = GetAddOnMemoryUsage(name)
+
+    local mem = 0.4
+    local fr = GetFramerate()
+    self.memoryUsage:SetText(string.format("fps: %d mem: %d", math.floor(fr), math.floor(mem)))
 end
 
 function GuildbookMixin:OnEvent()
@@ -292,6 +292,8 @@ function GuildbookMixin:SelectView(view)
     end
     if self.views[view] then
         self.views[view]:Show()
+        table.insert(self.viewHistory, view)
+--        DevTools_Dump(self.viewHistory)
     end
 end
 
@@ -307,9 +309,16 @@ function GuildbookMixin:AddView(view)
         end)
     end
 end
-
 function addon.AddView(view)
     GuildbookUI:AddView(view)
+end
+
+function GuildbookMixin:Blizzard_OnInitialGuildRosterScan(guildName)
+
+    --So the addon should now have the guild and characters tables set, btu lets hold it 1 second
+    C_Timer.After(1, function()
+    
+    end)
 end
 
 function GuildbookMixin:Database_OnInitialised()

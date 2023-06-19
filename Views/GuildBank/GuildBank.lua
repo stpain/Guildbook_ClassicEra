@@ -1,5 +1,7 @@
 local name, addon = ...;
 
+local Database = addon.Database;
+
 GuildbookGuildBankMixin = {
     name = "GuildBank",
     selectedCharacter = "",
@@ -36,7 +38,7 @@ function GuildbookGuildBankMixin:RequestTimestamps()
     for k, v in ipairs(self.banks) do
         C_Timer.After((k - 1) * requestDelay, function()
             addon:TriggerEvent("Guildbank_TimeStampRequest", v.characterName)
-            addon:TriggerEvent("LogDebugMessage", "bank", string.format("requesting timestamps for bank [%s]", v.characterName))
+            addon.LogDebugMessage("bank", string.format("requesting timestamps for bank [%s]", v.characterName))
             addon:TriggerEvent("Guildbank_StatusInfo", {
                 characterName = v.characterName,
                 status = "requesting timestamps"
@@ -49,7 +51,7 @@ function GuildbookGuildBankMixin:RequestTimestamps()
         for k, v in ipairs(self.banks) do
             if v.lastUpdateTime > 0 and v.source then
                 addon:TriggerEvent("Guildbank_DataRequest", v.source, v.characterName)
-                addon:TriggerEvent("LogDebugMessage", "bank", string.format("requesting data for bank [%s]", v.characterName))
+                addon.LogDebugMessage("bank", string.format("requesting data for bank [%s]", v.characterName))
                 addon:TriggerEvent("Guildbank_StatusInfo", {
                     characterName = v.characterName,
                     status = string.format("requesting data from %s", v.source)
@@ -66,7 +68,7 @@ end
 
 function GuildbookGuildBankMixin:Guildbank_OnTimestampsReceived(sender, message)
 
-    addon:TriggerEvent("LogDebugMessage", "bank", string.format("received bank timestamps from [%s]", sender))
+    addon.LogDebugMessage("bank", string.format("received bank timestamps from [%s]", sender))
 
     --step 2:
     for k, v in ipairs(self.banks) do
@@ -99,7 +101,7 @@ function GuildbookGuildBankMixin:OnShow()
     self.banks = {}
 
     if addon.characters then
-        for k, character in pairs(addon.characters) do
+        for name, character in pairs(addon.characters) do
             if character.data.publicNote:lower() == "guildbank" then
 
                 if addon.guilds[addon.thisGuild] then
@@ -130,6 +132,20 @@ function GuildbookGuildBankMixin:OnShow()
                         })
                     end
                 end
+
+            else
+                if addon.api.characterIsMine(name) then
+                    self.charactersListview.DataProvider:Insert({
+                        label = character.data.name,
+                        atlas = character:GetProfileAvatar(),
+                        showMask = true,
+        
+                        func = function()
+                            self.selectedCharacter = character.data.name;
+                            self:LoadCharacterContainers(character.data.name, character.data.containers)
+                        end,
+                    })
+                end
             end
         end
     end
@@ -138,7 +154,7 @@ end
 
 
 function GuildbookGuildBankMixin:Guildbank_OnDataReceived(sender, message)
-    addon:TriggerEvent("LogDebugMessage", "bank", string.format("received bank data from [%s]", sender))
+    addon.LogDebugMessage("bank", string.format("received bank data from [%s]", sender))
     addon:TriggerEvent("Guildbank_StatusInfo", {
         characterName = message.payload.bank,
         status = string.format("received data from %s", sender)

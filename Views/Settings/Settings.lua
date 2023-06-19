@@ -1,9 +1,16 @@
 local name, addon = ...;
-
+local L = addon.Locales
 local Database = addon.Database;
 
 GuildbookSettingsMixin = {
     name = "Settings",
+    panelsLoaded = {
+        character = false,
+        guild = false,
+        guildBank = false,
+        tradeskills = false,
+        chat = false,
+    }
 }
 
 function GuildbookSettingsMixin:OnLoad()
@@ -31,6 +38,13 @@ function GuildbookSettingsMixin:OnLoad()
             end,
         },
         {
+            label = "Chat",
+            atlas = "socialqueuing-icon-group",
+            func = function ()
+                self:SelectCategory("chat")
+            end,
+        },
+        {
             label = "Guild Bank",
             atlas = "ShipMissionIcon-Treasure-Mission",
             func = function ()
@@ -46,41 +60,54 @@ function GuildbookSettingsMixin:OnLoad()
         },
     }
 
+    self.content.character.general:SetText(L.SETTINGS_CHARACTER_GENERAL)
+    self.content.chat.general:SetText(L.SETTINGS_CHAT_GENERAL)
+    self.content.addon.general:SetText(L.SETTINGS_ADDON_GENERAL)
+
     self.content.character:SetScript("OnShow", function()
         self:CharacterPanel_OnShow()
     end)
     self.content.guildBank:SetScript("OnShow", function()
         self:GuildBankPanel_OnShow()
     end)
+    self.content.chat:SetScript("OnShow", function()
+        self:ChatPanel_OnShow()
+    end)
 
     self.categoryListview.DataProvider:InsertTable(categories)
 
     addon:RegisterCallback("UI_OnSizeChanged", self.UpdateLayout, self)
+    addon:RegisterCallback("Database_OnInitialised", self.Database_OnInitialised, self)
 
 
     --quickly added for testing
     self.content.addon.factoryReset:SetScript("OnClick", function()
         Database:Reset()
     end)
+    self.content.addon.debug.label:SetText(L.SETTINGS_ADDON_DEBUG_LABEL)
+    self.content.addon.debug:SetScript("OnClick", function(cb)
+        Database.db.debug = cb:GetChecked()
+    end)
 
     addon.AddView(self)
 end
 
+
 function GuildbookSettingsMixin:UpdateLayout()
     local x, y = self.content:GetSize()
 
-    local characterPanel = self.content.character.scrollChild;
+    local characterScroll = self.content.character.scrollFrame.scrollChild;
 
-    if x < 600 then
+    if x < 650 then
         
-        characterPanel.myCharacters:ClearAllPoints()
-        characterPanel.myCharacters:SetPoint("TOP", characterPanel.specializations, "BOTTOM", 0, -10)
+        characterScroll.myCharacters:ClearAllPoints()
+        characterScroll.myCharacters:SetPoint("TOP", characterScroll.specializations, "BOTTOM", 0, -10)
 
 
     else
 
-        characterPanel.myCharacters:ClearAllPoints()
-        characterPanel.myCharacters:SetPoint("TOPLEFT", characterPanel.specializations, "TOPRIGHT", 20, 0)
+        characterScroll.myCharacters:ClearAllPoints()
+        characterScroll.myCharacters:SetPoint("TOPLEFT", characterScroll.specializations, "TOPRIGHT", 20, 0)
     end
 
 end
@@ -89,7 +116,7 @@ function GuildbookSettingsMixin:CharacterPanel_OnShow()
 
     local x, y = self.content:GetSize()
 
-    local panel = self.content.character.scrollChild;
+    local panel = self.content.character.scrollFrame.scrollChild;
 
     panel:SetSize(x-24, y)
 
@@ -151,6 +178,8 @@ function GuildbookSettingsMixin:GuildBankPanel_OnShow()
     self.content.guildBank.listview.DataProvider:InsertTable(t)
 end
 
+
+
 function GuildbookSettingsMixin:SelectCategory(category)
 
     for k, v in ipairs(self.content.panels) do
@@ -160,3 +189,49 @@ function GuildbookSettingsMixin:SelectCategory(category)
         self.content[category]:Show()
     end
 end
+
+
+function GuildbookSettingsMixin:ChatPanel_OnShow()
+
+    if not self.panelsLoaded.chat then
+
+        local chatSliders = {
+            ["Guild history limit"] = "chatGuildHistoryLimit",
+            ["Whisper history limit"] = "chatWhisperHistoryLimit",
+        }
+    
+        for label, slider in pairs(chatSliders) do
+    
+            self.content.chat[slider].label:SetText(label)
+            self.content.chat[slider]:SetMinMaxValues(10, 100)
+    
+            _G[self.content.chat[slider]:GetName().."Low"]:SetText(" ")
+            _G[self.content.chat[slider]:GetName().."High"]:SetText(" ")
+            _G[self.content.chat[slider]:GetName().."Text"]:SetText(" ")
+    
+            self.content.chat[slider]:SetScript("OnMouseWheel", function(s, delta)
+                s:SetValue(s:GetValue() + delta)
+            end)
+    
+            self.content.chat[slider]:SetScript("OnValueChanged", function(s)
+                local val = math.ceil(s:GetValue())
+                s.value:SetText(val)
+                Database:SetConfig(slider, val)
+
+                --make 2nd table copy over history limit and nil and set as new
+            end)
+        end
+
+        self.panelsLoaded.chat = true;
+    end
+
+end
+
+function GuildbookSettingsMixin:Database_OnInitialised()
+
+    self.content.addon.debug:SetChecked(Database.db.debug)
+
+    self.content.chat.chatGuildHistoryLimit:SetValue(Database.db.config.chatGuildHistoryLimit)
+    self.content.chat.chatWhisperHistoryLimit:SetValue(Database.db.config.chatWhisperHistoryLimit)
+end
+

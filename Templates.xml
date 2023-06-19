@@ -285,6 +285,12 @@
                     <Anchor point="RIGHT" relativeKey="$parent.shareBags" relativePoint="LEFT" x="-60" y="0"/>
                 </Anchors>
             </CheckButton>
+            <Button parentKey="ranks" inherits="GuildbookWidgetsDropDownTemplate">
+                <Anchors>
+                    <Anchor point="RIGHT" relativeKey="$parent.shareCopper" relativePoint="LEFT" x="-10" y="0"/>
+                </Anchors>
+                <Size x="120" y="24"/>
+            </Button>
         </Frames>
         <Scripts>
             <OnLoad method="OnLoad"/>
@@ -329,6 +335,52 @@
 
         <Scripts>
             <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+
+<!-- there are a few templates that folow this layout - probably an idea to create a base template to save code -->
+    <Frame name="GuildbookChatCharacterListviewItem" mixin="GuildbookChatCharacterListviewItemMixin" virtual="true" enableMouse="true">
+        <Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Background" atlas="PetList-ButtonBackground" useAtlasSize="false" setAllPoints="true"/>
+			</Layer>
+			<Layer level="HIGHLIGHT">
+				<Texture parentKey="Highlight" atlas="PetList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
+			</Layer>
+            <Layer level="OVERLAY">
+				<Texture parentKey="icon">
+					<Anchors>
+						<Anchor point="LEFT" x="1" y="0"/>
+					</Anchors>
+				</Texture>
+                <MaskTexture parentKey="mask" file="Interface/CHARACTERFRAME/TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE" hidden="true">
+                    <Size x="30" y="30"/>	
+                    <Anchors>
+                        <Anchor point="LEFT" x="5" y="0"/>
+                    </Anchors>
+                    <MaskedTextures>
+                        <MaskedTexture childKey="icon"/>
+                    </MaskedTextures>
+                </MaskTexture>
+				<FontString parentKey="text" inherits="GameFontNormal" justifyH="LEFT">
+                    <Size x="150"/>
+					<Anchors>
+						<Anchor point="TOPRIGHT" x="-5" y="-5"/>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+				<FontString parentKey="info" inherits="GameFontNormalSmall" justifyH="LEFT">
+                    <Size x="150"/>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT" x="-5" y="5"/>
+					</Anchors>
+				</FontString>
+            </Layer>
+        </Layers>
+
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnMouseUp method="OnMouseUp"/>
         </Scripts>
     </Frame>
 
@@ -872,12 +924,16 @@
         <Layers>
             <Layer level="BACKGROUND">
                 <Texture parentKey="Background" setAllPoints="true">
-                    <Color r="0.1" g="0.1" b="0.1" a="0.0"/>
+                    <Color r="0.1" g="0.1" b="0.1" a="0.25"/>
                 </Texture>
             </Layer>
             <Layer level="OVERLAY">
 				<FontString parentKey="message" inherits="GameFontNormal" justifyH="LEFT" justifyV="CENTER">
 					<Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="10" y="0"/>
+                        <Anchor point="RIGHT" x="-10" y="0"/>
+                    </Anchors>
 				</FontString>
             </Layer>
         </Layers>
@@ -891,7 +947,6 @@
             </OnHyperlinkEnter>
             <OnHyperlinkLeave>
                 GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-                <!-- GameTooltip:Hide() -->
             </OnHyperlinkLeave>
         </Scripts>
     </Frame>

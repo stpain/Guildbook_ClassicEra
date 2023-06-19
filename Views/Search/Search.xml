@@ -6,7 +6,7 @@
                 <!-- <Texture atlas="glueannouncementpopup-background" setAllPoints="true"> -->
             </Layer>
             <Layer level="OVERLAY">
-                <FontString parentKey="header" inherits="GameFontWhite" text="SEarch">
+                <FontString parentKey="header" inherits="GameFontWhite" text="Search">
                     <Anchors>
                         <Anchor point="TOP" x="0" y="0"/>
                     </Anchors>

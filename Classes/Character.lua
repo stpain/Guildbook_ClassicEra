@@ -732,56 +732,54 @@ function Character:GetClassSpecAtlasName(spec)
 
 end
 
-function Character:RegisterCallbacks()
-    addon:RegisterCallback("Blizzard_OnTradeskillUpdate", self.Blizzard_OnTradeskillUpdate, self)
-end
+-- function Character:RegisterCallbacks()
+--     addon:RegisterCallback("Blizzard_OnTradeskillUpdate", self.Blizzard_OnTradeskillUpdate, self)
+-- end
 
 
-function Character:Blizzard_OnTradeskillUpdate(prof, recipes)
+-- function Character:Blizzard_OnTradeskillUpdate(prof, recipes)
 
-    if self.data.guid == UnitGUID("player") then
+--     if self.data.guid == UnitGUID("player") then
 
-        if prof == 185 then
-            self:SetCookingRecipes(recipes)
-            return;
-        end
+--         if prof == 185 then
+--             self:SetCookingRecipes(recipes)
+--             return;
+--         end
 
-        if prof == 129 then
-            self:SetFirstAidRecipes(recipes)
-            return
-        end
+--         if prof == 129 then
+--             self:SetFirstAidRecipes(recipes)
+--             return
+--         end
 
-        if prof == 356 then
+--         if prof == 356 then
             
-            return;
-        end
+--             return;
+--         end
 
-        if self.data.profession1 == "-" then
-            self:SetTradeskill(1, prof);
-            self:SetTradeskillRecipes(1, recipes)
-            return;
-        else
-            if self.data.profession1 == prof then
-                self:SetTradeskillRecipes(1, recipes)
-                return;
-            end
-        end
+--         if self.data.profession1 == "-" then
+--             self:SetTradeskill(1, prof);
+--             self:SetTradeskillRecipes(1, recipes)
+--             return;
+--         else
+--             if self.data.profession1 == prof then
+--                 self:SetTradeskillRecipes(1, recipes)
+--                 return;
+--             end
+--         end
 
-        if self.data.profession2 == "-" then
-            self:SetTradeskill(2, prof);
-            self:SetTradeskillRecipes(2, recipes)
-            return;
-        else
-            if self.data.profession2 == prof then
-                self:SetTradeskillRecipes(2, recipes)
-                return;
-            end
-        end
+--         if self.data.profession2 == "-" then
+--             self:SetTradeskill(2, prof);
+--             self:SetTradeskillRecipes(2, recipes)
+--             return;
+--         else
+--             if self.data.profession2 == prof then
+--                 self:SetTradeskillRecipes(2, recipes)
+--                 return;
+--             end
+--         end
 
-        print("Both character professions set and no match available")
-
-    end
-end
+--     end
+-- end
 
 
 function Character:CreateFromData(data)

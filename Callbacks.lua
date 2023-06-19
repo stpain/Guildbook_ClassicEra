@@ -17,15 +17,18 @@ addon:GenerateCallbackEvents({
     "Guildbank_OnDataReceived",
     "Guildbank_StatusInfo",
     
-    "Blizzard_OnTradeskillUpdate",
+    --"Blizzard_OnTradeskillUpdate",
     "Blizzard_OnGuildRosterUpdate",
+    "Blizzard_OnInitialGuildRosterScan",
 
     "UI_OnSizeChanged",
 
     "Chat_OnMessageReceived",
+    "Chat_OnMessageSent",
+    "Chat_OnChatOpened",
 
     "StatusText_OnChanged",
-    "LogDebugMessage",
+    --"LogDebugMessage",
     
     "Comms_OnMessageReceived",
 

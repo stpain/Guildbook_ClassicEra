@@ -3,7 +3,8 @@
 
         <Layers>
             <Layer level="BACKGROUND">
-            
+                <Texture parentKey="background" atlas="Garr_InfoBoxMission-BackgroundTile" vertTile="true" horizTile="true">
+                </Texture>
             </Layer>
             <Layer level="OVERLAY">
                 <FontString parentKey="charactersHeader" inherits="GameFontNormalLarge" text="Chats">
@@ -33,28 +34,27 @@
                 </Anchors>
                 <KeyValues>
                     <KeyValue key="frameType" value="FRAME" type="string"/>
-                    <KeyValue key="itemTemplate" value="GuildbookGuildbankCharacterListviewItem" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookChatCharacterListviewItem" type="string"/>
                     <KeyValue key="elementHeight" value="40" type="number"/>
                 </KeyValues>
             </Frame>
 
-            <Frame parentKey="chatHistory" inherits="GuildbookWidgetsListviewTemplate">
+            <Frame parentKey="chatHistory" inherits="GuildbookWidgetsListviewTemplate, InsetFrameTemplate3">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.charactersListview" relativePoint="TOPRIGHT" x="6" y="0"/>
-                    <Anchor point="BOTTOMRIGHT" x="-6" y="60"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="65"/>
                 </Anchors>
                 <KeyValues>
                     <KeyValue key="frameType" value="FRAME" type="string"/>
                     <KeyValue key="itemTemplate" value="GuildbookChatBubble" type="string"/>
-                    <KeyValue key="elementHeight" value="40" type="number"/>
+                    <KeyValue key="elementHeight" value="50" type="number"/>
                 </KeyValues>
             </Frame>
 
-            <ScrollFrame parentKey="messageInput" inherits="InputScrollFrameTemplate">
-                <Size y="42"/>
+            <ScrollFrame parentKey="messageInput" inherits="InputScrollFrameTemplate" autoFocus="false" multiline="true">
                 <Anchors>
-                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.charactersListview" relativePoint="BOTTOMRIGHT" x="12" y="12"/>
-                    <Anchor point="BOTTOMRIGHT" x="-12" y="12"/>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.chatHistory" relativePoint="BOTTOMLEFT" x="5" y="-8"/>
+                    <Anchor point="BOTTOMRIGHT" x="-11" y="12"/>
                 </Anchors>
             </ScrollFrame>
         </Frames>

@@ -24,7 +24,7 @@
                     </Anchors>
                 </FontString>
                 <FontString parentKey="memoryUsage" inherits="GameFontNormalSmall" justifyH="LEFT" text="mem">
-                    <Size x="80" y="10"/>
+                    <Size x="180" y="10"/>
                     <Anchors>
                         <Anchor point="TOPRIGHT" x="-70" y="-6"/>
                     </Anchors>
@@ -72,9 +72,23 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="guildtree" inherits="GuildbookSmallHighlightButton" hidden="false">
+                    <Frame parentKey="viewHistoryBack" inherits="GuildbookSmallHighlightButton" enableMouse="true">
+                        <Size x="30" y="30"/>
                         <Anchors>
                             <Anchor point="LEFT" x="60" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture parentKey="background" setAllPoints="true"/>
+                            </Layer>
+                        </Layers>
+                        <KeyValues>
+                            <KeyValue key="tooltipText" value="RIBBON_VIEW_HISTORY_BACK_TT" type="string"/>
+                        </KeyValues>
+                    </Frame>
+                    <Frame parentKey="guildtree" inherits="GuildbookSmallHighlightButton" hidden="false">
+                        <Anchors>
+                            <Anchor point="LEFT" relativeKey="$parent.viewHistoryBack" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="BACKGROUND">
@@ -92,7 +106,7 @@
                     </Frame>
                     <Frame parentKey="tradeskills" inherits="GuildbookSmallHighlightButton" hidden="false">
                         <Anchors>
-                            <Anchor point="LEFT" x="90" y="0"/>
+                            <Anchor point="LEFT" relativeKey="$parent.guildtree" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="BACKGROUND">
@@ -105,7 +119,7 @@
                     </Frame>
                     <Frame parentKey="chat" inherits="GuildbookSmallHighlightButton" hidden="false">
                         <Anchors>
-                            <Anchor point="LEFT" x="120" y="0"/>
+                            <Anchor point="LEFT" relativeKey="$parent.tradeskills" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="BACKGROUND">
@@ -124,7 +138,7 @@
                     </Frame>
                     <Frame parentKey="guildroster" inherits="GuildbookSmallHighlightButton" hidden="false">
                         <Anchors>
-                            <Anchor point="LEFT" x="150" y="0"/>
+                            <Anchor point="LEFT" relativeKey="$parent.chat" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="BACKGROUND">
@@ -137,7 +151,7 @@
                     </Frame>
                     <Frame parentKey="calendar" inherits="GuildbookSmallHighlightButton" hidden="false">
                         <Anchors>
-                            <Anchor point="LEFT" x="180" y="0"/>
+                            <Anchor point="LEFT" relativeKey="$parent.guildroster" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="BACKGROUND">
@@ -152,7 +166,7 @@
                     </Frame>
                     <Frame parentKey="guildbank" inherits="GuildbookSmallHighlightButton" hidden="false">
                         <Anchors>
-                            <Anchor point="LEFT" x="210" y="0"/>
+                            <Anchor point="LEFT" relativeKey="$parent.calendar" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="BACKGROUND">
@@ -166,22 +180,6 @@
                         </Layers>
                         <KeyValues>
                             <KeyValue key="tooltipText" value="GUILD_BANK" type="string"/>
-                        </KeyValues>
-                    </Frame>
-
-
-                    <Frame parentKey="myProfile" inherits="GuildbookSmallHighlightButton" enableMouse="true">
-                        <Size x="30" y="30"/>
-                        <Anchors>
-                            <Anchor point="RIGHT" x="-8" y="0"/>
-                        </Anchors>
-                        <Layers>
-                            <Layer level="BACKGROUND">
-                                <Texture parentKey="background" setAllPoints="true"/>
-                            </Layer>
-                        </Layers>
-                        <KeyValues>
-                            <KeyValue key="tooltipText" value="MY_PROFILE"/>
                         </KeyValues>
                     </Frame>
 
@@ -233,7 +231,7 @@
                         <Size x="200" y="20"/>
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.guildbank" relativePoint="RIGHT" x="15" y="0"/>
-                            <Anchor point="RIGHT" relativeKey="$parent.myProfile" relativePoint="LEFT" x="0" y="0"/>
+                            <Anchor point="RIGHT" x="-10" y="0"/>
                         </Anchors>
 
                     </EditBox>

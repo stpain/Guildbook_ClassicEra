@@ -75,6 +75,10 @@
         "message",
         "GUILD",
         "ALL",
-        "ERR_GUILD_DEMOTE_SSS"
+        "ERR_GUILD_DEMOTE_SSS",
+        "SETTINGS",
+        "ERR_GUILD_PROMOTE_SSS",
+        "ERR_GUILD_JOIN_S",
+        "DressUpItemLink"
     ]
 }

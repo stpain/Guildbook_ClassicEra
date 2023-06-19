@@ -6,11 +6,54 @@ local Tradeskills = addon.Tradeskills;
 
 --create these at addon level
 addon.thisCharacter = "";
-addon.thisGuild = "";
+addon.thisGuild = false;
 addon.guilds = {}
 addon.characters = {}
 
-addon.api = {}
+addon.api = {
+    classic = {},
+}
+
+local debugTypeIcons = {
+    warning = "services-icon-warning",
+    info = "glueannouncementpopup-icon-info",
+    comms = "chatframe-button-icon-voicechat",
+    comms_in = "voicechat-channellist-icon-headphone-on",
+    comms_out = "voicechat-icon-textchat-silenced",
+    bank = "ShipMissionIcon-Treasure-Mission",
+}
+
+function addon.LogDebugMessage(debugType, debugMessage)
+    if GuildbookUI and Database.db.debug then
+        GuildbookUI.debug.messageLogListview.DataProvider:Insert({
+            label = string.format("[%s] %s", date("%T"), debugMessage),
+            atlas = debugTypeIcons[debugType],
+        })
+        GuildbookUI.debug.messageLogListview.scrollBox:ScrollToEnd()
+    end
+end
+
+function addon.api.trimTable(tab, num, reverse)
+
+    if type(tab) == "table" then
+        
+        local t = {}
+        if reverse then
+            for i = #tab, (#tab - num), -1 do
+                table.insert(t, tab[i])
+            end
+
+        else
+            for i = 1, num do
+                table.insert(t, tab[i])
+            end
+        end
+
+        tab = nil;
+        return t;
+    end
+end
+
 function addon.api.trimNumber(num)
     if type(num) == 'number' then
         local trimmed = string.format("%.1f", num)
@@ -20,8 +63,15 @@ function addon.api.trimNumber(num)
     end
 end
 
-function addon.api.getPlayerItemLevel()
-    local itemLevel, itemCount = {}, 0, 0
+function addon.api.characterIsMine(name)
+    if Database.db.myCharacters[name] == true or Database.db.myCharacters[name] == false then
+        return true;
+    end
+    return false;
+end
+
+function addon.api.classic.getPlayerItemLevel()
+    local itemLevel, itemCount = 0, 0
 	for k, slot in ipairs(addon.data.inventorySlots) do
 		local link = GetInventoryItemLink('player', slot.Name)
 		if link then
@@ -39,11 +89,11 @@ function addon.api.getPlayerItemLevel()
     end
 end
 
-function addon.api.getPlayerSkillLevels()
+function addon.api.classic.getPlayerSkillLevels()
     local skills = {}
     for s = 1, GetNumSkillLines() do
         local skill, _, _, level, _, _, _, _, _, _, _, _, _ = GetSkillLineInfo(s)
-        if skill and level then
+        if skill and (type(level) == "number") then
             local tradeskillId = Tradeskills:GetTradeskillIDFromLocale(skill)
             if tradeskillId then
                 skills[tradeskillId] = level
@@ -53,7 +103,7 @@ function addon.api.getPlayerSkillLevels()
     return skills;
 end
 
-function addon.api.getPlayerAlts(main)
+function addon.api.classic.getPlayerAlts(main)
     if type(main) == "string" then
         local alts = {}
         if addon.characters and addon.characters then
@@ -68,7 +118,7 @@ function addon.api.getPlayerAlts(main)
     return {}
 end
 
-function addon.api.scanPlayerContainers(includeBanks)
+function addon.api.classic.scanPlayerContainers(includeBanks)
 
     local copper = GetMoney()
 
@@ -146,7 +196,7 @@ function addon.api.scanPlayerContainers(includeBanks)
     return containers;
 end
 
-function addon.api.getPlayerTalents()
+function addon.api.classic.getPlayerTalents()
     local talents = {}
     local tabs = {}
     for tabIndex = 1, GetNumTalentTabs() do
@@ -179,7 +229,7 @@ function addon.api.getPlayerTalents()
     }
 end
 
-function addon.api.getPlayerAuras()
+function addon.api.classic.getPlayerAuras()
     local buffs = {}
     for i = 1, 40 do
         local name, icon, count, dispellType, duration, expirationTime, source, isStealable, _, spellId = UnitAura("player", i)
@@ -194,7 +244,7 @@ function addon.api.getPlayerAuras()
     return buffs;
 end
 
-function addon.api.getPlayerResistances(level)
+function addon.api.classic.getPlayerResistances(level)
     local res = {}
     res.physical = addon.api.trimNumber(ResistancePercent(0,level))
     res.holy = addon.api.trimNumber(ResistancePercent(1,level))
@@ -222,7 +272,7 @@ local statIDs = {
     [4] = 'Intellect',
     [5] = 'Spirit',
 }
-function addon.api.getPaperDollStats()
+function addon.api.classic.getPaperDollStats()
 
     local stats = {
         attributes = {},
@@ -353,7 +403,7 @@ function addon.api.getPaperDollStats()
     return stats;
 end
 
-function addon.api.getPlayerEquipment()
+function addon.api.classic.getPlayerEquipment()
     local equipment = {}
     for k, v in ipairs(addon.data.inventorySlots) do
         local link = GetInventoryItemLink('player', GetInventorySlotInfo(v.slot)) or false

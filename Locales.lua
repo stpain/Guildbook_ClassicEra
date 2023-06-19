@@ -1,106 +1,55 @@
---[==[
-
-Copyright ©2020 Samuel Thomas Pain
-
-The contents of this addon, excluding third-party resources, are
-copyrighted to their authors with all rights reserved.
-
-This addon is free to use and the authors hereby grants you the following rights:
-
-1. 	You may make modifications to this addon for private use only, you
-    may not publicize any portion of this addon.
-
-2. 	Do not modify the name of this addon, including the addon folders.
-
-3. 	This copyright notice shall be included in all copies or substantial
-    portions of the Software.
-
-All rights not explicitly addressed in this license are reserved by
-the copyright holders.
-
-]==]--
-
-
-
-
-
 --[[
     this file will need to be translated with the help of the community
 
     if anyone modifies this could they please drop me a message on curse or git so i can include any translations
+
+	I plan to move all locales inside the L table in time
 ]]
 
--- add this to proper helpAbout section when finished 
---Written by Kylanda@Pyrewood Village, translations
---French, Belrand@Auberdine
 
-local addonName, Guildbook = ...
+local addonName, addon = ...
 
--- locales table
-local L = {}
+local L = {
 
---options page
-L['OptionsAbout'] = 'Guildbook options and about. Thanks to Belrand@Auberdine for the French translations'
-L['Version'] = 'Version'
-L['Author'] = 'Author: |cffffffffstpain (|r|cffF58CBACopperbolts|r |cffffffffand|r |cff0070DEKylanda|r|cffffffff)|r'
+	--====================================================================================
+	--ribbon
+	--====================================================================================
+	RIBBON_VIEW_HISTORY_BACK_TT = "Go back",
 
 
+	--====================================================================================
+	--settings
+	--====================================================================================
 
-L["NEW_VERSION_1"] = "new version available, probably fixes a few things, might break something else though!"
-L["NEW_VERSION_2"] = "there is a totally new awesome version of guildbook, available to downlaod from all good addon providers!"
-L["NEW_VERSION_3"] = "lol, if you thought the last update did not a lot, you should get the new one, probably does about the same.....or less!"
-L["NEW_VERSION_4"] = "hordies are red, alliance are blue, guildbook updates just for you!"
+	--character
+	SETTINGS_CHARACTER_GENERAL = "Set your characters specialization and if you have alts select which is your main.",
 
-L["GUILDBOOK_DATA_SHARE_HEADER"]	= "Guildbook data share \n\nYou can share your tradeskill data by clicking export to generate a data string. Then copy/paste this to somewhere like discord. \nTo import tradeskill data paste a data string into the box below and click import."
-L["GUILDBOOK_LOADER_HEADER"]        = "Welcome to Guildbook"
-L["TOOLTIP_ITEM_RECIPE_HEADER"]     = "Used for the following"
+	--tradeskills
+	SETTINGS_TRADESKILLS_TT_REAGENT_FOR = "Show recipes that can use an item in the tooltip.",
 
-L["HELP_ABOUT"]						= "Help & about"
+	--chat
+	SETTINGS_CHAT_GENERAL = "Set the limits for your message history. Larger limits may cause issues on busy accounts.",
 
--- this is just a quick thing, will make the how section more fleshed out
--- this is a nasty way to do this, its horrible and i need to make the help & about much better
-local slashCommandsIcon = CreateTextureMarkup(136377, 64, 64, 16, 16, 0, 1, 0, 1, 0, 0)
-local slashCommandsHelp = [[
-Slash commands:
-/guildbook open - this will open Guildbook
-/guildbook [interface] - this will open to a specific area (roster, tradeskills, chat, profiles, calendar, stats, guildbank, search, privacy)
+	SETTINGS_ADDON_GENERAL = "Addon config options, if something goes wrong you can enable debug or reset the addon completely.",
+	SETTINGS_ADDON_DEBUG_LABEL = "Debug",
 
-]]
-local tradeskillIcon = CreateAtlasMarkup("Mobile-Blacksmithing", 16, 16)
-local tradeskillHelp = 
-[[
-Tradeskills (Professions):
-Guildbook will share your tradeskill recipes with other guild members. 
-Open your tradeskill to trigger the scan of the recipes. Wait patiently as it scans (~100 recipes per second). This will save to your character and account database for the guild and sends to online guild members. 
-Once this process is complete, future data will be sent to all online guild members when you log in. You can also push data by opening a tradeskill (cooldown enabled to prevent spam).
-If you need to share recipes from an offline guild member, select their tradeskill from the roster, once loaded click the button in the top right of the recipes listview (cooldown enabled to prevent spam).
 
-]]
-local profileIcon = CreateAtlasMarkup("GarrMission_MissionIcon-Recruit", 16, 16)
-local profileHelp = 
-[[
-Profile:
-Edit as you wish, add your personal information or not.
-Show your main spec, list your alts.
+	--====================================================================================
+	--paperdoll stuff
+	--====================================================================================
 
-]]
-local searchIcon = CreateAtlasMarkup("shop-games-magnifyingglass", 16, 16)
-local searchHelp = 
-[[
-Search:
-Use this feature to browse your guild database- Find a recipe, pattern, character name.
 
-]]
-local bankIcon = CreateAtlasMarkup("ShipMissionIcon-Treasure-Map", 16, 16)
-local bankHelp = [[
-Guild bank:
-The guild bank feature works using a commit system, whenever a guildbank character views their bank, the data is sent to all online guild members as a 'commit'. When you view the guild bank, Guildbook will send a request to online guild members for their commit timestamp and then select the member with the latest commit.
-Guildbook then sends a request to that member for the commit data.
 
-As this process involves a lot of comms, there is a cooldown of 30s between requesting bank data, and the request process is staggered so that comms messages dont cause issues for other addons.
-]]
-L["HELP_ABOUT_CREDITS"]				= string.format("%s %s %s %s %s %s %s %s %s %s", slashCommandsIcon, slashCommandsHelp, tradeskillIcon, tradeskillHelp, profileIcon, profileHelp, searchIcon, searchHelp, bankIcon, bankHelp)
+	--====================================================================================
+	--calendar
+	--====================================================================================
 
+
+
+	--====================================================================================
+	--default blizz roster
+	--====================================================================================
+}
 
 
 --mod blizz guild roster, these are key/values in the ModBlizz file that add extra columns
@@ -140,29 +89,10 @@ L["INVENTORY"]                      = "Inventory"
 L["EQUIPMENT"]                      = "Equipment"
 L["TALENTS"]                        = "Talents"
 
-L["ROSTER_ALL_CLASSES"]				= "All"
-L["ROSTER_ALL_RANKS"]				= "All"
-
+--tradeskills view headers
 L["TRADESKILLS"]					= "Professions"
 L["TRADESKILLS_RECIPES"]			= "Recipes"
-L["TRADESKILLS_CHARACTERS"]			= "Characters"
-L["TRADESKILL_GUILD_RECIPES"]		= "Guild Recipes"
-L["TRADESKILLS_SHARE_RECIPES"]		= "Share this characters recipes"
-L["TRADESKILLS_EXPORT_RECIPES"]		= "Import or export tradeskill data"
-
-L['GUILDBANK']						= "Guild bank"
-L["GUILDBANK_HEADER_ITEM"]			= "Item link"
-L["GUILDBANK_HEADER_COUNT"]			= "Count"
-L["GUILDBANK_SORT_TYPE"]			= "Type"
-L["GUILDBANK_HEADER_SUBTYPE"]		= "Subtype"
-L["GUILDBANK_SORT_BANK"]			= "Source"
-L["GUILDBANK_REFRESH"]				= "Refresh"
-L["GUILDBANK_ALL_BANKS"]			= "All banks"
-L["GUILDBANK_ALL_TYPES"]			= "All types"
-L["GUILDBANK_REQUEST_COMMITS"]		= "requesting commits for "
-L["GUILDBANK_REQUEST_INFO"]			= "requesting data from "
-L["GUILDBANK_FUNDS"]				= "Gold available"
-L["GUILDBANK_CURRENCY"]				= "Currency"
+L["TRADESKILLS_CRAFTERS"]			= "Crafters"
 
 L["PROFILES"]                       = "Profiles"
 L["CHAT"]                           = "Chat"
@@ -184,10 +114,7 @@ L["BAGS"]                           = "Bags"
 L["BANK"]                           = "Bank"
 L["STATS"]                          = "Statistics"
 
-L["RESET_AVATAR"]					= "Reset avatar"
-
-L["PRIVACY_HEADER"]                 = "Privacy settings"
-
+--paperdoll stats, these are case sensitive
 L["attributes"] 					= "Attributes"
 L["STRENGTH"]						= "Strength"
 L["AGILITY"]						= "Agility"
@@ -232,19 +159,7 @@ L["SPELL_DMG_FIRE"] 				= "Fire"
 L["SPELL_DMG_NATURE"] 				= "Nature"
 
 
-
--- class and spec
--- class is upper case
-L['DEATHKNIGHT']                    = 'Deathknight'
-L['DRUID']                          = 'Druid'
-L['HUNTER']                         = 'Hunter'
-L['MAGE']                           = 'Mage'
-L['PALADIN']                        = 'Paladin'
-L['PRIEST']                         = 'Priest'
-L['SHAMAN']                         = 'Shaman'
-L['ROGUE']                          = 'Rogue'
-L['WARLOCK']                        = 'Warlock'
-L['WARRIOR']                        = 'Warrior'
+--spec locals
 --mage/dk
 L['Arcane']                         = 'Arcane'
 L['Fire']                           = 'Fire'
@@ -429,8 +344,35 @@ L["HARVEST_FESTIVAL"]				= "Harvest Festival"
 L["HALLOWS_END"]					= "Hallows End"
 L["FEAST_OF_WINTER_VEIL"]			= "Feast of Winter Veil"
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -- grab the clients locale
 local locale = GetLocale()
+
+
+
+
+
+
+
+
+
+
+
 
 --[[
     german  - this needs to be updated
@@ -557,7 +499,7 @@ if locale == "deDE" then
 
 
 --[[
-    french
+	--French, Belrand@Auberdine
 ]]
 elseif locale == 'frFR' then
 
@@ -1062,166 +1004,7 @@ elseif locale == "zhCN" then
 end
 
 
-Guildbook.Locales = L
-
-
--- these were taken from the game however some seem to be incorrect so any fixes please post on the curse page for others to see (and me)
-
--- first aid has a proper value but i dont know it so adding as -1
-Guildbook.ProfessionNames = {
-	enUS = {
-		[164] = "Blacksmithing",
-		[165] = "Leatherworking",
-		[171] = "Alchemy",
-		[182] = "Herbalism",
-		[185] = "Cooking",
-		[186] = "Mining",
-		[197] = "Tailoring",
-		[202] = "Engineering",
-		[333] = "Enchanting",
-		[356] = "Fishing",
-		[393] = "Skinning",
-		[755] = "Jewelcrafting",
-		[773] = "Inscription",
-		--[-1] = "First Aid"
-	},
-	deDE = {
-		[164] = "Schmiedekunst",
-		[165] = "Lederverarbeitung",
-		[171] = "Alchimie",
-		[182] = "Kräuterkunde",
-		[185] = "Kochkunst",
-		[186] = "Bergbau",
-		[197] = "Schneiderei",
-		[202] = "Ingenieurskunst",
-		[333] = "Verzauberkunst",
-		[356] = "Angeln",
-		[393] = "Kürschnerei",
-		[755] = "Juwelenschleifen",
-		[773] = "Inschriftenkunde",
-	},
-	frFR = {
-		[164] = "Forge",
-		[165] = "Travail du cuir",
-		[171] = "Alchimie",
-		[182] = "Herboristerie",
-		[185] = "Cuisine",
-		[186] = "Minage",
-		[197] = "Couture",
-		[202] = "Ingénierie",
-		[333] = "Enchantement",
-		[356] = "Pêche",
-		[393] = "Dépeçage",
-		[755] = "Joaillerie",
-		[773] = "Calligraphie",
-	},
-	esMX = {
-		[164] = "Herrería",
-		[165] = "Peletería",
-		[171] = "Alquimia",
-		[182] = "Herboristería",
-		[185] = "Cocina",
-		[186] = "Minería",
-		[197] = "Sastrería",
-		[202] = "Ingeniería",
-		[333] = "Encantamiento",
-		[356] = "Pesca",
-		[393] = "Desuello",
-		[755] = "Joyería",
-		[773] = "Inscripción",
-	},
-	-- discovered this locale exists also maybe esAL ?
-	esES = {
-        [164] = "Herrería",
-        [165] = "Peletería",
-        [171] = "Alquimia",
-        [182] = "Herboristería",
-        [185] = "Cocina",
-        [186] = "Minería",
-        [197] = "Sastrería",
-        [202] = "Ingeniería",
-        [333] = "Encantamiento",
-        [356] = "Pesca",
-        [393] = "Desuello",
-        [755] = "Joyería",
-        [773] = "Inscripción",
-    },
-	ptBR = {
-		[164] = "Ferraria",
-		[165] = "Couraria",
-		[171] = "Alquimia",
-		[182] = "Herborismo",
-		[185] = "Culinária",
-		[186] = "Mineração",
-		[197] = "Alfaiataria",
-		[202] = "Engenharia",
-		[333] = "Encantamento",
-		[356] = "Pesca",
-		[393] = "Esfolamento",
-		[755] = "Joalheria",
-		[773] = "Escrivania",
-	},
-	ruRU = {
-		[164] = "Кузнечное дело",
-		[165] = "Кожевничество",
-		[171] = "Алхимия",
-		[182] = "Травничество",
-		[185] = "Кулинария",
-		[186] = "Горное дело",
-		[197] = "Портняжное дело",
-		[202] = "Инженерное дело",
-		[333] = "Наложение чар",
-		[356] = "Рыбная ловля",
-		[393] = "Снятие шкур",
-		[755] = "Ювелирное дело",
-		[773] = "Начертание",
-	},
-	zhCN = {
-		[164] = "锻造",
-		[165] = "制皮",
-		[171] = "炼金术",
-		[182] = "草药学",
-		[185] = "烹饪",
-		[186] = "采矿",
-		[197] = "裁缝",
-		[202] = "工程学",
-		[333] = "附魔",
-		[356] = "钓鱼",
-		[393] = "剥皮",
-		[755] = "珠宝加工",
-		[773] = "铭文",
-	},
-	zhTW = {
-		[164] = "鍛造",
-		[165] = "製皮",
-		[171] = "鍊金術",
-		[182] = "草藥學",
-		[185] = "烹飪",
-		[186] = "採礦",
-		[197] = "裁縫",
-		[202] = "工程學",
-		[333] = "附魔",
-		[356] = "釣魚",
-		[393] = "剝皮",
-		[755] = "珠寶設計",
-		[773] = "銘文學",
-	},
-	koKR = {
-		[164] = "대장기술",
-		[165] = "가죽세공",
-		[171] = "연금술",
-		[182] = "약초채집",
-		[185] = "요리",
-		[186] = "채광",
-		[197] = "재봉술",
-		[202] = "기계공학",
-		[333] = "마법부여",
-		[356] = "낚시",
-		[393] = "무두질",
-		[755] = "보석세공",
-		[773] = "주문각인",
-	},
-}
+addon.Locales = L
 
 
 -- key binding header
@@ -1229,5 +1012,3 @@ Guildbook.ProfessionNames = {
 BINDING_CATEGORY_GUILDBOOK = "Guildbook"
 BINDING_HEADER_GENERAL 	= L["GENERAL"]
 BINDING_NAME_Open 	= L["OPEN"]
-BINDING_NAME_Chat 	= L["CHAT"]
-BINDING_NAME_Calendar 	= L["CALENDAR"]

@@ -4,13 +4,21 @@ local json = LibStub('JsonLua-1.0');
 
 local Database = {}
 
+local configUpdates = {
+    chatGuildHistoryLimit = 50,
+    chatWhisperHistoryLimit = 50,
+}
+
 function Database:Init()
 
     --GUILDBOOK_GLOBAL = nil
 
     if not GUILDBOOK_GLOBAL then
         GUILDBOOK_GLOBAL = {
-            config = {},
+            config = {
+                chatGuildHistoryLimit = 50,
+                chatWhisperHistoryLimit = 50,
+            },
             minimapButton = {},
             calendarButton = {},
             guilds = {},
@@ -20,10 +28,17 @@ function Database:Init()
             chats = {
                 guild = {},
             },
+            debug = false,
         }
     end
 
     self.db = GUILDBOOK_GLOBAL;
+
+    for k, v in pairs(configUpdates) do
+        if not self.db.config[k] then
+            self.db.config[k] = v;
+        end
+    end
 
     addon:TriggerEvent("StatusText_OnChanged", "[Database_OnInitialised]")
     addon:TriggerEvent("Database_OnInitialised")
@@ -32,7 +47,10 @@ end
 function Database:Reset()
 
     GUILDBOOK_GLOBAL = {
-        config = {},
+        config = {
+            chatGuildHistoryLimit = 50,
+            chatWhisperHistoryLimit = 50,
+        },        
         minimapButton = {},
         calendarButton = {},
         guilds = {},
@@ -42,6 +60,7 @@ function Database:Reset()
         chats = {
             guild = {},
         },
+        debug = false,
     }
 
     self.db = GUILDBOOK_GLOBAL;

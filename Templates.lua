@@ -1,6 +1,6 @@
 local _, addon = ...
 local L = addon.Locales
-
+local Database = addon.Database;
 local Talents = addon.Talents;
 
 --- basic button mixin
@@ -105,7 +105,7 @@ end
 
 GuildbookSearchListviewItemMixin = {}
 function GuildbookSearchListviewItemMixin:OnLoad()
-    addon:RegisterCallback("Guildbank_StatusInfo", self.UpdateInfo, self)
+
 end
 
 function GuildbookSearchListviewItemMixin:ResetDataBinding()
@@ -113,9 +113,7 @@ function GuildbookSearchListviewItemMixin:ResetDataBinding()
 end
 
 function GuildbookSearchListviewItemMixin:UpdateInfo(info)
-    if info.characterName == self.characterName then
-        self.info:SetText(info.status)
-    end
+
 end
 
 function GuildbookSearchListviewItemMixin:SetDataBinding(binding)
@@ -141,11 +139,58 @@ function GuildbookSearchListviewItemMixin:SetDataBinding(binding)
 
         self.text:SetText(binding.data:GetItemLink())
 
+    elseif binding.type == "inventory" then
+
+        self.text:SetText(binding.data:GetItemLink())
+        
     end
 
     self:SetScript("OnMouseDown", function()
 
     end)
+end
+
+
+
+
+
+
+
+GuildbookChatCharacterListviewItemMixin = {}
+function GuildbookChatCharacterListviewItemMixin:OnLoad()
+    addon:RegisterCallback("Chat_OnMessageReceived", self.UpdateInfo, self)
+end
+
+function GuildbookChatCharacterListviewItemMixin:ResetDataBinding()
+
+end
+
+function GuildbookChatCharacterListviewItemMixin:UpdateInfo(msg)
+    if msg.sender == self.characterName then
+        self.info:SetText("new message")
+    end
+end
+
+function GuildbookChatCharacterListviewItemMixin:SetDataBinding(info, height)
+    self.characterName = info.label
+    self.icon:SetAtlas(info.atlas)
+    self.text:SetText(Ambiguate(info.label, "short"))
+    self.icon:SetSize(height-2, height-2)
+    if info.showMask then
+        self.mask:Show()
+    end
+
+    self:SetScript("OnMouseDown", function()
+        self:AdjustPointsOffset(-1,-1)
+        if info.func then
+            info.func()
+            self.info:SetText("")
+        end
+    end)
+end
+
+function GuildbookChatCharacterListviewItemMixin:OnMouseUp()
+    self:AdjustPointsOffset(1,1)
 end
 
 
@@ -621,6 +666,11 @@ function GuildbookRosterListviewItemMixin:OnLoad()
             addon:TriggerEvent("Character_OnProfileSelected", self.character)
         end
     end)
+    self.openChat:SetScript("OnMouseDown", function()
+        if self.character then
+            addon:TriggerEvent("Chat_OnChatOpened", self.character.data.name)
+        end
+    end)
     
     addon:RegisterCallback("UI_OnSizeChanged", self.UpdateLayout, self)
     addon:RegisterCallback("Character_OnDataChanged", self.Character_OnDataChanged, self)
@@ -882,13 +932,13 @@ function GuildbookSimpleIconLabelMixin:SetDataBinding(binding, height)
             GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
         end)
 
-        --if we have a link its very likely we want to display it
-        local item = Item:CreateFromItemLink(binding.link)
-        if not item:IsItemEmpty() then
-            item:ContinueOnItemLoad(function()
-                self.label:SetText(item:GetItemLink())
-            end)
-        end
+        --if we have a link its very likely we need to get the info?
+        -- local item = Item:CreateFromItemLink(binding.link)
+        -- if not item:IsItemEmpty() then
+        --     item:ContinueOnItemLoad(function()
+        --         self.label:SetText(item:GetItemLink())
+        --     end)
+        -- end
     end
 
     --self.anim:Play()
@@ -1163,7 +1213,7 @@ function GuildbookBankCharactersListviewItemMixin:OnLoad()
         end
     end)
 
-    self.shareCopper.label:SetText("Copper")
+    self.shareCopper.label:SetText("Gold")
     self.shareCopper:SetScript("OnClick", function(cb)
         if self.character then
             if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].bankRules[self.character.data.name] then
@@ -1194,7 +1244,38 @@ function GuildbookBankCharactersListviewItemMixin:Update(character)
             self.shareBank:SetChecked(rules.shareBank)
             self.shareBags:SetChecked(rules.shareBags)
             self.shareCopper:SetChecked(rules.shareCopper)
+            self.ranks:SetText((rules.shareRank and GuildControlGetRankName(rules.shareRank + 1)) or "-")
         end
+
+        --1 and GuildControlGetNumRanks() GuildControlGetRankName(index)
+        --use this here as ranks can change
+        local ranks = {}
+        for i = 1, GuildControlGetNumRanks() do
+            local rankName = GuildControlGetRankName(i)
+            table.insert(ranks, {
+                text = string.format("[%d] %s", (i-1), rankName),
+                func = function ()
+                    if self.character then
+                        if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].bankRules[self.character.data.name] then
+                            addon.guilds[addon.thisGuild].bankRules[self.character.data.name].shareRank = (i-1)
+                        end
+                    end
+                end,
+            })
+        end
+        self.ranks:SetMenu(ranks)
+    end
+
+    if addon.api.characterIsMine(self.character.data.name) then
+        self.shareBank:Enable()
+        self.shareBags:Enable()
+        self.shareCopper:Enable()
+        self.ranks:EnableMouse(true)
+    else
+        self.shareBank:Disable()
+        self.shareBags:Disable()
+        self.shareCopper:Disable()
+        self.ranks:EnableMouse(false)
     end
 
 end
@@ -1206,7 +1287,37 @@ function GuildbookChatBubbleMixin:OnLoad()
     
 end
 function GuildbookChatBubbleMixin:SetDataBinding(binding)
-    self.message:SetText(binding.message)
+
+    if binding.sender == addon.thisCharacter then
+        self.message:SetJustifyH("RIGHT")
+
+        if Database.db.characterDirectory[binding.sender] then
+            local _, class = GetClassInfo(Database.db.characterDirectory[binding.sender].class)
+            if class then
+                local r, g, b, hex = GetClassColor(class)
+                self.message:SetText(string.format("|c%s%s|r [%s]\n%s", hex, binding.sender, date("%T", binding.timestamp), binding.message))
+            else
+                self.message:SetText(string.format("%s [%s]\n%s", binding.sender, date("%T", binding.timestamp), binding.message))
+            end
+        else
+            self.message:SetText(string.format("%s [%s]\n%s", binding.sender, date("%T", binding.timestamp), binding.message))
+        end
+
+    else
+        self.message:SetJustifyH("LEFT")
+
+        if Database.db.characterDirectory[binding.sender] then
+            local _, class = GetClassInfo(Database.db.characterDirectory[binding.sender].class)
+            if class then
+                local r, g, b, hex = GetClassColor(class)
+                self.message:SetText(string.format("[%s] |c%s%s|r\n%s", date("%T", binding.timestamp), hex, binding.sender, binding.message))
+            else
+                self.message:SetText(string.format("[%s] %s\n%s", date("%T", binding.timestamp), binding.sender, binding.message))
+            end
+        else
+            self.message:SetText(string.format("[%s] %s\n%s", date("%T", binding.timestamp), binding.sender, binding.message))
+        end
+    end
 end
 function GuildbookChatBubbleMixin:ResetDataBinding()
     
