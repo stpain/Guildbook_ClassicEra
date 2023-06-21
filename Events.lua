@@ -185,6 +185,7 @@ function e:ADDON_LOADED()
     -- GuildFrameDemoteButton:HookScript("OnClick", function()
     
     -- end)
+
 end
 
 
@@ -238,7 +239,7 @@ end
 local bankScanned = false
 function e:BANKFRAME_CLOSED()
     if bankScanned == false then
-        --if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
+        if addon.characters[addon.thisCharacter] then
             local bags = addon.api.classic.scanPlayerContainers(true)
     
             if addon.guilds[addon.thisGuild] then
@@ -256,12 +257,12 @@ function e:BANKFRAME_CLOSED()
 
             end
             addon.characters[addon.thisCharacter]:SetContainers(bags)
-        --end
+        end
     end
     bankScanned = not bankScanned;
 end
 function e:BANKFRAME_OPENED()
-    --if addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter].data.publicNote:lower() == "guildbank") then
+    if addon.characters[addon.thisCharacter] then
         local bags = addon.api.classic.scanPlayerContainers(true)
 
         if addon.guilds[addon.thisGuild] then
@@ -280,7 +281,7 @@ function e:BANKFRAME_OPENED()
             addon.characters[addon.thisCharacter]:SetContainers(bags)
         end
         addon.characters[addon.thisCharacter]:SetContainers(bags)
-    --end
+    end
 end
 
 --this means you can view your alts items
@@ -322,6 +323,7 @@ function e:CHARACTER_POINTS_CHANGED(delta)
         --addon.characters[addon.thisCharacter]:SetLevel()
     end
     local talents = addon.api.classic.getPlayerTalents()
+    --DevTools_Dump(talents)
     if addon.characters[addon.thisCharacter] then
         addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
     end
@@ -422,7 +424,7 @@ function e:GUILD_ROSTER_UPDATE()
             --local name, rankName, rankIndex, level, classDisplayName, zone, publicNote, officerNote, isOnline, status, class, achievementPoints, achievementRank, isMobile, canSoR, repStanding, guid = GetGuildRosterInfo(i)
             local name, rankName, rankIndex, level, _, zone, publicNote, officerNote, isOnline, status, class, _, _, _, _, _, guid = GetGuildRosterInfo(i)
         
-            if publicNote:lower() == "guildbank" then
+            if publicNote:lower():find("guildbank") then
 
                 --add the bank character if not exists
                 if not addon.guilds[guildName].banks[name] then

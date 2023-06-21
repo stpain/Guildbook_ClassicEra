@@ -57,36 +57,36 @@ Talents.ClassTalentTreeIndexToFileName = {
 }
 
 Talents.TalentBackgrounds = {
-	["DeathKnightBlood"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\DEATHKNIGHT\\Blood", 
-	["DeathKnightFrost"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\DEATHKNIGHT\\Frost", 
-	["DeathKnightUnholy"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\DEATHKNIGHT\\Unholy", 
-	["DruidBalance"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\DRUID\\Balance",  
-	["DruidFeralCombat"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\DRUID\\Bear", 
-	["DruidRestoration"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\DRUID\\Restoration", 
-	["HunterBeastMastery"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\HUNTER\\BeastMaster", 
-	["HunterMarksmanship"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\HUNTER\\Marksmanship",  
-	["HunterSurvival"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\HUNTER\\Survival", 
-	["MageArcane"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\MAGE\\Arcane", 
-	["MageFire"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\MAGE\\Fire",  
-	["MageFrost"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\MAGE\\Frost", 
-	["PaladinCombat"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\PALADIN\\Retribution",  
-	["PaladinHoly"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\PALADIN\\Holy",  
-	["PaladinProtection"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\PALADIN\\Protection", 
-	["PriestDiscipline"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\PRIEST\\Discipline",  
-	["PriestHoly"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\PRIEST\\Holy",  
-	["PriestShadow"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\PRIEST\\Shadow", 
-	["RogueAssassination"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\ROGUE\\Assassination",  
-	["RogueCombat"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\ROGUE\\Combat",  
-	["RogueSubtlety"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\ROGUE\\Subtlety", 
-	["ShamanElementalCombat"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\SHAMAN\\Elemental", 
-	["ShamanEnhancement"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\SHAMAN\\Enhancement",  
-	["ShamanRestoration"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\SHAMAN\\Restoration", 
-	["WarlockCurses"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\WARLOCK\\Affliction",  
-	["WarlockDestruction"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\WARLOCK\\Destruction",  
-	["WarlockSummoning"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\WARLOCK\\Demonology", 
-	["WarriorArms"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\WARRIOR\\Arms",  
-	["WarriorFury"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\WARRIOR\\Fury",  
-	["WarriorProtection"] = "Interface\\Addons\\Guildbook\\Icons\\Specialization\\WARRIOR\\Protection", 
+	["DeathKnightBlood"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\DEATHKNIGHT\\Blood", 
+	["DeathKnightFrost"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\DEATHKNIGHT\\Frost", 
+	["DeathKnightUnholy"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\DEATHKNIGHT\\Unholy", 
+	["DruidBalance"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\DRUID\\Balance",  
+	["DruidFeralCombat"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\DRUID\\Bear", 
+	["DruidRestoration"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\DRUID\\Restoration", 
+	["HunterBeastMastery"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\HUNTER\\BeastMaster", 
+	["HunterMarksmanship"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\HUNTER\\Marksmanship",  
+	["HunterSurvival"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\HUNTER\\Survival", 
+	["MageArcane"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\MAGE\\Arcane", 
+	["MageFire"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\MAGE\\Fire",  
+	["MageFrost"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\MAGE\\Frost", 
+	["PaladinCombat"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\PALADIN\\Retribution",  
+	["PaladinHoly"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\PALADIN\\Holy",  
+	["PaladinProtection"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\PALADIN\\Protection", 
+	["PriestDiscipline"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\PRIEST\\Discipline",  
+	["PriestHoly"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\PRIEST\\Holy",  
+	["PriestShadow"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\PRIEST\\Shadow", 
+	["RogueAssassination"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\ROGUE\\Assassination",  
+	["RogueCombat"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\ROGUE\\Combat",  
+	["RogueSubtlety"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\ROGUE\\Subtlety", 
+	["ShamanElementalCombat"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\SHAMAN\\Elemental", 
+	["ShamanEnhancement"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\SHAMAN\\Enhancement",  
+	["ShamanRestoration"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\SHAMAN\\Restoration", 
+	["WarlockCurses"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\WARLOCK\\Affliction",  
+	["WarlockDestruction"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\WARLOCK\\Destruction",  
+	["WarlockSummoning"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\WARLOCK\\Demonology", 
+	["WarriorArms"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\WARRIOR\\Arms",  
+	["WarriorFury"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\WARRIOR\\Fury",  
+	["WarriorProtection"] = "Interface\\Addons\\Guildbook_ClassicEra\\Icons\\Specialization\\WARRIOR\\Protection", 
 }
 
 function Talents:GetClassTalentTreeArtwork(classID)
@@ -95,8 +95,8 @@ function Talents:GetClassTalentTreeArtwork(classID)
         local art = {}
         local fileNames = self.ClassTalentTreeIndexToFileName[class];
         for k, v in ipairs(fileNames) do
-            --art[k] = self.TalentBackgrounds[v]
-            art[k] = string.format("interface/talentframe/%s-topleft.blp", v)
+            art[k] = self.TalentBackgrounds[v]
+            --art[k] = string.format("interface/talentframe/%s-topleft.blp", v)
         end
         return art;
     end
@@ -611,12 +611,17 @@ function Talents:GetTalentSpellId(fileName, row, col, rank)
 
     if tabID then
         for k, v in ipairs(talentsCSV) do
-            if (v[4] == tabID) and (v[1] == (row - 1)) and (v[3] == (col - 1)) then --v[1] row, v[3] col v[12] rank 1 spellID v[13] rank 2 ...
+            if (v[4] == tabID) and (v[1] == (row - 1)) and (v[3] == (col - 1)) then --v[1] row, v[3] col, v[12] rank 1 spellID, v[13] rank 2 ...
                 -- local link = GetSpellLink(v[12 + (rank - 1)])
                 -- local name, rank = GetSpellInfo(v[12 + (rank - 1)])
                 -- print(name, rank)
                 -- return string.format("|Hspell:%d" ,v[12 + (rank - 1)])
-                return v[12 + (rank)];
+
+                if rank == 0 then
+                    return v[12];
+                else
+                    return v[11 + (rank)];
+                end
             end
         end
     end

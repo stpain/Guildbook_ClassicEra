@@ -189,6 +189,11 @@ function GuildbookMixin:OnLoad()
     end)
 
     SetPortraitToTexture(GuildbookUIPortrait,134068)
+    self.portraitButton:SetScript("OnMouseDown", function()
+        if addon.characters and addon.characters[addon.thisCharacter] then
+            addon:TriggerEvent("Character_OnProfileSelected", addon.characters[addon.thisCharacter])
+        end
+    end)
 
     addon:RegisterCallback("Database_OnInitialised", self.Database_OnInitialised, self)
     addon:RegisterCallback("StatusText_OnChanged", self.SetStatausText, self)
@@ -315,10 +320,30 @@ end
 
 function GuildbookMixin:Blizzard_OnInitialGuildRosterScan(guildName)
 
-    --So the addon should now have the guild and characters tables set, btu lets hold it 1 second
+    --So the addon should now have the guild and characters tables set, but lets hold it 1 second
     C_Timer.After(1, function()
-    
+
+        --atm this will re set the data which is used o trigger the braodcast
+        --TODO: update this to check for data and then broadcast, save the extra fun calls
+        local equipment = addon.api.classic.getPlayerEquipment()
+        local currentStats = addon.api.classic.getPaperDollStats()
+        local resistances = addon.api.classic.getPlayerResistances(UnitLevel("player"))
+        local auras = addon.api.classic.getPlayerAuras()
+        local talents = addon.api.classic.getPlayerTalents()
+
+        if addon.characters[addon.thisCharacter] then
+            addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
+            addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
+            addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats, true)
+            addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
+            addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
+
+            if addon.characters[addon.thisCharacter].data.mainSpec then
+                addon:TriggerEvent("Character_BroadcastChange", addon.characters[addon.thisCharacter], "SetSpec", "mainSpec")
+            end
+        end
     end)
+
 end
 
 function GuildbookMixin:Database_OnInitialised()

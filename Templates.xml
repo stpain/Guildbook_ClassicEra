@@ -377,6 +377,21 @@
 				</FontString>
             </Layer>
         </Layers>
+        <Frames>
+            <Frame parentKey="delete" inherits="GuildbookSmallHighlightButton" enableMouse="true">
+                <Size x="16" y="16"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-4" y="-4"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture parentKey="icon" atlas="transmog-icon-remove" setAllPoints="true">
+
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </Frame>
+        </Frames>
 
         <Scripts>
             <OnLoad method="OnLoad"/>

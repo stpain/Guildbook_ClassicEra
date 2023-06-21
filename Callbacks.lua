@@ -26,6 +26,7 @@ addon:GenerateCallbackEvents({
     "Chat_OnMessageReceived",
     "Chat_OnMessageSent",
     "Chat_OnChatOpened",
+    "Chat_OnHistoryDeleted",
 
     "StatusText_OnChanged",
     --"LogDebugMessage",

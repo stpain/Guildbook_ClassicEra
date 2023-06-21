@@ -179,11 +179,18 @@
                         <Layers>
                             <Layer level="OVERLAY">
                                 <FontString parentKey="header" inherits="GameFontNormalLarge" text="Guild">
-                                    <Color r="1" g="1" b="1"/>
                                     <Size y="30"/>
                                     <Anchors>
                                         <Anchor point="TOPLEFT" x="0" y="0"/>
                                         <Anchor point="TOPRIGHT" x="0" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="general" inherits="GameFontNormal">
+                                    <Size y="30"/>
+                                    <Color r="1" g="1" b="1"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="0" y="-30"/>
+                                        <Anchor point="TOPRIGHT" x="0" y="-30"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
@@ -198,17 +205,107 @@
                         <Layers>
                             <Layer level="OVERLAY">
                                 <FontString parentKey="header" inherits="GameFontNormalLarge" text="Tradeskills">
-                                    <Color r="1" g="1" b="1"/>
                                     <Size y="30"/>
                                     <Anchors>
                                         <Anchor point="TOPLEFT" x="0" y="0"/>
                                         <Anchor point="TOPRIGHT" x="0" y="0"/>
                                     </Anchors>
                                 </FontString>
+                                <FontString parentKey="general" inherits="GameFontNormal">
+                                    <Color r="1" g="1" b="1"/>
+                                    <Size y="30"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="0" y="-30"/>
+                                        <Anchor point="TOPRIGHT" x="0" y="-30"/>
+                                    </Anchors>
+                                </FontString>
                             </Layer>
                         </Layers>
                         <Frames>
+                            <ScrollFrame parentKey="scrollFrame" inherits="GuildbookScrollFrameTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="0" y="-60"/>
+                                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                </Anchors>
+                                <ScrollChild>
+                                    <Frame parentKey="scrollChild">
+                                        <Anchors>
+                                            <Anchor point="LEFT" x="0" y="0"/>
+                                            <Anchor point="RIGHT" x="0" y="0"/>
+                                        </Anchors>
+                                        <Frames>
+                                            <Frame parentKey="tradeskillItems">
+                                                <Size x="300" y="160"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" x="20" y="-30"/>
+                                                </Anchors>
+                                                <Layers>
+                                                    <Layer level="BACKGROUND">
+                                                        <!-- <Texture atlas="Relicforge-Relicsbackground-Previewtraits" setAllPoints="true">
+                                                        
+                                                        </Texture> -->
+                                                    </Layer>
+                                                    <Layer level="OVERLAY">
+                                                        <FontString parentKey="header" inherits="GameFontNormal" text="Recipes">
+                                                            <Size y="20"/>
+                                                            <Anchors>
+                                                                <Anchor point="TOPLEFT" x="0" y="0"/>
+                                                                <Anchor point="TOPRIGHT" x="0" y="0"/>
+                                                            </Anchors>
+                                                        </FontString>
+                                                    </Layer>
+                                                </Layers>
+                                                <Frames>
+                                                    <CheckButton parentKey="tradeskillsShowAllRecipeInfoTooltip" inherits="GuildbookCheckButton">
+                                                        <Size x="24" y="24"/>
+                                                        <Anchors>
+                                                            <Anchor point="TOPLEFT" x="16" y="-32"/>
+                                                        </Anchors>
+                                                    </CheckButton>
+                                                    <CheckButton parentKey="tradeskillsShowMyRecipeInfoTooltip" inherits="GuildbookCheckButton">
+                                                        <Size x="24" y="24"/>
+                                                        <Anchors>
+                                                            <Anchor point="TOPLEFT" x="16" y="-74"/>
+                                                        </Anchors>
+                                                    </CheckButton>
+                                                </Frames>                        
+                                            </Frame>
+                                            <Frame parentKey="reagentItems">
+                                                <Size x="300" y="300"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeKey="$parent.tradeskillItems" relativePoint="TOPRIGHT" x="20" y="0"/>
+                                                </Anchors>
+                                                <Layers>
+                                                    <Layer level="OVERLAY">
+                                                        <FontString parentKey="header" inherits="GameFontNormal" text="Recipe reagents">
+                                                            <Size y="20"/>
+                                                            <Anchors>
+                                                                <Anchor point="TOPLEFT" x="0" y="0"/>
+                                                                <Anchor point="TOPRIGHT" x="0" y="0"/>
+                                                            </Anchors>
+                                                        </FontString>
+                                                    </Layer>
+                                                </Layers>
+                                                <Frames>
+                                                    <CheckButton parentKey="tradeskillsShowAllRecipesUsingTooltip" inherits="GuildbookCheckButton">
+                                                        <Size x="24" y="24"/>
+                                                        <Anchors>
+                                                            <Anchor point="TOPLEFT" x="16" y="-32"/>
+                                                        </Anchors>
+                                                    </CheckButton>
+                                                    <CheckButton parentKey="tradeskillsShowMyRecipesUsingTooltip" inherits="GuildbookCheckButton">
+                                                        <Size x="24" y="24"/>
+                                                        <Anchors>
+                                                            <Anchor point="TOPLEFT" x="16" y="-74"/>
+                                                        </Anchors>
+                                                    </CheckButton>
+                                                </Frames>
+                                            </Frame>
+                                        </Frames>
+                                    </Frame>
 
+                                </ScrollChild>
+                            </ScrollFrame> 
                         </Frames>                  
                     </Frame>
 
@@ -260,11 +357,18 @@
                         <Layers>
                             <Layer level="OVERLAY">
                                 <FontString parentKey="header" inherits="GameFontNormalLarge" text="Guild Bank">
-                                    <Color r="1" g="1" b="1"/>
                                     <Size y="30"/>
                                     <Anchors>
                                         <Anchor point="TOPLEFT" x="0" y="0"/>
                                         <Anchor point="TOPRIGHT" x="0" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="general" inherits="GameFontNormal" text="Chat">
+                                    <Size y="30"/>
+                                    <Color r="1" g="1" b="1"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="0" y="-30"/>
+                                        <Anchor point="TOPRIGHT" x="0" y="-30"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
@@ -272,7 +376,7 @@
                         <Frames>
                             <Frame parentKey="listview" inherits="GuildbookWidgetsListviewTemplate">
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" x="0" y="-46"/>
+                                    <Anchor point="TOPLEFT" x="0" y="-60"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                                 </Anchors>
                                 <KeyValues>

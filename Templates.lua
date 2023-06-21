@@ -159,6 +159,12 @@ end
 GuildbookChatCharacterListviewItemMixin = {}
 function GuildbookChatCharacterListviewItemMixin:OnLoad()
     addon:RegisterCallback("Chat_OnMessageReceived", self.UpdateInfo, self)
+
+    self.delete:SetScript("OnMouseDown", function()
+        if self.characterName then
+            addon:TriggerEvent("Chat_OnHistoryDeleted", self.characterName)
+        end
+    end)
 end
 
 function GuildbookChatCharacterListviewItemMixin:ResetDataBinding()
@@ -172,6 +178,11 @@ function GuildbookChatCharacterListviewItemMixin:UpdateInfo(msg)
 end
 
 function GuildbookChatCharacterListviewItemMixin:SetDataBinding(info, height)
+
+    if info.label == "Guild" then
+        self.delete:Hide()
+    end
+
     self.characterName = info.label
     self.icon:SetAtlas(info.atlas)
     self.text:SetText(Ambiguate(info.label, "short"))
@@ -214,19 +225,23 @@ function GuildbookGuildbankCharacterListviewItemMixin:UpdateInfo(info)
     end
 end
 
-function GuildbookGuildbankCharacterListviewItemMixin:SetDataBinding(info, height)
-    self.characterName = info.label
-    self.icon:SetAtlas(info.atlas)
-    self.text:SetText(Ambiguate(info.label, "short"))
+function GuildbookGuildbankCharacterListviewItemMixin:SetDataBinding(binding, height)
+    self.characterName = binding.label
+    self.icon:SetAtlas(binding.atlas)
+    self.text:SetText(Ambiguate(binding.label, "short"))
     self.icon:SetSize(height-2, height-2)
-    if info.showMask then
+    if binding.showMask then
         self.mask:Show()
+    end
+
+    if binding.status then
+        self.info:SetText(binding.status)
     end
 
     self:SetScript("OnMouseDown", function()
         self:AdjustPointsOffset(-1,-1)
-        if info.func then
-            info.func()
+        if binding.func then
+            binding.func()
         end
     end)
 end
@@ -611,11 +626,13 @@ function GuildbookRecipeListviewItemMixin:SetDataBinding(binding, height)
             count = v
         })
     end
-    C_Timer.NewTicker(0.01, function()
-        self.reagentIcons[i]:SetItem(reagents[i].itemID, reagents[i].count)
-        self.reagentIcons[i]:Show()
-        i = i + 1;
-    end, #reagents)
+    table.sort(reagents, function(a, b)
+        return a.count > b.count;
+    end)
+    for k, v in ipairs(reagents) do
+        self.reagentIcons[k]:SetItem(v.itemID, v.count)
+        self.reagentIcons[k]:Show()
+    end
 
     self:SetScript("OnEnter", function()
         GameTooltip:SetOwner(self, "ANCHOR_LEFT")
@@ -1057,6 +1074,7 @@ function GuildbookTalentIconFrameMixin:SetTalent(talent)
     self.talent = talent;
     local name, _, icon = GetSpellInfo(self.talent.spellId)
     self.icon:SetTexture(icon)
+    self.icon:Show()
     self.border:Show()
     self.pointsBackground:Show()
     self.pointsLabel:Show()
@@ -1075,7 +1093,12 @@ function GuildbookTalentIconFrameMixin:ClearTalent()
     self.border:Hide()
     self.pointsBackground:Hide()
     self.pointsLabel:Hide()
+    self.icon:Hide()
 end
+
+
+
+
 
 
 GuildbookGuildBankListviewItemMixin = {}

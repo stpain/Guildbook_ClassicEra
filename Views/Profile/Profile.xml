@@ -27,24 +27,25 @@
                     <Layer level="OVERLAY">
                         <FontString parentKey="name" inherits="GameFontNormalLarge" text="-">
                             <Color r="1" g="1" b="1"/>
-                            <Size y="40"/>
+                            <Size y="46"/>
                             <Anchors>
                                 <Anchor point="TOPLEFT" x="0" y="-5"/>
                                 <Anchor point="TOPRIGHT" x="0" y="-5"/>
                             </Anchors>
                         </FontString>
-                        <FontString parentKey="mainCharacter" inherits="GameFontNormalSmall" text="">
-                            <Size y="1"/>
+                        <FontString parentKey="mainCharacter" inherits="GameFontNormal" text="">
+                            <Size y="16"/>
                             <Anchors>
-                                <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.name" x="0" y="0"/>
-                                <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" relativeKey="$parent.name" x="0" y="0"/>
+                                <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.name" x="0" y="-10"/>
+                                <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" relativeKey="$parent.name" x="0" y="-10"/>
                             </Anchors>
                         </FontString>
-                        <FontString parentKey="mainSpec" inherits="GameFontWhite" text="-">
-                            <Size y="20"/>
+                        <FontString parentKey="mainSpec" inherits="GameFontNormalLarge" text="-">
+                            <Color r="1" g="1" b="1"/>
+                            <Size y="26"/>
                             <Anchors>
-                                <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.mainCharacter" x="0" y="-10"/>
-                                <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" relativeKey="$parent.mainCharacter" x="0" y="-10"/>
+                                <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.mainCharacter" x="0" y="-15"/>
+                                <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" relativeKey="$parent.mainCharacter" x="0" y="-15"/>
                             </Anchors>
                         </FontString>
                     </Layer>
@@ -52,7 +53,7 @@
                 <Frames>
                     <Frame parentKey="listview" inherits="GuildbookWidgetsListviewTemplate">
                         <Anchors>
-                            <Anchor point="TOP" relativeKey="$parent.mainSpec" relativePoint="BOTTOM" x="0" y="-5"/>
+                            <Anchor point="TOP" relativeKey="$parent.mainSpec" relativePoint="BOTTOM" x="0" y="-15"/>
                             <Anchor point="BOTTOMLEFT" x="0" y="0"/>
                             <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                         </Anchors>
@@ -174,7 +175,7 @@
                         <Layers>
                             <Layer level="BACKGROUND">
                                 <Texture parentKey="background" setAllPoints="true">
-                                
+                                    <Texcoords left="0" right="0.5546875" top="0" bottom="0.611328125"/>
                                 </Texture>
                             </Layer>
                         </Layers>
@@ -195,7 +196,7 @@
                         <Layers>
                             <Layer level="BACKGROUND">
                                 <Texture parentKey="background" setAllPoints="true">
-                                
+                                    <Texcoords left="0" right="0.5546875" top="0" bottom="0.611328125"/>
                                 </Texture>
                             </Layer>
                         </Layers>
@@ -217,7 +218,7 @@
                         <Layers>
                             <Layer level="BACKGROUND">
                                 <Texture parentKey="background" setAllPoints="true">
-                                
+                                    <Texcoords left="0" right="0.5546875" top="0" bottom="0.611328125"/>
                                 </Texture>
                             </Layer>
                         </Layers>

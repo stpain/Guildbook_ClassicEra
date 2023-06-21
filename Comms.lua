@@ -287,6 +287,8 @@ function Comms:Character_BroadcastChange(character, ...)
         --the addon will take the method sent if it exists rather than having to hard code message.event > character.method (although this could be better as time goes on)
         local method, key, subKey = ...;
 
+        --print(method, key, subKey)
+
         if self.characterKeyToEventName[key] then
 
             addon.LogDebugMessage("comms", string.format("received %s", key))

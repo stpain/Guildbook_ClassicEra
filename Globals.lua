@@ -33,6 +33,54 @@ function addon.LogDebugMessage(debugType, debugMessage)
     end
 end
 
+function addon.api.getTradeskillItemDataFromID(itemID)
+    for k, v in ipairs(addon.itemData) do
+        if v.itemID == itemID then
+            return v;
+        end
+    end
+    return false;
+end
+
+function addon.api.getTradeskillItemsUsingReagentItemID(itemID, prof1, prof2)
+    local t = {}
+    for k, v in ipairs(addon.itemData) do
+        for id, count in pairs(v.reagents) do
+            if id == itemID then
+                if prof1 == nil and prof2 == nil then
+                    if not t[v.professionID] then
+                        t[v.professionID] = {}
+                    end
+                    table.insert(t[v.professionID], v)
+                else
+                    if prof1 and (v.professionID == prof1) then
+                        if not t[v.professionID] then
+                            t[v.professionID] = {}
+                        end
+                        table.insert(t[v.professionID], v)
+                    end
+                    if prof2 and (v.professionID == prof2) then
+                        if not t[v.professionID] then
+                            t[v.professionID] = {}
+                        end
+                        table.insert(t[v.professionID], v)
+                    end
+                end
+            end
+        end
+    end
+    return t;
+end
+
+--taken from blizz to use for classic
+function addon.api.extractLink(text)
+    -- linkType: |H([^:]*): matches everything that's not a colon, up to the first colon.
+    -- linkOptions: ([^|]*)|h matches everything that's not a |, up to the first |h.
+    -- displayText: (.*)|h matches everything up to the second |h.
+    -- Ex: |cffffffff|Htype:a:b:c:d|htext|h|r becomes type, a:b:c:d, text
+    return string.match(text, [[|H([^:]*):([^|]*)|h(.*)|h]]);
+end
+
 function addon.api.trimTable(tab, num, reverse)
 
     if type(tab) == "table" then
@@ -244,15 +292,34 @@ function addon.api.classic.getPlayerAuras()
     return buffs;
 end
 
+local resistanceIDs = {
+    [0] = "physical",
+    [1] = "holy",
+    [2] = "fire",
+    [3] = "nature",
+    [4] = "frost",
+    [5] = "shadow",
+    [6] = "arcane",
+}
 function addon.api.classic.getPlayerResistances(level)
     local res = {}
-    res.physical = addon.api.trimNumber(ResistancePercent(0,level))
-    res.holy = addon.api.trimNumber(ResistancePercent(1,level))
-    res.fire = addon.api.trimNumber(ResistancePercent(2,level))
-    res.nature = addon.api.trimNumber(ResistancePercent(3,level))
-    res.frost = addon.api.trimNumber(ResistancePercent(4,level))
-    res.shadow = addon.api.trimNumber(ResistancePercent(5,level))
-    res.arcane = addon.api.trimNumber(ResistancePercent(6,level))
+    -- res.physical = addon.api.trimNumber(ResistancePercent(0,level))
+    -- res.holy = addon.api.trimNumber(ResistancePercent(1,level))
+    -- res.fire = addon.api.trimNumber(ResistancePercent(2,level))
+    -- res.nature = addon.api.trimNumber(ResistancePercent(3,level))
+    -- res.frost = addon.api.trimNumber(ResistancePercent(4,level))
+    -- res.shadow = addon.api.trimNumber(ResistancePercent(5,level))
+    -- res.arcane = addon.api.trimNumber(ResistancePercent(6,level))
+
+    for i = 0, 6 do
+        local base, total, bonus, minus = UnitResistance("player", i)
+        res[resistanceIDs[i]] = {
+            base = base,
+            total = total,
+            bonus = bonus,
+            minus = minus,
+        }
+    end
 
     return res;
 end

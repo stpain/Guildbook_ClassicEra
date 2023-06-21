@@ -79,6 +79,7 @@
         "SETTINGS",
         "ERR_GUILD_PROMOTE_SSS",
         "ERR_GUILD_JOIN_S",
-        "DressUpItemLink"
+        "DressUpItemLink",
+        "CHARACTER"
     ]
 }

@@ -13,6 +13,7 @@ function GuildbookChatMixin:OnLoad()
     addon:RegisterCallback("Chat_OnMessageReceived", self.Chat_OnMessageReceived, self)
     addon:RegisterCallback("Chat_OnMessageSent", self.Chat_OnMessageSent, self)
     addon:RegisterCallback("Chat_OnChatOpened", self.Chat_OnChatOpened, self)
+    addon:RegisterCallback("Chat_OnHistoryDeleted", self.Chat_OnHistoryDeleted, self)
 
     self.messageInput.EditBox:SetScript("OnEnterPressed", function(eb)
         if eb:GetText() ~= "" then
@@ -40,6 +41,16 @@ end
 function GuildbookChatMixin:Database_OnInitialised()
     self.chats = Database.db.chats;
 
+    self:Update()
+end
+
+function GuildbookChatMixin:Chat_OnHistoryDeleted(name)
+    if name == "Guild" then
+        return;
+    end
+    if self.chats and self.chats[name] then
+        self.chats[name] = nil;
+    end
     self:Update()
 end
 

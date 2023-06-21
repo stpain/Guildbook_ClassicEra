@@ -209,7 +209,7 @@ function Character:SetSpec(spec, specID, broadcast)
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
     if broadcast then
-        addon:TriggerEvent("Character_BroadcastChange", self, "SetSpec", spec, specID)
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetSpec", spec)
     end
     addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "spec", self.data.name))
 end
@@ -513,9 +513,7 @@ function Character:GetProfile()
 end
 
 function Character:SetTalents(spec, talents, broadcast)
-    if (#talents > 0) then
-        self.data.talents[spec] = talents;
-    end
+    self.data.talents[spec] = talents;
     addon:TriggerEvent("Character_OnDataChanged", self)
     if broadcast then
         addon:TriggerEvent("Character_BroadcastChange", self, "SetTalents", "talents", spec)
@@ -700,9 +698,7 @@ function Character:GetClassSpecAtlasName(spec)
     if type(self.data.class) == "number" then
         local _, class = GetClassInfo(self.data.class)
 
-        if not spec then
-            return string.format("classicon-%s", class):lower()
-        else
+        if spec then
             
             local s;
             if spec == "primary" then
@@ -724,7 +720,11 @@ function Character:GetClassSpecAtlasName(spec)
                 s = "Outlaw";
             end
 
-            return string.format("GarrMission_ClassIcon-%s-%s", class, s)
+            if s then
+                return string.format("GarrMission_ClassIcon-%s-%s", class, s)
+            else
+                return string.format("classicon-%s", class):lower()
+            end
         end
     end
 

@@ -663,7 +663,8 @@ function GuildbookProfileMixin:Update()
         return
     end
 
-    self.sidePane.name:SetText(self.character.data.name)
+	local name, realm = strsplit("-", self.character.data.name)
+    self.sidePane.name:SetText(string.format("%s\n[%s]", name, realm))
 
 	if self.character.data.mainCharacter then
 		self.sidePane.mainCharacter:SetText(string.format("(%s)", self.character.data.mainCharacter))
@@ -674,8 +675,13 @@ function GuildbookProfileMixin:Update()
 	end
 
 
-	local localeSpec, engSpec, id =self.character:GetSpec("primary")
-    self.sidePane.mainSpec:SetText(engSpec)
+	local localeSpec, engSpec, id = self.character:GetSpec("primary")
+	local atlas = self.character:GetClassSpecAtlasName("primary")
+	if engSpec then
+    	self.sidePane.mainSpec:SetText(string.format("%s %s", CreateAtlasMarkup(atlas, 24, 24), engSpec))
+	else
+		self.sidePane.mainSpec:SetText(CreateAtlasMarkup(atlas, 24, 24))
+	end
 
     self.sidePane.listview.DataProvider:Flush()
     
@@ -778,16 +784,20 @@ function GuildbookProfileMixin:Update()
         --DevTools_Dump(frame)
 		frame.label:SetText("?")
         if self.character.data.resistances.current[frame.resistanceName] then
-            frame.label:SetText(self.character.data.resistances.current[frame.resistanceName])
-            frame:SetScript("OnEnter", function()
-                GameTooltip:SetOwner(self.inventory.resistanceGridview, "ANCHOR_TOPRIGHT")
-                GameTooltip:AddLine(string.format("|cffffffff%s Resistance", frame.resistanceName:gsub("^%l", string.upper)))
-                GameTooltip:AddLine(string.format("Resistance against level %d %d", self.character.data.level, self.character.data.resistances.current[frame.resistanceName]))
-                GameTooltip:Show()
-            end)
-            frame:SetScript("OnLeave", function()
-                GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-            end)
+			local res = self.character.data.resistances.current[frame.resistanceName]
+			if res and res.total and res.base and res.bonus then
+				frame.label:SetText(res.total)
+				frame:SetScript("OnEnter", function()
+					GameTooltip:SetOwner(self.inventory.resistanceGridview, "ANCHOR_TOPRIGHT")
+					GameTooltip:AddLine(string.format("%s Resistance: |cffffffff%d (%d |cff009900+ %d|r)", frame.resistanceName:gsub("^%l", string.upper), res.total, res.base, res.bonus))
+					GameTooltip:Show()
+				end)
+				frame:SetScript("OnLeave", function()
+					GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+				end)
+			else
+
+			end
         end
     end
 
@@ -907,26 +917,36 @@ function GuildbookProfileMixin:Update()
         [3] = {},
     }
 
-	local talents = self.character.data.talents.current;
-	if talents then
-		for k, v in ipairs(talents) do
+	for i = 1, 3 do
+		for k, frame in ipairs(self.talents["tree"..i].talentsGridview:GetFrames()) do
+			frame:ClearTalent()
+		end
+	end
 
-			for i = 1, 3 do
-				if v.tabID == i then
-					if not talentTress[i][v.row] then
-						talentTress[i][v.row] = {}
+	if self.character.data.talents.current then
+		local talents = self.character.data.talents.current.talents; --.talents.current = { tabs = {}, talents = {}, }
+		if talents then
+			for k, v in ipairs(talents) do
+
+
+
+				for i = 1, 3 do
+					if v.tabID == i then
+						if not talentTress[i][v.row] then
+							talentTress[i][v.row] = {}
+						end
+						talentTress[i][v.row][v.col] = v
 					end
-					talentTress[i][v.row][v.col] = v
 				end
 			end
-		end
 
-		for i = 1, 3 do
-			for k, frame in ipairs(self.talents["tree"..i].talentsGridview:GetFrames()) do
-				if talentTress[i][frame.rowId][frame.colId] then
-					frame:SetTalent(talentTress[i][frame.rowId][frame.colId])
-				else
-					frame:ClearTalent()
+			for i = 1, 3 do
+				for k, frame in ipairs(self.talents["tree"..i].talentsGridview:GetFrames()) do
+					if talentTress[i][frame.rowId][frame.colId] then
+						frame:SetTalent(talentTress[i][frame.rowId][frame.colId])
+					else
+						frame:ClearTalent()
+					end
 				end
 			end
 		end

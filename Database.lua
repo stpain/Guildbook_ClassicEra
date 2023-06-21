@@ -7,6 +7,12 @@ local Database = {}
 local configUpdates = {
     chatGuildHistoryLimit = 50,
     chatWhisperHistoryLimit = 50,
+
+    tradeskillsShowAllRecipeInfoTooltip = false,
+    tradeskillsShowMyRecipeInfoTooltip = false,
+
+    tradeskillsShowAllRecipesUsingTooltip = false,
+    tradeskillsShowMyRecipesUsingTooltip = false,
 }
 
 function Database:Init()

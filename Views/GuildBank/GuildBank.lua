@@ -102,7 +102,7 @@ function GuildbookGuildBankMixin:OnShow()
 
     if addon.characters then
         for name, character in pairs(addon.characters) do
-            if character.data.publicNote:lower() == "guildbank" then
+            if character.data.publicNote:lower():find("guildbank") then
 
                 if addon.guilds[addon.thisGuild] then
                     if not addon.guilds[addon.thisGuild].banks[character.data.name] then
@@ -137,6 +137,7 @@ function GuildbookGuildBankMixin:OnShow()
                 if addon.api.characterIsMine(name) then
                     self.charactersListview.DataProvider:Insert({
                         label = character.data.name,
+                        status = "[Alt Character]",
                         atlas = character:GetProfileAvatar(),
                         showMask = true,
         

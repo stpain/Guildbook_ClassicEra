@@ -33,7 +33,16 @@
         </Layers>
 
         <Frames>
-
+            <Button parentKey="portraitButton">
+                <Size x="64" y="64"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="-6" y="8"/>
+                </Anchors>
+                <NormalTexture>
+                </NormalTexture>
+                <HighlightTexture>
+                </HighlightTexture>
+            </Button>
             <Button parentKey="help">
                 <Size x="18" y="18"/>
                 <Anchors>

@@ -22,14 +22,31 @@ local L = {
 	--====================================================================================
 
 	--character
+	CHARACTER = "Character",
 	SETTINGS_CHARACTER_GENERAL = "Set your characters specialization and if you have alts select which is your main.",
 
 	--tradeskills
-	SETTINGS_TRADESKILLS_TT_REAGENT_FOR = "Show recipes that can use an item in the tooltip.",
+	TRADESKILLS = "Tradeskills.",
+	REAGENT = "Reagent",
+	COUNT = "Count",
+	SETTINGS_TRADESKILLS_GENERAL = "Show tooltip information for tradeskill items and reagents.",
+	SETTINGS_TRADESKILLS_TT_RECIPE_INFO_ALL = "Show recipe info in the tooltip (all tradeskills).",
+	SETTINGS_TRADESKILLS_TT_RECIPE_INFO_MY = "Show recipe info in the tooltip (only my tradeskills).",
+	SETTINGS_TRADESKILLS_TT_REAGENT_FOR_ALL = "Show all recipes that can use an item in the tooltip.",
+	SETTINGS_TRADESKILLS_TT_REAGENT_FOR_MY = "Show only my recipes that can use an item in the tooltip.",
+
+	SETTINGS_TRADESKILLS_TT_RECIPE_INFO_HEADER = "Recipe reagent info",
+	SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER = "This is a reagent for the following recipes.",
+
+	--guild bank
+	GUILDBANK = "Guild Bank",
+	SETTINGS_GUILDBANK_GENERAL = "",
 
 	--chat
+	CHAT = "Chat",
 	SETTINGS_CHAT_GENERAL = "Set the limits for your message history. Larger limits may cause issues on busy accounts.",
 
+	ADDON = "Addon",
 	SETTINGS_ADDON_GENERAL = "Addon config options, if something goes wrong you can enable debug or reset the addon completely.",
 	SETTINGS_ADDON_DEBUG_LABEL = "Debug",
 

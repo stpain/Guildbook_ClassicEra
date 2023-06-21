@@ -1,6 +1,7 @@
 local name, addon = ...;
 local L = addon.Locales
 local Database = addon.Database;
+local Tradeskills = addon.Tradeskills;
 
 GuildbookSettingsMixin = {
     name = "Settings",
@@ -60,12 +61,24 @@ function GuildbookSettingsMixin:OnLoad()
         },
     }
 
+    self.content.character.header:SetText(L.CHARACTER)
     self.content.character.general:SetText(L.SETTINGS_CHARACTER_GENERAL)
+    self.content.chat.header:SetText(L.CHAT)
     self.content.chat.general:SetText(L.SETTINGS_CHAT_GENERAL)
+    self.content.addon.header:SetText(L.ADDON)
     self.content.addon.general:SetText(L.SETTINGS_ADDON_GENERAL)
+    self.content.guildBank.header:SetText(L.GUILDBANK)
+    self.content.guildBank.general:SetText(L.SETTINGS_GUILDBANK_GENERAL)
+    self.content.tradeskills.header:SetText(L.TRADESKILLS)
+    self.content.tradeskills.general:SetText(L.SETTINGS_TRADESKILLS_GENERAL)
+
+    
 
     self.content.character:SetScript("OnShow", function()
         self:CharacterPanel_OnShow()
+    end)
+    self.content.tradeskills:SetScript("OnShow", function()
+        self:TradeskillPanel_OnShow()
     end)
     self.content.guildBank:SetScript("OnShow", function()
         self:GuildBankPanel_OnShow()
@@ -78,6 +91,7 @@ function GuildbookSettingsMixin:OnLoad()
 
     addon:RegisterCallback("UI_OnSizeChanged", self.UpdateLayout, self)
     addon:RegisterCallback("Database_OnInitialised", self.Database_OnInitialised, self)
+    addon:RegisterCallback("Blizzard_OnInitialGuildRosterScan", self.Blizzard_OnInitialGuildRosterScan, self)
 
 
     --quickly added for testing
@@ -97,28 +111,37 @@ function GuildbookSettingsMixin:UpdateLayout()
     local x, y = self.content:GetSize()
 
     local characterScroll = self.content.character.scrollFrame.scrollChild;
+    local tradeskillsScroll = self.content.tradeskills.scrollFrame.scrollChild;
 
-    if x < 650 then
+    if x < 680 then
         
         characterScroll.myCharacters:ClearAllPoints()
         characterScroll.myCharacters:SetPoint("TOP", characterScroll.specializations, "BOTTOM", 0, -10)
+        
+        tradeskillsScroll.reagentItems:ClearAllPoints()
+        tradeskillsScroll.reagentItems:SetPoint("TOP", tradeskillsScroll.tradeskillItems, "BOTTOM", 0, -10)
 
 
     else
 
         characterScroll.myCharacters:ClearAllPoints()
         characterScroll.myCharacters:SetPoint("TOPLEFT", characterScroll.specializations, "TOPRIGHT", 20, 0)
+
+        tradeskillsScroll.reagentItems:ClearAllPoints()
+        tradeskillsScroll.reagentItems:SetPoint("TOPLEFT", tradeskillsScroll.tradeskillItems, "TOPRIGHT", 20, 0)
     end
 
 end
 
-function GuildbookSettingsMixin:CharacterPanel_OnShow()
+function GuildbookSettingsMixin:PrepareCharacterPanel()
 
-    local x, y = self.content:GetSize()
+    --=========================================
+    --character panel
+    --this setup requires the addon.characters table to be populated
+    --so this gets called after the initial roster scan
+    --=========================================
 
     local panel = self.content.character.scrollFrame.scrollChild;
-
-    panel:SetSize(x-24, y)
 
     for i = 1, 4 do
         panel.specializations["spec"..i]:Hide()
@@ -161,8 +184,189 @@ function GuildbookSettingsMixin:CharacterPanel_OnShow()
     panel.myCharacters.listview.DataProvider:InsertTable(alts)
 end
 
+
+function GuildbookSettingsMixin:PreparePanels()
+
+    --=========================================
+    --chat panel
+    --=========================================
+    local chatSliders = {
+        ["Guild history limit"] = "chatGuildHistoryLimit",
+        ["Whisper history limit"] = "chatWhisperHistoryLimit",
+    }
+
+    for label, slider in pairs(chatSliders) do
+
+        self.content.chat[slider].label:SetText(label)
+        self.content.chat[slider].value:SetText(Database.db.config[slider])
+        self.content.chat[slider]:SetMinMaxValues(10, 80)
+        self.content.chat[slider]:SetValue(Database.db.config[slider])
+
+        _G[self.content.chat[slider]:GetName().."Low"]:SetText(" ")
+        _G[self.content.chat[slider]:GetName().."High"]:SetText(" ")
+        _G[self.content.chat[slider]:GetName().."Text"]:SetText(" ")
+
+        self.content.chat[slider]:SetScript("OnMouseWheel", function(s, delta)
+            s:SetValue(s:GetValue() + delta)
+        end)
+
+        self.content.chat[slider]:SetScript("OnValueChanged", function(s)
+            local val = math.ceil(s:GetValue())
+            s.value:SetText(val)
+            Database:SetConfig(slider, val)
+
+            --as chat messages get received the chat view update func will handle any table trimming
+            --here we just need to set the db values            
+        end)
+    end
+
+
+
+
+
+    --=========================================
+    --addon panel
+    --=========================================
+    self.content.addon.debug:SetChecked(Database.db.debug)
+    
+
+
+
+    --=========================================
+    --Tradeskills panel
+    --=========================================
+
+    local recipeCheckboxes = {
+        "tradeskillsShowAllRecipeInfoTooltip",
+        "tradeskillsShowMyRecipeInfoTooltip",    
+    }
+    for k, v in ipairs(recipeCheckboxes) do
+        self.content.tradeskills.scrollFrame.scrollChild.tradeskillItems[v]:SetChecked(Database.db.config[v])
+        self.content.tradeskills.scrollFrame.scrollChild.tradeskillItems[v]:SetScript("OnClick", function(cb)
+            for k, v in ipairs(recipeCheckboxes) do
+                self.content.tradeskills.scrollFrame.scrollChild.tradeskillItems[v]:SetChecked(false)
+                Database.db.config[v] = false
+            end
+            cb:SetChecked(true)
+            Database.db.config[v] = cb:GetChecked()        
+        end)
+    end
+
+    local reagentCheckboxes = {  
+        "tradeskillsShowAllRecipesUsingTooltip",
+        "tradeskillsShowMyRecipesUsingTooltip",
+    }
+    for k, v in ipairs(reagentCheckboxes) do
+        self.content.tradeskills.scrollFrame.scrollChild.reagentItems[v]:SetChecked(Database.db.config[v])
+        self.content.tradeskills.scrollFrame.scrollChild.reagentItems[v]:SetScript("OnClick", function(cb)
+            for k, v in ipairs(reagentCheckboxes) do
+                self.content.tradeskills.scrollFrame.scrollChild.reagentItems[v]:SetChecked(false)
+                Database.db.config[v] = false
+            end
+            cb:SetChecked(true)
+            Database.db.config[v] = cb:GetChecked()
+        end)
+    end
+
+    self.content.tradeskills.scrollFrame.scrollChild.tradeskillItems.tradeskillsShowAllRecipeInfoTooltip.label:SetText(L.SETTINGS_TRADESKILLS_TT_RECIPE_INFO_ALL)
+    self.content.tradeskills.scrollFrame.scrollChild.tradeskillItems.tradeskillsShowMyRecipeInfoTooltip.label:SetText(L.SETTINGS_TRADESKILLS_TT_RECIPE_INFO_MY)
+
+    self.content.tradeskills.scrollFrame.scrollChild.reagentItems.tradeskillsShowAllRecipesUsingTooltip.label:SetText(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_ALL)
+    self.content.tradeskills.scrollFrame.scrollChild.reagentItems.tradeskillsShowMyRecipesUsingTooltip.label:SetText(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_MY)
+
+    GameTooltip:HookScript("OnTooltipSetItem", function(tt)
+
+        local name, link = tt:GetItem()
+        if link then
+            local itemID = GetItemInfoInstant(link)
+            if itemID then
+                local itemInfo = addon.api.getTradeskillItemDataFromID(itemID)
+                if Database.db.config.tradeskillsShowAllRecipeInfoTooltip == true then
+                    if itemInfo then
+                        tt:AddLine(" ")
+                        tt:AddLine(string.format("%s |cffffffff%s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(itemInfo.professionID), 20, 20), Tradeskills:GetLocaleNameFromID(itemInfo.professionID)))
+                        tt:AddDoubleLine(L.REAGENT, L.COUNT)
+                        for id, count in pairs(itemInfo.reagents) do
+                            local item = Item:CreateFromItemID(id)
+                            if not item:IsItemEmpty() then
+                                item:ContinueOnItemLoad(function()
+                                    tt:AddDoubleLine(item:GetItemLink(), "|cffffffff"..count)
+                                end)
+                            end
+                        end
+                    end
+                else
+                    if Database.db.config.tradeskillsShowMyRecipeInfoTooltip == true then
+                        if itemInfo and addon.characters[addon.thisCharacter] then
+                            if (itemInfo.professionID == addon.characters[addon.thisCharacter].data.profession1) or (itemInfo.professionID == addon.characters[addon.thisCharacter].data.profession2) then
+                                tt:AddLine(" ")
+                                tt:AddLine(string.format("%s |cffffffff%s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(itemInfo.professionID), 20, 20), Tradeskills:GetLocaleNameFromID(itemInfo.professionID)))
+                                tt:AddDoubleLine(L.REAGENT, L.COUNT)
+                                for id, count in pairs(itemInfo.reagents) do
+                                    local item = Item:CreateFromItemID(id)
+                                    if not item:IsItemEmpty() then
+                                        item:ContinueOnItemLoad(function()
+                                            tt:AddDoubleLine(item:GetItemLink(), "|cffffffff"..count)
+                                        end)
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+
+                if Database.db.config.tradeskillsShowAllRecipesUsingTooltip == true then
+                    local recipesUsingItem = addon.api.getTradeskillItemsUsingReagentItemID(itemID)
+                    if next(recipesUsingItem) then
+                        tt:AddLine(" ")
+                        tt:AddLine(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER)
+                    end
+                    for tradeskillID, recipes in pairs(recipesUsingItem) do
+                        tt:AddLine(" ")
+                        tt:AddLine(string.format("%s %s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(tradeskillID)))
+                        for k, v in ipairs(recipes) do
+                            tt:AddLine(v.itemLink)
+                        end
+                    end
+                else
+                    if Database.db.config.tradeskillsShowMyRecipesUsingTooltip == true then
+                        local recipesUsingItem = addon.api.getTradeskillItemsUsingReagentItemID(itemID, addon.characters[addon.thisCharacter].data.profession1, addon.characters[addon.thisCharacter].data.profession2)
+                        if next(recipesUsingItem) then
+                            tt:AddLine(" ")
+                            tt:AddLine(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER)
+                        end                        for tradeskillID, recipes in pairs(recipesUsingItem) do
+                            tt:AddLine(" ")
+                            tt:AddLine(string.format("%s %s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(tradeskillID)))
+                            for k, v in ipairs(recipes) do
+                                tt:AddLine(v.itemLink)
+                            end
+                        end
+                    end
+                end
+
+            end
+        end
+
+    end)
+end
+
+function GuildbookSettingsMixin:CharacterPanel_OnShow()
+
+    local x, y = self.content:GetSize()
+    self.content.character.scrollFrame.scrollChild:SetSize(x-24, y)
+
+end
+
+function GuildbookSettingsMixin:TradeskillPanel_OnShow()
+
+    local x, y = self.content:GetSize()
+    self.content.tradeskills.scrollFrame.scrollChild:SetSize(x-24, y)
+
+end
+
 function GuildbookSettingsMixin:GuildBankPanel_OnShow()
 
+    --this remains in OnShow as bank characters can eb added/removed during gameplay
     self.content.guildBank.listview.DataProvider:Flush()
     local t = {}
     if addon.characters then
@@ -193,45 +397,12 @@ end
 
 function GuildbookSettingsMixin:ChatPanel_OnShow()
 
-    if not self.panelsLoaded.chat then
-
-        local chatSliders = {
-            ["Guild history limit"] = "chatGuildHistoryLimit",
-            ["Whisper history limit"] = "chatWhisperHistoryLimit",
-        }
-    
-        for label, slider in pairs(chatSliders) do
-    
-            self.content.chat[slider].label:SetText(label)
-            self.content.chat[slider]:SetMinMaxValues(10, 100)
-    
-            _G[self.content.chat[slider]:GetName().."Low"]:SetText(" ")
-            _G[self.content.chat[slider]:GetName().."High"]:SetText(" ")
-            _G[self.content.chat[slider]:GetName().."Text"]:SetText(" ")
-    
-            self.content.chat[slider]:SetScript("OnMouseWheel", function(s, delta)
-                s:SetValue(s:GetValue() + delta)
-            end)
-    
-            self.content.chat[slider]:SetScript("OnValueChanged", function(s)
-                local val = math.ceil(s:GetValue())
-                s.value:SetText(val)
-                Database:SetConfig(slider, val)
-
-                --make 2nd table copy over history limit and nil and set as new
-            end)
-        end
-
-        self.panelsLoaded.chat = true;
-    end
-
 end
 
 function GuildbookSettingsMixin:Database_OnInitialised()
-
-    self.content.addon.debug:SetChecked(Database.db.debug)
-
-    self.content.chat.chatGuildHistoryLimit:SetValue(Database.db.config.chatGuildHistoryLimit)
-    self.content.chat.chatWhisperHistoryLimit:SetValue(Database.db.config.chatWhisperHistoryLimit)
+    self:PreparePanels()
 end
 
+function GuildbookSettingsMixin:Blizzard_OnInitialGuildRosterScan()
+    self:PrepareCharacterPanel()
+end
