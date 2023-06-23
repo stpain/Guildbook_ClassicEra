@@ -28,13 +28,13 @@ local Comms = {
     --the time added to each message waiting in the queue, this limits how often a message can be dispatched
     queueExtendTime = 6.0,
 
-     --stagger effect for the onUpdate func on dispatcher, limits the onUpdate to once per second
+     --limiter effect for the dispatcher onUpdate func, limits the onUpdate to once per second
     dispatcherElapsedDelay = 1.0,
     
     queue = {},
     dispatcher = CreateFrame("FRAME"),
     dispatcherElapsed = 0,
-    pause = false,
+    paused = false,
 };
 
 
@@ -87,6 +87,18 @@ function Comms:Init()
     self.dispatcher:SetScript("OnUpdate", Comms.DispatcherOnUpdate)
 
     addon:TriggerEvent("StatusText_OnChanged", "[Comms:Init]")
+    addon:RegisterCallback("Player_Regen_Enabled", self.Player_Regen_Enabled, self)
+    addon:RegisterCallback("Player_Regen_Disabled", self.Player_Regen_Disabled, self)
+end
+
+--pause comms during combat
+--this setup doesn't affect guild bank and non queue comms, however checking the banks wouuld likely be done in a city or rested area
+function Comms:Player_Regen_Enabled()
+    self.paused = false;
+end
+
+function Comms:Player_Regen_Disabled()
+    self.paused = true;
 end
 
 ---the pourpose of this function is to check the queued mesages once per second and take action
@@ -95,6 +107,10 @@ end
 ---@param self frame the dispatch frame
 ---@param elapsed number elapsed since last OnUpdate
 function Comms.DispatcherOnUpdate(self, elapsed)
+
+    if Comms.paused then
+        return;
+    end
 
     Comms.dispatcherElapsed = Comms.dispatcherElapsed + elapsed;
 
@@ -161,7 +177,7 @@ end
 -- end
 
 ---the purpose of this queue function is to provide some relief to the addon comms channel
----if a message with the same type is queued more than once within a 'stagger' period of time
+---if a message with the same type is queued more than once within a period of time (a waiting room if you like)
 ---the data of the message is kept and then sent after a timer.
 ---the timer delay is determined by the previous timer to keep messages spaced out
 function Comms:QueueMessage(event, message, channel, target)

@@ -25,6 +25,13 @@
         </Layers>
 
         <Frames>
+            <Frame parentKey="bankCharactersHelptip" inherits="GuildbookHelpTipTemplate_RightArrow">
+                <Size x="140" y="180"/>
+                <Anchors>
+                    <Anchor point="RIGHT" relativePoint="LEFT" x="-10" y="0"/>
+                </Anchors>
+            </Frame>
+
             <Frame parentKey="refresh" inherits="GuildbookSmallHighlightButton" hidden="false">
                 <Size x="30" y="30"/>
                 <Anchors>
@@ -40,6 +47,12 @@
                         </Texture>
                     </Layer>
                 </Layers>
+            </Frame>
+            <Frame parentKey="refreshHelptip" inherits="GuildbookHelpTipTemplate_RightArrow">
+                <Size x="200" y="120"/>
+                <Anchors>
+                    <Anchor point="RIGHT" relativeKey="$parent.refresh" relativePoint="LEFT" x="-20" y="0"/>
+                </Anchors>
             </Frame>
             <Frame parentKey="charactersListview" inherits="GuildbookWidgetsListviewTemplate">
                 <Size x="200"/>

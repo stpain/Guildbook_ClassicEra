@@ -182,6 +182,12 @@ function GuildbookSettingsMixin:PrepareCharacterPanel()
         end
     end
     panel.myCharacters.listview.DataProvider:InsertTable(alts)
+
+    panel.reset:SetScript("OnClick", function()
+        if addon.characters and addon.characters[addon.thisCharacter] then
+            addon.characters[addon.thisCharacter]:ResetData()
+        end
+    end)
 end
 
 

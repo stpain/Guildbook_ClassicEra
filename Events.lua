@@ -29,12 +29,23 @@ e:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
 e:RegisterEvent('ZONE_CHANGED_NEW_AREA')
 e:RegisterEvent('CHARACTER_POINTS_CHANGED')
 e:RegisterEvent('UNIT_AURA')
+e:RegisterEvent("PLAYER_REGEN_DISABLED")
+e:RegisterEvent("PLAYER_REGEN_ENABLED")
+e:RegisterEvent("SKILL_LINES_CHANGED")
 
 e:SetScript("OnEvent", function(self, event, ...)
     if self[event] then
         self[event](self, ...)
     end
 end)
+
+function e:PLAYER_REGEN_DISABLED()
+    addon:TriggerEvent("Player_Regen_Disabled")
+end
+
+function e:PLAYER_REGEN_ENABLED()
+    addon:TriggerEvent("Player_Regen_Enabled")
+end
 
 function e:CHAT_MSG_WHISPER_INFORM(...)
     local msg, target = ...;
@@ -207,28 +218,6 @@ end
 
 function e:GUILD_RANKS_UPDATE()
     
-end
-
-function e:TRADE_SKILL_SHOW()
-    local skills = addon.api.classic.getPlayerSkillLevels()
-    if addon.characters and addon.characters[addon.thisCharacter] then
-        for tradeskillId, level in pairs(skills) do
-            if tradeskillId == 129 then
-                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level, true)
-            elseif tradeskillId == 185 then
-                addon.characters[addon.thisCharacter]:SetCookingLevel(level, true)
-            elseif tradeskillId == 356 then
-                addon.characters[addon.thisCharacter]:SetFishingLevel(level, true)
-            else
-                if addon.characters[addon.thisCharacter].data.profession1 == tradeskillId then
-                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level, true)
-
-                elseif addon.characters[addon.thisCharacter].data.profession2 == tradeskillId then
-                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level, true)
-                end
-            end
-        end
-    end
 end
 
 --[[
@@ -563,6 +552,47 @@ function e:GUILD_ROSTER_UPDATE()
     end
 end
 
+local function processSkillLines(skills)
+    if addon.characters and addon.characters[addon.thisCharacter] then
+        for tradeskillId, level in pairs(skills) do
+            if tradeskillId == 129 then
+                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level, true)
+            elseif tradeskillId == 185 then
+                addon.characters[addon.thisCharacter]:SetCookingLevel(level, true)
+            elseif tradeskillId == 356 then
+                addon.characters[addon.thisCharacter]:SetFishingLevel(level, true)
+            else
+                if addon.characters[addon.thisCharacter].data.profession1 == "-" then
+                    addon.characters[addon.thisCharacter]:SetTradeskill(1, tradeskillId, true);
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level, true)
+                    return;
+                else
+                    if (addon.characters[addon.thisCharacter].data.profession2 == "-") and (addon.characters[addon.thisCharacter].data.profession1 ~= tradeskillId) then
+                        addon.characters[addon.thisCharacter]:SetTradeskill(2, tradeskillId, true);
+                        addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level, true)
+                        return;
+                    end
+                end
+                if addon.characters[addon.thisCharacter].data.profession1 == tradeskillId then
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level, true)
+                elseif addon.characters[addon.thisCharacter].data.profession2 == tradeskillId then
+                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level, true)
+                end
+            end
+        end
+    end
+end
+
+function e:SKILL_LINES_CHANGED()
+    local skills = addon.api.classic.getPlayerSkillLevels()
+    processSkillLines(skills)
+end
+
+function e:TRADE_SKILL_SHOW()
+    local skills = addon.api.classic.getPlayerSkillLevels()
+    processSkillLines(skills)
+end
+
 --rather than have this method on all character objs when only the players character needs it
 --i just made it a local func here
 local function setCharacterTradeskill(prof, recipes)
@@ -611,24 +641,7 @@ end
 function e:CRAFT_UPDATE()
 
     local skills = addon.api.classic.getPlayerSkillLevels()
-    if addon.characters and addon.characters[addon.thisCharacter] then
-        for tradeskillId, level in pairs(skills) do
-            if tradeskillId == 129 then
-                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level, true)
-            elseif tradeskillId == 185 then
-                addon.characters[addon.thisCharacter]:SetCookingLevel(level, true)
-            elseif tradeskillId == 356 then
-                addon.characters[addon.thisCharacter]:SetFishingLevel(level, true)
-            else
-                if addon.characters[addon.thisCharacter].data.profession1 == tradeskillId then
-                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level, true)
-
-                elseif addon.characters[addon.thisCharacter].data.profession2 == tradeskillId then
-                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level, true)
-                end
-            end
-        end
-    end
+    processSkillLines(skills)
 
     local recipes = {}
     local prof;
@@ -656,24 +669,7 @@ end
 function e:TRADE_SKILL_UPDATE()
 
     local skills = addon.api.classic.getPlayerSkillLevels()
-    if addon.characters and addon.characters[addon.thisCharacter] then
-        for tradeskillId, level in pairs(skills) do
-            if tradeskillId == 129 then
-                addon.characters[addon.thisCharacter]:SetFirstAidLevel(level, true)
-            elseif tradeskillId == 185 then
-                addon.characters[addon.thisCharacter]:SetCookingLevel(level, true)
-            elseif tradeskillId == 356 then
-                addon.characters[addon.thisCharacter]:SetFishingLevel(level, true)
-            else
-                if addon.characters[addon.thisCharacter].data.profession1 == tradeskillId then
-                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(1, level, true)
-
-                elseif addon.characters[addon.thisCharacter].data.profession2 == tradeskillId then
-                    addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level, true)
-                end
-            end
-        end
-    end
+    processSkillLines(skills)
 
     local recipes = {}
     local prof;

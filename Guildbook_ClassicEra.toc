@@ -18,6 +18,8 @@ Libs\LibDeflate\LibDeflate.lua
 Libs\AceComm-3.0\AceComm-3.0.xml
 Libs\LibSerialize\lib.xml
 Libs\LibCraftInfo-1.0\LibCraftInfo-1.0.xml
+Libs\HereBeDragons\HereBeDragons-2.0.lua
+Libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
 
 Widgets\Listview.lua
 Widgets\Listview.xml
@@ -29,11 +31,13 @@ Widgets\Checkbox.xml
 Widgets\ScrollFrame.lua
 Widgets\ScrollFrame.xml
 Widgets\Slider.xml
+Widgets\Helptips.lua
+Widgets\Helptips.xml
 
 Locales.lua
 Data2.lua
 ItemData.lua
-
+InstanceData.lua
 Database.lua
 
 Classes\Tradeskills.lua
@@ -76,6 +80,9 @@ Views\Settings\Settings.xml
 
 Views\Search\Search.lua
 Views\Search\Search.xml
+
+Views\Guide\Guide.lua
+Views\Guide\Guide.xml
 
 Comms.lua
 

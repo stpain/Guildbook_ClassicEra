@@ -1,0 +1,217 @@
+<Ui> <!--warboard-parchment-->
+    <Frame name="GuildbookGuide" mixin="GuildbookGuideMixin">
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture atlas="_128-RedButton-Tile-Disabled" horizTile="true">
+                    <Size y="40"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="360" y="0"/>
+                        <Anchor point="TOPRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="tabTitle" inherits="GameFontNormalLarge" text="Lore">
+                    <Color r="1" g="1" b="1"/>
+                    <Size y="40"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="360" y="0"/>
+                        <Anchor point="TOPRIGHT" x="-80" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button parentKey="homeDropdown" inherits="GuildbookWidgetsDropDownTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                </Anchors>
+                <Size x="180" y="40"/>
+            </Button>
+            <Button parentKey="instanceDropdown" inherits="GuildbookWidgetsDropDownTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.homeDropdown" relativePoint="RIGHT" x="0" y="0"/>
+                </Anchors>
+                <Size x="180" y="40"/>
+            </Button>
+            <Button parentKey="previousTab">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-40" y="0"/>
+                </Anchors>
+                <Size x="40" y="40"/>
+                <NormalTexture atlas="Monuments-LeftButton-Up"/>
+                <PushedTexture atlas="Monuments-LeftButton-Down"/>
+            </Button>
+            <Button parentKey="nextTab">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Size x="40" y="40"/>
+                <NormalTexture atlas="Monuments-RightButton-Up"/>
+                <PushedTexture atlas="Monuments-RightButton-Down"/>
+            </Button>
+            <Frame parentKey="lore">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="-40"/>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture parentKey="background" atlas="Garr_InfoBox-BackgroundTile" horizTile="true" vertTile="true">
+                            <!-- <Texcoords left="0" right="0.79" top="0" bottom="0.64"/> adventureguide-pane-large -->
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="0" y="0"/>
+                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Frame parentKey="info">
+                        <Size x="450"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="0"/>
+                            <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture parentKey="background" atlas="adventureguide-pane-large">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="10" y="-10"/>
+                                        <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                            <Layer level="ARTWORK">
+                                <Texture parentKey="loreArtwork">
+                                    <Texcoords left="0" right="0.79" top="0" bottom="0.64"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="42" y="-40"/>
+                                        <Anchor point="TOPRIGHT" x="-40" y="-40"/>
+                                        <Anchor point="BOTTOM" x="0" y="160"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                            <Layer level="OVERLAY">
+                                <FontString parentKey="meta" inherits="QuestFont_Huge" outline="THICK">
+                                    <Color r="0.002" g="0.002" b="0.001"/>
+                                    <Anchors>
+                                        <Anchor point="BOTTOM" x="0" y="90"/>
+                                    </Anchors>                                        
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                    <Frame parentKey="lore">
+                        <Size y="260"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.info" relativePoint="TOPRIGHT" x="0" y="0"/>
+                            <Anchor point="TOPRIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture parentKey="background" atlas="adventureguide-pane-small">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="10" y="-10"/>
+                                        <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                            <Layer level="OVERLAY">
+                                <FontString parentKey="text" inherits="GameFontNormal_NoShadow">
+                                    <Color r="0.002" g="0.002" b="0.001"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="40" y="-20"/>
+                                        <Anchor point="BOTTOMRIGHT" x="-40" y="20"/>
+                                    </Anchors>                                        
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                    <Frame parentKey="loot">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.lore" relativePoint="BOTTOMLEFT" x="0" y="0"/>
+                            <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture parentKey="background" atlas="adventureguide-pane-small">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="10" y="-10"/>
+                                        <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                </Frames>
+            </Frame>
+            <Frame parentKey="loot" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="-40"/>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Frames>
+                    <Frame parentKey="encounterListview" inherits="GuildbookWidgetsListviewTemplate">
+                        <Size x="260"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="-24"/>
+                            <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="frameType" value="FRAME" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookListviewItem" type="string"/>
+                            <KeyValue key="elementHeight" value="40" type="number"/>
+                        </KeyValues>
+                    </Frame>
+                    <Frame parentKey="lootListview" inherits="GuildbookWidgetsListviewTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="0" y="-24"/>
+                            <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                            <Anchor point="LEFT" relativeKey="$parent.encounterListview" relativePoint="RIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="frameType" value="FRAME" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookRosterListviewItem" type="string"/>
+                            <KeyValue key="elementHeight" value="26" type="number"/>
+                        </KeyValues>
+                    </Frame>
+                </Frames>
+            </Frame>
+            <Frame parentKey="maps" hidden="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="-40"/>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <Texture parentKey="background">
+                            <Texcoords left="0" right="0.9765625" top="0" bottom="0.6513671875"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="0" y="0"/>
+                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Button parentKey="previous">
+                        <Size x="30" y="30"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMRIGHT" x="-40" y="10"/>
+                        </Anchors>
+                    </Button>
+                    <Button parentKey="next">
+                        <Size x="30" y="30"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
+                        </Anchors>
+                    </Button>
+                </Frames>
+            </Frame>
+        </Frames>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+</Ui>

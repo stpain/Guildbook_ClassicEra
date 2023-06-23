@@ -15,7 +15,26 @@ local L = {
 	--ribbon
 	--====================================================================================
 	RIBBON_VIEW_HISTORY_BACK_TT = "Go back",
+	GUIDE = "Guide (Instances)",
 
+	--====================================================================================
+	--profile (member details not guild treeview)
+	--====================================================================================
+	PROFILE_SIDEPANE_HT = "Character information such as name, main character, specialization and skills are listed here.\n\nYou can click on tradeskills to view available recipes.\n\nYou can select between the characters equipment and talents.\n\nAny alt characters are shown below.",
+	PROFILE_INVENTORY_HT = "The characters resistances, auras and stats are shown here.\n\nThese might not be accurate at the time of viewing.\nBecause equipment and buffs (both personal and from others) can change stats/resistances, Guildbook will take a 'snapshot' of all these elements, this way you can relate the stats shown with the equipment/auras at the time.",
+
+	--====================================================================================
+	--tradeskills
+	--====================================================================================
+	TRADESKILLS_LISTVIEW_HT = "Select each profession to view craftable items.",
+	TRADESKILLS_RECIPES_LISTVIEW_HT = "Recipes and reagents shown here.\n\nSelect a recipe to see who can craft it.",
+	TRADESKILLS_CRAFTERS_LISTVIEW_HT = "Players able to craft an item will be listed here.",
+
+	--====================================================================================
+	--guild bank
+	--====================================================================================
+	BANK_CHARACTER_LISTVIEW_HT = "Guild bank characters are listed here, select a character to view the bank items.\n\nYour own characters also show here so you can view personal bank/alt items.",
+	BANK_CHARACTER_REFRESH_HT = "Click here to refresh the Guild bank data.\n\nThere will be a delay as each bank character's data gets requested. Guildbook will use the latest data available from players online.",
 
 	--====================================================================================
 	--settings

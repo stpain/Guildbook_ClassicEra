@@ -80,6 +80,21 @@
         "ERR_GUILD_PROMOTE_SSS",
         "ERR_GUILD_JOIN_S",
         "DressUpItemLink",
-        "CHARACTER"
+        "CHARACTER",
+        "REFRESH",
+        "TRADE",
+        "TRADESKILLS",
+        "WorldMapFrame",
+        "FramePool_HideAndClearAnchors",
+        "MapCanvasDataProviderMixin",
+        "MapCanvasPinMixin",
+        "GUIDE",
+        "ID",
+        "DUNGEON_FLOOR_RAGEFIRE1",
+        "DUNGEON_FLOOR_THEDEADMINES1",
+        "ORGRIMMAR",
+        "DUNGEON_FLOOR_WESTFALL4",
+        "DUNGEON_FLOOR_WESTFALL5",
+        "DUNGEON_FLOOR_WESTFALL17"
     ]
 }

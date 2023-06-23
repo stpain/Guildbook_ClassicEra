@@ -11,6 +11,9 @@ addon:GenerateCallbackEvents({
     "Character_OnTradeskillSelected",
     "Character_BroadcastChange",
 
+    "Player_Regen_Disabled",
+    "Player_Regen_Enabled",
+
     "Guildbank_TimeStampRequest",
     "Guildbank_OnTimestampsReceived",
     "Guildbank_DataRequest",

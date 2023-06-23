@@ -1,10 +1,11 @@
 local name, addon = ...;
-
+local L = addon.Locales;
 local Tradeskills = addon.Tradeskills;
 local Character = addon.Character;
 
 GuildbookTradskillsMixin = {
     name = "Tradeskills",
+    helptips = {},
 }
 
 function GuildbookTradskillsMixin:OnLoad()
@@ -34,7 +35,6 @@ function GuildbookTradskillsMixin:OnLoad()
             label = name,
             func = function()
                 self:LoadtradeskillRecipes(id)
-                self.charactersListview.DataProvider:Flush()
             end,
         })
     end
@@ -45,6 +45,14 @@ function GuildbookTradskillsMixin:OnLoad()
     end
 
     addon:RegisterCallback("Character_OnTradeskillSelected", self.OnCharacterTradeskillSelected, self)
+
+    self.tradeskillsHelptip:SetText(L.TRADESKILLS_LISTVIEW_HT)
+    self.recipesHelptip:SetText(L.TRADESKILLS_RECIPES_LISTVIEW_HT)
+    self.craftersHelptip:SetText(L.TRADESKILLS_CRAFTERS_LISTVIEW_HT)
+
+    table.insert(self.helptips, self.tradeskillsHelptip)
+    table.insert(self.helptips, self.recipesHelptip)
+    table.insert(self.helptips, self.craftersHelptip)
 
     addon.AddView(self)
 
@@ -107,6 +115,23 @@ function GuildbookTradskillsMixin:LoadtradeskillRecipes(tradeskillID)
         end
     end)
     self.recipesListview.DataProvider:InsertTable(items)
+
+
+    if addon.characters then
+        for k, character in pairs(addon.characters) do
+            if (character.data.profession1 == tradeskillID) or (character.data.profession2 == tradeskillID) then
+                self.charactersListview.DataProvider:Insert({
+                    label = character.data.name,
+                    atlas = character:GetProfileAvatar(),
+                    showMask = true,
+    
+                    func = function()
+                        addon:TriggerEvent("Character_OnProfileSelected", character)
+                    end,
+                })
+            end
+        end
+    end
 end
 
 function GuildbookTradskillsMixin:LoadCharactersWithRecipe(item)

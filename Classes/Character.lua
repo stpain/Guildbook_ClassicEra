@@ -725,6 +725,8 @@ function Character:GetClassSpecAtlasName(spec)
             else
                 return string.format("classicon-%s", class):lower()
             end
+        else
+            return string.format("classicon-%s", class):lower()
         end
     end
 
@@ -805,78 +807,46 @@ end
 
 
 function Character:ResetData()
-    local name = self.data.name;
-    local guid = self.data.guid;
-    self.data = {
-        name = "",
-        level = 0,
-        class = "",
-        race = "",
-        gender = "",
-        guid = guid,
 
-        mainCharacter = false,
-        publicNote = "",
-        alts = {},
-
-        mainSpec = 1,
-        mainSpecIsPvP = false,
-        offSpec = 2,
-        offSpecIsPvP = false,
-
-        profession1 = "-",
-        profession2 = "-",
-        profession1Level = 0,
-        profession2Level = 0,
-        profession1Recipes = {},
-        profession2Recipes = {},
-        profession1Spec = 0,
-        profession2Spec = 0,
-
-        cookingRecipes = {},
-
-        cookingLevel = 0,
-        firstAidLevel = 0,
-        firstAidRecipes = {},
-        fishingLevel = 0,
-
-        talents = {
-            primary = {},
-            secondary = {},
-        },
-        glyphs = {
-            primary = {},
-            secondary = {},
-        },
-
-        inventory = {},
-        currentInventory = {},
-
-        rankName = "",
-        profile = {
-            dob = false,
-            name = "",
-            bio = "",
-            avatar = false,
-        },
-
-        paperDollStats = {
-            current = {},
-            primary = {},
-            secondary = {},
-        },
-        --CurrentPaperdollStats = {},
-
-        onlineStatus = {
-            isOnline = false,
-            zone = "",
-        }
+    self.data.mainSpec = false
+    self.data.offSpec = false
+    self.data.mainSpecIsPvP = false
+    self.data.offSpecIsPvP = false
+    self.data.profile = {}
+    self.data.profession1 = "-"
+    self.data.profession1Level = 0
+    self.data.profession1Spec = false
+    self.data.profession1Recipes = {}
+    self.data.profession2 = "-"
+    self.data.profession2Level = 0
+    self.data.profession2Spec = false
+    self.data.profession2Recipes = {}
+    self.data.cookingLevel = 0
+    self.data.cookingRecipes = {}
+    self.data.fishingLevel = 0
+    self.data.firstAidLevel = 0
+    self.data.firstAidRecipes = {}
+    self.data.talents = {}
+    --Glyphs = glyphs,
+    self.data.inventory = {
+        current = {},
     }
-    if guid == UnitGUID("player") then
-        addon:TriggerEvent("Character_OnDataChanged")
-    end
-    --addon.DEBUG("func", "Character:ResetData", string.format("reset data for %s", name))
+    --CurrentInventory = currentInventory,
+    self.data.paperDollStats = {
+        current = {},
+    }
+    self.data.resistances = {
+        current = {},
+    }
+    self.data.auras = {
+        current = {},
+    }
+    self.data.containers = {}
+    --CurrentPaperdollStats = currentPaperdollStats or {},
+    addon:TriggerEvent("Character_OnDataChanged", self)
 end
 
 
 addon.Character = Character;
+
+

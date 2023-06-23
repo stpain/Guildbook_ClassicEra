@@ -27,6 +27,12 @@
                     <KeyValue key="elementHeight" value="40" type="number"/>
                 </KeyValues>
             </Frame>
+            <Frame parentKey="tradeskillsHelptip" inherits="GuildbookHelpTipTemplate_RightArrow">
+                <Size x="200" y="70"/>
+                <Anchors>
+                    <Anchor point="RIGHT" relativeKey="$parent.tradeskillsListview" relativePoint="LEFT" x="-20" y="0"/>
+                </Anchors>
+            </Frame>
             <Frame parentKey="charactersListview" inherits="GuildbookWidgetsListviewTemplate">
                 <Size x="175"/>
                 <Anchors>
@@ -50,6 +56,12 @@
                     <KeyValue key="elementHeight" value="40" type="number"/>
                 </KeyValues>
             </Frame>
+            <Frame parentKey="craftersHelptip" frameLevel="7" inherits="GuildbookHelpTipTemplate_RightArrow">
+                <Size x="200" y="70"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativeKey="$parent.charactersListview" relativePoint="TOPLEFT" x="-20" y="-20"/>
+                </Anchors>
+            </Frame>
             <Frame parentKey="recipesListview" inherits="GuildbookWidgetsListviewTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.tradeskillsListview" relativePoint="TOPRIGHT" x="0" y="0"/>
@@ -71,6 +83,12 @@
                     <KeyValue key="itemTemplate" value="GuildbookRecipeListviewItem" type="string"/>
                     <KeyValue key="elementHeight" value="22" type="number"/>
                 </KeyValues>
+            </Frame>
+            <Frame parentKey="recipesHelptip" frameLevel="7" inherits="GuildbookHelpTipTemplate_BottomArrow">
+                <Size x="200" y="90"/>
+                <Anchors>
+                    <Anchor point="BOTTOM" relativeKey="$parent.recipesListview" relativePoint="TOP" x="-90" y="-20"/>
+                </Anchors>
             </Frame>
         </Frames>
 

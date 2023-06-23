@@ -2,7 +2,7 @@
     <Frame name="GuildbookHelpTipTemplate_BottomArrow" inherits="GlowBoxTemplate" mixin="GuildbookHelpTipMixin" virtual="true" enableMouse="true" frameStrata="TOOLTIP">
 		<Layers>
 			<Layer level="OVERLAY">
-				<FontString parentKey="text" inherits="GameFontHighlightLeft" justifyH="LEFT" justifyV="TOP">
+				<FontString parentKey="text" inherits="GameFontHighlightLeft" justifyH="LEFT" justifyV="MIDDLE">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="5" y="-5"/>
                         <Anchor point="BOTTOMRIGHT" x="-5" y="5"/>
@@ -26,7 +26,7 @@
 	<Frame name="GuildbookHelpTipTemplate_RightArrow" inherits="GlowBoxTemplate" mixin="GuildbookHelpTipMixin" virtual="true" enableMouse="true" frameStrata="TOOLTIP">
 		<Layers>
 			<Layer level="OVERLAY">
-				<FontString parentKey="text" inherits="GameFontHighlightLeft" justifyH="LEFT" justifyV="TOP">
+				<FontString parentKey="text" inherits="GameFontHighlightLeft" justifyH="LEFT" justifyV="MIDDLE">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="5" y="-5"/>
                         <Anchor point="BOTTOMRIGHT" x="-5" y="5"/>

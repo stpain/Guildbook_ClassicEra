@@ -191,6 +191,24 @@
                             <KeyValue key="tooltipText" value="GUILD_BANK" type="string"/>
                         </KeyValues>
                     </Frame>
+                    <Frame parentKey="guide" inherits="GuildbookSmallHighlightButton" hidden="false">
+                        <Anchors>
+                            <Anchor point="LEFT" relativeKey="$parent.guildbank" relativePoint="RIGHT" x="4" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture atlas="socialqueuing-icon-eye">
+                                    <Anchors>
+                                        <!-- <Anchor point="TOPLEFT" x="-4" y="4"/>
+                                        <Anchor point="BOTTOMRIGHT" x="4" y="-4"/> -->
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                        <KeyValues>
+                            <KeyValue key="tooltipText" value="GUIDE" type="string"/>
+                        </KeyValues>
+                    </Frame>
 
                     <!-- <Frame parentKey="privacy" inherits="GuildbookSmallHighlightButton" enableMouse="true">
                         <Size x="30" y="30"/>
@@ -239,7 +257,7 @@
                     <EditBox parentKey="searchBox" inherits="InputBoxTemplate" autoFocus="false">
                         <Size x="200" y="20"/>
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.guildbank" relativePoint="RIGHT" x="15" y="0"/>
+                            <Anchor point="LEFT" relativeKey="$parent.guide" relativePoint="RIGHT" x="15" y="0"/>
                             <Anchor point="RIGHT" x="-10" y="0"/>
                         </Anchors>
 

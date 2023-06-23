@@ -519,6 +519,7 @@ local magicResistances = {
 
 GuildbookProfileMixin = {
     name = "Profile",
+	helptips = {},
 }
 
 function GuildbookProfileMixin:OnLoad()
@@ -558,11 +559,17 @@ function GuildbookProfileMixin:OnLoad()
         end)
     end
 
-    addon.AddView(self)
-
     addon:RegisterCallback("Character_OnProfileSelected", self.LoadCharacter, self)
     addon:RegisterCallback("Character_OnDataChanged", self.Update, self)
     addon:RegisterCallback("UI_OnSizeChanged", self.UpdateLayout, self)
+
+	self.sidePane.helptip:SetText(L.PROFILE_SIDEPANE_HT)
+	self.inventory.equipmentHelptip:SetText(L.PROFILE_INVENTORY_HT)
+
+	table.insert(self.helptips, self.sidePane.helptip)
+	table.insert(self.helptips, self.inventory.equipmentHelptip)
+
+	addon.AddView(self)
 
     self:UpdateLayout()
 end

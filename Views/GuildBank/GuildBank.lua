@@ -1,11 +1,12 @@
 local name, addon = ...;
-
+local L = addon.Locales;
 local Database = addon.Database;
 
 GuildbookGuildBankMixin = {
     name = "GuildBank",
     selectedCharacter = "",
     banks = {},
+    helptips = {},
 }
 
 function GuildbookGuildBankMixin:OnLoad()
@@ -17,6 +18,12 @@ function GuildbookGuildBankMixin:OnLoad()
     self.refresh:SetScript("OnMouseDown", function()
         self:RequestTimestamps()
     end)
+
+    self.bankCharactersHelptip:SetText(L.BANK_CHARACTER_LISTVIEW_HT)
+    self.refreshHelptip:SetText(L.BANK_CHARACTER_REFRESH_HT)
+
+    table.insert(self.helptips, self.bankCharactersHelptip)
+    table.insert(self.helptips, self.refreshHelptip)
 
     addon.AddView(self)
 end

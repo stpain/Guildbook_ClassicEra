@@ -63,8 +63,13 @@
                             <KeyValue key="elementHeight" value="32" type="number"/>
                         </KeyValues>
                     </Frame>
+                    <Frame parentKey="helptip" frameLevel="7" inherits="GuildbookHelpTipTemplate_RightArrow">
+                        <Size x="200" y="210"/>
+                        <Anchors>
+                            <Anchor point="RIGHT" relativeKey="$parent.listview" relativePoint="LEFT" x="-20" y="60"/>
+                        </Anchors>
+                    </Frame>
                 </Frames>
-
 
             </Frame>
 
@@ -114,6 +119,12 @@
                             <Anchor point="TOPRIGHT" x="0" y="0"/>
                         </Anchors>
                     </ScrollFrame>
+                    <Frame parentKey="equipmentHelptip" frameLevel="7" inherits="GuildbookHelpTipTemplate_RightArrow">
+                        <Size x="360" y="140"/>
+                        <Anchors>
+                            <Anchor point="RIGHT" relativeKey="$parent.resistanceGridview" relativePoint="LEFT" x="-10" y="-80"/>
+                        </Anchors>
+                    </Frame>
                     <ScrollFrame parentKey="auraGridview" inherits="GuildbookWidgetsGridviewTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeKey="$parent.resistanceGridview" relativePoint="BOTTOMRIGHT" x="0" y="0"/>

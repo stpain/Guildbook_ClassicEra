@@ -159,6 +159,7 @@ GuildbookMixin = {
     views = {},
     debugLog = {},
     viewHistory = {},
+    helptipsShown = false,
 }
 
 function GuildbookMixin:UpdateLayout()
@@ -197,7 +198,8 @@ function GuildbookMixin:OnLoad()
 
     addon:RegisterCallback("Database_OnInitialised", self.Database_OnInitialised, self)
     addon:RegisterCallback("StatusText_OnChanged", self.SetStatausText, self)
-    --addon:RegisterCallback("LogDebugMessage", self.LogDebugMessage, self)
+    addon:RegisterCallback("Player_Regen_Enabled", self.Player_Regen_Enabled, self)
+    addon:RegisterCallback("Player_Regen_Disabled", self.Player_Regen_Disabled, self)
     addon:RegisterCallback("Blizzard_OnInitialGuildRosterScan", self.Blizzard_OnInitialGuildRosterScan, self)
 
     self.ribbon.searchBox:SetScript("OnEnterPressed", function(searchBox)
@@ -224,8 +226,31 @@ function GuildbookMixin:OnLoad()
     self.settings:SetScript("OnMouseDown", function()
         self:SelectView("Settings")
     end)
+    self.help:SetScript("OnMouseDown", function()
+        self:ToggleHelptips()
+    end)
 
     self:SetupImportExport()
+end
+
+function GuildbookMixin:Player_Regen_Disabled()
+    self:Hide()
+end
+
+function GuildbookMixin:Player_Regen_Enabled()
+
+end
+
+function GuildbookMixin:ToggleHelptips()
+    self.helptipsShown = not self.helptipsShown;
+
+    for name, view in pairs(self.views) do
+        if view.helptips then
+            for k, tip in ipairs(view.helptips) do
+                tip:SetShown(self.helptipsShown)
+            end
+        end
+    end
 end
 
 function GuildbookMixin:SetupImportExport()
@@ -308,6 +333,12 @@ function GuildbookMixin:AddView(view)
     view:SetAllPoints()
     view:Hide()
 
+    if view.helptips then
+        for k, tip in ipairs(view.helptips) do
+            tip:Hide()
+        end
+    end
+
     if self.ribbon[view.name:lower()] then
         self.ribbon[view.name:lower()]:SetScript("OnMouseDown", function()
             self:SelectView(view.name)
@@ -352,6 +383,19 @@ function GuildbookMixin:Database_OnInitialised()
     if addon.characters[addon.thisCharacter] then
         self.ribbon.myProfile.background:SetAtlas(addon.characters[addon.thisCharacter]:GetProfileAvatar())
     end
+
+
+    --experimental
+    -- local hbd = LibStub("HereBeDragons-2.0")
+    -- local currentMapID = C_Map.GetBestMapForUnit('player')
+    -- if not currentMapID then
+    --     return
+    -- else
+    --     local currentMapPosition = C_Map.GetPlayerMapPosition(currentMapID, 'player')
+    --     local x, y, instance = hbd:GetWorldCoordinatesFromZone(currentMapPosition.x, currentMapPosition.y, currentMapID)
+
+    --     print(x, y)
+    -- end
 end
 
 function GuildbookMixin:CreateSlashCommands()

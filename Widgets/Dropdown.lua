@@ -37,7 +37,7 @@ function GuildbookWidgetsDropDownTemplateMixin:SetMenu(t)
     if menulength > 7 then
         self.flyout:SetHeight(182)
     else
-        self.flyout:SetHeight(menulength * 26)
+        self.flyout:SetHeight(menulength * 27)
     end
 
     self.maxWidth = 0.0;
