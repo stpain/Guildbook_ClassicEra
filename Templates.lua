@@ -72,7 +72,12 @@ function GuildbookListviewItemMixin:ResetDataBinding()
 end
 
 function GuildbookListviewItemMixin:SetDataBinding(info)
-    self.icon:SetAtlas(info.atlas)
+
+    if info.atlas then
+        self.icon:SetAtlas(info.atlas)
+    elseif info.icon then
+        self.icon:SetTexture(info.icon)
+    end
     self.text:SetText(info.label)
 
     if info.showMask then
@@ -82,10 +87,12 @@ function GuildbookListviewItemMixin:SetDataBinding(info)
 
     end
 
-    if info.showSelected then
-        self.selected:Show()
-    else
-        self.selected:Hide()
+    if self.selected then
+        if info.showSelected then
+            self.selected:Show()
+        else
+            self.selected:Hide()
+        end
     end
 
     self:SetScript("OnMouseDown", function()
@@ -453,7 +460,7 @@ end
 GuildbookDropdownFlyoutMixin = {}
 
 function GuildbookDropdownFlyoutMixin:OnLoad()
-    if notaddon.dropdownFlyouts then
+    if not addon.dropdownFlyouts then
        addon.dropdownFlyouts = {}
     end
     table.insert(addon.dropdownFlyouts, self)
@@ -524,6 +531,32 @@ function GuildbookDropdownFlyoutMixin:OnShow()
 
 end
 
+
+
+GuildbookCircleLootItemTemplateMixin = {}
+function GuildbookCircleLootItemTemplateMixin:OnLoad()
+    
+end
+function GuildbookCircleLootItemTemplateMixin:UpdateLayout()
+    local x, y = self:GetSize()
+    self.icon:SetSize(x * 0.65, x * 0.65)
+    self.mask:SetSize(x * 0.52, x * 0.52)
+    self.border:SetSize(x * 0.85, x * 0.85)
+    self.label:SetSize(x, y*0.3)
+end
+function GuildbookCircleLootItemTemplateMixin:SetDataBinding(binding)
+    self.label:SetText(binding.subClass)
+    self.icon:SetTexture(binding.icon)
+    self.border:SetVertexColor(binding.colour.color:GetRGB())
+    self:SetScript("OnEnter", function()
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        GameTooltip:SetHyperlink(binding.link)
+        GameTooltip:Show()
+    end)
+end
+function GuildbookCircleLootItemTemplateMixin:OnLeave(item)
+    GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+end
 
 
 
@@ -1017,7 +1050,7 @@ function GuildbookResistanceFrameMixin:SetDataBinding(binding)
     end
     self.label:SetText(binding.label)
 
-    --reusing this for auras so check if this isd a res binding
+    --reusing this for auras so check if this is a res binding
     if binding.type == "resistance" then
         self.resistanceId = binding.resistanceId;
         self.resistanceName = binding.resistanceName;

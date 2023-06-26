@@ -54,7 +54,6 @@ function GuildbookWidgetsGridviewMixin:InsertCustomFrame(frame)
         frame:SetSize(100,100)
         frame:ClearAllPoints()
         frame:SetPoint("TOPLEFT", 0, 0)
-        print("added frame", frame:GetID())
     end
     --self:UpdateLayout()
 end

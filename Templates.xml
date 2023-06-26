@@ -78,6 +78,45 @@
         </Scripts>
     </Frame>
 
+    <Frame name="GuildbookCircleLootItemTemplate" mixin="GuildbookCircleLootItemTemplateMixin" virtual="true" enableMouse="true">
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="border" atlas="auctionhouse-itemicon-border-white">
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="10"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+				<Texture parentKey="icon">
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="10"/>					</Anchors>
+                </Texture>
+                <MaskTexture parentKey="mask" file="Interface/CHARACTERFRAME/TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="10"/>                    
+                    </Anchors>
+                    <MaskedTextures>
+                        <MaskedTexture childKey="icon"/>
+                    </MaskedTextures>
+                </MaskTexture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="label" inherits="GameFontBlackSmall" wordwrap="true" justifyV="MIDDLE">
+                    <Size y="26"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLeave method="OnLeave"/>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+
     <Frame name="GuildbookProfileSummaryRowAvatarTemplate" mixin="GuildbookProfileSummaryRowAvatarTemplateMixin" virtual="true" enableMouse="true" useParentLevel="true">
         <Animations>
             <AnimationGroup parentKey="anim" looping="REPEAT">
@@ -129,9 +168,6 @@
                     </Anchors>
                 </FontString>
             </Layer>
-            <Frames>
-
-            </Frames>
         </Layers>
         <Scripts>
             <OnMouseUp method="OnMouseUp"/>
@@ -180,6 +216,30 @@
         <Scripts>
             <OnLoad method="OnLoad"/>
             <OnMouseUp method="OnMouseUp"/>
+        </Scripts>
+    </Frame>
+
+    <Frame name="GuildbookGuideEncounterListviewItem" mixin="GuildbookListviewItemMixin" virtual="true" enableMouse="true">
+        <Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Background" atlas="GarrLanding-HeaderBar" useAtlasSize="false" setAllPoints="true"/>
+			</Layer>
+			<Layer level="HIGHLIGHT">
+				<Texture parentKey="Highlight" atlas="PetList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
+			</Layer>
+            <Layer level="OVERLAY">
+				<FontString parentKey="text" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="0" y="0"/>
+						<Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+            </Layer>
+        </Layers>
+
+        <Scripts>
+            <OnLoad method="OnLoad"/>
         </Scripts>
     </Frame>
 

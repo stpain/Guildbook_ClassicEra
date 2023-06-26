@@ -1,9 +1,23 @@
+local name, addon = ...;
 
 GuildbookWidgetsDropDownTemplateMixin = {}
 
 function GuildbookWidgetsDropDownTemplateMixin:OnLoad()
+
+    if not addon.dropdownWidgets then
+        addon.dropdownWidgets = {}
+    end
+    table.insert(addon.dropdownWidgets, self)
+
     self.isOpen = false;
     self:SetScript("OnClick", function()
+
+        for k, dd in ipairs(addon.dropdownWidgets) do
+            if dd.isOpen then
+                dd:Click()
+            end
+        end
+
         self.isOpen = not self.isOpen
         if self.isOpen then
             self.flyout:Show()
@@ -11,6 +25,7 @@ function GuildbookWidgetsDropDownTemplateMixin:OnLoad()
             self.flyout:Hide()
         end
     end)
+
 end
 
 function GuildbookWidgetsDropDownTemplateMixin:SetWidth(width)

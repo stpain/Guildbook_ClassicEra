@@ -63,12 +63,100 @@ addon.dungeons = {
         },
         loot = {
             ["Rhahk'Zor"] = {
-
+                5187,
+                872,
             },
             ["Miner Johnson (Rare)"] = {
-
+                5444,
+                5443,
             },
+            ["Sneed's Shredder"] = {
+                2169,
+                7365,
+                1937,
+            },
+            ["Gilnid"] = {
+                5199,
+                1156,
+            },
+            ["Mr. Smite"] = {
+                5192,
+                5196,
+                7230,
+            },
+            ["Captain Greenskin"] = {
+                5201,
+                5200,
+                10403,
+            },
+            ["Edwin VanCleef"] = {
+                2874,
+                3637,
+                5202,
+                5193,
+                5191,
+                10399,
+            },
+            ["Cookie (Bonus)"] = {
+                5197,
+                5198,
+                8490,
+            }
         },
         history = "Once the greatest gold production center in the human lands, the Deadmines were abandoned when the Horde razed Stormwind city during the First War. Now the Defias Brotherhood has taken up residence and turned the dark tunnels into their private sanctum. It is rumored that the thieves have conscripted the clever goblins to help them build something terrible at the bottom of the mines - but what that may be is still uncertain. Rumor has it that the way into the Deadmines lies through the quiet, unassuming village of Moonbrook.",
+    },
+    {
+        name = DUNGEON_FLOOR_WAILINGCAVERNS1,
+        loreArtFileID = 608313,
+        meta = {
+            zone = "The Barrens",
+            minLevel = 17,
+            maxLevel = 27,
+        },
+        maps = {
+            "Interface/Addons/Guildbook_ClassicEra/Icons/Maps/Dungeons/WailingCaverns",
+        },
+        bosses = {
+            "Kresh",
+            "Lady Anacondra",
+            "Lord Cobrahn",
+            "Deviate Faerie Dragon (Rare)",
+            "Lord Pythas",
+            "Skum",
+            "Lord Serpentis",
+            "Verdan the Everliving",
+            "Mutanus the Devourer",
+        },
+        loot = {
+            ["Kresh"] = {
+                13245,
+                6447,
+            },
+            ["Lady Anacondra"] = {
+
+            },
+            ["Lord Cobrahn"] = {
+                
+            },
+            ["Deviate Faerie Dragon (Rare)"] = {
+                
+            },
+            ["Lord Pythas"] = {
+                
+            },
+            ["Skum"] = {
+                
+            },
+            ["Lord Serpentis"] = {
+                
+            },
+            ["Verdan the Everliving"] = {
+                
+            },
+            ["Mutanus the Devourer"] = {
+                
+            },
+        },
+        history = "Recently, a night elf druid named Naralex discovered a network of underground caverns within the heart of the Barrens. Dubbed the 'Wailing Caverns', these natural caves were filled with steam fissures which produced long, mournful wails as they vented. Naralex believed he could use the caverns' underground springs to restore lushness and fertility to the Barrens - but to do so would require siphoning the energies of the fabled Emerald Dream. Once connected to the Dream, however, the druid's vision somehow became a nightmare. Soon the Wailing Caverns began to change - the waters turned foul and the once-docile creatures inside metamorphosed into vicious, deadly predators. It is said that Naralex himself still resides somewhere inside the heart of the labyrinth, trapped beyond the edges of the Emerald Dream. Even his former acolytes have been corrupted by their master's waking nightmare - transformed into the wicked Druids of the Fang.",
     },
 }

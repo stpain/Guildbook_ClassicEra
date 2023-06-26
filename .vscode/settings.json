@@ -95,6 +95,10 @@
         "ORGRIMMAR",
         "DUNGEON_FLOOR_WESTFALL4",
         "DUNGEON_FLOOR_WESTFALL5",
-        "DUNGEON_FLOOR_WESTFALL17"
+        "DUNGEON_FLOOR_WESTFALL17",
+        "FACTION_HORDE",
+        "FACTION_ALLIANCE",
+        "DUNGEON_FLOOR_WAILINGCAVERNS1",
+        "GameFontNormal_NoShadow"
     ]
 }
