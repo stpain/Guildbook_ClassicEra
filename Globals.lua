@@ -227,7 +227,7 @@ function addon.api.classic.scanPlayerContainers(includeBanks)
         local bankBagId = -1
         local numSlots;
         if C_Container then
-            numSlots = C_Container.GetContainerNumSlots(bag);
+            numSlots = C_Container.GetContainerNumSlots(bankBagId);
         else
             numSlots = GetContainerNumSlots(bag);
         end
