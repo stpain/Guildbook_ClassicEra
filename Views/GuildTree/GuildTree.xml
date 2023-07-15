@@ -2,8 +2,13 @@
     <Frame name="GuildbookGuildTreeBank" mixin="GuildbookGuildTreeMixin">
 
         <Layers>
-            <Layer level="background">
-            
+            <Layer level="BACKGROUND">
+                <Texture parentKey="background" atlas="ClassHall_StoneFrame-BackgroundTile" vertTile="true" horizTile="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
             </Layer>
         </Layers>
 

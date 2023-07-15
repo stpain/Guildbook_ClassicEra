@@ -112,6 +112,8 @@ function GuildbookGuildBankMixin:OnShow()
             if character.data.publicNote:lower():find("guildbank") then
 
                 if addon.guilds[addon.thisGuild] then
+
+                    --set a default timestamp
                     if not addon.guilds[addon.thisGuild].banks[character.data.name] then
                         addon.guilds[addon.thisGuild].banks[character.data.name] = 0;
                     end
@@ -132,11 +134,20 @@ function GuildbookGuildBankMixin:OnShow()
                         end,
                     })
 
-                    if character.data.containers and character.data.containers.bags then
-                        addon:TriggerEvent("Guildbank_StatusInfo", {
-                            characterName = character.data.name,
-                            status = string.format("found existing data")
-                        })
+                    if character.data.containers then
+                        local hasData = false;
+                        if character.data.containers.bags and character.data.containers.bags.items and (#character.data.containers.bags.items > 0) then
+                            hasData = true;
+                        end
+                        if character.data.containers.bank and character.data.containers.bank.items and (#character.data.containers.bank.items > 0) then
+                            hasData = true;
+                        end
+                        if hasData then
+                            addon:TriggerEvent("Guildbank_StatusInfo", {
+                                characterName = character.data.name,
+                                status = string.format("found existing data")
+                            })
+                        end
                     end
                 end
 
@@ -271,7 +282,7 @@ function GuildbookGuildBankMixin:LoadCharacterContainers(name, containers)
     if (not containers.bags) and (not containers.bank) then
         self.containerInfo.characterInfo:SetText(info)
     else
-        self.containerInfo.characterInfo:SetText(string.format("[%s] %d slots (%d used %d free) Gold: %s",
+        self.containerInfo.characterInfo:SetText(string.format("[%s] %d slots (%d used %d free) Gold: |cffffffff%s|r",
             name,
             bankInfo.totalSlotsUsed + bankInfo.totalSlotsFree,
             bankInfo.totalSlotsUsed,

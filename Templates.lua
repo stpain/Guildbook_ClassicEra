@@ -175,13 +175,18 @@ function GuildbookChatCharacterListviewItemMixin:OnLoad()
 end
 
 function GuildbookChatCharacterListviewItemMixin:ResetDataBinding()
-
+    self.info:SetText("")
+    self.characterName = ""
 end
 
 function GuildbookChatCharacterListviewItemMixin:UpdateInfo(msg)
-    if msg.sender == self.characterName then
-        self.info:SetText("new message")
-    end
+    --the chat view will run its update script which causes the listview to be repopulated making the self.characterName field == ""
+    --wait to check the values
+    C_Timer.After(0.5, function()
+        if (msg.sender == self.characterName) and (msg.channel == "whisper") then
+            self.info:SetText("new message")
+        end
+    end)
 end
 
 function GuildbookChatCharacterListviewItemMixin:SetDataBinding(info, height)
@@ -223,7 +228,8 @@ function GuildbookGuildbankCharacterListviewItemMixin:OnLoad()
 end
 
 function GuildbookGuildbankCharacterListviewItemMixin:ResetDataBinding()
-
+    self.info:SetText("")
+    self.characterName = ""
 end
 
 function GuildbookGuildbankCharacterListviewItemMixin:UpdateInfo(info)
