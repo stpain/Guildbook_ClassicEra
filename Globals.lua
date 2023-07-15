@@ -166,8 +166,6 @@ function addon.api.classic.getPlayerAlts(main)
     return {}
 end
 
-
---containerInfo = C_Container.GetContainerItemInfo(containerIndex, slotIndex)
 function addon.api.classic.scanPlayerContainers(includeBanks)
 
     local copper = GetMoney()
@@ -188,7 +186,12 @@ function addon.api.classic.scanPlayerContainers(includeBanks)
 
     -- player bags
     for bag = 0, 4 do
-        local numSlots = GetContainerNumSlots(bag);
+        local numSlots;
+        if C_Container then
+            numSlots = C_Container.GetContainerNumSlots(bag);
+        else
+            numSlots = GetContainerNumSlots(bag);
+        end
         local slotsUsed = 0;
         for slot = 1, numSlots do
             local itemID, stackCount;
@@ -222,7 +225,12 @@ function addon.api.classic.scanPlayerContainers(includeBanks)
     if includeBanks then
         -- main bank
         local bankBagId = -1
-        local numSlots = GetContainerNumSlots(bankBagId);
+        local numSlots;
+        if C_Container then
+            numSlots = C_Container.GetContainerNumSlots(bag);
+        else
+            numSlots = GetContainerNumSlots(bag);
+        end
         local slotsUsed = 0;
         for slot = 1, numSlots do
             local itemID, stackCount;
@@ -251,7 +259,12 @@ function addon.api.classic.scanPlayerContainers(includeBanks)
 
         -- bank bags
         for bag = 5, 11 do
-            local numSlots = GetContainerNumSlots(bag);
+            local numSlots;
+            if C_Container then
+                numSlots = C_Container.GetContainerNumSlots(bag);
+            else
+                numSlots = GetContainerNumSlots(bag);
+            end
             local slotsUsed = 0;
             for slot = 1, numSlots do
                 local itemID, stackCount;
