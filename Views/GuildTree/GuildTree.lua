@@ -37,14 +37,18 @@ function GuildbookGuildTreeMixin:Update()
         if addon.characters[name] then
             table.insert(ranks[rankIndex].members, addon.characters[name])
         end
+        --print("LENGTH OF RANK TABLE IS NOW", rankIndex, ranks[rankIndex].name, #ranks[rankIndex].members)
     end
 
     local numPerRow = math.floor(self:GetWidth() / 100)
+    --print("NUMBER PER ROW", numPerRow)
     local rankHeadersAdded = {}
     for i = 0, 20 do
         if ranks[i] then
             local rank = ranks[i]
-            if not rankHeadersAdded[rank.name] then
+            if not rankHeadersAdded[i] then
+
+                --print("NUM MEMBER PER RANK", rank.name, #rank.members)
 
                 if #rank.members <= numPerRow then
                     self.listview.DataProvider:Insert({

@@ -1378,3 +1378,4 @@ end
 function GuildbookChatBubbleMixin:ResetDataBinding()
     
 end
+

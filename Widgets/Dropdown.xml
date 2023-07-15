@@ -48,7 +48,7 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="flyout" frameStrata="DIALOG" hidden="true" inherits="InsetFrameTemplate">
+            <Frame parentKey="flyout" frameLevel="7" frameStrata="DIALOG" hidden="true" inherits="InsetFrameTemplate">
                 <Size y="230"/>
                 <Anchors>
                     <Anchor point="TOP" relativePoint="BOTTOM" x="0" y="4"/>

@@ -182,10 +182,16 @@ function GuildbookChatMixin:Update()
         end)
         for k, v in ipairs(t) do
             local x = self.chats[v.name]
+            local atlas;
+            if addon.characters[v.name] then
+                atlas = addon.characters[v.name]:GetProfileAvatar()
+            else
+                atlas = "GarrMission_MissionIcon-Recruit"
+            end
             table.insert(chatList, {
                 label = v.name,
-                atlas = "GarrMission_MissionIcon-Recruit",
-                showMask = false,
+                atlas = atlas,
+                showMask = true,
 
                 func = function()
                     self:SetChatHistory(x.history, v.name)

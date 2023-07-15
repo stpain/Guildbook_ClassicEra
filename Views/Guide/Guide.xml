@@ -1,124 +1,49 @@
-<Ui> <!--warboard-parchment-->
+<Ui>
     <Frame name="GuildbookGuide" mixin="GuildbookGuideMixin">
         <Layers>
             <Layer level="BACKGROUND">
                 <Texture textureSubLevel="-1">
-                    <Color r="0.1" g="0.1" b="0.1" a="0.6"/>
+                    <Color r="0.105" g="0.1" b="0.1" a="0.95"/>
                     <Size y="40"/>
                     <Anchors>
                         <Anchor point="TOPLEFT" x="0" y="0"/>
                         <Anchor point="TOPRIGHT" x="0" y="0"/>
                     </Anchors>
                 </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
                 <Texture atlas="AdventureMapLabel-Large">
                     <Size y="40"/>
                     <Anchors>
-                        <Anchor point="TOPLEFT" x="360" y="0"/>
+                        <Anchor point="TOPLEFT" x="200" y="0"/>
                         <Anchor point="TOPRIGHT" x="-120" y="0"/>
                     </Anchors>
                 </Texture>
             </Layer>
-            <Layer level="OVERLAY">
-                <FontString parentKey="tabTitle" inherits="GameFontNormalLarge" text="Lore">
-                    <Color r="1" g="1" b="1"/>
-                    <Size y="40"/>
-                    <Anchors>
-                        <Anchor point="TOPLEFT" x="360" y="0"/>
-                        <Anchor point="TOPRIGHT" x="-120" y="0"/>
-                    </Anchors>
-                </FontString>
-            </Layer>
         </Layers>
         <Frames>
-            <Button parentKey="homeDropdown" frameLevel="8" inherits="GuildbookWidgetsDropDownTemplate">
+            <Button parentKey="home" inherits="UIPanelButtonTemplate" text="Home">
+                <Size x="200" y="36"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                    <Anchor point="TOPLEFT" x="0" y="-2"/>
                 </Anchors>
-                <Size x="180" y="40"/>
             </Button>
-            <Button parentKey="activityDropdown" frameLevel="8" inherits="GuildbookWidgetsDropDownTemplate">
+            <ScrollFrame parentKey="homeGridview" inherits="GuildbookWidgetsGridviewTemplate">
                 <Anchors>
-                    <Anchor point="LEFT" relativeKey="$parent.homeDropdown" relativePoint="RIGHT" x="0" y="0"/>
+                    <Anchor point="TOPLEFT" x="0" y="-40"/>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
-                <Size x="180" y="40"/>
-            </Button>
+            </ScrollFrame>
 
-            <Frame parentKey="mapsButton" inherits="GuildbookSmallHighlightButton">
-                <Anchors>
-                    <Anchor point="TOPRIGHT" x="0" y="0"/>
-                </Anchors>
-                <Size x="40" y="40"/>
-                <Layers>
-                    <Layer level="BACKGROUND">
-                        <Texture parentKey="background" atlas="GarrMission_MissionIcon-Exploration">
-                            <Anchors>
-                                <Anchor point="TOPLEFT" x="0" y="0"/>
-                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
-                            </Anchors>
-                        </Texture>
-                    </Layer>
-                </Layers>
-            </Frame>
-            <Frame parentKey="encountersButton" inherits="GuildbookSmallHighlightButton">
-                <Anchors>
-                    <Anchor point="TOPRIGHT" x="-40" y="0"/>
-                </Anchors>
-                <Size x="40" y="40"/>
-                <Layers>
-                    <Layer level="BACKGROUND">
-                        <Texture parentKey="background" atlas="ShipMissionIcon-Combat-Mission">
-                            <Anchors>
-                                <Anchor point="TOPLEFT" x="0" y="0"/>
-                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
-                            </Anchors>
-                        </Texture>
-                    </Layer>
-                </Layers>
-            </Frame>
-            <Frame parentKey="infoButton" inherits="GuildbookSmallHighlightButton">
-                <Anchors>
-                    <Anchor point="TOPRIGHT" x="-80" y="0"/>
-                </Anchors>
-                <Size x="40" y="40"/>
-                <Layers>
-                    <Layer level="BACKGROUND">
-                        <Texture parentKey="background" atlas="GarrMission_MissionIcon-Logistics">
-                            <Anchors>
-                                <Anchor point="TOPLEFT" x="0" y="0"/>
-                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
-                            </Anchors>
-                        </Texture>
-                    </Layer>
-                </Layers>
-            </Frame>
-
-
-            <!-- <Button parentKey="previousTab">
-                <Anchors>
-                    <Anchor point="TOPRIGHT" x="-40" y="0"/>
-                </Anchors>
-                <Size x="40" y="40"/>
-                <NormalTexture atlas="Monuments-LeftButton-Up"/>
-                <PushedTexture atlas="Monuments-LeftButton-Down"/>
-            </Button>
-            <Button parentKey="nextTab">
-                <Anchors>
-                    <Anchor point="TOPRIGHT" x="0" y="0"/>
-                </Anchors>
-                <Size x="40" y="40"/>
-                <NormalTexture atlas="Monuments-RightButton-Up"/>
-                <PushedTexture atlas="Monuments-RightButton-Down"/>
-            </Button> -->
-
-            <Frame parentKey="lore">
+            <Frame parentKey="instanceView" hidden="true">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="-40"/>
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
                 <Layers>
                     <Layer level="BACKGROUND">
-                        <Texture parentKey="background" atlas="Garr_InfoBox-BackgroundTile" horizTile="true" vertTile="true">
-                            <!-- <Texcoords left="0" right="0.79" top="0" bottom="0.64"/> adventureguide-pane-large -->
+                        <Texture parentKey="background">
+                            <TexCoords left="0.0" right="0.767" top="0.0" bottom="0.82" />
                             <Anchors>
                                 <Anchor point="TOPLEFT" x="0" y="0"/>
                                 <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
@@ -127,84 +52,71 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="info">
-                        <Size x="450"/>
+                    <Frame parentKey="mapsButton" inherits="GuildbookSmallHighlightButton">
                         <Anchors>
-                            <Anchor point="TOPLEFT" x="0" y="0"/>
-                            <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                            <Anchor point="TOPRIGHT" x="0" y="40"/>
                         </Anchors>
+                        <Size x="40" y="40"/>
                         <Layers>
                             <Layer level="BACKGROUND">
-                                <Texture parentKey="background" atlas="adventureguide-pane-large">
+                                <Texture parentKey="background" atlas="GarrMission_MissionIcon-Exploration">
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" x="10" y="-10"/>
-                                        <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
+                                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                                     </Anchors>
                                 </Texture>
-                            </Layer>
-                            <Layer level="ARTWORK">
-                                <Texture parentKey="loreArtwork">
-                                    <Texcoords left="0" right="0.79" top="0" bottom="0.64"/>
-                                    <Anchors>
-                                        <Anchor point="TOPLEFT" x="42" y="-40"/>
-                                        <Anchor point="TOPRIGHT" x="-40" y="-40"/>
-                                        <Anchor point="BOTTOM" x="0" y="160"/>
-                                    </Anchors>
-                                </Texture>
-                            </Layer>
-                            <Layer level="OVERLAY">
-                                <FontString parentKey="meta" inherits="QuestFont_Huge" outline="THICK">
-                                    <Color r="0.002" g="0.002" b="0.001"/>
-                                    <Anchors>
-                                        <Anchor point="BOTTOM" x="0" y="90"/>
-                                    </Anchors>                                        
-                                </FontString>
                             </Layer>
                         </Layers>
                     </Frame>
-                    <Frame parentKey="history">
-                        <Size y="260"/>
+                    <Frame parentKey="encountersButton" inherits="GuildbookSmallHighlightButton">
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.info" relativePoint="TOPRIGHT" x="0" y="0"/>
-                            <Anchor point="TOPRIGHT" x="0" y="0"/>
+                            <Anchor point="TOPRIGHT" x="-40" y="40"/>
                         </Anchors>
+                        <Size x="40" y="40"/>
                         <Layers>
                             <Layer level="BACKGROUND">
-                                <Texture parentKey="background" atlas="adventureguide-pane-small">
+                                <Texture parentKey="background" atlas="ShipMissionIcon-Combat-Mission">
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" x="10" y="-10"/>
-                                        <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
+                                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                                     </Anchors>
                                 </Texture>
-                            </Layer>
-                            <Layer level="ARTWORK">                                
-                                <Texture parentKey="banner" atlas="GarrMission_RewardsBanner">
-                                    <Anchors>
-                                        <Anchor point="TOP" x="0" y="10"/>
-                                    </Anchors>
-                                </Texture>
-                            </Layer>
-                            <Layer level="OVERLAY">
-                                <FontString parentKey="header" inherits="QuestFont_Huge" outline="THICK" text="History">
-                                    <Color r="0.002" g="0.002" b="0.001"/>
-                                    <Anchors>
-                                        <Anchor point="TOP" x="0" y="10"/>
-                                    </Anchors>                                        
-                                </FontString> 
-                                <!-- <FontString parentKey="text" inherits="GameFontNormal_NoShadow">
-                                    <Color r="0.002" g="0.002" b="0.001"/>
-                                    <Anchors>
-                                        <Anchor point="TOPLEFT" x="40" y="-20"/>
-                                        <Anchor point="BOTTOMRIGHT" x="-40" y="20"/>
-                                    </Anchors>                                        
-                                </FontString> -->
                             </Layer>
                         </Layers>
+                    </Frame>
+                    <Frame parentKey="infoButton" inherits="GuildbookSmallHighlightButton">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-80" y="40"/>
+                        </Anchors>
+                        <Size x="40" y="40"/>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture parentKey="background" atlas="GarrMission_MissionIcon-Logistics">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+
+                    <Frame parentKey="lore" setAllPoints="true">
+                        <layers>
+                            <Layer level="ARTWORK">
+                                <Texture parentKey="icon">
+                                    <Texcoords left="0" right="0.76" top="0" bottom="0.68"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="10" y="-10"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </layers>
                         <Frames>
                             <Frame parentKey="text" inherits="ScrollingFontTemplate">
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" x="60" y="-45"/>
-                                    <Anchor point="BOTTOMRIGHT" x="-60" y="40"/>
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.icon" relativePoint="TOPRIGHT" x="40" y="-50"/>
+                                    <Anchor point="BOTTOMRIGHT" x="-30" y="50"/>
                                 </Anchors>
                                 <KeyValues>
                                     <KeyValue key="fontName" value="GameFontNormal_NoShadow"/>
@@ -212,126 +124,38 @@
                             </Frame>
                         </Frames>
                     </Frame>
-                    <Frame parentKey="loot">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.history" relativePoint="BOTTOMLEFT" x="0" y="0"/>
-                            <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
-                        </Anchors>
+
+                    <Frame parentKey="encounters" setAllPoints="true" hidden="true">
+                    
+                    </Frame>
+
+                    <Frame parentKey="maps" frameLevel="6" setAllPoints="true" hidden="true">
                         <Layers>
-                            <Layer level="BACKGROUND">
-                                <Texture parentKey="background" atlas="adventureguide-pane-small">
-                                    <Anchors>
-                                        <Anchor point="TOPLEFT" x="10" y="-10"/>
-                                        <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
-                                    </Anchors>
-                                </Texture>
-                            </Layer>
-                            <Layer level="ARTWORK">
-                                <Texture parentKey="banner" atlas="GarrMission_RewardsBanner">
-                                    <Anchors>
-                                        <Anchor point="TOP" x="0" y="10"/>
-                                    </Anchors>
-                                </Texture>
-                            </Layer>
                             <Layer level="OVERLAY">
-                                <FontString parentKey="header" inherits="QuestFont_Huge" outline="THICK" text="Loot">
-                                    <Color r="0.002" g="0.002" b="0.001"/>
+                                <Texture parentKey="background">
+                                    <Texcoords left="0" right="0.9765625" top="0" bottom="0.6513671875"/>
                                     <Anchors>
-                                        <Anchor point="TOP" x="0" y="10"/>
-                                    </Anchors>                                        
-                                </FontString>                            
+                                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                    </Anchors>
+                                </Texture>
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="gridview" inherits="GuildbookWidgetsGridviewTemplate">
+                            <Button parentKey="previous">
+                                <Size x="30" y="30"/>
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" x="20" y="-30"/>
-                                    <Anchor point="BOTTOMRIGHT" x="-20" y="20"/>
+                                    <Anchor point="BOTTOMRIGHT" x="-40" y="10"/>
                                 </Anchors>
-                            </ScrollFrame>
+                            </Button>
+                            <Button parentKey="next">
+                                <Size x="30" y="30"/>
+                                <Anchors>
+                                    <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
+                                </Anchors>
+                            </Button>
                         </Frames>
                     </Frame>
-                </Frames>
-            </Frame>
-            <Frame parentKey="loot" useParentLevel="true" hidden="true">
-                <Anchors>
-                    <Anchor point="TOPLEFT" x="0" y="-40"/>
-                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
-                </Anchors>
-                <Layers>
-                    <Layer level="ARTWORK">
-                        <Texture parentKey="background" atlas="book-bg">
-                            <Texcoords left="1" right="0" top="0" bottom="1"/>
-                            <Size x="290"/>
-                            <Anchors>
-                                <Anchor point="TOPLEFT" x="0" y="0"/>
-                                <Anchor point="BOTTOMLEFT" x="0" y="0"/>
-                            </Anchors>
-                        </Texture>
-                        <Texture parentKey="background" atlas="book-bg">
-                            <Anchors>
-                                <Anchor point="TOPLEFT" x="290" y="0"/>
-                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
-                            </Anchors>
-                        </Texture>
-                    </Layer>
-                </Layers>
-                <Frames>
-                    <Frame parentKey="encounterListview" inherits="GuildbookWidgetsListviewTemplate">
-                        <Size x="260"/>
-                        <Anchors>
-                            <Anchor point="TOPLEFT" x="16" y="-48"/>
-                            <Anchor point="BOTTOMLEFT" x="16" y="16"/>
-                        </Anchors>
-                        <KeyValues>
-                            <KeyValue key="frameType" value="FRAME" type="string"/>
-                            <KeyValue key="itemTemplate" value="GuildbookGuideEncounterListviewItem" type="string"/>
-                            <KeyValue key="elementHeight" value="40" type="number"/>
-                        </KeyValues>
-                    </Frame>
-                    <Frame parentKey="lootListview" inherits="GuildbookWidgetsListviewTemplate">
-                        <Anchors>
-                            <Anchor point="TOPRIGHT" x="0" y="-24"/>
-                            <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
-                            <Anchor point="LEFT" relativeKey="$parent.encounterListview" relativePoint="RIGHT" x="0" y="0"/>
-                        </Anchors>
-                        <KeyValues>
-                            <KeyValue key="frameType" value="FRAME" type="string"/>
-                            <KeyValue key="itemTemplate" value="GuildbookSimpleIconLabelFrame" type="string"/>
-                            <KeyValue key="elementHeight" value="26" type="number"/>
-                        </KeyValues>
-                    </Frame>
-                </Frames>
-            </Frame>
-            <Frame parentKey="maps" hidden="true">
-                <Anchors>
-                    <Anchor point="TOPLEFT" x="0" y="-40"/>
-                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
-                </Anchors>
-                <Layers>
-                    <Layer level="ARTWORK">
-                        <Texture parentKey="background">
-                            <Texcoords left="0" right="0.9765625" top="0" bottom="0.6513671875"/>
-                            <Anchors>
-                                <Anchor point="TOPLEFT" x="0" y="0"/>
-                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
-                            </Anchors>
-                        </Texture>
-                    </Layer>
-                </Layers>
-                <Frames>
-                    <Button parentKey="previous">
-                        <Size x="30" y="30"/>
-                        <Anchors>
-                            <Anchor point="BOTTOMRIGHT" x="-40" y="10"/>
-                        </Anchors>
-                    </Button>
-                    <Button parentKey="next">
-                        <Size x="30" y="30"/>
-                        <Anchors>
-                            <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
-                        </Anchors>
-                    </Button>
                 </Frames>
             </Frame>
         </Frames>

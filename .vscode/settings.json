@@ -99,6 +99,8 @@
         "FACTION_HORDE",
         "FACTION_ALLIANCE",
         "DUNGEON_FLOOR_WAILINGCAVERNS1",
-        "GameFontNormal_NoShadow"
+        "GameFontNormal_NoShadow",
+        "DUNGEON_FLOOR_THESTOCKADE1",
+        "Settings"
     ]
 }

@@ -243,7 +243,6 @@
         </Scripts>
     </Frame>
 
-
     <Frame name="GuildbookMyCharactersListviewItem" mixin="GuildbookMyCharactersListviewItemMixin" virtual="true" enableMouse="true">
         <Layers>
 			<Layer level="BACKGROUND">
@@ -423,9 +422,9 @@
                     </MaskedTextures>
                 </MaskTexture>
 				<FontString parentKey="text" inherits="GameFontNormal" justifyH="LEFT">
-                    <Size x="150"/>
 					<Anchors>
-						<Anchor point="TOPRIGHT" x="-5" y="-5"/>
+						<Anchor point="TOPRIGHT" x="-21" y="-9"/>
+						<Anchor point="TOPLEFT" relativeKey="$parent.icon" relativePoint="TOPRIGHT" x="2" y="-7"/>
 					</Anchors>
 					<Color r="1" g="1" b="1"/>
 				</FontString>

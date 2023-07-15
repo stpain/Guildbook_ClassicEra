@@ -168,6 +168,8 @@ function GuildbookGuildBankMixin:Guildbank_OnDataReceived(sender, message)
         status = string.format("received data from %s", sender)
     })
 
+    DevTools_Dump(message.payload)
+
     --set this to the character for future requests, this will also trigger a Character_OnDataChanged event which will update the bank UI if this character is selected
     if addon.characters[message.payload.bank] then
         addon.characters[message.payload.bank]:SetContainers(message.payload.containers)

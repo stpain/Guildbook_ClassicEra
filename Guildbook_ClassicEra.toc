@@ -8,7 +8,6 @@
 
 
 Libs\LibStub\LibStub.lua
-Libs\LibGraph-2.0\LibGraph-2.0.lua
 Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDbIcon-1.0\LibDbIcon-1.0.lua
@@ -37,7 +36,6 @@ Widgets\Helptips.xml
 Locales.lua
 Data2.lua
 ItemData.lua
-InstanceData.lua
 Database.lua
 
 Classes\Tradeskills.lua
@@ -81,8 +79,6 @@ Views\Settings\Settings.xml
 Views\Search\Search.lua
 Views\Search\Search.xml
 
-Views\Guide\Guide.lua
-Views\Guide\Guide.xml
 
 Comms.lua
 

@@ -5,153 +5,117 @@ local Database = addon.Database;
 
 GuildbookGuideMixin = {
     name = "Guide",
-    selectedInstance = "",
+    selectedInstance = false,
     selectedInstanceMapID = 1,
     helptips = {},
-    tabs = {
-        "lore",
-        "loot",
-        "maps",
-    },
-    selectedTab = 1,
 }
 
 function GuildbookGuideMixin:OnLoad()
 
-    -- self.previousTab:SetScript("OnClick", function()
-    --     self.selectedTab = self.selectedTab - 1;
-    --     if self.selectedTab < 1 then
-    --         self.selectedTab = 1;
-    --     end
-    --     self:SelectTab(self.selectedTab)
-    -- end)
-    -- self.nextTab:SetScript("OnClick", function()
-    --     self.selectedTab = self.selectedTab + 1;
-    --     if self.selectedTab > 3 then
-    --         self.selectedTab = 3;
-    --     end
-    --     self:SelectTab(self.selectedTab)
-    -- end)
+    --self.lore.loot.gridview:InitFramePool("FRAME", "GuildbookCircleLootItemTemplate")
+    --self.lore.loot.gridview:SetFixedColumnCount(5)
+    --self.lore.loot.gridview:SetMinMaxSize(80, 110)
 
-    self.mapsButton:SetScript("OnMouseDown", function()
-        self:SelectTab(3)
-    end)
-    self.encountersButton:SetScript("OnMouseDown", function()
-        self:SelectTab(2)
-    end)
-    self.infoButton:SetScript("OnMouseDown", function()
-        self:SelectTab(1)
-    end)
+    self.homeGridview:InitFramePool("FRAME", "GuildbookGuideHomeGridviewItemTemplate")
+    self.homeGridview:SetMinMaxSize(160, 220)
 
-    self.maps.previous:SetNormalTexture(130869)
-    self.maps.previous:SetPushedTexture(130868)
-    self.maps.previous:SetScript("OnClick", function()
+    self.instanceView.background:SetTexture(521750)
+    self.instanceView.lore.text:GetFontString():SetTextColor(CreateColor(0.002, 0.002, 0.001))
+    self.instanceView.mapsButton:SetScript("OnMouseDown", function()
+        self.instanceView.lore:Hide()
+        self.instanceView.encounters:Hide()
+        self.instanceView.background:Hide()
+        self.instanceView.maps:Show()
+    end)
+    self.instanceView.encountersButton:SetScript("OnMouseDown", function()
+        self.instanceView.lore:Hide()
+        self.instanceView.maps:Hide()
+        self.instanceView.background:Show()
+        self.instanceView.encounters:Show()
+    end)
+    self.instanceView.infoButton:SetScript("OnMouseDown", function()
+        self.instanceView.encounters:Hide()
+        self.instanceView.maps:Hide()
+        self.instanceView.background:Show()
+        self.instanceView.lore:Show()
+    end)
+    self.instanceView.maps.previous:SetNormalTexture(130869)
+    self.instanceView.maps.previous:SetPushedTexture(130868)
+    self.instanceView.maps.previous:SetScript("OnClick", function()
         if self.selectedInstance then
             self.selectedInstanceMapID = self.selectedInstanceMapID - 1;
             if self.selectedInstanceMapID < 1 then
                 self.selectedInstanceMapID = 1;
             end
-            self.maps.background:SetTexture(self.selectedInstance.maps[self.selectedInstanceMapID])
+            self.instanceView.maps.background:SetTexture(self.selectedInstance.maps[self.selectedInstanceMapID])
         end
     end)
-    self.maps.next:SetNormalTexture(130866)
-    self.maps.next:SetPushedTexture(130865)
-    self.maps.next:SetScript("OnClick", function()
+    self.instanceView.maps.next:SetNormalTexture(130866)
+    self.instanceView.maps.next:SetPushedTexture(130865)
+    self.instanceView.maps.next:SetScript("OnClick", function()
         if self.selectedInstance then
             self.selectedInstanceMapID = self.selectedInstanceMapID + 1;
             if self.selectedInstanceMapID > #self.selectedInstance.maps then
                 self.selectedInstanceMapID = #self.selectedInstance.maps;
             end
-            self.maps.background:SetTexture(self.selectedInstance.maps[self.selectedInstanceMapID])
+            self.instanceView.maps.background:SetTexture(self.selectedInstance.maps[self.selectedInstanceMapID])
         end
     end)
 
-    self.lore.loot.gridview:InitFramePool("FRAME", "GuildbookCircleLootItemTemplate")
-    --self.lore.loot.gridview:SetFixedColumnCount(5)
-    self.lore.loot.gridview:SetMinMaxSize(80, 110)
+    self.home:SetScript("OnClick", function()
+        self.instanceView:Hide()
 
-    local dungeonMenu = {}
-    for k, v in ipairs(addon.dungeons) do
-        table.insert(dungeonMenu,{
-            text = v.name,
-            func = function()
-                self:LoadData(v)
-            end,
-        })
-    end
-
-    local raidMenu = {
-        {
-            text = "Molten Core",
-        },
-        {
-            text = "Blackwing Lair",
-        },
-        {
-            text = [[Zul'gurub]],
-        },
-    }
-
-    local homeMenu = {
-        {
-            text = "Dungeons",
-            func = function()
-                self.activityDropdown:SetMenu(dungeonMenu)
-            end,
-        },
-        {
-            text = "Raids",
-            func = function()
-                self.activityDropdown:SetMenu(raidMenu)
-            end,
-        },
-    }
-
-    self.homeDropdown:SetMenu(homeMenu)
-
+        self.homeGridview:Show()
+    end)
     self:SetScript("OnShow", function()
         self:UpdateLayout()
     end)
 
+    addon:RegisterCallback("Database_OnInitialised", self.Database_OnInitialised, self)
+    addon:RegisterCallback("Guide_OnInstanceSelected", self.Guide_OnInstanceSelected, self)
     addon:RegisterCallback("UI_OnSizeChanged", self.UpdateLayout, self)
     addon.AddView(self)
 end
 
-function GuildbookGuideMixin:SelectTab(tabID)
-    for k, tab in ipairs(self.tabs) do
-        self[tab]:Hide()
+function GuildbookGuideMixin:Database_OnInitialised()
+    
+    for k, v in ipairs(addon.dungeons) do
+        self.homeGridview:Insert(v)
     end
-    self[self.tabs[tabID]]:Show()
+    self.homeGridview:UpdateLayout()
+
 end
 
 function GuildbookGuideMixin:UpdateLayout()
 
     local x, y = self:GetSize()
 
-    y = y - 40;
+    self.instanceView.lore.icon:SetSize((x / 2) - 20, (y / 2))
 
-    if x < 650 then
-        
-        self.lore.info:SetWidth(1)
-        self.lore.info:Hide()
-        self.lore.history:SetSize((x - 1), y / 2)
-
-
-    else
-
-        self.lore.info:SetWidth(x * 0.4)
-        self.lore.info:Show()
-        self.lore.history:SetSize(x * 0.6, y / 2)
+    if self.selectedInstance then
+        self.instanceView.lore.text:SetText(self.selectedInstance.history or "")
 
     end
 
-    self.lore.history.text:SetText(self.selectedInstance.history)
+    self.homeGridview:UpdateLayout()
+end
 
-    self.lore.loot.gridview:UpdateLayout()
-    self.lore.loot.banner:SetSize(self.lore.history:GetWidth() * 0.33, 50)
-    self.lore.loot.header:SetSize(self.lore.history:GetWidth() * 0.33, 40)
-    self.lore.history.banner:SetSize(self.lore.history:GetWidth() * 0.33, 50)
-    self.lore.history.header:SetSize(self.lore.history:GetWidth() * 0.33, 40)
+function GuildbookGuideMixin:Guide_OnInstanceSelected(instance)
+    
+    self.homeGridview:Hide()
+    self.instanceView:Show()
+    self:LoadInstance(instance)
+end
+
+function GuildbookGuideMixin:LoadInstance(instance)
+
+    self.selectedInstance = instance
+    self.selectedInstanceMapID = 1;
+
+    self.instanceView.lore.icon:SetTexture(instance.loreFileID)
+    self.instanceView.lore.text:SetText(instance.history)
+
+    self.instanceView.maps.background:SetTexture(instance.maps[self.selectedInstanceMapID])
 end
 
 function GuildbookGuideMixin:LoadData(data)
@@ -179,7 +143,7 @@ function GuildbookGuideMixin:LoadData(data)
 
     end
 
-    for boss, items in pairs(data.loot) do
+    for boss, items in pairs(data.bosses) do
         for k, id in ipairs(items) do
             local item = Item:CreateFromItemID(id)
             if not item:IsItemEmpty() then
@@ -198,7 +162,7 @@ function GuildbookGuideMixin:LoadData(data)
         end
     end
 
-    self.lore.info.loreArtwork:SetTexture(data.loreArtFileID)
+    self.lore.info.loreArtwork:SetTexture(data.loreFileID)
     self.lore.info.meta:SetText(string.format("%s\n%s\n%s-%s", data.name, data.meta.zone, data.meta.minLevel, data.meta.maxLevel))
 
     --self.lore.history.text:SetFontObject(GameFontNormal_NoShadow)
