@@ -166,6 +166,8 @@ function addon.api.classic.getPlayerAlts(main)
     return {}
 end
 
+
+--containerInfo = C_Container.GetContainerItemInfo(containerIndex, slotIndex)
 function addon.api.classic.scanPlayerContainers(includeBanks)
 
     local copper = GetMoney()
@@ -189,11 +191,25 @@ function addon.api.classic.scanPlayerContainers(includeBanks)
         local numSlots = GetContainerNumSlots(bag);
         local slotsUsed = 0;
         for slot = 1, numSlots do
-            local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bag, slot)
-            if id and count then
+            local itemID, stackCount;
+
+            --make this work for both version although 1.14.4 is only maybe a few weeks away
+            if C_Container then
+                local containerInfo = C_Container.GetContainerItemInfo(bag, slot)
+                if containerInfo then
+                    itemID = containerInfo.itemID;
+                    stackCount = containerInfo.stackCount;
+                end
+            else
+                local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bag, slot)
+                itemID = id;
+                stackCount = count;
+            end
+
+            if (type(itemID) == "number") and (type(stackCount) == "number") then
                 table.insert(containers.bags.items, {
-                    id = id,
-                    count = count,
+                    id = itemID,
+                    count = stackCount,
                 })
                 slotsUsed = slotsUsed + 1;
             end
@@ -209,11 +225,23 @@ function addon.api.classic.scanPlayerContainers(includeBanks)
         local numSlots = GetContainerNumSlots(bankBagId);
         local slotsUsed = 0;
         for slot = 1, numSlots do
-            local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bankBagId, slot)
-            if id and count then
-                table.insert(containers.bank.items, {
-                    id = id,
-                    count = count,
+            local itemID, stackCount;
+            if C_Container then
+                local containerInfo = C_Container.GetContainerItemInfo(bankBagId, slot)
+                if containerInfo then
+                    itemID = containerInfo.itemID;
+                    stackCount = containerInfo.stackCount;
+                end
+            else
+                local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bankBagId, slot)
+                itemID = id;
+                stackCount = count;
+            end
+
+            if (type(itemID) == "number") and (type(stackCount) == "number") then
+                table.insert(containers.bags.items, {
+                    id = itemID,
+                    count = stackCount,
                 })
                 slotsUsed = slotsUsed + 1;
             end
@@ -226,11 +254,23 @@ function addon.api.classic.scanPlayerContainers(includeBanks)
             local numSlots = GetContainerNumSlots(bag);
             local slotsUsed = 0;
             for slot = 1, numSlots do
-                local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bag, slot)
-                if id and count then
-                    table.insert(containers.bank.items, {
-                        id = id,
-                        count = count,
+                local itemID, stackCount;
+                if C_Container then
+                    local containerInfo = C_Container.GetContainerItemInfo(bag, slot)
+                    if containerInfo then
+                        itemID = containerInfo.itemID;
+                        stackCount = containerInfo.stackCount;
+                    end
+                else
+                    local _, count, _, _, _, _, link, _, _, id = GetContainerItemInfo(bag, slot)
+                    itemID = id;
+                    stackCount = count;
+                end
+    
+                if (type(itemID) == "number") and (type(stackCount) == "number") then
+                    table.insert(containers.bags.items, {
+                        id = itemID,
+                        count = stackCount,
                     })
                     slotsUsed = slotsUsed + 1;
                 end

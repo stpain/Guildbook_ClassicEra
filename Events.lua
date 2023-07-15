@@ -253,7 +253,7 @@ end
 function e:BANKFRAME_OPENED()
     if addon.characters[addon.thisCharacter] then
         local bags = addon.api.classic.scanPlayerContainers(true)
-        DevTools_Dump(bags)
+        --DevTools_Dump(bags)
         if addon.guilds[addon.thisGuild] then
             addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
 

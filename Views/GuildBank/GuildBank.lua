@@ -158,6 +158,14 @@ function GuildbookGuildBankMixin:OnShow()
         end
     end
 
+    local guildbanks = self:GetAllBanksInfo()
+    self.guildBankInfo:SetText(string.format("%d Bank character(s), %d slots (%d used %d free) Gold: %s", 
+        guildbanks.numBanks,
+        (guildbanks.totalSlotsUsed + guildbanks.totalSlotsFree),
+        guildbanks.totalSlotsUsed,
+        guildbanks.totalSlotsFree,
+        GetCoinTextureString(guildbanks.copper)
+    ))
 end
 
 
@@ -168,21 +176,21 @@ function GuildbookGuildBankMixin:Guildbank_OnDataReceived(sender, message)
         status = string.format("received data from %s", sender)
     })
 
-    DevTools_Dump(message.payload)
+    --DevTools_Dump(message.payload)
 
     --set this to the character for future requests, this will also trigger a Character_OnDataChanged event which will update the bank UI if this character is selected
     if addon.characters[message.payload.bank] then
         addon.characters[message.payload.bank]:SetContainers(message.payload.containers)
     end
 
-    -- local guildbanks = self:GetAllBanksInfo()
-    -- self.guildBankInfo:SetText(string.format("%d Banks %d slots (%d used %d free) Gold: %s", 
-    --     guildbanks.numBanks,
-    --     (guildbanks.totalSlotsUsed + guildbanks.totalSlotsFree),
-    --     guildbanks.totalSlotsUsed,
-    --     guildbanks.totalSlotsFree,
-    --     GetCoinTextureString(guildbanks.copper)
-    -- ))
+    local guildbanks = self:GetAllBanksInfo()
+    self.guildBankInfo:SetText(string.format("%d Bank character(s), %d slots (%d used %d free) Gold: %s", 
+        guildbanks.numBanks,
+        (guildbanks.totalSlotsUsed + guildbanks.totalSlotsFree),
+        guildbanks.totalSlotsUsed,
+        guildbanks.totalSlotsFree,
+        GetCoinTextureString(guildbanks.copper)
+    ))
 end
 
 function GuildbookGuildBankMixin:GetAllBanksInfo()
@@ -195,13 +203,20 @@ function GuildbookGuildBankMixin:GetAllBanksInfo()
     if self.banks then
         for k, v in ipairs(self.banks) do
             if addon.characters and addon.characters[v.characterName] then
-                local x = addon.characters[v.characterName].data.containers
-                if x then
-                    info.copper = info.copper + (x.copper or 0);
-                    info.totalSlotsFree = info.totalSlotsFree + (x.slotsFree or 0);
-                    info.totalSlotsUsed = info.totalSlotsUsed + (x.slotsUsed or 0);
+                local bags = addon.characters[v.characterName].data.containers.bags
+                if bags then
+                    info.totalSlotsFree = info.totalSlotsFree + (bags.slotsFree or 0);
+                    info.totalSlotsUsed = info.totalSlotsUsed + (bags.slotsUsed or 0);
+                end
+                local bank = addon.characters[v.characterName].data.containers.bank
+                if bank then
+                    info.totalSlotsFree = info.totalSlotsFree + (bank.slotsFree or 0);
+                    info.totalSlotsUsed = info.totalSlotsUsed + (bank.slotsUsed or 0);
+                end
+                if bags or bank then
                     info.numBanks = info.numBanks + 1;
                 end
+                info.copper = info.copper + (addon.characters[v.characterName].data.containers.copper or 0);
             end
         end
     end
@@ -218,17 +233,22 @@ function GuildbookGuildBankMixin:LoadCharacterContainers(name, containers)
 
     self.containerInfo.itemsListview.DataProvider:Flush()
 
-    local info = "";
-   
-    -- self.containerInfo.characterInfo:SetText(string.format("[%s] %d slots (%d used %d free) Gold: %s",
-    --     name,
-    --     containers.slotsUsed + containers.slotsFree,
-    --     containers.slotsUsed,
-    --     containers.slotsFree,
-    --     GetCoinTextureString(containers.copper)
-    -- ))
+    local bankInfo = {
+        totalSlotsUsed = 0,
+        totalSlotsFree = 0,
+        copper = 0,
+    }
+    bankInfo.copper = containers.copper or 0;
+    if containers.bags then
+        bankInfo.totalSlotsFree = bankInfo.totalSlotsFree + (containers.bags.slotsFree or 0);
+        bankInfo.totalSlotsUsed = bankInfo.totalSlotsUsed + (containers.bags.slotsUsed or 0);
+    end
+    if containers.bank then
+        bankInfo.totalSlotsFree = bankInfo.totalSlotsFree + (containers.bank.slotsFree or 0);
+        bankInfo.totalSlotsUsed = bankInfo.totalSlotsUsed + (containers.bank.slotsUsed or 0);
+    end
 
-    local t = {}
+    local t, info = {}, "";
     if containers.bags and containers.bags.items then
         for k, v in ipairs(containers.bags.items) do
             table.insert(t, v)
@@ -239,7 +259,8 @@ function GuildbookGuildBankMixin:LoadCharacterContainers(name, containers)
     if containers.bank and containers.bank.items then
         for k, v in ipairs(containers.bank.items) do
             table.insert(t, v)
-        end    else
+        end    
+    else
         info = string.format("%s no bank data", info)
     end
 
@@ -247,5 +268,15 @@ function GuildbookGuildBankMixin:LoadCharacterContainers(name, containers)
         self.containerInfo.itemsListview.DataProvider:InsertTable(t)
     end
 
-    self.containerInfo.characterInfo:SetText(info)
+    if (not containers.bags) and (not containers.bank) then
+        self.containerInfo.characterInfo:SetText(info)
+    else
+        self.containerInfo.characterInfo:SetText(string.format("[%s] %d slots (%d used %d free) Gold: %s",
+            name,
+            bankInfo.totalSlotsUsed + bankInfo.totalSlotsFree,
+            bankInfo.totalSlotsUsed,
+            bankInfo.totalSlotsFree,
+            GetCoinTextureString(bankInfo.copper)
+        ))
+    end
 end

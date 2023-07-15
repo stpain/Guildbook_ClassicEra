@@ -10,7 +10,13 @@ function GuildbookWidgetsListviewMixin:OnLoad()
     local height = self.elementHeight;
     self.scrollView:SetElementExtent(height);
 
-    self.scrollView:SetElementInitializer(self.frameType, self.itemTemplate, GenerateClosure(self.OnElementInitialize, self));
+    local version, build, _date, tocversion, localizedVersion, buildType = GetBuildInfo()
+    if tocversion == 11403 then
+        self.scrollView:SetElementInitializer(self.frameType, self.itemTemplate, GenerateClosure(self.OnElementInitialize, self));
+    elseif tocversion > 11403 then
+        self.scrollView:SetElementInitializer(self.itemTemplate, GenerateClosure(self.OnElementInitialize, self));
+    end
+
     self.scrollView:SetElementResetter(GenerateClosure(self.OnElementReset, self));
 
     self.selectionBehavior = ScrollUtil.AddSelectionBehavior(self.scrollView);
