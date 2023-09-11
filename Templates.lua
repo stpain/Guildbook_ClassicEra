@@ -116,13 +116,16 @@ function GuildbookSearchListviewItemMixin:OnLoad()
 end
 
 function GuildbookSearchListviewItemMixin:ResetDataBinding()
-
+    self.text:SetText("")
+    self.location:SetText("")
 end
 
 function GuildbookSearchListviewItemMixin:UpdateInfo(info)
 
 end
 
+---this template is used to display the search results and coudl be passed in a character, tradeskill item, general item from bank or inventory
+---@param binding any
 function GuildbookSearchListviewItemMixin:SetDataBinding(binding)
 
     -- self.icon:SetAtlas(info.atlas)
@@ -138,19 +141,48 @@ function GuildbookSearchListviewItemMixin:SetDataBinding(binding)
         
         self.text:SetText(binding.data.itemLink)
 
+        self.icon:SetTexture(binding.data.icon)
+
     elseif binding.type == "character" then
 
         self.text:SetText(binding.data.data.name)
+
+        self.icon:SetAtlas(binding.data:GetProfileAvatar())
 
     elseif binding.type == "bankItem" then
 
         self.text:SetText(binding.data:GetItemLink())
 
+        self.icon:SetTexture(binding.data:GetItemIcon())
+
     elseif binding.type == "inventory" then
 
         self.text:SetText(binding.data:GetItemLink())
+
+        self.icon:SetTexture(binding.data:GetItemIcon())
         
     end
+
+    if type(binding.location) == "string" then
+        self.location:SetText(binding.location)
+        self:SetScript("OnEnter", nil)
+    else
+        self.location:SetText("mulitple locations")
+
+        self:SetScript("OnEnter", function()
+            GameTooltip:SetOwner(self, 'ANCHOR_LEFT')
+
+            for name, count in pairs(binding.location) do
+                GameTooltip:AddDoubleLine(name, count)
+            end
+
+            GameTooltip:Show()
+        end)
+    end
+
+    self:SetScript("OnLeave", function()
+        GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+    end)
 
     self:SetScript("OnMouseDown", function()
 
@@ -1316,16 +1348,32 @@ function GuildbookBankCharactersListviewItemMixin:Update(character)
             local rankName = GuildControlGetRankName(i)
             table.insert(ranks, {
                 text = string.format("[%d] %s", (i-1), rankName),
-                func = function ()
-                    if self.character then
-                        if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].bankRules[self.character.data.name] then
-                            addon.guilds[addon.thisGuild].bankRules[self.character.data.name].shareRank = (i-1)
-                        end
-                    end
-                end,
+                -- func = function ()
+                --     if self.character then
+                --         if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].bankRules[self.character.data.name] then
+                --             addon.guilds[addon.thisGuild].bankRules[self.character.data.name].shareRank = (i-1)
+                --         end
+                --     end
+                -- end,
             })
         end
-        self.ranks:SetMenu(ranks)
+        --self.ranks:SetMenu(ranks)
+
+        self.ranks.currentIndex = 1
+        self.ranks:SetScript("OnClick", function()
+            if self.ranks.currentIndex == #ranks then
+                self.ranks.currentIndex = 1;
+            else
+                self.ranks.currentIndex = self.ranks.currentIndex + 1
+            end
+            self.ranks:SetText(ranks[self.ranks.currentIndex].text)
+
+            if self.character then
+                if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].bankRules[self.character.data.name] then
+                    addon.guilds[addon.thisGuild].bankRules[self.character.data.name].shareRank = (self.ranks.currentIndex-1)
+                end
+            end
+        end)
     end
 
     if addon.api.characterIsMine(self.character.data.name) then

@@ -176,7 +176,7 @@ end
 function GuildbookMixin:OnLoad()
     
     self:RegisterForDrag("LeftButton")
-    self.resize:Init(self, 600, 450, 1100, 650)
+    self.resize:Init(self, 600, 150, 1100, 650)
 
     self.resize:HookScript("OnMouseDown", function()
         self.isRefreshEnabled = true;
@@ -303,9 +303,9 @@ function GuildbookMixin:OnUpdate()
     -- UpdateAddOnMemoryUsage()
     -- local mem = GetAddOnMemoryUsage(name)
 
-    local mem = 0.4
-    local fr = GetFramerate()
-    self.memoryUsage:SetText(string.format("fps: %d mem: %d", math.floor(fr), math.floor(mem)))
+    -- local mem = 0.4
+    -- local fr = GetFramerate()
+    -- self.memoryUsage:SetText(string.format("fps: %d mem: %d", math.floor(fr), math.floor(mem)))
 end
 
 function GuildbookMixin:OnEvent()

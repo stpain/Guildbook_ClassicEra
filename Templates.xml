@@ -344,11 +344,11 @@
                     <Anchor point="RIGHT" relativeKey="$parent.shareBags" relativePoint="LEFT" x="-60" y="0"/>
                 </Anchors>
             </CheckButton>
-            <Button parentKey="ranks" inherits="GuildbookWidgetsDropDownTemplate">
+            <Button parentKey="ranks" inherits="UIPanelButtonTemplate">
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.shareCopper" relativePoint="LEFT" x="-10" y="0"/>
                 </Anchors>
-                <Size x="120" y="24"/>
+                <Size x="150" y="24"/>
             </Button>
         </Frames>
         <Scripts>
@@ -385,6 +385,11 @@
 				<FontString parentKey="text" inherits="GameFontNormal">
 					<Anchors>
 						<Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.icon" x="5" y="0"/>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+				<FontString parentKey="location" inherits="GameFontNormal">
+					<Anchors>
 						<Anchor point="RIGHT" x="-5" y="0"/>
 					</Anchors>
 					<Color r="1" g="1" b="1"/>
