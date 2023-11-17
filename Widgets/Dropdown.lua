@@ -1,8 +1,8 @@
 local name, addon = ...;
 
-GuildbookWidgetsDropDownTemplateMixin = {}
+GuildbookWrathEraWidgetsDropDownTemplateMixin = {}
 
-function GuildbookWidgetsDropDownTemplateMixin:OnLoad()
+function GuildbookWrathEraWidgetsDropDownTemplateMixin:OnLoad()
 
     if not addon.dropdownWidgets then
         addon.dropdownWidgets = {}
@@ -28,19 +28,19 @@ function GuildbookWidgetsDropDownTemplateMixin:OnLoad()
 
 end
 
-function GuildbookWidgetsDropDownTemplateMixin:SetWidth(width)
+function GuildbookWrathEraWidgetsDropDownTemplateMixin:SetWidth(width)
     --self.flyout:SetWidth(width)
 end
 
-function GuildbookWidgetsDropDownTemplateMixin:SetText(text)
+function GuildbookWrathEraWidgetsDropDownTemplateMixin:SetText(text)
     self.label.text:SetText(text)
 end
 
-function GuildbookWidgetsDropDownTemplateMixin:ClearMenu()
+function GuildbookWrathEraWidgetsDropDownTemplateMixin:ClearMenu()
     self.flyout.listview.DataProvider:Flush()
 end
 
-function GuildbookWidgetsDropDownTemplateMixin:SetMenu(t)
+function GuildbookWrathEraWidgetsDropDownTemplateMixin:SetMenu(t)
 
     if type(t) ~= "table" then
         return;
@@ -62,13 +62,13 @@ function GuildbookWidgetsDropDownTemplateMixin:SetMenu(t)
 end
 
 
-GuildbookWidgetsDropDownListviewItemTemplateMixin = {}
+GuildbookWrathEraWidgetsDropDownListviewItemTemplateMixin = {}
 
-function GuildbookWidgetsDropDownListviewItemTemplateMixin:OnLoad()
+function GuildbookWrathEraWidgetsDropDownListviewItemTemplateMixin:OnLoad()
     self.dropdown = self:GetParent():GetParent():GetParent():GetParent():GetParent()
 end
 
-function GuildbookWidgetsDropDownListviewItemTemplateMixin:SetDataBinding(binding, height)
+function GuildbookWrathEraWidgetsDropDownListviewItemTemplateMixin:SetDataBinding(binding, height)
     self:SetHeight(height)
     self.text:SetText(binding.text)
 
@@ -104,7 +104,7 @@ function GuildbookWidgetsDropDownListviewItemTemplateMixin:SetDataBinding(bindin
 
 end
 
-function GuildbookWidgetsDropDownListviewItemTemplateMixin:ResetDataBinding()
+function GuildbookWrathEraWidgetsDropDownListviewItemTemplateMixin:ResetDataBinding()
     self.text:SetText(nil)
     self.icon:SetTexture(nil)
     self.menuTable = nil;

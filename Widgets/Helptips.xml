@@ -1,5 +1,5 @@
 <Ui>
-    <Frame name="GuildbookHelpTipTemplate_BottomArrow" inherits="GlowBoxTemplate" mixin="GuildbookHelpTipMixin" virtual="true" enableMouse="true" frameStrata="TOOLTIP">
+    <Frame name = "GuildbookWrathEraHelpTipTemplate_BottomArrow" inherits="GlowBoxTemplate" mixin="GuildbookWrathEraHelpTipMixin" virtual="true" enableMouse="true" frameStrata="TOOLTIP">
 		<Layers>
 			<Layer level="OVERLAY">
 				<FontString parentKey="text" inherits="GameFontHighlightLeft" justifyH="LEFT" justifyV="MIDDLE">
@@ -23,7 +23,7 @@
 		</Scripts>
 	</Frame>
 
-	<Frame name="GuildbookHelpTipTemplate_RightArrow" inherits="GlowBoxTemplate" mixin="GuildbookHelpTipMixin" virtual="true" enableMouse="true" frameStrata="TOOLTIP">
+	<Frame name = "GuildbookWrathEraHelpTipTemplate_RightArrow" inherits="GlowBoxTemplate" mixin="GuildbookWrathEraHelpTipMixin" virtual="true" enableMouse="true" frameStrata="TOOLTIP">
 		<Layers>
 			<Layer level="OVERLAY">
 				<FontString parentKey="text" inherits="GameFontHighlightLeft" justifyH="LEFT" justifyV="MIDDLE">

@@ -1,5 +1,5 @@
 --[[	*** LibCraftInfo ***
-Written by : Thaoky, EU-Marécages de Zangar
+Written by : Thaoky, EU-Marï¿½cages de Zangar
 September 21st, 2013
 
 This library contains various information about crafts, namely:
@@ -159,7 +159,7 @@ function lib:GetProfessionCraftList(professionSpellID, expansionID)
 end
 
 -- Sets information about a given spellID
-function lib:SetCraftInfo(professionId, spellID, xpack, itemID, recipeID)
+function lib:SetCraftInfo(tradeskillID, spellID, xpack, itemID, recipeID)
 	--[[ ** Stores a new craft into craftInfo **
 	format [spellID] = attribute (number, to be read bit by bit)
 	
@@ -171,7 +171,7 @@ function lib:SetCraftInfo(professionId, spellID, xpack, itemID, recipeID)
 	--]]
 
 	recipeID = recipeID or 0	-- recipe id is optional, there might not be an item that teaches this spellID
-	lib.dataSource[spellID] = LShift(recipeID, 28) + LShift(itemID, 8) + LShift(xpack, 4) + professionId
+	lib.dataSource[spellID] = LShift(recipeID, 28) + LShift(itemID, 8) + LShift(xpack, 4) + tradeskillID
 end
 
 -- Removes craft information for a given spellID

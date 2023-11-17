@@ -1,5 +1,5 @@
 <Ui>
-    <Frame name="GuildbookWidgetsListviewTemplate" mixin="GuildbookWidgetsListviewMixin" virtual="true">
+    <Frame name = "GuildbookWrathEraWidgetsListviewTemplate" mixin="GuildbookWrathEraWidgetsListviewMixin" virtual="true">
         <Frames>
             <Frame parentKey="scrollBox" inherits="WowScrollBoxList"/>
             <EventFrame parentKey="scrollBar" inherits="WowTrimScrollBar">

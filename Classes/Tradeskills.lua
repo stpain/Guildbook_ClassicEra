@@ -76,8 +76,8 @@ Tradeskills.TradeskillIDsToLocaleName = {
 	deDE = {
 		[164] = "Schmiedekunst",
 		[165] = "Lederverarbeitung",
-		[171] = "Alchemie",
-		--[171] = "Alchimie",
+		--[171] = "Alchemie",
+		[171] = "Alchimie",
 		[182] = "Kräuterkunde",
 		[185] = "Kochkunst",
 		[186] = "Bergbau",
@@ -280,5 +280,30 @@ function Tradeskills:GetEnglishNameFromTradeskillName(tradeskillName)
     return false;
 end
 
+
+function Tradeskills:GenerateEnchantingData()
+
+	for k, v in ipairs(addon.itemData) do
+
+		if v.tradeskillID == 333 then
+
+			local spell = Spell:CreateFromSpellID(v.spellID)
+			if not spell:IsSpellEmpty() then
+
+				spell:ContinueOnSpellLoad(function()
+				
+					local name = spell:GetSpellName()
+					if name and v.name then
+						--print(string.format("updating name data for <%s> [%d] to <%s>", v.name, v.spellID, name))
+						v.name = name
+					end
+				end)
+
+			end
+
+		end
+
+	end
+end
 
 addon.Tradeskills = Tradeskills;

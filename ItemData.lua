@@ -13,7 +13,7 @@ addon.itemData = {
 			[13468] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13510::::::::6:::::::::|h[Flask of the Titans]|h|r",
 		["quality"] = 1,
 	}, -- [1]
@@ -28,7 +28,7 @@ addon.itemData = {
 			[8925] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13511::::::::6:::::::::|h[Flask of Distilled Wisdom]|h|r",
 		["quality"] = 1,
 	}, -- [2]
@@ -43,7 +43,7 @@ addon.itemData = {
 			[13465] = 10,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13512::::::::6:::::::::|h[Flask of Supreme Power]|h|r",
 		["quality"] = 1,
 	}, -- [3]
@@ -58,7 +58,7 @@ addon.itemData = {
 			[13465] = 10,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13513::::::::6:::::::::|h[Flask of Chromatic Resistance]|h|r",
 		["quality"] = 1,
 	}, -- [4]
@@ -73,7 +73,7 @@ addon.itemData = {
 			[13468] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13506::::::::6:::::::::|h[Flask of Petrification]|h|r",
 		["quality"] = 1,
 	}, -- [5]
@@ -85,7 +85,7 @@ addon.itemData = {
 			[7078] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cff1eff00|Hitem:7076::::::::6:::::::::|h[Essence of Earth]|h|r",
 		["quality"] = 2,
 	}, -- [6]
@@ -97,7 +97,7 @@ addon.itemData = {
 			[12803] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cff1eff00|Hitem:7076::::::::6:::::::::|h[Essence of Earth]|h|r",
 		["quality"] = 2,
 	}, -- [7]
@@ -109,7 +109,7 @@ addon.itemData = {
 			[7076] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cff1eff00|Hitem:7080::::::::6:::::::::|h[Essence of Water]|h|r",
 		["quality"] = 2,
 	}, -- [8]
@@ -121,7 +121,7 @@ addon.itemData = {
 			[12808] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cff1eff00|Hitem:7080::::::::6:::::::::|h[Essence of Water]|h|r",
 		["quality"] = 2,
 	}, -- [9]
@@ -133,7 +133,7 @@ addon.itemData = {
 			[7080] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cff1eff00|Hitem:7082::::::::6:::::::::|h[Essence of Air]|h|r",
 		["quality"] = 2,
 	}, -- [10]
@@ -145,7 +145,7 @@ addon.itemData = {
 			[7080] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cff1eff00|Hitem:12808::::::::6:::::::::|h[Essence of Undeath]|h|r",
 		["quality"] = 2,
 	}, -- [11]
@@ -157,7 +157,7 @@ addon.itemData = {
 			[7076] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cff1eff00|Hitem:12803::::::::6:::::::::|h[Living Essence]|h|r",
 		["quality"] = 2,
 	}, -- [12]
@@ -169,7 +169,7 @@ addon.itemData = {
 			[7082] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cff1eff00|Hitem:7078::::::::6:::::::::|h[Essence of Fire]|h|r",
 		["quality"] = 2,
 	}, -- [13]
@@ -182,7 +182,7 @@ addon.itemData = {
 			[12363] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cff1eff00|Hitem:12360::::::::6:::::::::|h[Arcanite Bar]|h|r",
 		["quality"] = 2,
 	}, -- [14]
@@ -194,7 +194,7 @@ addon.itemData = {
 			[3575] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cff1eff00|Hitem:3577::::::::6:::::::::|h[Gold Bar]|h|r",
 		["quality"] = 2,
 	}, -- [15]
@@ -206,7 +206,7 @@ addon.itemData = {
 			[3860] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cff1eff00|Hitem:6037::::::::6:::::::::|h[Truesilver Bar]|h|r",
 		["quality"] = 2,
 	}, -- [16]
@@ -218,7 +218,7 @@ addon.itemData = {
 			[7077] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:7068::::::::6:::::::::|h[Elemental Fire]|h|r",
 		["quality"] = 1,
 	}, -- [17]
@@ -232,7 +232,7 @@ addon.itemData = {
 			[13464] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13446::::::::6:::::::::|h[Major Healing Potion]|h|r",
 		["quality"] = 1,
 	}, -- [18]
@@ -246,7 +246,7 @@ addon.itemData = {
 			[3358] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3928::::::::6:::::::::|h[Superior Healing Potion]|h|r",
 		["quality"] = 1,
 	}, -- [19]
@@ -260,7 +260,7 @@ addon.itemData = {
 			[3357] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:1710::::::::6:::::::::|h[Greater Healing Potion]|h|r",
 		["quality"] = 1,
 	}, -- [20]
@@ -274,7 +274,7 @@ addon.itemData = {
 			[2453] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:929::::::::6:::::::::|h[Healing Potion]|h|r",
 		["quality"] = 1,
 	}, -- [21]
@@ -287,7 +287,7 @@ addon.itemData = {
 			[118] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:858::::::::6:::::::::|h[Lesser Healing Potion]|h|r",
 		["quality"] = 1,
 	}, -- [22]
@@ -301,7 +301,7 @@ addon.itemData = {
 			[765] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:118::::::::6:::::::::|h[Minor Healing Potion]|h|r",
 		["quality"] = 1,
 	}, -- [23]
@@ -315,7 +315,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:2456::::::::6:::::::::|h[Minor Rejuvenation Potion]|h|r",
 		["quality"] = 1,
 	}, -- [24]
@@ -329,7 +329,7 @@ addon.itemData = {
 			[8925] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:20002::::::::6:::::::::|h[Greater Dreamless Sleep Potion]|h|r",
 		["quality"] = 1,
 	}, -- [25]
@@ -343,7 +343,7 @@ addon.itemData = {
 			[8153] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9144::::::::6:::::::::|h[Wildvine Potion]|h|r",
 		["quality"] = 1,
 	}, -- [26]
@@ -357,7 +357,7 @@ addon.itemData = {
 			[3164] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:4596::::::::6:::::::::|h[Discolored Healing Potion]|h|r",
 		["quality"] = 1,
 	}, -- [27]
@@ -371,7 +371,7 @@ addon.itemData = {
 			[8925] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13444::::::::6:::::::::|h[Major Mana Potion]|h|r",
 		["quality"] = 1,
 	}, -- [28]
@@ -385,7 +385,7 @@ addon.itemData = {
 			[8925] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13443::::::::6:::::::::|h[Superior Mana Potion]|h|r",
 		["quality"] = 1,
 	}, -- [29]
@@ -399,7 +399,7 @@ addon.itemData = {
 			[3821] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:6149::::::::6:::::::::|h[Greater Mana Potion]|h|r",
 		["quality"] = 1,
 	}, -- [30]
@@ -413,7 +413,7 @@ addon.itemData = {
 			[3356] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3827::::::::6:::::::::|h[Mana Potion]|h|r",
 		["quality"] = 1,
 	}, -- [31]
@@ -427,7 +427,7 @@ addon.itemData = {
 			[3820] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3385::::::::6:::::::::|h[Lesser Mana Potion]|h|r",
 		["quality"] = 1,
 	}, -- [32]
@@ -441,7 +441,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:2455::::::::6:::::::::|h[Minor Mana Potion]|h|r",
 		["quality"] = 1,
 	}, -- [33]
@@ -456,7 +456,7 @@ addon.itemData = {
 			[13463] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:18253::::::::6:::::::::|h[Major Rejuvenation Potion]|h|r",
 		["quality"] = 1,
 	}, -- [34]
@@ -469,7 +469,7 @@ addon.itemData = {
 			[8831] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:12190::::::::6:::::::::|h[Dreamless Sleep Potion]|h|r",
 		["quality"] = 1,
 	}, -- [35]
@@ -483,7 +483,7 @@ addon.itemData = {
 			[13466] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:20007::::::::6:::::::::|h[Mageblood Potion]|h|r",
 		["quality"] = 1,
 	}, -- [36]
@@ -497,7 +497,7 @@ addon.itemData = {
 			[7068] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13457::::::::6:::::::::|h[Greater Fire Protection Potion]|h|r",
 		["quality"] = 1,
 	}, -- [37]
@@ -511,7 +511,7 @@ addon.itemData = {
 			[13463] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13458::::::::6:::::::::|h[Greater Nature Protection Potion]|h|r",
 		["quality"] = 1,
 	}, -- [38]
@@ -525,7 +525,7 @@ addon.itemData = {
 			[7070] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13456::::::::6:::::::::|h[Greater Frost Protection Potion]|h|r",
 		["quality"] = 1,
 	}, -- [39]
@@ -539,7 +539,7 @@ addon.itemData = {
 			[3824] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13459::::::::6:::::::::|h[Greater Shadow Protection Potion]|h|r",
 		["quality"] = 1,
 	}, -- [40]
@@ -553,7 +553,7 @@ addon.itemData = {
 			[11176] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13461::::::::6:::::::::|h[Greater Arcane Protection Potion]|h|r",
 		["quality"] = 1,
 	}, -- [41]
@@ -567,7 +567,7 @@ addon.itemData = {
 			[3358] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9036::::::::6:::::::::|h[Magic Resistance Potion]|h|r",
 		["quality"] = 1,
 	}, -- [42]
@@ -581,7 +581,7 @@ addon.itemData = {
 			[3372] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3386::::::::6:::::::::|h[Elixir of Poison Resistance]|h|r",
 		["quality"] = 1,
 	}, -- [43]
@@ -595,7 +595,7 @@ addon.itemData = {
 			[6371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:6049::::::::6:::::::::|h[Fire Protection Potion]|h|r",
 		["quality"] = 1,
 	}, -- [44]
@@ -609,7 +609,7 @@ addon.itemData = {
 			[3372] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:6052::::::::6:::::::::|h[Nature Protection Potion]|h|r",
 		["quality"] = 1,
 	}, -- [45]
@@ -623,7 +623,7 @@ addon.itemData = {
 			[3819] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:6050::::::::6:::::::::|h[Frost Protection Potion]|h|r",
 		["quality"] = 1,
 	}, -- [46]
@@ -637,7 +637,7 @@ addon.itemData = {
 			[3372] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:6048::::::::6:::::::::|h[Shadow Protection Potion]|h|r",
 		["quality"] = 1,
 	}, -- [47]
@@ -651,7 +651,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:6051::::::::6:::::::::|h[Holy Protection Potion]|h|r",
 		["quality"] = 1,
 	}, -- [48]
@@ -665,7 +665,7 @@ addon.itemData = {
 			[3355] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3384::::::::6:::::::::|h[Minor Magic Resistance Potion]|h|r",
 		["quality"] = 1,
 	}, -- [49]
@@ -679,7 +679,7 @@ addon.itemData = {
 			[8838] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9172::::::::6:::::::::|h[Invisibility Potion]|h|r",
 		["quality"] = 1,
 	}, -- [50]
@@ -693,7 +693,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:2459::::::::6:::::::::|h[Swiftness Potion]|h|r",
 		["quality"] = 1,
 	}, -- [51]
@@ -707,7 +707,7 @@ addon.itemData = {
 			[3820] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:5634::::::::6:::::::::|h[Free Action Potion]|h|r",
 		["quality"] = 1,
 	}, -- [52]
@@ -721,7 +721,7 @@ addon.itemData = {
 			[8839] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3387::::::::6:::::::::|h[Limited Invulnerability Potion]|h|r",
 		["quality"] = 1,
 	}, -- [53]
@@ -736,7 +736,7 @@ addon.itemData = {
 			[8925] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:20008::::::::6:::::::::|h[Living Action Potion]|h|r",
 		["quality"] = 1,
 	}, -- [54]
@@ -750,7 +750,7 @@ addon.itemData = {
 			[2452] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:6372::::::::6:::::::::|h[Swim Speed Potion]|h|r",
 		["quality"] = 1,
 	}, -- [55]
@@ -764,7 +764,7 @@ addon.itemData = {
 			[13467] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13462::::::::6:::::::::|h[Purification Potion]|h|r",
 		["quality"] = 1,
 	}, -- [56]
@@ -777,7 +777,7 @@ addon.itemData = {
 			[8846] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13442::::::::6:::::::::|h[Mighty Rage Potion]|h|r",
 		["quality"] = 1,
 	}, -- [57]
@@ -791,7 +791,7 @@ addon.itemData = {
 			[5637] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:5633::::::::6:::::::::|h[Great Rage Potion]|h|r",
 		["quality"] = 1,
 	}, -- [58]
@@ -805,7 +805,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:5631::::::::6:::::::::|h[Rage Potion]|h|r",
 		["quality"] = 1,
 	}, -- [59]
@@ -819,7 +819,7 @@ addon.itemData = {
 			[3818] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3823::::::::6:::::::::|h[Lesser Invisibility Potion]|h|r",
 		["quality"] = 1,
 	}, -- [60]
@@ -833,7 +833,7 @@ addon.itemData = {
 			[3821] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9030::::::::6:::::::::|h[Restorative Potion]|h|r",
 		["quality"] = 1,
 	}, -- [61]
@@ -847,7 +847,7 @@ addon.itemData = {
 			[10620] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13455::::::::6:::::::::|h[Greater Stoneshield Potion]|h|r",
 		["quality"] = 1,
 	}, -- [62]
@@ -861,7 +861,7 @@ addon.itemData = {
 			[3858] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:4623::::::::6:::::::::|h[Lesser Stoneshield Potion]|h|r",
 		["quality"] = 1,
 	}, -- [63]
@@ -875,7 +875,7 @@ addon.itemData = {
 			[13466] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:20004::::::::6:::::::::|h[Major Troll's Blood Potion]|h|r",
 		["quality"] = 1,
 	}, -- [64]
@@ -889,7 +889,7 @@ addon.itemData = {
 			[3357] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3826::::::::6:::::::::|h[Mighty Troll's Blood Potion]|h|r",
 		["quality"] = 1,
 	}, -- [65]
@@ -903,7 +903,7 @@ addon.itemData = {
 			[2453] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3388::::::::6:::::::::|h[Strong Troll's Blood Potion]|h|r",
 		["quality"] = 1,
 	}, -- [66]
@@ -917,7 +917,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3382::::::::6:::::::::|h[Weak Troll's Blood Potion]|h|r",
 		["quality"] = 1,
 	}, -- [67]
@@ -931,7 +931,7 @@ addon.itemData = {
 			[8838] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13445::::::::6:::::::::|h[Elixir of Superior Defense]|h|r",
 		["quality"] = 1,
 	}, -- [68]
@@ -945,7 +945,7 @@ addon.itemData = {
 			[3821] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:8951::::::::6:::::::::|h[Elixir of Greater Defense]|h|r",
 		["quality"] = 1,
 	}, -- [69]
@@ -959,7 +959,7 @@ addon.itemData = {
 			[3820] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3389::::::::6:::::::::|h[Elixir of Defense]|h|r",
 		["quality"] = 1,
 	}, -- [70]
@@ -972,7 +972,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:5997::::::::6:::::::::|h[Elixir of Minor Defense]|h|r",
 		["quality"] = 1,
 	}, -- [71]
@@ -986,7 +986,7 @@ addon.itemData = {
 			[8925] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9206::::::::6:::::::::|h[Elixir of Giants]|h|r",
 		["quality"] = 1,
 	}, -- [72]
@@ -1000,7 +1000,7 @@ addon.itemData = {
 			[3356] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3391::::::::6:::::::::|h[Elixir of Ogre's Strength]|h|r",
 		["quality"] = 1,
 	}, -- [73]
@@ -1014,7 +1014,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:2454::::::::6:::::::::|h[Elixir of Lion's Strength]|h|r",
 		["quality"] = 1,
 	}, -- [74]
@@ -1028,7 +1028,7 @@ addon.itemData = {
 			[8838] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9187::::::::6:::::::::|h[Elixir of Greater Agility]|h|r",
 		["quality"] = 1,
 	}, -- [75]
@@ -1042,7 +1042,7 @@ addon.itemData = {
 			[3821] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:8949::::::::6:::::::::|h[Elixir of Agility]|h|r",
 		["quality"] = 1,
 	}, -- [76]
@@ -1056,7 +1056,7 @@ addon.itemData = {
 			[2452] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3390::::::::6:::::::::|h[Elixir of Lesser Agility]|h|r",
 		["quality"] = 1,
 	}, -- [77]
@@ -1070,7 +1070,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:2457::::::::6:::::::::|h[Elixir of Minor Agility]|h|r",
 		["quality"] = 1,
 	}, -- [78]
@@ -1084,7 +1084,7 @@ addon.itemData = {
 			[3358] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9179::::::::6:::::::::|h[Elixir of Greater Intellect]|h|r",
 		["quality"] = 1,
 	}, -- [79]
@@ -1098,7 +1098,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3383::::::::6:::::::::|h[Elixir of Wisdom]|h|r",
 		["quality"] = 1,
 	}, -- [80]
@@ -1112,7 +1112,7 @@ addon.itemData = {
 			[13465] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13454::::::::6:::::::::|h[Greater Arcane Elixir]|h|r",
 		["quality"] = 1,
 	}, -- [81]
@@ -1126,7 +1126,7 @@ addon.itemData = {
 			[8839] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9155::::::::6:::::::::|h[Arcane Elixir]|h|r",
 		["quality"] = 1,
 	}, -- [82]
@@ -1140,7 +1140,7 @@ addon.itemData = {
 			[6371] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:21546::::::::6:::::::::|h[Elixir of Greater Firepower]|h|r",
 		["quality"] = 1,
 	}, -- [83]
@@ -1154,7 +1154,7 @@ addon.itemData = {
 			[13466] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13447::::::::6:::::::::|h[Elixir of the Sages]|h|r",
 		["quality"] = 1,
 	}, -- [84]
@@ -1168,7 +1168,7 @@ addon.itemData = {
 			[3821] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3825::::::::6:::::::::|h[Elixir of Fortitude]|h|r",
 		["quality"] = 1,
 	}, -- [85]
@@ -1182,7 +1182,7 @@ addon.itemData = {
 			[13466] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13453::::::::6:::::::::|h[Elixir of Brute Force]|h|r",
 		["quality"] = 1,
 	}, -- [86]
@@ -1196,7 +1196,7 @@ addon.itemData = {
 			[13465] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13452::::::::6:::::::::|h[Elixir of the Mongoose]|h|r",
 		["quality"] = 1,
 	}, -- [87]
@@ -1210,7 +1210,7 @@ addon.itemData = {
 			[8845] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9224::::::::6:::::::::|h[Elixir of Demonslaying]|h|r",
 		["quality"] = 1,
 	}, -- [88]
@@ -1224,7 +1224,7 @@ addon.itemData = {
 			[3372] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:6373::::::::6:::::::::|h[Elixir of Firepower]|h|r",
 		["quality"] = 1,
 	}, -- [89]
@@ -1238,7 +1238,7 @@ addon.itemData = {
 			[3372] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:17708::::::::6:::::::::|h[Elixir of Frost Power]|h|r",
 		["quality"] = 1,
 	}, -- [90]
@@ -1251,7 +1251,7 @@ addon.itemData = {
 			[8845] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9264::::::::6:::::::::|h[Elixir of Shadow Power]|h|r",
 		["quality"] = 1,
 	}, -- [91]
@@ -1265,7 +1265,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:2458::::::::6:::::::::|h[Elixir of Minor Fortitude]|h|r",
 		["quality"] = 1,
 	}, -- [92]
@@ -1279,7 +1279,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:6662::::::::6:::::::::|h[Elixir of Giant Growth]|h|r",
 		["quality"] = 1,
 	}, -- [93]
@@ -1292,7 +1292,7 @@ addon.itemData = {
 			[8846] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9233::::::::6:::::::::|h[Elixir of Detect Demon]|h|r",
 		["quality"] = 1,
 	}, -- [94]
@@ -1306,7 +1306,7 @@ addon.itemData = {
 			[3818] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:10592::::::::6:::::::::|h[Catseye Elixir]|h|r",
 		["quality"] = 1,
 	}, -- [95]
@@ -1320,7 +1320,7 @@ addon.itemData = {
 			[7972] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:18294::::::::6:::::::::|h[Elixir of Greater Water Breathing]|h|r",
 		["quality"] = 1,
 	}, -- [96]
@@ -1333,7 +1333,7 @@ addon.itemData = {
 			[8831] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9197::::::::6:::::::::|h[Elixir of Dream Vision]|h|r",
 		["quality"] = 1,
 	}, -- [97]
@@ -1346,7 +1346,7 @@ addon.itemData = {
 			[8925] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9154::::::::6:::::::::|h[Elixir of Detect Undead]|h|r",
 		["quality"] = 1,
 	}, -- [98]
@@ -1360,7 +1360,7 @@ addon.itemData = {
 			[3818] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3828::::::::6:::::::::|h[Elixir of Detect Lesser Invisibility]|h|r",
 		["quality"] = 1,
 	}, -- [99]
@@ -1374,7 +1374,7 @@ addon.itemData = {
 			[3820] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:5996::::::::6:::::::::|h[Elixir of Water Breathing]|h|r",
 		["quality"] = 1,
 	}, -- [100]
@@ -1392,7 +1392,7 @@ addon.itemData = {
 			[7078] = 8,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffa335ee|Hitem:13503::::::::6:::::::::|h[Alchemists' Stone]|h|r",
 		["quality"] = 4,
 	}, -- [101]
@@ -1406,7 +1406,7 @@ addon.itemData = {
 			[4342] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9210::::::::6:::::::::|h[Ghost Dye]|h|r",
 		["quality"] = 1,
 	}, -- [102]
@@ -1421,7 +1421,7 @@ addon.itemData = {
 			[19943] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cff0070dd|Hitem:19931::::::::6:::::::::|h[Gurubashi Mojo Madness]|h|r",
 		["quality"] = 3,
 	}, -- [103]
@@ -1435,7 +1435,7 @@ addon.itemData = {
 			[8839] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9088::::::::6:::::::::|h[Gift of Arthas]|h|r",
 		["quality"] = 1,
 	}, -- [104]
@@ -1449,7 +1449,7 @@ addon.itemData = {
 			[3372] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3824::::::::6:::::::::|h[Shadow Oil]|h|r",
 		["quality"] = 1,
 	}, -- [105]
@@ -1463,7 +1463,7 @@ addon.itemData = {
 			[3372] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:3829::::::::6:::::::::|h[Frost Oil]|h|r",
 		["quality"] = 1,
 	}, -- [106]
@@ -1477,7 +1477,7 @@ addon.itemData = {
 			[3821] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:8956::::::::6:::::::::|h[Oil of Immolation]|h|r",
 		["quality"] = 1,
 	}, -- [107]
@@ -1492,7 +1492,7 @@ addon.itemData = {
 			[9262] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9149::::::::6:::::::::|h[Philosopher's Stone]|h|r",
 		["quality"] = 1,
 	}, -- [108]
@@ -1506,7 +1506,7 @@ addon.itemData = {
 			[3372] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:9061::::::::6:::::::::|h[Goblin Rocket Fuel]|h|r",
 		["quality"] = 1,
 	}, -- [109]
@@ -1519,7 +1519,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:6370::::::::6:::::::::|h[Blackmouth Oil]|h|r",
 		["quality"] = 1,
 	}, -- [110]
@@ -1532,7 +1532,7 @@ addon.itemData = {
 			[3371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:6371::::::::6:::::::::|h[Fire Oil]|h|r",
 		["quality"] = 1,
 	}, -- [111]
@@ -1545,7 +1545,7 @@ addon.itemData = {
 			[13422] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 171,
+		["tradeskillID"] = 171,
 		["itemLink"] = "|cffffffff|Hitem:13423::::::::6:::::::::|h[Stonescale Oil]|h|r",
 		["quality"] = 1,
 	}, -- [112]
@@ -1557,7 +1557,7 @@ addon.itemData = {
 			[2835] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:3470::::::::6:::::::::|h[Rough Grinding Stone]|h|r",
 		["quality"] = 1,
 	}, -- [113]
@@ -1572,7 +1572,7 @@ addon.itemData = {
 			[7966] = 1,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7942::::::::6:::::::::|h[Blue Glittering Axe]|h|r",
 		["quality"] = 2,
 	}, -- [114]
@@ -1585,7 +1585,7 @@ addon.itemData = {
 			[4338] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7919::::::::6:::::::::|h[Heavy Mithril Gauntlet]|h|r",
 		["quality"] = 2,
 	}, -- [115]
@@ -1600,7 +1600,7 @@ addon.itemData = {
 			[19726] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:19691::::::::6:::::::::|h[Bloodsoul Shoulders]|h|r",
 		["quality"] = 3,
 	}, -- [116]
@@ -1614,7 +1614,7 @@ addon.itemData = {
 			[5637] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7917::::::::6:::::::::|h[Barbaric Iron Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [117]
@@ -1627,7 +1627,7 @@ addon.itemData = {
 			[7077] = 4,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12419::::::::6:::::::::|h[Radiant Boots]|h|r",
 		["quality"] = 2,
 	}, -- [118]
@@ -1643,7 +1643,7 @@ addon.itemData = {
 			[12360] = 15,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12796::::::::6:::::::::|h[Hammer of the Titans]|h|r",
 		["quality"] = 3,
 	}, -- [119]
@@ -1656,7 +1656,7 @@ addon.itemData = {
 			[3860] = 14,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7933::::::::6:::::::::|h[Heavy Mithril Boots]|h|r",
 		["quality"] = 2,
 	}, -- [120]
@@ -1670,7 +1670,7 @@ addon.itemData = {
 			[20520] = 10,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:20550::::::::6:::::::::|h[Darkrune Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [121]
@@ -1686,7 +1686,7 @@ addon.itemData = {
 			[2319] = 1,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3848::::::::6:::::::::|h[Big Bronze Knife]|h|r",
 		["quality"] = 2,
 	}, -- [122]
@@ -1698,7 +1698,7 @@ addon.itemData = {
 			[2841] = 7,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2866::::::::6:::::::::|h[Rough Bronze Cuirass]|h|r",
 		["quality"] = 1,
 	}, -- [123]
@@ -1714,7 +1714,7 @@ addon.itemData = {
 			[7077] = 4,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12777::::::::6:::::::::|h[Blazing Rapier]|h|r",
 		["quality"] = 3,
 	}, -- [124]
@@ -1730,7 +1730,7 @@ addon.itemData = {
 			[3486] = 2,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3855::::::::6:::::::::|h[Massive Iron Axe]|h|r",
 		["quality"] = 2,
 	}, -- [125]
@@ -1745,7 +1745,7 @@ addon.itemData = {
 			[3577] = 4,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3847::::::::6:::::::::|h[Golden Scale Boots]|h|r",
 		["quality"] = 2,
 	}, -- [126]
@@ -1761,7 +1761,7 @@ addon.itemData = {
 			[4234] = 3,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3849::::::::6:::::::::|h[Hardened Iron Shortsword]|h|r",
 		["quality"] = 2,
 	}, -- [127]
@@ -1776,7 +1776,7 @@ addon.itemData = {
 			[2605] = 1,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3484::::::::6:::::::::|h[Green Iron Boots]|h|r",
 		["quality"] = 2,
 	}, -- [128]
@@ -1790,7 +1790,7 @@ addon.itemData = {
 			[12360] = 20,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12784::::::::6:::::::::|h[Arcanite Reaper]|h|r",
 		["quality"] = 3,
 	}, -- [129]
@@ -1804,7 +1804,7 @@ addon.itemData = {
 			[2841] = 6,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2848::::::::6:::::::::|h[Bronze Mace]|h|r",
 		["quality"] = 1,
 	}, -- [130]
@@ -1819,7 +1819,7 @@ addon.itemData = {
 			[13512] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:22194::::::::6:::::::::|h[Black Grasp of the Destroyer]|h|r",
 		["quality"] = 4,
 	}, -- [131]
@@ -1832,7 +1832,7 @@ addon.itemData = {
 			[2841] = 6,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:6350::::::::6:::::::::|h[Rough Bronze Boots]|h|r",
 		["quality"] = 1,
 	}, -- [132]
@@ -1849,7 +1849,7 @@ addon.itemData = {
 			[12361] = 4,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12774::::::::6:::::::::|h[Dawn's Edge]|h|r",
 		["quality"] = 3,
 	}, -- [133]
@@ -1863,7 +1863,7 @@ addon.itemData = {
 			[7910] = 1,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12426::::::::6:::::::::|h[Imperial Plate Boots]|h|r",
 		["quality"] = 2,
 	}, -- [134]
@@ -1878,7 +1878,7 @@ addon.itemData = {
 			[19726] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:22762::::::::6:::::::::|h[Ironvine Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [135]
@@ -1893,7 +1893,7 @@ addon.itemData = {
 			[12360] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:22670::::::::6:::::::::|h[Icebane Gauntlets]|h|r",
 		["quality"] = 4,
 	}, -- [136]
@@ -1910,7 +1910,7 @@ addon.itemData = {
 			[1705] = 2,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3492::::::::6:::::::::|h[Mighty Iron Hammer]|h|r",
 		["quality"] = 2,
 	}, -- [137]
@@ -1928,7 +1928,7 @@ addon.itemData = {
 			[12361] = 2,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12782::::::::6:::::::::|h[Corruption]|h|r",
 		["quality"] = 3,
 	}, -- [138]
@@ -1944,7 +1944,7 @@ addon.itemData = {
 			[12799] = 6,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12636::::::::6:::::::::|h[Helm of the Great Chief]|h|r",
 		["quality"] = 3,
 	}, -- [139]
@@ -1956,7 +1956,7 @@ addon.itemData = {
 			[3860] = 16,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7930::::::::6:::::::::|h[Heavy Mithril Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [140]
@@ -1970,7 +1970,7 @@ addon.itemData = {
 			[2880] = 1,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2845::::::::6:::::::::|h[Copper Axe]|h|r",
 		["quality"] = 1,
 	}, -- [141]
@@ -1985,7 +1985,7 @@ addon.itemData = {
 			[1705] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:2869::::::::6:::::::::|h[Silvered Bronze Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [142]
@@ -1999,7 +1999,7 @@ addon.itemData = {
 			[3478] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3483::::::::6:::::::::|h[Silvered Bronze Gauntlets]|h|r",
 		["quality"] = 2,
 	}, -- [143]
@@ -2016,7 +2016,7 @@ addon.itemData = {
 			[12364] = 8,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12798::::::::6:::::::::|h[Annihilator]|h|r",
 		["quality"] = 3,
 	}, -- [144]
@@ -2031,7 +2031,7 @@ addon.itemData = {
 			[7075] = 2,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7946::::::::6:::::::::|h[Runed Mithril Hammer]|h|r",
 		["quality"] = 2,
 	}, -- [145]
@@ -2044,7 +2044,7 @@ addon.itemData = {
 			[7077] = 4,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12417::::::::6:::::::::|h[Radiant Circlet]|h|r",
 		["quality"] = 2,
 	}, -- [146]
@@ -2059,7 +2059,7 @@ addon.itemData = {
 			[4234] = 4,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7941::::::::6:::::::::|h[Heavy Mithril Axe]|h|r",
 		["quality"] = 2,
 	}, -- [147]
@@ -2071,7 +2071,7 @@ addon.itemData = {
 			[3860] = 12,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7920::::::::6:::::::::|h[Mithril Scale Pants]|h|r",
 		["quality"] = 2,
 	}, -- [148]
@@ -2085,7 +2085,7 @@ addon.itemData = {
 			[3860] = 12,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7928::::::::6:::::::::|h[Ornate Mithril Shoulder]|h|r",
 		["quality"] = 2,
 	}, -- [149]
@@ -2099,7 +2099,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3473::::::::6:::::::::|h[Runed Copper Pants]|h|r",
 		["quality"] = 2,
 	}, -- [150]
@@ -2115,7 +2115,7 @@ addon.itemData = {
 			[3470] = 2,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3489::::::::6:::::::::|h[Thick War Axe]|h|r",
 		["quality"] = 2,
 	}, -- [151]
@@ -2132,7 +2132,7 @@ addon.itemData = {
 			[3486] = 3,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3856::::::::6:::::::::|h[Shadow Crescent Axe]|h|r",
 		["quality"] = 2,
 	}, -- [152]
@@ -2146,7 +2146,7 @@ addon.itemData = {
 			[11371] = 4,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:19148::::::::6:::::::::|h[Dark Iron Helm]|h|r",
 		["quality"] = 4,
 	}, -- [153]
@@ -2160,7 +2160,7 @@ addon.itemData = {
 			[12360] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12610::::::::6:::::::::|h[Runic Plate Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [154]
@@ -2176,7 +2176,7 @@ addon.itemData = {
 			[4234] = 2,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:17704::::::::6:::::::::|h[Edge of Winter]|h|r",
 		["quality"] = 2,
 	}, -- [155]
@@ -2190,7 +2190,7 @@ addon.itemData = {
 			[7910] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12613::::::::6:::::::::|h[Runic Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [156]
@@ -2205,7 +2205,7 @@ addon.itemData = {
 			[1705] = 1,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3846::::::::6:::::::::|h[Polished Steel Boots]|h|r",
 		["quality"] = 2,
 	}, -- [157]
@@ -2218,7 +2218,7 @@ addon.itemData = {
 			[7966] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:7922::::::::6:::::::::|h[Steel Plate Helm]|h|r",
 		["quality"] = 1,
 	}, -- [158]
@@ -2235,7 +2235,7 @@ addon.itemData = {
 			[11371] = 10,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:22384::::::::6:::::::::|h[Persuader]|h|r",
 		["quality"] = 4,
 	}, -- [159]
@@ -2251,7 +2251,7 @@ addon.itemData = {
 			[4234] = 3,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3853::::::::6:::::::::|h[Moonsteel Broadsword]|h|r",
 		["quality"] = 2,
 	}, -- [160]
@@ -2264,7 +2264,7 @@ addon.itemData = {
 			[4338] = 6,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7931::::::::6:::::::::|h[Mithril Coif]|h|r",
 		["quality"] = 2,
 	}, -- [161]
@@ -2281,7 +2281,7 @@ addon.itemData = {
 			[7966] = 8,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:7960::::::::6:::::::::|h[Truesilver Champion]|h|r",
 		["quality"] = 3,
 	}, -- [162]
@@ -2294,7 +2294,7 @@ addon.itemData = {
 			[3860] = 8,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7918::::::::6:::::::::|h[Heavy Mithril Shoulder]|h|r",
 		["quality"] = 2,
 	}, -- [163]
@@ -2310,7 +2310,7 @@ addon.itemData = {
 			[7966] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:7939::::::::6:::::::::|h[Truesilver Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [164]
@@ -2328,7 +2328,7 @@ addon.itemData = {
 			[4304] = 2,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:7961::::::::6:::::::::|h[Phantom Blade]|h|r",
 		["quality"] = 3,
 	}, -- [165]
@@ -2344,7 +2344,7 @@ addon.itemData = {
 			[12364] = 4,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:19169::::::::6:::::::::|h[Nightfall]|h|r",
 		["quality"] = 4,
 	}, -- [166]
@@ -2358,7 +2358,7 @@ addon.itemData = {
 			[3575] = 10,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3843::::::::6:::::::::|h[Golden Scale Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [167]
@@ -2374,7 +2374,7 @@ addon.itemData = {
 			[7971] = 1,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7945::::::::6:::::::::|h[Big Black Mace]|h|r",
 		["quality"] = 2,
 	}, -- [168]
@@ -2387,7 +2387,7 @@ addon.itemData = {
 			[7077] = 1,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:11605::::::::6:::::::::|h[Dark Iron Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [169]
@@ -2403,7 +2403,7 @@ addon.itemData = {
 			[12360] = 12,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:19166::::::::6:::::::::|h[Black Amnesty]|h|r",
 		["quality"] = 4,
 	}, -- [170]
@@ -2417,7 +2417,7 @@ addon.itemData = {
 			[3575] = 12,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3836::::::::6:::::::::|h[Green Iron Helm]|h|r",
 		["quality"] = 2,
 	}, -- [171]
@@ -2431,7 +2431,7 @@ addon.itemData = {
 			[3575] = 8,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3842::::::::6:::::::::|h[Green Iron Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [172]
@@ -2446,7 +2446,7 @@ addon.itemData = {
 			[7910] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12631::::::::6:::::::::|h[Fiery Plate Gauntlets]|h|r",
 		["quality"] = 3,
 	}, -- [173]
@@ -2460,7 +2460,7 @@ addon.itemData = {
 			[774] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3471::::::::6:::::::::|h[Copper Chain Vest]|h|r",
 		["quality"] = 2,
 	}, -- [174]
@@ -2476,7 +2476,7 @@ addon.itemData = {
 			[22203] = 18,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:22196::::::::6:::::::::|h[Thick Obsidian Breastplate]|h|r",
 		["quality"] = 4,
 	}, -- [175]
@@ -2492,7 +2492,7 @@ addon.itemData = {
 			[7909] = 1,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7936::::::::6:::::::::|h[Ornate Mithril Boots]|h|r",
 		["quality"] = 2,
 	}, -- [176]
@@ -2507,7 +2507,7 @@ addon.itemData = {
 			[7080] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12625::::::::6:::::::::|h[Dawnbringer Shoulders]|h|r",
 		["quality"] = 3,
 	}, -- [177]
@@ -2519,7 +2519,7 @@ addon.itemData = {
 			[2841] = 6,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:2865::::::::6:::::::::|h[Rough Bronze Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [178]
@@ -2534,7 +2534,7 @@ addon.itemData = {
 			[12364] = 6,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:12641::::::::6:::::::::|h[Invulnerable Mail]|h|r",
 		["quality"] = 4,
 	}, -- [179]
@@ -2548,7 +2548,7 @@ addon.itemData = {
 			[12360] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:19057::::::::6:::::::::|h[Gloves of the Dawn]|h|r",
 		["quality"] = 3,
 	}, -- [180]
@@ -2564,7 +2564,7 @@ addon.itemData = {
 			[3486] = 1,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3851::::::::6:::::::::|h[Solid Iron Maul]|h|r",
 		["quality"] = 2,
 	}, -- [181]
@@ -2578,7 +2578,7 @@ addon.itemData = {
 			[19726] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:22763::::::::6:::::::::|h[Ironvine Gloves]|h|r",
 		["quality"] = 3,
 	}, -- [182]
@@ -2592,7 +2592,7 @@ addon.itemData = {
 			[3470] = 3,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:6731::::::::6:::::::::|h[Ironforge Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [183]
@@ -2605,7 +2605,7 @@ addon.itemData = {
 			[7910] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12422::::::::6:::::::::|h[Imperial Plate Chest]|h|r",
 		["quality"] = 2,
 	}, -- [184]
@@ -2622,7 +2622,7 @@ addon.itemData = {
 			[4338] = 2,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7944::::::::6:::::::::|h[Dazzling Mithril Rapier]|h|r",
 		["quality"] = 2,
 	}, -- [185]
@@ -2637,7 +2637,7 @@ addon.itemData = {
 			[11371] = 18,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:17016::::::::6:::::::::|h[Dark Iron Destroyer]|h|r",
 		["quality"] = 3,
 	}, -- [186]
@@ -2652,7 +2652,7 @@ addon.itemData = {
 			[2605] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3485::::::::6:::::::::|h[Green Iron Gauntlets]|h|r",
 		["quality"] = 2,
 	}, -- [187]
@@ -2666,7 +2666,7 @@ addon.itemData = {
 			[2841] = 5,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2850::::::::6:::::::::|h[Bronze Shortsword]|h|r",
 		["quality"] = 1,
 	}, -- [188]
@@ -2681,7 +2681,7 @@ addon.itemData = {
 			[3860] = 16,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7935::::::::6:::::::::|h[Ornate Mithril Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [189]
@@ -2695,7 +2695,7 @@ addon.itemData = {
 			[11188] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12405::::::::6:::::::::|h[Thorium Armor]|h|r",
 		["quality"] = 2,
 	}, -- [190]
@@ -2707,7 +2707,7 @@ addon.itemData = {
 			[2840] = 8,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:3469::::::::6:::::::::|h[Copper Chain Boots]|h|r",
 		["quality"] = 1,
 	}, -- [191]
@@ -2722,7 +2722,7 @@ addon.itemData = {
 			[7966] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7937::::::::6:::::::::|h[Ornate Mithril Helm]|h|r",
 		["quality"] = 2,
 	}, -- [192]
@@ -2736,7 +2736,7 @@ addon.itemData = {
 			[19774] = 10,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:19695::::::::6:::::::::|h[Darksoul Shoulders]|h|r",
 		["quality"] = 3,
 	}, -- [193]
@@ -2751,7 +2751,7 @@ addon.itemData = {
 			[20520] = 8,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:20551::::::::6:::::::::|h[Darkrune Helm]|h|r",
 		["quality"] = 3,
 	}, -- [194]
@@ -2765,7 +2765,7 @@ addon.itemData = {
 			[11185] = 4,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12409::::::::6:::::::::|h[Thorium Boots]|h|r",
 		["quality"] = 2,
 	}, -- [195]
@@ -2781,7 +2781,7 @@ addon.itemData = {
 			[2318] = 2,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3488::::::::6:::::::::|h[Copper Battle Axe]|h|r",
 		["quality"] = 2,
 	}, -- [196]
@@ -2795,7 +2795,7 @@ addon.itemData = {
 			[2319] = 1,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:7956::::::::6:::::::::|h[Bronze Warhammer]|h|r",
 		["quality"] = 1,
 	}, -- [197]
@@ -2807,7 +2807,7 @@ addon.itemData = {
 			[2840] = 4,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2852::::::::6:::::::::|h[Copper Chain Pants]|h|r",
 		["quality"] = 1,
 	}, -- [198]
@@ -2821,7 +2821,7 @@ addon.itemData = {
 			[7076] = 6,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:19048::::::::6:::::::::|h[Heavy Timbermaw Boots]|h|r",
 		["quality"] = 3,
 	}, -- [199]
@@ -2837,7 +2837,7 @@ addon.itemData = {
 			[2842] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:2870::::::::6:::::::::|h[Shining Silver Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [200]
@@ -2851,7 +2851,7 @@ addon.itemData = {
 			[7910] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12410::::::::6:::::::::|h[Thorium Helm]|h|r",
 		["quality"] = 2,
 	}, -- [201]
@@ -2866,7 +2866,7 @@ addon.itemData = {
 			[3577] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3845::::::::6:::::::::|h[Golden Scale Cuirass]|h|r",
 		["quality"] = 2,
 	}, -- [202]
@@ -2882,7 +2882,7 @@ addon.itemData = {
 			[7076] = 6,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12794::::::::6:::::::::|h[Masterwork Stormhammer]|h|r",
 		["quality"] = 3,
 	}, -- [203]
@@ -2897,7 +2897,7 @@ addon.itemData = {
 			[7910] = 4,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12792::::::::6:::::::::|h[Volcanic Hammer]|h|r",
 		["quality"] = 2,
 	}, -- [204]
@@ -2914,7 +2914,7 @@ addon.itemData = {
 			[3486] = 2,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3854::::::::6:::::::::|h[Frost Tiger Blade]|h|r",
 		["quality"] = 2,
 	}, -- [205]
@@ -2927,7 +2927,7 @@ addon.itemData = {
 			[3860] = 14,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7934::::::::6:::::::::|h[Heavy Mithril Helm]|h|r",
 		["quality"] = 2,
 	}, -- [206]
@@ -2943,7 +2943,7 @@ addon.itemData = {
 			[4304] = 6,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:7959::::::::6:::::::::|h[Blight]|h|r",
 		["quality"] = 3,
 	}, -- [207]
@@ -2958,7 +2958,7 @@ addon.itemData = {
 			[3577] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:9366::::::::6:::::::::|h[Golden Scale Gauntlets]|h|r",
 		["quality"] = 2,
 	}, -- [208]
@@ -2974,7 +2974,7 @@ addon.itemData = {
 			[12804] = 4,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12776::::::::6:::::::::|h[Enchanted Battlehammer]|h|r",
 		["quality"] = 3,
 	}, -- [209]
@@ -2990,7 +2990,7 @@ addon.itemData = {
 			[12809] = 12,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:19168::::::::6:::::::::|h[Blackguard]|h|r",
 		["quality"] = 4,
 	}, -- [210]
@@ -3004,7 +3004,7 @@ addon.itemData = {
 			[5637] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7915::::::::6:::::::::|h[Barbaric Iron Helm]|h|r",
 		["quality"] = 2,
 	}, -- [211]
@@ -3017,7 +3017,7 @@ addon.itemData = {
 			[7077] = 4,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12420::::::::6:::::::::|h[Radiant Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [212]
@@ -3031,7 +3031,7 @@ addon.itemData = {
 			[12359] = 40,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12775::::::::6:::::::::|h[Huge Thorium Battleaxe]|h|r",
 		["quality"] = 2,
 	}, -- [213]
@@ -3049,7 +3049,7 @@ addon.itemData = {
 			[11382] = 10,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:17193::::::::6:::::::::|h[Sulfuron Hammer]|h|r",
 		["quality"] = 4,
 	}, -- [214]
@@ -3065,7 +3065,7 @@ addon.itemData = {
 			[12359] = 20,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12633::::::::6:::::::::|h[Whitesoul Helm]|h|r",
 		["quality"] = 3,
 	}, -- [215]
@@ -3078,7 +3078,7 @@ addon.itemData = {
 			[7077] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:11606::::::::6:::::::::|h[Dark Iron Mail]|h|r",
 		["quality"] = 2,
 	}, -- [216]
@@ -3093,7 +3093,7 @@ addon.itemData = {
 			[12655] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12632::::::::6:::::::::|h[Storm Gauntlets]|h|r",
 		["quality"] = 3,
 	}, -- [217]
@@ -3107,7 +3107,7 @@ addon.itemData = {
 			[2840] = 8,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3474::::::::6:::::::::|h[Gemmed Copper Gauntlets]|h|r",
 		["quality"] = 2,
 	}, -- [218]
@@ -3120,7 +3120,7 @@ addon.itemData = {
 			[3860] = 12,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7929::::::::6:::::::::|h[Orcish War Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [219]
@@ -3136,7 +3136,7 @@ addon.itemData = {
 			[4234] = 3,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3850::::::::6:::::::::|h[Jade Serpentblade]|h|r",
 		["quality"] = 2,
 	}, -- [220]
@@ -3153,7 +3153,7 @@ addon.itemData = {
 			[3577] = 4,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3852::::::::6:::::::::|h[Golden Iron Destroyer]|h|r",
 		["quality"] = 2,
 	}, -- [221]
@@ -3170,7 +3170,7 @@ addon.itemData = {
 			[12800] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12618::::::::6:::::::::|h[Enchanted Thorium Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [222]
@@ -3186,7 +3186,7 @@ addon.itemData = {
 			[22203] = 15,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:22191::::::::6:::::::::|h[Obsidian Mail Tunic]|h|r",
 		["quality"] = 4,
 	}, -- [223]
@@ -3201,7 +3201,7 @@ addon.itemData = {
 			[12359] = 20,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12773::::::::6:::::::::|h[Ornate Thorium Handaxe]|h|r",
 		["quality"] = 2,
 	}, -- [224]
@@ -3216,7 +3216,7 @@ addon.itemData = {
 			[6037] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12612::::::::6:::::::::|h[Runic Plate Helm]|h|r",
 		["quality"] = 2,
 	}, -- [225]
@@ -3229,7 +3229,7 @@ addon.itemData = {
 			[7910] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12427::::::::6:::::::::|h[Imperial Plate Helm]|h|r",
 		["quality"] = 2,
 	}, -- [226]
@@ -3243,7 +3243,7 @@ addon.itemData = {
 			[3478] = 2,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:10423::::::::6:::::::::|h[Silvered Bronze Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [227]
@@ -3259,7 +3259,7 @@ addon.itemData = {
 			[4255] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:3844::::::::6:::::::::|h[Green Iron Hauberk]|h|r",
 		["quality"] = 3,
 	}, -- [228]
@@ -3272,7 +3272,7 @@ addon.itemData = {
 			[3486] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7914::::::::6:::::::::|h[Barbaric Iron Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [229]
@@ -3286,7 +3286,7 @@ addon.itemData = {
 			[19774] = 12,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:19694::::::::6:::::::::|h[Darksoul Leggings]|h|r",
 		["quality"] = 3,
 	}, -- [230]
@@ -3302,7 +3302,7 @@ addon.itemData = {
 			[8153] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12624::::::::6:::::::::|h[Wildthorn Mail]|h|r",
 		["quality"] = 3,
 	}, -- [231]
@@ -3318,7 +3318,7 @@ addon.itemData = {
 			[7966] = 1,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7947::::::::6:::::::::|h[Ebon Shiv]|h|r",
 		["quality"] = 2,
 	}, -- [232]
@@ -3332,7 +3332,7 @@ addon.itemData = {
 			[2880] = 1,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2847::::::::6:::::::::|h[Copper Shortsword]|h|r",
 		["quality"] = 1,
 	}, -- [233]
@@ -3350,7 +3350,7 @@ addon.itemData = {
 			[7910] = 6,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12783::::::::6:::::::::|h[Heartseeker]|h|r",
 		["quality"] = 3,
 	}, -- [234]
@@ -3365,7 +3365,7 @@ addon.itemData = {
 			[19726] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:19690::::::::6:::::::::|h[Bloodsoul Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [235]
@@ -3379,7 +3379,7 @@ addon.itemData = {
 			[2841] = 7,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2849::::::::6:::::::::|h[Bronze Axe]|h|r",
 		["quality"] = 1,
 	}, -- [236]
@@ -3395,7 +3395,7 @@ addon.itemData = {
 			[12360] = 12,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:19170::::::::6:::::::::|h[Ebon Hand]|h|r",
 		["quality"] = 4,
 	}, -- [237]
@@ -3409,7 +3409,7 @@ addon.itemData = {
 			[3575] = 7,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3840::::::::6:::::::::|h[Green Iron Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [238]
@@ -3424,7 +3424,7 @@ addon.itemData = {
 			[2318] = 1,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:7955::::::::6:::::::::|h[Copper Claymore]|h|r",
 		["quality"] = 1,
 	}, -- [239]
@@ -3438,7 +3438,7 @@ addon.itemData = {
 			[3478] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3481::::::::6:::::::::|h[Silvered Bronze Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [240]
@@ -3452,7 +3452,7 @@ addon.itemData = {
 			[3577] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3837::::::::6:::::::::|h[Golden Scale Coif]|h|r",
 		["quality"] = 2,
 	}, -- [241]
@@ -3467,7 +3467,7 @@ addon.itemData = {
 			[12359] = 40,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12628::::::::6:::::::::|h[Demon Forged Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [242]
@@ -3480,7 +3480,7 @@ addon.itemData = {
 			[3859] = 16,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7963::::::::6:::::::::|h[Steel Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [243]
@@ -3495,7 +3495,7 @@ addon.itemData = {
 			[12810] = 2,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:17015::::::::6:::::::::|h[Dark Iron Reaver]|h|r",
 		["quality"] = 3,
 	}, -- [244]
@@ -3512,7 +3512,7 @@ addon.itemData = {
 			[7080] = 4,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12797::::::::6:::::::::|h[Frostguard]|h|r",
 		["quality"] = 3,
 	}, -- [245]
@@ -3526,7 +3526,7 @@ addon.itemData = {
 			[2841] = 5,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:3480::::::::6:::::::::|h[Rough Bronze Shoulders]|h|r",
 		["quality"] = 1,
 	}, -- [246]
@@ -3542,7 +3542,7 @@ addon.itemData = {
 			[4234] = 1,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12259::::::::6:::::::::|h[Glinting Steel Dagger]|h|r",
 		["quality"] = 2,
 	}, -- [247]
@@ -3556,7 +3556,7 @@ addon.itemData = {
 			[2319] = 2,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:7958::::::::6:::::::::|h[Bronze Battle Axe]|h|r",
 		["quality"] = 1,
 	}, -- [248]
@@ -3573,7 +3573,7 @@ addon.itemData = {
 			[3864] = 3,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:7938::::::::6:::::::::|h[Truesilver Gauntlets]|h|r",
 		["quality"] = 3,
 	}, -- [249]
@@ -3588,7 +3588,7 @@ addon.itemData = {
 			[3577] = 4,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12260::::::::6:::::::::|h[Searing Golden Blade]|h|r",
 		["quality"] = 2,
 	}, -- [250]
@@ -3604,7 +3604,7 @@ addon.itemData = {
 			[12800] = 4,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:12640::::::::6:::::::::|h[Lionheart Helm]|h|r",
 		["quality"] = 4,
 	}, -- [251]
@@ -3618,7 +3618,7 @@ addon.itemData = {
 			[3577] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3841::::::::6:::::::::|h[Golden Scale Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [252]
@@ -3634,7 +3634,7 @@ addon.itemData = {
 			[3478] = 2,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:5541::::::::6:::::::::|h[Iridescent Hammer]|h|r",
 		["quality"] = 2,
 	}, -- [253]
@@ -3650,7 +3650,7 @@ addon.itemData = {
 			[7076] = 10,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:12639::::::::6:::::::::|h[Stronghold Gauntlets]|h|r",
 		["quality"] = 4,
 	}, -- [254]
@@ -3664,7 +3664,7 @@ addon.itemData = {
 			[12359] = 24,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12428::::::::6:::::::::|h[Imperial Plate Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [255]
@@ -3680,7 +3680,7 @@ addon.itemData = {
 			[12799] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12620::::::::6:::::::::|h[Enchanted Thorium Helm]|h|r",
 		["quality"] = 3,
 	}, -- [256]
@@ -3694,7 +3694,7 @@ addon.itemData = {
 			[19774] = 14,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:19693::::::::6:::::::::|h[Darksoul Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [257]
@@ -3708,7 +3708,7 @@ addon.itemData = {
 			[3864] = 4,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7932::::::::6:::::::::|h[Mithril Scale Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [258]
@@ -3720,7 +3720,7 @@ addon.itemData = {
 			[2840] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:10421::::::::6:::::::::|h[Rough Copper Vest]|h|r",
 		["quality"] = 1,
 	}, -- [259]
@@ -3735,7 +3735,7 @@ addon.itemData = {
 			[11371] = 6,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:20039::::::::6:::::::::|h[Dark Iron Boots]|h|r",
 		["quality"] = 4,
 	}, -- [260]
@@ -3750,7 +3750,7 @@ addon.itemData = {
 			[5637] = 4,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7916::::::::6:::::::::|h[Barbaric Iron Boots]|h|r",
 		["quality"] = 2,
 	}, -- [261]
@@ -3763,7 +3763,7 @@ addon.itemData = {
 			[7077] = 4,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:11607::::::::6:::::::::|h[Dark Iron Sunderer]|h|r",
 		["quality"] = 3,
 	}, -- [262]
@@ -3778,7 +3778,7 @@ addon.itemData = {
 			[1210] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7913::::::::6:::::::::|h[Barbaric Iron Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [263]
@@ -3795,7 +3795,7 @@ addon.itemData = {
 			[12361] = 2,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12781::::::::6:::::::::|h[Serenity]|h|r",
 		["quality"] = 3,
 	}, -- [264]
@@ -3812,7 +3812,7 @@ addon.itemData = {
 			[3478] = 2,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3491::::::::6:::::::::|h[Heavy Bronze Mace]|h|r",
 		["quality"] = 2,
 	}, -- [265]
@@ -3826,7 +3826,7 @@ addon.itemData = {
 			[2880] = 1,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2844::::::::6:::::::::|h[Copper Mace]|h|r",
 		["quality"] = 1,
 	}, -- [266]
@@ -3841,7 +3841,7 @@ addon.itemData = {
 			[11371] = 6,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:19167::::::::6:::::::::|h[Blackfury]|h|r",
 		["quality"] = 4,
 	}, -- [267]
@@ -3856,7 +3856,7 @@ addon.itemData = {
 			[20520] = 6,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:20549::::::::6:::::::::|h[Darkrune Gauntlets]|h|r",
 		["quality"] = 3,
 	}, -- [268]
@@ -3871,7 +3871,7 @@ addon.itemData = {
 			[7966] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7927::::::::6:::::::::|h[Ornate Mithril Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [269]
@@ -3886,7 +3886,7 @@ addon.itemData = {
 			[5498] = 2,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:5540::::::::6:::::::::|h[Pearl-handled Dagger]|h|r",
 		["quality"] = 2,
 	}, -- [270]
@@ -3901,7 +3901,7 @@ addon.itemData = {
 			[7966] = 1,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7943::::::::6:::::::::|h[Wicked Mithril Blade]|h|r",
 		["quality"] = 2,
 	}, -- [271]
@@ -3916,7 +3916,7 @@ addon.itemData = {
 			[19774] = 6,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:19692::::::::6:::::::::|h[Bloodsoul Gauntlets]|h|r",
 		["quality"] = 3,
 	}, -- [272]
@@ -3930,7 +3930,7 @@ addon.itemData = {
 			[3478] = 2,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3482::::::::6:::::::::|h[Silvered Bronze Boots]|h|r",
 		["quality"] = 2,
 	}, -- [273]
@@ -3944,7 +3944,7 @@ addon.itemData = {
 			[2840] = 12,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:6214::::::::6:::::::::|h[Heavy Copper Maul]|h|r",
 		["quality"] = 1,
 	}, -- [274]
@@ -3958,7 +3958,7 @@ addon.itemData = {
 			[2319] = 2,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:7957::::::::6:::::::::|h[Bronze Greatsword]|h|r",
 		["quality"] = 1,
 	}, -- [275]
@@ -3971,7 +3971,7 @@ addon.itemData = {
 			[7077] = 4,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:11608::::::::6:::::::::|h[Dark Iron Pulverizer]|h|r",
 		["quality"] = 3,
 	}, -- [276]
@@ -3986,7 +3986,7 @@ addon.itemData = {
 			[13512] = 2,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:22383::::::::6:::::::::|h[Sageblade]|h|r",
 		["quality"] = 4,
 	}, -- [277]
@@ -4002,7 +4002,7 @@ addon.itemData = {
 			[11371] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:19164::::::::6:::::::::|h[Dark Iron Gauntlets]|h|r",
 		["quality"] = 4,
 	}, -- [278]
@@ -4016,7 +4016,7 @@ addon.itemData = {
 			[3470] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:2864::::::::6:::::::::|h[Runed Copper Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [279]
@@ -4029,7 +4029,7 @@ addon.itemData = {
 			[7077] = 8,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:11604::::::::6:::::::::|h[Dark Iron Plate]|h|r",
 		["quality"] = 3,
 	}, -- [280]
@@ -4044,7 +4044,7 @@ addon.itemData = {
 			[2318] = 1,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:7166::::::::6:::::::::|h[Copper Dagger]|h|r",
 		["quality"] = 1,
 	}, -- [281]
@@ -4058,7 +4058,7 @@ addon.itemData = {
 			[11371] = 16,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:16988::::::::6:::::::::|h[Fiery Chain Shoulders]|h|r",
 		["quality"] = 4,
 	}, -- [282]
@@ -4075,7 +4075,7 @@ addon.itemData = {
 			[12360] = 15,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12790::::::::6:::::::::|h[Arcanite Champion]|h|r",
 		["quality"] = 3,
 	}, -- [283]
@@ -4088,7 +4088,7 @@ addon.itemData = {
 			[7077] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12418::::::::6:::::::::|h[Radiant Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [284]
@@ -4102,7 +4102,7 @@ addon.itemData = {
 			[7910] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12415::::::::6:::::::::|h[Radiant Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [285]
@@ -4117,7 +4117,7 @@ addon.itemData = {
 			[12360] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:22669::::::::6:::::::::|h[Icebane Breastplate]|h|r",
 		["quality"] = 4,
 	}, -- [286]
@@ -4130,7 +4130,7 @@ addon.itemData = {
 			[3470] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:3472::::::::6:::::::::|h[Runed Copper Gauntlets]|h|r",
 		["quality"] = 1,
 	}, -- [287]
@@ -4148,7 +4148,7 @@ addon.itemData = {
 			[4304] = 4,
 		},
 		["inventorySlot"] = 21,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:7954::::::::6:::::::::|h[The Shatterer]|h|r",
 		["quality"] = 3,
 	}, -- [288]
@@ -4163,7 +4163,7 @@ addon.itemData = {
 			[2319] = 2,
 		},
 		["inventorySlot"] = 17,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3487::::::::6:::::::::|h[Heavy Copper Broadsword]|h|r",
 		["quality"] = 2,
 	}, -- [289]
@@ -4180,7 +4180,7 @@ addon.itemData = {
 			[2459] = 1,
 		},
 		["inventorySlot"] = 13,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:3490::::::::6:::::::::|h[Deadly Bronze Poniard]|h|r",
 		["quality"] = 2,
 	}, -- [290]
@@ -4193,7 +4193,7 @@ addon.itemData = {
 			[7966] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:15871::::::::6:::::::::|h[Truesilver Skeleton Key]|h|r",
 		["quality"] = 2,
 	}, -- [291]
@@ -4206,7 +4206,7 @@ addon.itemData = {
 			[12359] = 26,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12414::::::::6:::::::::|h[Thorium Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [292]
@@ -4219,7 +4219,7 @@ addon.itemData = {
 			[11184] = 4,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12408::::::::6:::::::::|h[Thorium Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [293]
@@ -4232,7 +4232,7 @@ addon.itemData = {
 			[3859] = 5,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:6040::::::::6:::::::::|h[Golden Scale Bracers]|h|r",
 		["quality"] = 1,
 	}, -- [294]
@@ -4245,7 +4245,7 @@ addon.itemData = {
 			[7077] = 2,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12416::::::::6:::::::::|h[Radiant Belt]|h|r",
 		["quality"] = 2,
 	}, -- [295]
@@ -4259,7 +4259,7 @@ addon.itemData = {
 			[7909] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12424::::::::6:::::::::|h[Imperial Plate Belt]|h|r",
 		["quality"] = 2,
 	}, -- [296]
@@ -4272,7 +4272,7 @@ addon.itemData = {
 			[6037] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:11144::::::::6:::::::::|h[Truesilver Rod]|h|r",
 		["quality"] = 1,
 	}, -- [297]
@@ -4285,7 +4285,7 @@ addon.itemData = {
 			[3478] = 2,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:2868::::::::6:::::::::|h[Patterned Bronze Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [298]
@@ -4298,7 +4298,7 @@ addon.itemData = {
 			[12360] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:15872::::::::6:::::::::|h[Arcanite Skeleton Key]|h|r",
 		["quality"] = 2,
 	}, -- [299]
@@ -4310,7 +4310,7 @@ addon.itemData = {
 			[2836] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:3478::::::::6:::::::::|h[Coarse Grinding Stone]|h|r",
 		["quality"] = 1,
 	}, -- [300]
@@ -4326,7 +4326,7 @@ addon.itemData = {
 			[12361] = 2,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:12619::::::::6:::::::::|h[Enchanted Thorium Leggings]|h|r",
 		["quality"] = 3,
 	}, -- [301]
@@ -4338,7 +4338,7 @@ addon.itemData = {
 			[7912] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:7966::::::::6:::::::::|h[Solid Grinding Stone]|h|r",
 		["quality"] = 1,
 	}, -- [302]
@@ -4352,7 +4352,7 @@ addon.itemData = {
 			[12655] = 4,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:22197::::::::6:::::::::|h[Heavy Obsidian Belt]|h|r",
 		["quality"] = 3,
 	}, -- [303]
@@ -4364,7 +4364,7 @@ addon.itemData = {
 			[12365] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:12404::::::::6:::::::::|h[Dense Sharpening Stone]|h|r",
 		["quality"] = 1,
 	}, -- [304]
@@ -4377,7 +4377,7 @@ addon.itemData = {
 			[3860] = 8,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7924::::::::6:::::::::|h[Mithril Scale Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [305]
@@ -4392,7 +4392,7 @@ addon.itemData = {
 			[22203] = 8,
 		},
 		["inventorySlot"] = 14,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:22198::::::::6:::::::::|h[Jagged Obsidian Shield]|h|r",
 		["quality"] = 4,
 	}, -- [306]
@@ -4406,7 +4406,7 @@ addon.itemData = {
 			[4234] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:6041::::::::6:::::::::|h[Steel Weapon Chain]|h|r",
 		["quality"] = 1,
 	}, -- [307]
@@ -4421,7 +4421,7 @@ addon.itemData = {
 			[12360] = 2,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:22671::::::::6:::::::::|h[Icebane Bracers]|h|r",
 		["quality"] = 4,
 	}, -- [308]
@@ -4435,7 +4435,7 @@ addon.itemData = {
 			[12644] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12645::::::::6:::::::::|h[Thorium Shield Spike]|h|r",
 		["quality"] = 2,
 	}, -- [309]
@@ -4447,7 +4447,7 @@ addon.itemData = {
 			[2840] = 10,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2857::::::::6:::::::::|h[Runed Copper Belt]|h|r",
 		["quality"] = 1,
 	}, -- [310]
@@ -4462,7 +4462,7 @@ addon.itemData = {
 			[13510] = 2,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:22385::::::::6:::::::::|h[Titanic Leggings]|h|r",
 		["quality"] = 4,
 	}, -- [311]
@@ -4475,7 +4475,7 @@ addon.itemData = {
 			[12803] = 2,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:22764::::::::6:::::::::|h[Ironvine Belt]|h|r",
 		["quality"] = 3,
 	}, -- [312]
@@ -4488,7 +4488,7 @@ addon.itemData = {
 			[3478] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:6042::::::::6:::::::::|h[Iron Shield Spike]|h|r",
 		["quality"] = 1,
 	}, -- [313]
@@ -4503,7 +4503,7 @@ addon.itemData = {
 			[7909] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7926::::::::6:::::::::|h[Ornate Mithril Pants]|h|r",
 		["quality"] = 2,
 	}, -- [314]
@@ -4517,7 +4517,7 @@ addon.itemData = {
 			[7076] = 3,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:19043::::::::6:::::::::|h[Heavy Timbermaw Belt]|h|r",
 		["quality"] = 3,
 	}, -- [315]
@@ -4530,7 +4530,7 @@ addon.itemData = {
 			[2605] = 1,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:3835::::::::6:::::::::|h[Green Iron Bracers]|h|r",
 		["quality"] = 1,
 	}, -- [316]
@@ -4543,7 +4543,7 @@ addon.itemData = {
 			[14047] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:12643::::::::6:::::::::|h[Dense Weightstone]|h|r",
 		["quality"] = 1,
 	}, -- [317]
@@ -4556,7 +4556,7 @@ addon.itemData = {
 			[7910] = 1,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12425::::::::6:::::::::|h[Imperial Plate Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [318]
@@ -4569,7 +4569,7 @@ addon.itemData = {
 			[3470] = 3,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2854::::::::6:::::::::|h[Runed Copper Bracers]|h|r",
 		["quality"] = 1,
 	}, -- [319]
@@ -4581,7 +4581,7 @@ addon.itemData = {
 			[2838] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:3486::::::::6:::::::::|h[Heavy Grinding Stone]|h|r",
 		["quality"] = 1,
 	}, -- [320]
@@ -4594,7 +4594,7 @@ addon.itemData = {
 			[3486] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:15870::::::::6:::::::::|h[Golden Skeleton Key]|h|r",
 		["quality"] = 2,
 	}, -- [321]
@@ -4606,7 +4606,7 @@ addon.itemData = {
 			[7912] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:7964::::::::6:::::::::|h[Solid Sharpening Stone]|h|r",
 		["quality"] = 1,
 	}, -- [322]
@@ -4619,7 +4619,7 @@ addon.itemData = {
 			[7966] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7969::::::::6:::::::::|h[Mithril Spurs]|h|r",
 		["quality"] = 2,
 	}, -- [323]
@@ -4632,7 +4632,7 @@ addon.itemData = {
 			[2592] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:3240::::::::6:::::::::|h[Coarse Weightstone]|h|r",
 		["quality"] = 1,
 	}, -- [324]
@@ -4644,7 +4644,7 @@ addon.itemData = {
 			[12365] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:12644::::::::6:::::::::|h[Dense Grinding Stone]|h|r",
 		["quality"] = 1,
 	}, -- [325]
@@ -4657,7 +4657,7 @@ addon.itemData = {
 			[12365] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:18262::::::::6:::::::::|h[Elemental Sharpening Stone]|h|r",
 		["quality"] = 2,
 	}, -- [326]
@@ -4671,7 +4671,7 @@ addon.itemData = {
 			[11371] = 4,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:17014::::::::6:::::::::|h[Dark Iron Bracers]|h|r",
 		["quality"] = 4,
 	}, -- [327]
@@ -4684,7 +4684,7 @@ addon.itemData = {
 			[2842] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:6338::::::::6:::::::::|h[Silver Rod]|h|r",
 		["quality"] = 1,
 	}, -- [328]
@@ -4696,7 +4696,7 @@ addon.itemData = {
 			[2840] = 2,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2853::::::::6:::::::::|h[Copper Bracers]|h|r",
 		["quality"] = 1,
 	}, -- [329]
@@ -4709,7 +4709,7 @@ addon.itemData = {
 			[2835] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:3239::::::::6:::::::::|h[Rough Weightstone]|h|r",
 		["quality"] = 1,
 	}, -- [330]
@@ -4721,7 +4721,7 @@ addon.itemData = {
 			[3575] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:7071::::::::6:::::::::|h[Iron Buckle]|h|r",
 		["quality"] = 1,
 	}, -- [331]
@@ -4735,7 +4735,7 @@ addon.itemData = {
 			[7910] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12614::::::::6:::::::::|h[Runic Plate Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [332]
@@ -4749,7 +4749,7 @@ addon.itemData = {
 			[11371] = 6,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:16989::::::::6:::::::::|h[Fiery Chain Girdle]|h|r",
 		["quality"] = 4,
 	}, -- [333]
@@ -4761,7 +4761,7 @@ addon.itemData = {
 			[2838] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2871::::::::6:::::::::|h[Heavy Sharpening Stone]|h|r",
 		["quality"] = 1,
 	}, -- [334]
@@ -4774,7 +4774,7 @@ addon.itemData = {
 			[2842] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:15869::::::::6:::::::::|h[Silver Skeleton Key]|h|r",
 		["quality"] = 2,
 	}, -- [335]
@@ -4787,7 +4787,7 @@ addon.itemData = {
 			[12360] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:16206::::::::6:::::::::|h[Arcanite Rod]|h|r",
 		["quality"] = 1,
 	}, -- [336]
@@ -4801,7 +4801,7 @@ addon.itemData = {
 			[11371] = 16,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffa335ee|Hitem:17013::::::::6:::::::::|h[Dark Iron Leggings]|h|r",
 		["quality"] = 4,
 	}, -- [337]
@@ -4815,7 +4815,7 @@ addon.itemData = {
 			[12811] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:19051::::::::6:::::::::|h[Girdle of the Dawn]|h|r",
 		["quality"] = 3,
 	}, -- [338]
@@ -4827,7 +4827,7 @@ addon.itemData = {
 			[2835] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2862::::::::6:::::::::|h[Rough Sharpening Stone]|h|r",
 		["quality"] = 1,
 	}, -- [339]
@@ -4839,7 +4839,7 @@ addon.itemData = {
 			[2836] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2863::::::::6:::::::::|h[Coarse Sharpening Stone]|h|r",
 		["quality"] = 1,
 	}, -- [340]
@@ -4852,7 +4852,7 @@ addon.itemData = {
 			[7910] = 2,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12429::::::::6:::::::::|h[Imperial Plate Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [341]
@@ -4865,7 +4865,7 @@ addon.itemData = {
 			[12359] = 12,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:12406::::::::6:::::::::|h[Thorium Belt]|h|r",
 		["quality"] = 2,
 	}, -- [342]
@@ -4879,7 +4879,7 @@ addon.itemData = {
 			[3575] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:6043::::::::6:::::::::|h[Iron Counterweight]|h|r",
 		["quality"] = 1,
 	}, -- [343]
@@ -4892,7 +4892,7 @@ addon.itemData = {
 			[4306] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:7965::::::::6:::::::::|h[Solid Weightstone]|h|r",
 		["quality"] = 1,
 	}, -- [344]
@@ -4906,7 +4906,7 @@ addon.itemData = {
 			[7966] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7967::::::::6:::::::::|h[Mithril Shield Spike]|h|r",
 		["quality"] = 2,
 	}, -- [345]
@@ -4919,7 +4919,7 @@ addon.itemData = {
 			[22202] = 14,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff0070dd|Hitem:22195::::::::6:::::::::|h[Light Obsidian Belt]|h|r",
 		["quality"] = 3,
 	}, -- [346]
@@ -4932,7 +4932,7 @@ addon.itemData = {
 			[1705] = 2,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cff1eff00|Hitem:7921::::::::6:::::::::|h[Heavy Mithril Pants]|h|r",
 		["quality"] = 2,
 	}, -- [347]
@@ -4946,7 +4946,7 @@ addon.itemData = {
 			[3577] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:9060::::::::6:::::::::|h[Inlaid Mithril Cylinder]|h|r",
 		["quality"] = 1,
 	}, -- [348]
@@ -4958,7 +4958,7 @@ addon.itemData = {
 			[2840] = 6,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:2851::::::::6:::::::::|h[Copper Chain Belt]|h|r",
 		["quality"] = 1,
 	}, -- [349]
@@ -4971,7 +4971,7 @@ addon.itemData = {
 			[2838] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:3241::::::::6:::::::::|h[Heavy Weightstone]|h|r",
 		["quality"] = 1,
 	}, -- [350]
@@ -4984,7 +4984,7 @@ addon.itemData = {
 			[3577] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 164,
+		["tradeskillID"] = 164,
 		["itemLink"] = "|cffffffff|Hitem:11128::::::::6:::::::::|h[Golden Rod]|h|r",
 		["quality"] = 1,
 	}, -- [351]
@@ -5001,7 +5001,7 @@ addon.itemData = {
 			[7080] = 10,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:18510::::::::6:::::::::|h[Hide of the Wild]|h|r",
 		["quality"] = 4,
 	}, -- [352]
@@ -5018,7 +5018,7 @@ addon.itemData = {
 			[8170] = 30,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:18511::::::::6:::::::::|h[Shifting Cloak]|h|r",
 		["quality"] = 4,
 	}, -- [353]
@@ -5035,7 +5035,7 @@ addon.itemData = {
 			[15407] = 5,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:18509::::::::6:::::::::|h[Chromatic Cloak]|h|r",
 		["quality"] = 4,
 	}, -- [354]
@@ -5049,7 +5049,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15138::::::::6:::::::::|h[Onyxia Scale Cloak]|h|r",
 		["quality"] = 3,
 	}, -- [355]
@@ -5063,7 +5063,7 @@ addon.itemData = {
 			[8153] = 6,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8215::::::::6:::::::::|h[Wild Leather Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [356]
@@ -5077,7 +5077,7 @@ addon.itemData = {
 			[8343] = 2,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8216::::::::6:::::::::|h[Big Voodoo Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [357]
@@ -5091,7 +5091,7 @@ addon.itemData = {
 			[4291] = 2,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:5965::::::::6:::::::::|h[Guardian Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [358]
@@ -5106,7 +5106,7 @@ addon.itemData = {
 			[7070] = 2,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7377::::::::6:::::::::|h[Frost Leather Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [359]
@@ -5119,7 +5119,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:3719::::::::6:::::::::|h[Hillman's Cloak]|h|r",
 		["quality"] = 1,
 	}, -- [360]
@@ -5133,7 +5133,7 @@ addon.itemData = {
 			[4340] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:2316::::::::6:::::::::|h[Dark Leather Cloak]|h|r",
 		["quality"] = 1,
 	}, -- [361]
@@ -5147,7 +5147,7 @@ addon.itemData = {
 			[7286] = 12,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7283::::::::6:::::::::|h[Black Whelp Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [362]
@@ -5161,7 +5161,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:6466::::::::6:::::::::|h[Deviate Scale Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [363]
@@ -5174,7 +5174,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:2308::::::::6:::::::::|h[Fine Leather Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [364]
@@ -5187,7 +5187,7 @@ addon.itemData = {
 			[2320] = 2,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:2310::::::::6:::::::::|h[Embossed Leather Cloak]|h|r",
 		["quality"] = 1,
 	}, -- [365]
@@ -5200,7 +5200,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:7276::::::::6:::::::::|h[Handstitched Leather Cloak]|h|r",
 		["quality"] = 1,
 	}, -- [366]
@@ -5216,7 +5216,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:22661::::::::6:::::::::|h[Polar Tunic]|h|r",
 		["quality"] = 4,
 	}, -- [367]
@@ -5231,7 +5231,7 @@ addon.itemData = {
 			[12803] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:19685::::::::6:::::::::|h[Primal Batskin Jerkin]|h|r",
 		["quality"] = 3,
 	}, -- [368]
@@ -5246,7 +5246,7 @@ addon.itemData = {
 			[19726] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:19688::::::::6:::::::::|h[Blood Tiger Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [369]
@@ -5262,7 +5262,7 @@ addon.itemData = {
 			[8170] = 22,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15090::::::::6:::::::::|h[Runic Leather Armor]|h|r",
 		["quality"] = 2,
 	}, -- [370]
@@ -5277,7 +5277,7 @@ addon.itemData = {
 			[15407] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15068::::::::6:::::::::|h[Frostsaber Tunic]|h|r",
 		["quality"] = 2,
 	}, -- [371]
@@ -5293,7 +5293,7 @@ addon.itemData = {
 			[2325] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15085::::::::6:::::::::|h[Wicked Leather Armor]|h|r",
 		["quality"] = 2,
 	}, -- [372]
@@ -5309,7 +5309,7 @@ addon.itemData = {
 			[8170] = 16,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15059::::::::6:::::::::|h[Living Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [373]
@@ -5325,7 +5325,7 @@ addon.itemData = {
 			[15407] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15066::::::::6:::::::::|h[Ironfeather Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [374]
@@ -5339,7 +5339,7 @@ addon.itemData = {
 			[15423] = 10,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15075::::::::6:::::::::|h[Chimeric Vest]|h|r",
 		["quality"] = 2,
 	}, -- [375]
@@ -5354,7 +5354,7 @@ addon.itemData = {
 			[7078] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15053::::::::6:::::::::|h[Volcanic Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [376]
@@ -5370,7 +5370,7 @@ addon.itemData = {
 			[15407] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15056::::::::6:::::::::|h[Stormshroud Armor]|h|r",
 		["quality"] = 3,
 	}, -- [377]
@@ -5384,7 +5384,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15064::::::::6:::::::::|h[Warbear Harness]|h|r",
 		["quality"] = 3,
 	}, -- [378]
@@ -5400,7 +5400,7 @@ addon.itemData = {
 			[8168] = 40,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:8349::::::::6:::::::::|h[Feathered Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [379]
@@ -5414,7 +5414,7 @@ addon.itemData = {
 			[8153] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8211::::::::6:::::::::|h[Wild Leather Vest]|h|r",
 		["quality"] = 2,
 	}, -- [380]
@@ -5428,7 +5428,7 @@ addon.itemData = {
 			[8151] = 4,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8200::::::::6:::::::::|h[Big Voodoo Robe]|h|r",
 		["quality"] = 2,
 	}, -- [381]
@@ -5441,7 +5441,7 @@ addon.itemData = {
 			[4291] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8175::::::::6:::::::::|h[Nightscape Tunic]|h|r",
 		["quality"] = 2,
 	}, -- [382]
@@ -5455,7 +5455,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:5739::::::::6:::::::::|h[Barbaric Harness]|h|r",
 		["quality"] = 1,
 	}, -- [383]
@@ -5470,7 +5470,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4256::::::::6:::::::::|h[Guardian Armor]|h|r",
 		["quality"] = 2,
 	}, -- [384]
@@ -5484,7 +5484,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7375::::::::6:::::::::|h[Green Whelp Armor]|h|r",
 		["quality"] = 2,
 	}, -- [385]
@@ -5498,7 +5498,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7374::::::::6:::::::::|h[Dusky Leather Armor]|h|r",
 		["quality"] = 2,
 	}, -- [386]
@@ -5513,7 +5513,7 @@ addon.itemData = {
 			[5785] = 12,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:5782::::::::6:::::::::|h[Thick Murloc Armor]|h|r",
 		["quality"] = 2,
 	}, -- [387]
@@ -5527,7 +5527,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4455::::::::6:::::::::|h[Raptor Hide Harness]|h|r",
 		["quality"] = 2,
 	}, -- [388]
@@ -5541,7 +5541,7 @@ addon.itemData = {
 			[4234] = 9,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4255::::::::6:::::::::|h[Green Leather Armor]|h|r",
 		["quality"] = 2,
 	}, -- [389]
@@ -5555,7 +5555,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:2314::::::::6:::::::::|h[Toughened Leather Armor]|h|r",
 		["quality"] = 1,
 	}, -- [390]
@@ -5570,7 +5570,7 @@ addon.itemData = {
 			[7286] = 8,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:20575::::::::6:::::::::|h[Black Whelp Tunic]|h|r",
 		["quality"] = 2,
 	}, -- [391]
@@ -5584,7 +5584,7 @@ addon.itemData = {
 			[4243] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4244::::::::6:::::::::|h[Hillman's Leather Vest]|h|r",
 		["quality"] = 2,
 	}, -- [392]
@@ -5598,7 +5598,7 @@ addon.itemData = {
 			[4340] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:2317::::::::6:::::::::|h[Dark Leather Tunic]|h|r",
 		["quality"] = 2,
 	}, -- [393]
@@ -5613,7 +5613,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:5781::::::::6:::::::::|h[Murloc Scale Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [394]
@@ -5628,7 +5628,7 @@ addon.itemData = {
 			[2320] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:6709::::::::6:::::::::|h[Moonglow Vest]|h|r",
 		["quality"] = 2,
 	}, -- [395]
@@ -5642,7 +5642,7 @@ addon.itemData = {
 			[2320] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4243::::::::6:::::::::|h[Fine Leather Tunic]|h|r",
 		["quality"] = 2,
 	}, -- [396]
@@ -5656,7 +5656,7 @@ addon.itemData = {
 			[2324] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:2311::::::::6:::::::::|h[White Leather Jerkin]|h|r",
 		["quality"] = 1,
 	}, -- [397]
@@ -5669,7 +5669,7 @@ addon.itemData = {
 			[2320] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:2300::::::::6:::::::::|h[Embossed Leather Vest]|h|r",
 		["quality"] = 2,
 	}, -- [398]
@@ -5682,7 +5682,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:5957::::::::6:::::::::|h[Handstitched Leather Vest]|h|r",
 		["quality"] = 1,
 	}, -- [399]
@@ -5698,7 +5698,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:22664::::::::6:::::::::|h[Icy Scale Breastplate]|h|r",
 		["quality"] = 4,
 	}, -- [400]
@@ -5714,7 +5714,7 @@ addon.itemData = {
 			[12810] = 12,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:20380::::::::6:::::::::|h[Dreamscale Breastplate]|h|r",
 		["quality"] = 4,
 	}, -- [401]
@@ -5729,7 +5729,7 @@ addon.itemData = {
 			[18512] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:20478::::::::6:::::::::|h[Sandstalker Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [402]
@@ -5744,7 +5744,7 @@ addon.itemData = {
 			[20498] = 40,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:20479::::::::6:::::::::|h[Spitfire Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [403]
@@ -5758,7 +5758,7 @@ addon.itemData = {
 			[15414] = 30,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15047::::::::6:::::::::|h[Red Dragonscale Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [404]
@@ -5773,7 +5773,7 @@ addon.itemData = {
 			[15407] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15050::::::::6:::::::::|h[Black Dragonscale Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [405]
@@ -5788,7 +5788,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15048::::::::6:::::::::|h[Blue Dragonscale Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [406]
@@ -5802,7 +5802,7 @@ addon.itemData = {
 			[8170] = 6,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15076::::::::6:::::::::|h[Heavy Scorpid Vest]|h|r",
 		["quality"] = 2,
 	}, -- [407]
@@ -5816,7 +5816,7 @@ addon.itemData = {
 			[14341] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15045::::::::6:::::::::|h[Green Dragonscale Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [408]
@@ -5831,7 +5831,7 @@ addon.itemData = {
 			[8165] = 30,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:8367::::::::6:::::::::|h[Dragonscale Breastplate]|h|r",
 		["quality"] = 3,
 	}, -- [409]
@@ -5845,7 +5845,7 @@ addon.itemData = {
 			[8154] = 12,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8203::::::::6:::::::::|h[Tough Scorpid Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [410]
@@ -5859,7 +5859,7 @@ addon.itemData = {
 			[8167] = 12,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8189::::::::6:::::::::|h[Turtle Scale Breastplate]|h|r",
 		["quality"] = 2,
 	}, -- [411]
@@ -5874,7 +5874,7 @@ addon.itemData = {
 			[12810] = 6,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:22760::::::::6:::::::::|h[Bramblewood Boots]|h|r",
 		["quality"] = 3,
 	}, -- [412]
@@ -5890,7 +5890,7 @@ addon.itemData = {
 			[8170] = 12,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:18506::::::::6:::::::::|h[Mongoose Boots]|h|r",
 		["quality"] = 3,
 	}, -- [413]
@@ -5905,7 +5905,7 @@ addon.itemData = {
 			[14341] = 2,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:16982::::::::6:::::::::|h[Corehound Boots]|h|r",
 		["quality"] = 4,
 	}, -- [414]
@@ -5921,7 +5921,7 @@ addon.itemData = {
 			[15407] = 2,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:19052::::::::6:::::::::|h[Dawn Treaders]|h|r",
 		["quality"] = 3,
 	}, -- [415]
@@ -5935,7 +5935,7 @@ addon.itemData = {
 			[15423] = 8,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15073::::::::6:::::::::|h[Chimeric Boots]|h|r",
 		["quality"] = 2,
 	}, -- [416]
@@ -5949,7 +5949,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15071::::::::6:::::::::|h[Frostsaber Boots]|h|r",
 		["quality"] = 2,
 	}, -- [417]
@@ -5963,7 +5963,7 @@ addon.itemData = {
 			[8153] = 4,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8213::::::::6:::::::::|h[Wild Leather Boots]|h|r",
 		["quality"] = 2,
 	}, -- [418]
@@ -5976,7 +5976,7 @@ addon.itemData = {
 			[4304] = 16,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8197::::::::6:::::::::|h[Nightscape Boots]|h|r",
 		["quality"] = 2,
 	}, -- [419]
@@ -5991,7 +5991,7 @@ addon.itemData = {
 			[3824] = 1,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7390::::::::6:::::::::|h[Dusky Boots]|h|r",
 		["quality"] = 2,
 	}, -- [420]
@@ -6006,7 +6006,7 @@ addon.itemData = {
 			[4291] = 1,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7391::::::::6:::::::::|h[Swift Boots]|h|r",
 		["quality"] = 2,
 	}, -- [421]
@@ -6020,7 +6020,7 @@ addon.itemData = {
 			[4340] = 1,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:2315::::::::6:::::::::|h[Dark Leather Boots]|h|r",
 		["quality"] = 1,
 	}, -- [422]
@@ -6033,7 +6033,7 @@ addon.itemData = {
 			[2320] = 2,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:2307::::::::6:::::::::|h[Fine Leather Boots]|h|r",
 		["quality"] = 1,
 	}, -- [423]
@@ -6046,7 +6046,7 @@ addon.itemData = {
 			[2320] = 5,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:2309::::::::6:::::::::|h[Embossed Leather Boots]|h|r",
 		["quality"] = 2,
 	}, -- [424]
@@ -6059,7 +6059,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:2302::::::::6:::::::::|h[Handstitched Leather Boots]|h|r",
 		["quality"] = 1,
 	}, -- [425]
@@ -6075,7 +6075,7 @@ addon.itemData = {
 			[17010] = 4,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:16984::::::::6:::::::::|h[Black Dragonscale Boots]|h|r",
 		["quality"] = 4,
 	}, -- [426]
@@ -6089,7 +6089,7 @@ addon.itemData = {
 			[8154] = 12,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8209::::::::6:::::::::|h[Tough Scorpid Boots]|h|r",
 		["quality"] = 2,
 	}, -- [427]
@@ -6105,7 +6105,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:22662::::::::6:::::::::|h[Polar Gloves]|h|r",
 		["quality"] = 4,
 	}, -- [428]
@@ -6120,7 +6120,7 @@ addon.itemData = {
 			[12803] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:19686::::::::6:::::::::|h[Primal Batskin Gloves]|h|r",
 		["quality"] = 3,
 	}, -- [429]
@@ -6136,7 +6136,7 @@ addon.itemData = {
 			[12810] = 8,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:19049::::::::6:::::::::|h[Timbermaw Brawlers]|h|r",
 		["quality"] = 3,
 	}, -- [430]
@@ -6152,7 +6152,7 @@ addon.itemData = {
 			[15407] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:21278::::::::6:::::::::|h[Stormshroud Gloves]|h|r",
 		["quality"] = 3,
 	}, -- [431]
@@ -6166,7 +6166,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15070::::::::6:::::::::|h[Frostsaber Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [432]
@@ -6180,7 +6180,7 @@ addon.itemData = {
 			[15417] = 8,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15063::::::::6:::::::::|h[Devilsaur Gauntlets]|h|r",
 		["quality"] = 3,
 	}, -- [433]
@@ -6194,7 +6194,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15091::::::::6:::::::::|h[Runic Leather Gauntlets]|h|r",
 		["quality"] = 2,
 	}, -- [434]
@@ -6208,7 +6208,7 @@ addon.itemData = {
 			[15423] = 6,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15074::::::::6:::::::::|h[Chimeric Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [435]
@@ -6222,7 +6222,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15083::::::::6:::::::::|h[Wicked Leather Gauntlets]|h|r",
 		["quality"] = 2,
 	}, -- [436]
@@ -6238,7 +6238,7 @@ addon.itemData = {
 			[7075] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:8346::::::::6:::::::::|h[Gauntlets of the Sea]|h|r",
 		["quality"] = 3,
 	}, -- [437]
@@ -6255,7 +6255,7 @@ addon.itemData = {
 			[1210] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:18238::::::::6:::::::::|h[Shadowskin Gloves]|h|r",
 		["quality"] = 3,
 	}, -- [438]
@@ -6269,7 +6269,7 @@ addon.itemData = {
 			[4291] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:5966::::::::6:::::::::|h[Guardian Gloves]|h|r",
 		["quality"] = 1,
 	}, -- [439]
@@ -6283,7 +6283,7 @@ addon.itemData = {
 			[4291] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:17721::::::::6:::::::::|h[Gloves of the Greatfather]|h|r",
 		["quality"] = 2,
 	}, -- [440]
@@ -6297,7 +6297,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4254::::::::6:::::::::|h[Barbaric Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [441]
@@ -6312,7 +6312,7 @@ addon.itemData = {
 			[2319] = 12,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7359::::::::6:::::::::|h[Heavy Earthen Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [442]
@@ -6325,7 +6325,7 @@ addon.itemData = {
 			[2321] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4247::::::::6:::::::::|h[Hillman's Leather Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [443]
@@ -6339,7 +6339,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7358::::::::6:::::::::|h[Pilferer's Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [444]
@@ -6355,7 +6355,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:4253::::::::6:::::::::|h[Toughened Leather Gloves]|h|r",
 		["quality"] = 3,
 	}, -- [445]
@@ -6369,7 +6369,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7349::::::::6:::::::::|h[Herbalist's Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [446]
@@ -6384,7 +6384,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4248::::::::6:::::::::|h[Dark Leather Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [447]
@@ -6398,7 +6398,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7348::::::::6:::::::::|h[Fletcher's Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [448]
@@ -6412,7 +6412,7 @@ addon.itemData = {
 			[2457] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7285::::::::6:::::::::|h[Nimble Leather Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [449]
@@ -6426,7 +6426,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7284::::::::6:::::::::|h[Red Whelp Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [450]
@@ -6440,7 +6440,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:6467::::::::6:::::::::|h[Deviate Scale Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [451]
@@ -6454,7 +6454,7 @@ addon.itemData = {
 			[2320] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:2312::::::::6:::::::::|h[Fine Leather Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [452]
@@ -6467,7 +6467,7 @@ addon.itemData = {
 			[2320] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:4239::::::::6:::::::::|h[Embossed Leather Gloves]|h|r",
 		["quality"] = 1,
 	}, -- [453]
@@ -6483,7 +6483,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:22666::::::::6:::::::::|h[Icy Scale Gauntlets]|h|r",
 		["quality"] = 4,
 	}, -- [454]
@@ -6500,7 +6500,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:19157::::::::6:::::::::|h[Chromatic Gauntlets]|h|r",
 		["quality"] = 4,
 	}, -- [455]
@@ -6515,7 +6515,7 @@ addon.itemData = {
 			[20498] = 30,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:20480::::::::6:::::::::|h[Spitfire Gauntlets]|h|r",
 		["quality"] = 3,
 	}, -- [456]
@@ -6530,7 +6530,7 @@ addon.itemData = {
 			[18512] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:20477::::::::6:::::::::|h[Sandstalker Gauntlets]|h|r",
 		["quality"] = 3,
 	}, -- [457]
@@ -6545,7 +6545,7 @@ addon.itemData = {
 			[15412] = 30,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:20296::::::::6:::::::::|h[Green Dragonscale Gauntlets]|h|r",
 		["quality"] = 3,
 	}, -- [458]
@@ -6559,7 +6559,7 @@ addon.itemData = {
 			[8170] = 6,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15078::::::::6:::::::::|h[Heavy Scorpid Gauntlet]|h|r",
 		["quality"] = 2,
 	}, -- [459]
@@ -6573,7 +6573,7 @@ addon.itemData = {
 			[8154] = 8,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8204::::::::6:::::::::|h[Tough Scorpid Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [460]
@@ -6588,7 +6588,7 @@ addon.itemData = {
 			[8165] = 12,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:8347::::::::6:::::::::|h[Dragonscale Gauntlets]|h|r",
 		["quality"] = 3,
 	}, -- [461]
@@ -6602,7 +6602,7 @@ addon.itemData = {
 			[8167] = 8,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8187::::::::6:::::::::|h[Turtle Scale Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [462]
@@ -6617,7 +6617,7 @@ addon.itemData = {
 			[12803] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:22759::::::::6:::::::::|h[Bramblewood Helm]|h|r",
 		["quality"] = 3,
 	}, -- [463]
@@ -6632,7 +6632,7 @@ addon.itemData = {
 			[14341] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:16983::::::::6:::::::::|h[Molten Helm]|h|r",
 		["quality"] = 4,
 	}, -- [464]
@@ -6646,7 +6646,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15094::::::::6:::::::::|h[Runic Leather Headband]|h|r",
 		["quality"] = 2,
 	}, -- [465]
@@ -6660,7 +6660,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15086::::::::6:::::::::|h[Wicked Leather Headband]|h|r",
 		["quality"] = 2,
 	}, -- [466]
@@ -6676,7 +6676,7 @@ addon.itemData = {
 			[7077] = 8,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:8348::::::::6:::::::::|h[Helm of Fire]|h|r",
 		["quality"] = 3,
 	}, -- [467]
@@ -6692,7 +6692,7 @@ addon.itemData = {
 			[8368] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:8345::::::::6:::::::::|h[Wolfshead Helm]|h|r",
 		["quality"] = 3,
 	}, -- [468]
@@ -6706,7 +6706,7 @@ addon.itemData = {
 			[8153] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8214::::::::6:::::::::|h[Wild Leather Helmet]|h|r",
 		["quality"] = 2,
 	}, -- [469]
@@ -6720,7 +6720,7 @@ addon.itemData = {
 			[8151] = 6,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8201::::::::6:::::::::|h[Big Voodoo Mask]|h|r",
 		["quality"] = 2,
 	}, -- [470]
@@ -6733,7 +6733,7 @@ addon.itemData = {
 			[4291] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8176::::::::6:::::::::|h[Nightscape Headband]|h|r",
 		["quality"] = 2,
 	}, -- [471]
@@ -6747,7 +6747,7 @@ addon.itemData = {
 			[4291] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8174::::::::6:::::::::|h[Comfortable Leather Hat]|h|r",
 		["quality"] = 2,
 	}, -- [472]
@@ -6762,7 +6762,7 @@ addon.itemData = {
 			[8170] = 8,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15080::::::::6:::::::::|h[Heavy Scorpid Helm]|h|r",
 		["quality"] = 2,
 	}, -- [473]
@@ -6776,7 +6776,7 @@ addon.itemData = {
 			[8154] = 20,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8208::::::::6:::::::::|h[Tough Scorpid Helm]|h|r",
 		["quality"] = 2,
 	}, -- [474]
@@ -6790,7 +6790,7 @@ addon.itemData = {
 			[8167] = 24,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8191::::::::6:::::::::|h[Turtle Scale Helm]|h|r",
 		["quality"] = 2,
 	}, -- [475]
@@ -6805,7 +6805,7 @@ addon.itemData = {
 			[15417] = 14,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15062::::::::6:::::::::|h[Devilsaur Leggings]|h|r",
 		["quality"] = 3,
 	}, -- [476]
@@ -6820,7 +6820,7 @@ addon.itemData = {
 			[14047] = 12,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15095::::::::6:::::::::|h[Runic Leather Pants]|h|r",
 		["quality"] = 2,
 	}, -- [477]
@@ -6835,7 +6835,7 @@ addon.itemData = {
 			[15407] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15087::::::::6:::::::::|h[Wicked Leather Pants]|h|r",
 		["quality"] = 2,
 	}, -- [478]
@@ -6849,7 +6849,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15069::::::::6:::::::::|h[Frostsaber Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [479]
@@ -6863,7 +6863,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15065::::::::6:::::::::|h[Warbear Woolies]|h|r",
 		["quality"] = 3,
 	}, -- [480]
@@ -6878,7 +6878,7 @@ addon.itemData = {
 			[12803] = 6,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15060::::::::6:::::::::|h[Living Leggings]|h|r",
 		["quality"] = 3,
 	}, -- [481]
@@ -6892,7 +6892,7 @@ addon.itemData = {
 			[15423] = 8,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15072::::::::6:::::::::|h[Chimeric Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [482]
@@ -6907,7 +6907,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15057::::::::6:::::::::|h[Stormshroud Pants]|h|r",
 		["quality"] = 3,
 	}, -- [483]
@@ -6922,7 +6922,7 @@ addon.itemData = {
 			[8170] = 6,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15054::::::::6:::::::::|h[Volcanic Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [484]
@@ -6936,7 +6936,7 @@ addon.itemData = {
 			[8153] = 6,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8212::::::::6:::::::::|h[Wild Leather Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [485]
@@ -6950,7 +6950,7 @@ addon.itemData = {
 			[8343] = 2,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8202::::::::6:::::::::|h[Big Voodoo Pants]|h|r",
 		["quality"] = 2,
 	}, -- [486]
@@ -6963,7 +6963,7 @@ addon.itemData = {
 			[4291] = 4,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8193::::::::6:::::::::|h[Nightscape Pants]|h|r",
 		["quality"] = 2,
 	}, -- [487]
@@ -6977,7 +6977,7 @@ addon.itemData = {
 			[1206] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:5963::::::::6:::::::::|h[Barbaric Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [488]
@@ -6991,7 +6991,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7373::::::::6:::::::::|h[Dusky Leather Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [489]
@@ -7005,7 +7005,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:5962::::::::6:::::::::|h[Guardian Pants]|h|r",
 		["quality"] = 2,
 	}, -- [490]
@@ -7019,7 +7019,7 @@ addon.itemData = {
 			[2319] = 12,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:5961::::::::6:::::::::|h[Dark Leather Pants]|h|r",
 		["quality"] = 2,
 	}, -- [491]
@@ -7033,7 +7033,7 @@ addon.itemData = {
 			[2997] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:5958::::::::6:::::::::|h[Fine Leather Pants]|h|r",
 		["quality"] = 2,
 	}, -- [492]
@@ -7047,7 +7047,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7282::::::::6:::::::::|h[Light Leather Pants]|h|r",
 		["quality"] = 2,
 	}, -- [493]
@@ -7061,7 +7061,7 @@ addon.itemData = {
 			[2320] = 2,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4242::::::::6:::::::::|h[Embossed Leather Pants]|h|r",
 		["quality"] = 2,
 	}, -- [494]
@@ -7074,7 +7074,7 @@ addon.itemData = {
 			[2320] = 5,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7280::::::::6:::::::::|h[Rugged Leather Pants]|h|r",
 		["quality"] = 2,
 	}, -- [495]
@@ -7087,7 +7087,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:2303::::::::6:::::::::|h[Handstitched Leather Pants]|h|r",
 		["quality"] = 1,
 	}, -- [496]
@@ -7103,7 +7103,7 @@ addon.itemData = {
 			[8170] = 40,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15052::::::::6:::::::::|h[Black Dragonscale Leggings]|h|r",
 		["quality"] = 3,
 	}, -- [497]
@@ -7118,7 +7118,7 @@ addon.itemData = {
 			[14341] = 2,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:20295::::::::6:::::::::|h[Blue Dragonscale Leggings]|h|r",
 		["quality"] = 3,
 	}, -- [498]
@@ -7132,7 +7132,7 @@ addon.itemData = {
 			[8170] = 8,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15079::::::::6:::::::::|h[Heavy Scorpid Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [499]
@@ -7146,7 +7146,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15046::::::::6:::::::::|h[Green Dragonscale Leggings]|h|r",
 		["quality"] = 3,
 	}, -- [500]
@@ -7160,7 +7160,7 @@ addon.itemData = {
 			[8154] = 8,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8206::::::::6:::::::::|h[Tough Scorpid Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [501]
@@ -7174,7 +7174,7 @@ addon.itemData = {
 			[8167] = 28,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8185::::::::6:::::::::|h[Turtle Scale Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [502]
@@ -7189,7 +7189,7 @@ addon.itemData = {
 			[19726] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:19689::::::::6:::::::::|h[Blood Tiger Shoulders]|h|r",
 		["quality"] = 3,
 	}, -- [503]
@@ -7205,7 +7205,7 @@ addon.itemData = {
 			[12810] = 8,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:19058::::::::6:::::::::|h[Golden Mantle of the Dawn]|h|r",
 		["quality"] = 3,
 	}, -- [504]
@@ -7221,7 +7221,7 @@ addon.itemData = {
 			[8170] = 16,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15096::::::::6:::::::::|h[Runic Leather Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [505]
@@ -7236,7 +7236,7 @@ addon.itemData = {
 			[7078] = 1,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15055::::::::6:::::::::|h[Volcanic Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [506]
@@ -7252,7 +7252,7 @@ addon.itemData = {
 			[12810] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15058::::::::6:::::::::|h[Stormshroud Shoulders]|h|r",
 		["quality"] = 3,
 	}, -- [507]
@@ -7266,7 +7266,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15061::::::::6:::::::::|h[Living Shoulders]|h|r",
 		["quality"] = 3,
 	}, -- [508]
@@ -7281,7 +7281,7 @@ addon.itemData = {
 			[15420] = 80,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15067::::::::6:::::::::|h[Ironfeather Shoulders]|h|r",
 		["quality"] = 3,
 	}, -- [509]
@@ -7295,7 +7295,7 @@ addon.itemData = {
 			[8153] = 1,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8210::::::::6:::::::::|h[Wild Leather Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [510]
@@ -7309,7 +7309,7 @@ addon.itemData = {
 			[4338] = 6,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8192::::::::6:::::::::|h[Nightscape Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [511]
@@ -7323,7 +7323,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:5964::::::::6:::::::::|h[Barbaric Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [512]
@@ -7338,7 +7338,7 @@ addon.itemData = {
 			[3390] = 1,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4252::::::::6:::::::::|h[Dark Leather Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [513]
@@ -7352,7 +7352,7 @@ addon.itemData = {
 			[7067] = 1,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7352::::::::6:::::::::|h[Earthen Leather Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [514]
@@ -7366,7 +7366,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4251::::::::6:::::::::|h[Hillman's Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [515]
@@ -7381,7 +7381,7 @@ addon.itemData = {
 			[8170] = 14,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15081::::::::6:::::::::|h[Heavy Scorpid Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [516]
@@ -7397,7 +7397,7 @@ addon.itemData = {
 			[8170] = 44,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15051::::::::6:::::::::|h[Black Dragonscale Shoulders]|h|r",
 		["quality"] = 3,
 	}, -- [517]
@@ -7413,7 +7413,7 @@ addon.itemData = {
 			[8170] = 28,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:15049::::::::6:::::::::|h[Blue Dragonscale Shoulders]|h|r",
 		["quality"] = 3,
 	}, -- [518]
@@ -7427,7 +7427,7 @@ addon.itemData = {
 			[8154] = 16,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8207::::::::6:::::::::|h[Tough Scorpid Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [519]
@@ -7443,7 +7443,7 @@ addon.itemData = {
 			[17012] = 12,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:19162::::::::6:::::::::|h[Corehound Belt]|h|r",
 		["quality"] = 4,
 	}, -- [520]
@@ -7459,7 +7459,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:19163::::::::6:::::::::|h[Molten Belt]|h|r",
 		["quality"] = 4,
 	}, -- [521]
@@ -7473,7 +7473,7 @@ addon.itemData = {
 			[12803] = 2,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:22761::::::::6:::::::::|h[Bramblewood Belt]|h|r",
 		["quality"] = 3,
 	}, -- [522]
@@ -7487,7 +7487,7 @@ addon.itemData = {
 			[17011] = 5,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:19149::::::::6:::::::::|h[Lava Belt]|h|r",
 		["quality"] = 4,
 	}, -- [523]
@@ -7502,7 +7502,7 @@ addon.itemData = {
 			[8170] = 12,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:18504::::::::6:::::::::|h[Girdle of Insight]|h|r",
 		["quality"] = 3,
 	}, -- [524]
@@ -7516,7 +7516,7 @@ addon.itemData = {
 			[14341] = 2,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15088::::::::6:::::::::|h[Wicked Leather Belt]|h|r",
 		["quality"] = 2,
 	}, -- [525]
@@ -7532,7 +7532,7 @@ addon.itemData = {
 			[8170] = 30,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:19044::::::::6:::::::::|h[Might of the Timbermaw]|h|r",
 		["quality"] = 3,
 	}, -- [526]
@@ -7546,7 +7546,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15093::::::::6:::::::::|h[Runic Leather Belt]|h|r",
 		["quality"] = 2,
 	}, -- [527]
@@ -7563,7 +7563,7 @@ addon.itemData = {
 			[4236] = 2,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4264::::::::6:::::::::|h[Barbaric Belt]|h|r",
 		["quality"] = 2,
 	}, -- [528]
@@ -7578,7 +7578,7 @@ addon.itemData = {
 			[7071] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7387::::::::6:::::::::|h[Dusky Belt]|h|r",
 		["quality"] = 2,
 	}, -- [529]
@@ -7594,7 +7594,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:4262::::::::6:::::::::|h[Gem-studded Leather Belt]|h|r",
 		["quality"] = 3,
 	}, -- [530]
@@ -7609,7 +7609,7 @@ addon.itemData = {
 			[7071] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4258::::::::6:::::::::|h[Guardian Belt]|h|r",
 		["quality"] = 2,
 	}, -- [531]
@@ -7623,7 +7623,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4456::::::::6:::::::::|h[Raptor Hide Belt]|h|r",
 		["quality"] = 2,
 	}, -- [532]
@@ -7639,7 +7639,7 @@ addon.itemData = {
 			[4236] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4257::::::::6:::::::::|h[Green Leather Belt]|h|r",
 		["quality"] = 2,
 	}, -- [533]
@@ -7653,7 +7653,7 @@ addon.itemData = {
 			[3383] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4250::::::::6:::::::::|h[Hillman's Belt]|h|r",
 		["quality"] = 2,
 	}, -- [534]
@@ -7668,7 +7668,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4249::::::::6:::::::::|h[Dark Leather Belt]|h|r",
 		["quality"] = 2,
 	}, -- [535]
@@ -7682,7 +7682,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:6468::::::::6:::::::::|h[Deviate Scale Belt]|h|r",
 		["quality"] = 3,
 	}, -- [536]
@@ -7696,7 +7696,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:5780::::::::6:::::::::|h[Murloc Scale Belt]|h|r",
 		["quality"] = 2,
 	}, -- [537]
@@ -7709,7 +7709,7 @@ addon.itemData = {
 			[2320] = 2,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:4246::::::::6:::::::::|h[Fine Leather Belt]|h|r",
 		["quality"] = 1,
 	}, -- [538]
@@ -7722,7 +7722,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:4237::::::::6:::::::::|h[Handstitched Leather Belt]|h|r",
 		["quality"] = 1,
 	}, -- [539]
@@ -7736,7 +7736,7 @@ addon.itemData = {
 			[8170] = 6,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15082::::::::6:::::::::|h[Heavy Scorpid Belt]|h|r",
 		["quality"] = 2,
 	}, -- [540]
@@ -7752,7 +7752,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:22663::::::::6:::::::::|h[Polar Bracers]|h|r",
 		["quality"] = 4,
 	}, -- [541]
@@ -7767,7 +7767,7 @@ addon.itemData = {
 			[12803] = 4,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:19687::::::::6:::::::::|h[Primal Batskin Bracers]|h|r",
 		["quality"] = 3,
 	}, -- [542]
@@ -7782,7 +7782,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15092::::::::6:::::::::|h[Runic Leather Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [543]
@@ -7796,7 +7796,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15084::::::::6:::::::::|h[Wicked Leather Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [544]
@@ -7810,7 +7810,7 @@ addon.itemData = {
 			[4291] = 1,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4260::::::::6:::::::::|h[Guardian Leather Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [545]
@@ -7824,7 +7824,7 @@ addon.itemData = {
 			[4291] = 2,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7386::::::::6:::::::::|h[Green Whelp Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [546]
@@ -7839,7 +7839,7 @@ addon.itemData = {
 			[5785] = 16,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:5783::::::::6:::::::::|h[Murloc Scale Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [547]
@@ -7853,7 +7853,7 @@ addon.itemData = {
 			[4291] = 2,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7378::::::::6:::::::::|h[Dusky Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [548]
@@ -7868,7 +7868,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:4259::::::::6:::::::::|h[Green Leather Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [549]
@@ -7884,7 +7884,7 @@ addon.itemData = {
 			[5637] = 4,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:18948::::::::6:::::::::|h[Barbaric Bracers]|h|r",
 		["quality"] = 3,
 	}, -- [550]
@@ -7897,7 +7897,7 @@ addon.itemData = {
 			[2320] = 4,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:7281::::::::6:::::::::|h[Light Leather Bracers]|h|r",
 		["quality"] = 1,
 	}, -- [551]
@@ -7910,7 +7910,7 @@ addon.itemData = {
 			[2320] = 3,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:7277::::::::6:::::::::|h[Handstitched Leather Bracers]|h|r",
 		["quality"] = 1,
 	}, -- [552]
@@ -7926,7 +7926,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffa335ee|Hitem:22665::::::::6:::::::::|h[Icy Scale Bracers]|h|r",
 		["quality"] = 4,
 	}, -- [553]
@@ -7940,7 +7940,7 @@ addon.itemData = {
 			[20498] = 20,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:20476::::::::6:::::::::|h[Sandstalker Bracers]|h|r",
 		["quality"] = 3,
 	}, -- [554]
@@ -7956,7 +7956,7 @@ addon.itemData = {
 			[15407] = 4,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:18508::::::::6:::::::::|h[Swift Flight Bracers]|h|r",
 		["quality"] = 3,
 	}, -- [555]
@@ -7970,7 +7970,7 @@ addon.itemData = {
 			[20498] = 20,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:20481::::::::6:::::::::|h[Spitfire Bracers]|h|r",
 		["quality"] = 3,
 	}, -- [556]
@@ -7984,7 +7984,7 @@ addon.itemData = {
 			[8170] = 4,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:15077::::::::6:::::::::|h[Heavy Scorpid Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [557]
@@ -7998,7 +7998,7 @@ addon.itemData = {
 			[8154] = 4,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8205::::::::6:::::::::|h[Tough Scorpid Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [558]
@@ -8012,7 +8012,7 @@ addon.itemData = {
 			[8167] = 12,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8198::::::::6:::::::::|h[Turtle Scale Bracers]|h|r",
 		["quality"] = 2,
 	}, -- [559]
@@ -8027,7 +8027,7 @@ addon.itemData = {
 			[8951] = 1,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8218::::::::6:::::::::|h[Thick Leather Ammo Pouch]|h|r",
 		["quality"] = 2,
 	}, -- [560]
@@ -8040,7 +8040,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7372::::::::6:::::::::|h[Heavy Leather Ammo Pouch]|h|r",
 		["quality"] = 2,
 	}, -- [561]
@@ -8053,7 +8053,7 @@ addon.itemData = {
 			[2320] = 4,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:7279::::::::6:::::::::|h[Small Leather Ammo Pouch]|h|r",
 		["quality"] = 1,
 	}, -- [562]
@@ -8068,7 +8068,7 @@ addon.itemData = {
 			[8949] = 1,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:8217::::::::6:::::::::|h[Quickdraw Quiver]|h|r",
 		["quality"] = 2,
 	}, -- [563]
@@ -8081,7 +8081,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff1eff00|Hitem:7371::::::::6:::::::::|h[Heavy Quiver]|h|r",
 		["quality"] = 2,
 	}, -- [564]
@@ -8094,7 +8094,7 @@ addon.itemData = {
 			[2320] = 2,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:7278::::::::6:::::::::|h[Light Leather Quiver]|h|r",
 		["quality"] = 1,
 	}, -- [565]
@@ -8108,7 +8108,7 @@ addon.itemData = {
 			[5082] = 3,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:5081::::::::6:::::::::|h[Kodo Hide Bag]|h|r",
 		["quality"] = 1,
 	}, -- [566]
@@ -8120,7 +8120,7 @@ addon.itemData = {
 			[4304] = 6,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:8170::::::::6:::::::::|h[Rugged Leather]|h|r",
 		["quality"] = 1,
 	}, -- [567]
@@ -8132,7 +8132,7 @@ addon.itemData = {
 			[4234] = 6,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:4304::::::::6:::::::::|h[Thick Leather]|h|r",
 		["quality"] = 1,
 	}, -- [568]
@@ -8144,7 +8144,7 @@ addon.itemData = {
 			[2319] = 5,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:4234::::::::6:::::::::|h[Heavy Leather]|h|r",
 		["quality"] = 1,
 	}, -- [569]
@@ -8156,7 +8156,7 @@ addon.itemData = {
 			[2318] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:2319::::::::6:::::::::|h[Medium Leather]|h|r",
 		["quality"] = 1,
 	}, -- [570]
@@ -8168,7 +8168,7 @@ addon.itemData = {
 			[2934] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:2318::::::::6:::::::::|h[Light Leather]|h|r",
 		["quality"] = 1,
 	}, -- [571]
@@ -8181,7 +8181,7 @@ addon.itemData = {
 			[14341] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cff0070dd|Hitem:18251::::::::6:::::::::|h[Core Armor Kit]|h|r",
 		["quality"] = 3,
 	}, -- [572]
@@ -8193,7 +8193,7 @@ addon.itemData = {
 			[8170] = 5,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:15564::::::::6:::::::::|h[Rugged Armor Kit]|h|r",
 		["quality"] = 1,
 	}, -- [573]
@@ -8206,7 +8206,7 @@ addon.itemData = {
 			[4291] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:8173::::::::6:::::::::|h[Thick Armor Kit]|h|r",
 		["quality"] = 1,
 	}, -- [574]
@@ -8219,7 +8219,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:4265::::::::6:::::::::|h[Heavy Armor Kit]|h|r",
 		["quality"] = 1,
 	}, -- [575]
@@ -8232,7 +8232,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:2313::::::::6:::::::::|h[Medium Armor Kit]|h|r",
 		["quality"] = 1,
 	}, -- [576]
@@ -8244,7 +8244,7 @@ addon.itemData = {
 			[2318] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:2304::::::::6:::::::::|h[Light Armor Kit]|h|r",
 		["quality"] = 1,
 	}, -- [577]
@@ -8257,7 +8257,7 @@ addon.itemData = {
 			[15409] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:15407::::::::6:::::::::|h[Cured Rugged Hide]|h|r",
 		["quality"] = 1,
 	}, -- [578]
@@ -8270,7 +8270,7 @@ addon.itemData = {
 			[8169] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:8172::::::::6:::::::::|h[Cured Thick Hide]|h|r",
 		["quality"] = 1,
 	}, -- [579]
@@ -8283,7 +8283,7 @@ addon.itemData = {
 			[4235] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:4236::::::::6:::::::::|h[Cured Heavy Hide]|h|r",
 		["quality"] = 1,
 	}, -- [580]
@@ -8296,7 +8296,7 @@ addon.itemData = {
 			[4289] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:4233::::::::6:::::::::|h[Cured Medium Hide]|h|r",
 		["quality"] = 1,
 	}, -- [581]
@@ -8309,7 +8309,7 @@ addon.itemData = {
 			[4289] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:4231::::::::6:::::::::|h[Cured Light Hide]|h|r",
 		["quality"] = 1,
 	}, -- [582]
@@ -8322,7 +8322,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 165,
+		["tradeskillID"] = 165,
 		["itemLink"] = "|cffffffff|Hitem:18662::::::::6:::::::::|h[Heavy Leather Ball]|h|r",
 		["quality"] = 1,
 	}, -- [583]
@@ -8337,7 +8337,7 @@ addon.itemData = {
 			[17010] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 186,
+		["tradeskillID"] = 186,
 		["itemLink"] = "|cffff8000|Hitem:17771::::::::6:::::::::|h[Elementium Bar]|h|r",
 		["quality"] = 5,
 	}, -- [584]
@@ -8349,7 +8349,7 @@ addon.itemData = {
 			[10620] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 186,
+		["tradeskillID"] = 186,
 		["itemLink"] = "|cffffffff|Hitem:12359::::::::6:::::::::|h[Thorium Bar]|h|r",
 		["quality"] = 1,
 	}, -- [585]
@@ -8361,7 +8361,7 @@ addon.itemData = {
 			[7911] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 186,
+		["tradeskillID"] = 186,
 		["itemLink"] = "|cff1eff00|Hitem:6037::::::::6:::::::::|h[Truesilver Bar]|h|r",
 		["quality"] = 2,
 	}, -- [586]
@@ -8373,7 +8373,7 @@ addon.itemData = {
 			[11370] = 8,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 186,
+		["tradeskillID"] = 186,
 		["itemLink"] = "|cffffffff|Hitem:11371::::::::6:::::::::|h[Dark Iron Bar]|h|r",
 		["quality"] = 1,
 	}, -- [587]
@@ -8385,7 +8385,7 @@ addon.itemData = {
 			[3858] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 186,
+		["tradeskillID"] = 186,
 		["itemLink"] = "|cffffffff|Hitem:3860::::::::6:::::::::|h[Mithril Bar]|h|r",
 		["quality"] = 1,
 	}, -- [588]
@@ -8397,7 +8397,7 @@ addon.itemData = {
 			[2776] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 186,
+		["tradeskillID"] = 186,
 		["itemLink"] = "|cff1eff00|Hitem:3577::::::::6:::::::::|h[Gold Bar]|h|r",
 		["quality"] = 2,
 	}, -- [589]
@@ -8410,7 +8410,7 @@ addon.itemData = {
 			[3857] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 186,
+		["tradeskillID"] = 186,
 		["itemLink"] = "|cffffffff|Hitem:3859::::::::6:::::::::|h[Steel Bar]|h|r",
 		["quality"] = 1,
 	}, -- [590]
@@ -8422,7 +8422,7 @@ addon.itemData = {
 			[2772] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 186,
+		["tradeskillID"] = 186,
 		["itemLink"] = "|cffffffff|Hitem:3575::::::::6:::::::::|h[Iron Bar]|h|r",
 		["quality"] = 1,
 	}, -- [591]
@@ -8434,7 +8434,7 @@ addon.itemData = {
 			[2775] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 186,
+		["tradeskillID"] = 186,
 		["itemLink"] = "|cff1eff00|Hitem:2842::::::::6:::::::::|h[Silver Bar]|h|r",
 		["quality"] = 2,
 	}, -- [592]
@@ -8447,7 +8447,7 @@ addon.itemData = {
 			[3576] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 186,
+		["tradeskillID"] = 186,
 		["itemLink"] = "|cffffffff|Hitem:2841::::::::6:::::::::|h[Bronze Bar]|h|r",
 		["quality"] = 1,
 	}, -- [593]
@@ -8459,7 +8459,7 @@ addon.itemData = {
 			[2771] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 186,
+		["tradeskillID"] = 186,
 		["itemLink"] = "|cffffffff|Hitem:3576::::::::6:::::::::|h[Tin Bar]|h|r",
 		["quality"] = 1,
 	}, -- [594]
@@ -8471,7 +8471,7 @@ addon.itemData = {
 			[2770] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 186,
+		["tradeskillID"] = 186,
 		["itemLink"] = "|cffffffff|Hitem:2840::::::::6:::::::::|h[Copper Bar]|h|r",
 		["quality"] = 1,
 	}, -- [595]
@@ -8486,7 +8486,7 @@ addon.itemData = {
 			[21024] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:21023::::::::6:::::::::|h[Dirge's Kickin' Chimaerok Chops]|h|r",
 		["quality"] = 1,
 	}, -- [596]
@@ -8500,7 +8500,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:13934::::::::6:::::::::|h[Mightfish Steak]|h|r",
 		["quality"] = 1,
 	}, -- [597]
@@ -8513,7 +8513,7 @@ addon.itemData = {
 			[3713] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:13927::::::::6:::::::::|h[Cooked Glossy Mightfish]|h|r",
 		["quality"] = 1,
 	}, -- [598]
@@ -8526,7 +8526,7 @@ addon.itemData = {
 			[18255] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:18254::::::::6:::::::::|h[Runn Tum Tuber Surprise]|h|r",
 		["quality"] = 1,
 	}, -- [599]
@@ -8539,7 +8539,7 @@ addon.itemData = {
 			[3713] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:13928::::::::6:::::::::|h[Grilled Squid]|h|r",
 		["quality"] = 1,
 	}, -- [600]
@@ -8552,7 +8552,7 @@ addon.itemData = {
 			[3713] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:20452::::::::6:::::::::|h[Smoked Desert Dumplings]|h|r",
 		["quality"] = 1,
 	}, -- [601]
@@ -8565,7 +8565,7 @@ addon.itemData = {
 			[2692] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:13929::::::::6:::::::::|h[Hot Smoked Bass]|h|r",
 		["quality"] = 1,
 	}, -- [602]
@@ -8578,7 +8578,7 @@ addon.itemData = {
 			[3713] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:12218::::::::6:::::::::|h[Monster Omelet]|h|r",
 		["quality"] = 1,
 	}, -- [603]
@@ -8591,7 +8591,7 @@ addon.itemData = {
 			[3713] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:18045::::::::6:::::::::|h[Tender Wolf Steak]|h|r",
 		["quality"] = 1,
 	}, -- [604]
@@ -8604,7 +8604,7 @@ addon.itemData = {
 			[2692] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:12216::::::::6:::::::::|h[Spiced Chili Crab]|h|r",
 		["quality"] = 1,
 	}, -- [605]
@@ -8618,7 +8618,7 @@ addon.itemData = {
 			[12204] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:12215::::::::6:::::::::|h[Heavy Kodo Stew]|h|r",
 		["quality"] = 1,
 	}, -- [606]
@@ -8630,7 +8630,7 @@ addon.itemData = {
 			[12205] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:17222::::::::6:::::::::|h[Spider Sausage]|h|r",
 		["quality"] = 1,
 	}, -- [607]
@@ -8643,7 +8643,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:12210::::::::6:::::::::|h[Roast Raptor]|h|r",
 		["quality"] = 1,
 	}, -- [608]
@@ -8656,7 +8656,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:12213::::::::6:::::::::|h[Carrion Surprise]|h|r",
 		["quality"] = 1,
 	}, -- [609]
@@ -8669,7 +8669,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:4457::::::::6:::::::::|h[Barbecued Buzzard Wing]|h|r",
 		["quality"] = 1,
 	}, -- [610]
@@ -8682,7 +8682,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:6038::::::::6:::::::::|h[Giant Clam Scorcho]|h|r",
 		["quality"] = 1,
 	}, -- [611]
@@ -8696,7 +8696,7 @@ addon.itemData = {
 			[4536] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:12212::::::::6:::::::::|h[Jungle Stew]|h|r",
 		["quality"] = 1,
 	}, -- [612]
@@ -8709,7 +8709,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:13851::::::::6:::::::::|h[Hot Wolf Ribs]|h|r",
 		["quality"] = 1,
 	}, -- [613]
@@ -8722,7 +8722,7 @@ addon.itemData = {
 			[3713] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:3729::::::::6:::::::::|h[Soothing Turtle Bisque]|h|r",
 		["quality"] = 1,
 	}, -- [614]
@@ -8735,7 +8735,7 @@ addon.itemData = {
 			[12037] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:12214::::::::6:::::::::|h[Mystery Stew]|h|r",
 		["quality"] = 1,
 	}, -- [615]
@@ -8748,7 +8748,7 @@ addon.itemData = {
 			[3713] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:3728::::::::6:::::::::|h[Tasty Lion Steak]|h|r",
 		["quality"] = 1,
 	}, -- [616]
@@ -8761,7 +8761,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:3727::::::::6:::::::::|h[Hot Lion Chops]|h|r",
 		["quality"] = 1,
 	}, -- [617]
@@ -8774,7 +8774,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:3665::::::::6:::::::::|h[Curiously Tasty Omelet]|h|r",
 		["quality"] = 1,
 	}, -- [618]
@@ -8787,7 +8787,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:12209::::::::6:::::::::|h[Lean Wolf Steak]|h|r",
 		["quality"] = 1,
 	}, -- [619]
@@ -8800,7 +8800,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:5527::::::::6:::::::::|h[Goblin Deviled Clams]|h|r",
 		["quality"] = 1,
 	}, -- [620]
@@ -8813,7 +8813,7 @@ addon.itemData = {
 			[3713] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:20074::::::::6:::::::::|h[Heavy Crocolisk Stew]|h|r",
 		["quality"] = 1,
 	}, -- [621]
@@ -8826,7 +8826,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:3664::::::::6:::::::::|h[Crocolisk Gumbo]|h|r",
 		["quality"] = 1,
 	}, -- [622]
@@ -8839,7 +8839,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:3726::::::::6:::::::::|h[Big Bear Steak]|h|r",
 		["quality"] = 1,
 	}, -- [623]
@@ -8852,7 +8852,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:3666::::::::6:::::::::|h[Gooey Spider Cake]|h|r",
 		["quality"] = 1,
 	}, -- [624]
@@ -8865,7 +8865,7 @@ addon.itemData = {
 			[2678] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:5480::::::::6:::::::::|h[Lean Venison]|h|r",
 		["quality"] = 1,
 	}, -- [625]
@@ -8878,7 +8878,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:5479::::::::6:::::::::|h[Crispy Lizard Tail]|h|r",
 		["quality"] = 1,
 	}, -- [626]
@@ -8891,7 +8891,7 @@ addon.itemData = {
 			[1015] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:1017::::::::6:::::::::|h[Seasoned Wolf Kabob]|h|r",
 		["quality"] = 1,
 	}, -- [627]
@@ -8904,7 +8904,7 @@ addon.itemData = {
 			[1081] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:1082::::::::6:::::::::|h[Redridge Goulash]|h|r",
 		["quality"] = 1,
 	}, -- [628]
@@ -8917,7 +8917,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:3663::::::::6:::::::::|h[Murloc Fin Soup]|h|r",
 		["quality"] = 1,
 	}, -- [629]
@@ -8930,7 +8930,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:3662::::::::6:::::::::|h[Crocolisk Steak]|h|r",
 		["quality"] = 1,
 	}, -- [630]
@@ -8943,7 +8943,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:2687::::::::6:::::::::|h[Dry Pork Ribs]|h|r",
 		["quality"] = 1,
 	}, -- [631]
@@ -8956,7 +8956,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:2683::::::::6:::::::::|h[Crab Cake]|h|r",
 		["quality"] = 1,
 	}, -- [632]
@@ -8970,7 +8970,7 @@ addon.itemData = {
 			[3173] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:3220::::::::6:::::::::|h[Blood Sausage]|h|r",
 		["quality"] = 1,
 	}, -- [633]
@@ -8983,7 +8983,7 @@ addon.itemData = {
 			[4536] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:5477::::::::6:::::::::|h[Strider Stew]|h|r",
 		["quality"] = 1,
 	}, -- [634]
@@ -8996,7 +8996,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:724::::::::6:::::::::|h[Goretusk Liver Pie]|h|r",
 		["quality"] = 1,
 	}, -- [635]
@@ -9008,7 +9008,7 @@ addon.itemData = {
 			[2673] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:2684::::::::6:::::::::|h[Coyote Steak]|h|r",
 		["quality"] = 1,
 	}, -- [636]
@@ -9021,7 +9021,7 @@ addon.itemData = {
 			[159] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:5525::::::::6:::::::::|h[Boiled Clams]|h|r",
 		["quality"] = 1,
 	}, -- [637]
@@ -9034,7 +9034,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:5476::::::::6:::::::::|h[Fillet of Frenzy]|h|r",
 		["quality"] = 1,
 	}, -- [638]
@@ -9049,7 +9049,7 @@ addon.itemData = {
 			[1179] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:17198::::::::6:::::::::|h[Egg Nog]|h|r",
 		["quality"] = 1,
 	}, -- [639]
@@ -9062,7 +9062,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:5474::::::::6:::::::::|h[Roasted Kodo Meat]|h|r",
 		["quality"] = 1,
 	}, -- [640]
@@ -9075,7 +9075,7 @@ addon.itemData = {
 			[2894] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:2888::::::::6:::::::::|h[Beer Basted Boar Ribs]|h|r",
 		["quality"] = 1,
 	}, -- [641]
@@ -9088,7 +9088,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:2680::::::::6:::::::::|h[Spiced Wolf Meat]|h|r",
 		["quality"] = 1,
 	}, -- [642]
@@ -9100,7 +9100,7 @@ addon.itemData = {
 			[5465] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:5472::::::::6:::::::::|h[Kaldorei Spider Kabob]|h|r",
 		["quality"] = 1,
 	}, -- [643]
@@ -9113,7 +9113,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:12224::::::::6:::::::::|h[Crispy Bat Wing]|h|r",
 		["quality"] = 1,
 	}, -- [644]
@@ -9126,7 +9126,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:6888::::::::6:::::::::|h[Herb Baked Egg]|h|r",
 		["quality"] = 1,
 	}, -- [645]
@@ -9139,7 +9139,7 @@ addon.itemData = {
 			[6889] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:17197::::::::6:::::::::|h[Gingerbread Cookie]|h|r",
 		["quality"] = 1,
 	}, -- [646]
@@ -9152,7 +9152,7 @@ addon.itemData = {
 			[13759] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:13931::::::::6:::::::::|h[Nightfin Soup]|h|r",
 		["quality"] = 1,
 	}, -- [647]
@@ -9165,7 +9165,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:21217::::::::6:::::::::|h[Sagefish Delight]|h|r",
 		["quality"] = 1,
 	}, -- [648]
@@ -9178,7 +9178,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:21072::::::::6:::::::::|h[Smoked Sagefish]|h|r",
 		["quality"] = 1,
 	}, -- [649]
@@ -9190,7 +9190,7 @@ addon.itemData = {
 			[13760] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:13932::::::::6:::::::::|h[Poached Sunscale Salmon]|h|r",
 		["quality"] = 1,
 	}, -- [650]
@@ -9203,7 +9203,7 @@ addon.itemData = {
 			[159] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:13933::::::::6:::::::::|h[Lobster Stew]|h|r",
 		["quality"] = 1,
 	}, -- [651]
@@ -9215,7 +9215,7 @@ addon.itemData = {
 			[4603] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:6887::::::::6:::::::::|h[Spotted Yellowtail]|h|r",
 		["quality"] = 1,
 	}, -- [652]
@@ -9228,7 +9228,7 @@ addon.itemData = {
 			[3713] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:13935::::::::6:::::::::|h[Baked Salmon]|h|r",
 		["quality"] = 1,
 	}, -- [653]
@@ -9242,7 +9242,7 @@ addon.itemData = {
 			[5503] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:5526::::::::6:::::::::|h[Clam Chowder]|h|r",
 		["quality"] = 1,
 	}, -- [654]
@@ -9254,7 +9254,7 @@ addon.itemData = {
 			[13758] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:13930::::::::6:::::::::|h[Filet of Redgill]|h|r",
 		["quality"] = 1,
 	}, -- [655]
@@ -9266,7 +9266,7 @@ addon.itemData = {
 			[8365] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:8364::::::::6:::::::::|h[Mithril Head Trout]|h|r",
 		["quality"] = 1,
 	}, -- [656]
@@ -9278,7 +9278,7 @@ addon.itemData = {
 			[6362] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:4594::::::::6:::::::::|h[Rockscale Cod]|h|r",
 		["quality"] = 1,
 	}, -- [657]
@@ -9290,7 +9290,7 @@ addon.itemData = {
 			[6308] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:4593::::::::6:::::::::|h[Bristle Whisker Catfish]|h|r",
 		["quality"] = 1,
 	}, -- [658]
@@ -9304,7 +9304,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:16766::::::::6:::::::::|h[Undermine Clam Chowder]|h|r",
 		["quality"] = 1,
 	}, -- [659]
@@ -9317,7 +9317,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:2685::::::::6:::::::::|h[Succulent Pork Ribs]|h|r",
 		["quality"] = 1,
 	}, -- [660]
@@ -9329,7 +9329,7 @@ addon.itemData = {
 			[5051] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:5478::::::::6:::::::::|h[Dig Rat Stew]|h|r",
 		["quality"] = 1,
 	}, -- [661]
@@ -9342,7 +9342,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:2682::::::::6:::::::::|h[Cooked Crab Claw]|h|r",
 		["quality"] = 1,
 	}, -- [662]
@@ -9356,7 +9356,7 @@ addon.itemData = {
 			[729] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:733::::::::6:::::::::|h[Westfall Stew]|h|r",
 		["quality"] = 1,
 	}, -- [663]
@@ -9368,7 +9368,7 @@ addon.itemData = {
 			[6361] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:5095::::::::6:::::::::|h[Rainbow Fin Albacore]|h|r",
 		["quality"] = 1,
 	}, -- [664]
@@ -9381,7 +9381,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:6316::::::::6:::::::::|h[Loch Frenzy Delight]|h|r",
 		["quality"] = 1,
 	}, -- [665]
@@ -9393,7 +9393,7 @@ addon.itemData = {
 			[6289] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:4592::::::::6:::::::::|h[Longjaw Mud Snapper]|h|r",
 		["quality"] = 1,
 	}, -- [666]
@@ -9405,7 +9405,7 @@ addon.itemData = {
 			[3173] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:6890::::::::6:::::::::|h[Smoked Bear Meat]|h|r",
 		["quality"] = 1,
 	}, -- [667]
@@ -9417,7 +9417,7 @@ addon.itemData = {
 			[5466] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:5473::::::::6:::::::::|h[Scorpid Surprise]|h|r",
 		["quality"] = 1,
 	}, -- [668]
@@ -9429,7 +9429,7 @@ addon.itemData = {
 			[6303] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:787::::::::6:::::::::|h[Slitherskin Mackerel]|h|r",
 		["quality"] = 1,
 	}, -- [669]
@@ -9441,7 +9441,7 @@ addon.itemData = {
 			[2672] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:2679::::::::6:::::::::|h[Charred Wolf Meat]|h|r",
 		["quality"] = 1,
 	}, -- [670]
@@ -9453,7 +9453,7 @@ addon.itemData = {
 			[6291] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:6290::::::::6:::::::::|h[Brilliant Smallfish]|h|r",
 		["quality"] = 1,
 	}, -- [671]
@@ -9465,7 +9465,7 @@ addon.itemData = {
 			[769] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:2681::::::::6:::::::::|h[Roasted Boar Meat]|h|r",
 		["quality"] = 1,
 	}, -- [672]
@@ -9479,7 +9479,7 @@ addon.itemData = {
 			[2692] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:12217::::::::6:::::::::|h[Dragonbreath Chili]|h|r",
 		["quality"] = 1,
 	}, -- [673]
@@ -9492,7 +9492,7 @@ addon.itemData = {
 			[2678] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:6657::::::::6:::::::::|h[Savory Deviate Delight]|h|r",
 		["quality"] = 1,
 	}, -- [674]
@@ -9505,7 +9505,7 @@ addon.itemData = {
 			[2452] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:7676::::::::6:::::::::|h[Thistle Tea]|h|r",
 		["quality"] = 1,
 	}, -- [675]
@@ -9518,7 +9518,7 @@ addon.itemData = {
 			[159] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 185,
+		["tradeskillID"] = 185,
 		["itemLink"] = "|cffffffff|Hitem:10841::::::::6:::::::::|h[Goldthorn Tea]|h|r",
 		["quality"] = 1,
 	}, -- [676]
@@ -9533,7 +9533,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:22658::::::::6:::::::::|h[Glacial Cloak]|h|r",
 		["quality"] = 4,
 	}, -- [677]
@@ -9548,7 +9548,7 @@ addon.itemData = {
 			[19726] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:22660::::::::6:::::::::|h[Gaea's Embrace]|h|r",
 		["quality"] = 3,
 	}, -- [678]
@@ -9563,7 +9563,7 @@ addon.itemData = {
 			[12809] = 4,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:18413::::::::6:::::::::|h[Cloak of Warding]|h|r",
 		["quality"] = 3,
 	}, -- [679]
@@ -9577,7 +9577,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14044::::::::6:::::::::|h[Cindercloth Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [680]
@@ -9591,7 +9591,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14103::::::::6:::::::::|h[Brightcloth Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [681]
@@ -9607,7 +9607,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:14134::::::::6:::::::::|h[Cloak of Fire]|h|r",
 		["quality"] = 3,
 	}, -- [682]
@@ -9621,7 +9621,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13860::::::::6:::::::::|h[Runecloth Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [683]
@@ -9636,7 +9636,7 @@ addon.itemData = {
 			[4291] = 2,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:4327::::::::6:::::::::|h[Icy Cloak]|h|r",
 		["quality"] = 3,
 	}, -- [684]
@@ -9650,7 +9650,7 @@ addon.itemData = {
 			[3827] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4326::::::::6:::::::::|h[Long Silken Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [685]
@@ -9665,7 +9665,7 @@ addon.itemData = {
 			[2604] = 2,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7056::::::::6:::::::::|h[Crimson Silk Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [686]
@@ -9679,7 +9679,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7053::::::::6:::::::::|h[Azure Silk Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [687]
@@ -9693,7 +9693,7 @@ addon.itemData = {
 			[2997] = 3,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4311::::::::6:::::::::|h[Heavy Woolen Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [688]
@@ -9707,7 +9707,7 @@ addon.itemData = {
 			[2997] = 3,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:5542::::::::6:::::::::|h[Pearl-clasped Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [689]
@@ -9720,7 +9720,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2584::::::::6:::::::::|h[Woolen Cape]|h|r",
 		["quality"] = 1,
 	}, -- [690]
@@ -9733,7 +9733,7 @@ addon.itemData = {
 			[2320] = 3,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2580::::::::6:::::::::|h[Reinforced Linen Cape]|h|r",
 		["quality"] = 1,
 	}, -- [691]
@@ -9746,7 +9746,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2570::::::::6:::::::::|h[Linen Cloak]|h|r",
 		["quality"] = 1,
 	}, -- [692]
@@ -9761,7 +9761,7 @@ addon.itemData = {
 			[14342] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:22757::::::::6:::::::::|h[Sylvan Crown]|h|r",
 		["quality"] = 3,
 	}, -- [693]
@@ -9777,7 +9777,7 @@ addon.itemData = {
 			[14342] = 6,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:14140::::::::6:::::::::|h[Mooncloth Circlet]|h|r",
 		["quality"] = 3,
 	}, -- [694]
@@ -9792,7 +9792,7 @@ addon.itemData = {
 			[14048] = 6,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14130::::::::6:::::::::|h[Wizardweave Turban]|h|r",
 		["quality"] = 2,
 	}, -- [695]
@@ -9806,7 +9806,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13866::::::::6:::::::::|h[Runecloth Headband]|h|r",
 		["quality"] = 2,
 	}, -- [696]
@@ -9820,7 +9820,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14111::::::::6:::::::::|h[Felcloth Hood]|h|r",
 		["quality"] = 2,
 	}, -- [697]
@@ -9837,7 +9837,7 @@ addon.itemData = {
 			[1529] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:10041::::::::6:::::::::|h[Dreamweave Circlet]|h|r",
 		["quality"] = 3,
 	}, -- [698]
@@ -9851,7 +9851,7 @@ addon.itemData = {
 			[4339] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10025::::::::6:::::::::|h[Shadoweave Mask]|h|r",
 		["quality"] = 2,
 	}, -- [699]
@@ -9865,7 +9865,7 @@ addon.itemData = {
 			[8343] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10033::::::::6:::::::::|h[Red Mageweave Headband]|h|r",
 		["quality"] = 2,
 	}, -- [700]
@@ -9879,7 +9879,7 @@ addon.itemData = {
 			[8343] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10030::::::::6:::::::::|h[Admiral's Hat]|h|r",
 		["quality"] = 2,
 	}, -- [701]
@@ -9892,7 +9892,7 @@ addon.itemData = {
 			[4339] = 3,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10024::::::::6:::::::::|h[Black Mageweave Headband]|h|r",
 		["quality"] = 2,
 	}, -- [702]
@@ -9906,7 +9906,7 @@ addon.itemData = {
 			[8343] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10008::::::::6:::::::::|h[White Bandit Mask]|h|r",
 		["quality"] = 2,
 	}, -- [703]
@@ -9920,7 +9920,7 @@ addon.itemData = {
 			[3824] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4323::::::::6:::::::::|h[Shadow Hood]|h|r",
 		["quality"] = 2,
 	}, -- [704]
@@ -9934,7 +9934,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4322::::::::6:::::::::|h[Enchanter's Cowl]|h|r",
 		["quality"] = 2,
 	}, -- [705]
@@ -9947,7 +9947,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:7050::::::::6:::::::::|h[Silk Headband]|h|r",
 		["quality"] = 1,
 	}, -- [706]
@@ -9961,7 +9961,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:7048::::::::6:::::::::|h[Azure Silk Hood]|h|r",
 		["quality"] = 1,
 	}, -- [707]
@@ -9975,7 +9975,7 @@ addon.itemData = {
 			[12803] = 4,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:22758::::::::6:::::::::|h[Sylvan Shoulders]|h|r",
 		["quality"] = 3,
 	}, -- [708]
@@ -9990,7 +9990,7 @@ addon.itemData = {
 			[12803] = 5,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:19050::::::::6:::::::::|h[Mantle of the Timbermaw]|h|r",
 		["quality"] = 3,
 	}, -- [709]
@@ -10004,7 +10004,7 @@ addon.itemData = {
 			[12809] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:19059::::::::6:::::::::|h[Argent Shoulders]|h|r",
 		["quality"] = 3,
 	}, -- [710]
@@ -10020,7 +10020,7 @@ addon.itemData = {
 			[12662] = 4,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14112::::::::6:::::::::|h[Felcloth Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [711]
@@ -10036,7 +10036,7 @@ addon.itemData = {
 			[17011] = 4,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:16980::::::::6:::::::::|h[Flarecore Mantle]|h|r",
 		["quality"] = 4,
 	}, -- [712]
@@ -10051,7 +10051,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13867::::::::6:::::::::|h[Runecloth Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [713]
@@ -10065,7 +10065,7 @@ addon.itemData = {
 			[14342] = 5,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:14139::::::::6:::::::::|h[Mooncloth Shoulders]|h|r",
 		["quality"] = 3,
 	}, -- [714]
@@ -10079,7 +10079,7 @@ addon.itemData = {
 			[8343] = 3,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10029::::::::6:::::::::|h[Red Mageweave Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [715]
@@ -10093,7 +10093,7 @@ addon.itemData = {
 			[4339] = 5,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10028::::::::6:::::::::|h[Shadoweave Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [716]
@@ -10106,7 +10106,7 @@ addon.itemData = {
 			[4339] = 3,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10027::::::::6:::::::::|h[Black Mageweave Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [717]
@@ -10121,7 +10121,7 @@ addon.itemData = {
 			[2604] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7059::::::::6:::::::::|h[Crimson Silk Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [718]
@@ -10136,7 +10136,7 @@ addon.itemData = {
 			[7072] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7060::::::::6:::::::::|h[Azure Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [719]
@@ -10149,7 +10149,7 @@ addon.itemData = {
 			[4291] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7057::::::::6:::::::::|h[Green Silken Shoulders]|h|r",
 		["quality"] = 2,
 	}, -- [720]
@@ -10163,7 +10163,7 @@ addon.itemData = {
 			[2997] = 6,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4315::::::::6:::::::::|h[Reinforced Woolen Shoulders]|h|r",
 		["quality"] = 1,
 	}, -- [721]
@@ -10176,7 +10176,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 3,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4314::::::::6:::::::::|h[Double-stitched Woolen Shoulders]|h|r",
 		["quality"] = 1,
 	}, -- [722]
@@ -10191,7 +10191,7 @@ addon.itemData = {
 			[14227] = 8,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:22652::::::::6:::::::::|h[Glacial Vest]|h|r",
 		["quality"] = 4,
 	}, -- [723]
@@ -10206,7 +10206,7 @@ addon.itemData = {
 			[19726] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:22756::::::::6:::::::::|h[Sylvan Vest]|h|r",
 		["quality"] = 3,
 	}, -- [724]
@@ -10222,7 +10222,7 @@ addon.itemData = {
 			[17011] = 3,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:19156::::::::6:::::::::|h[Flarecore Robe]|h|r",
 		["quality"] = 4,
 	}, -- [725]
@@ -10238,7 +10238,7 @@ addon.itemData = {
 			[14048] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:19682::::::::6:::::::::|h[Bloodvine Vest]|h|r",
 		["quality"] = 3,
 	}, -- [726]
@@ -10255,7 +10255,7 @@ addon.itemData = {
 			[14341] = 2,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:14152::::::::6:::::::::|h[Robe of the Archmage]|h|r",
 		["quality"] = 4,
 	}, -- [727]
@@ -10272,7 +10272,7 @@ addon.itemData = {
 			[14341] = 2,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:14154::::::::6:::::::::|h[Truefaith Vestments]|h|r",
 		["quality"] = 4,
 	}, -- [728]
@@ -10289,7 +10289,7 @@ addon.itemData = {
 			[14341] = 2,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:14153::::::::6:::::::::|h[Robe of the Void]|h|r",
 		["quality"] = 4,
 	}, -- [729]
@@ -10304,7 +10304,7 @@ addon.itemData = {
 			[14342] = 4,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:18486::::::::6:::::::::|h[Mooncloth Robe]|h|r",
 		["quality"] = 3,
 	}, -- [730]
@@ -10319,7 +10319,7 @@ addon.itemData = {
 			[12662] = 4,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14106::::::::6:::::::::|h[Felcloth Robe]|h|r",
 		["quality"] = 2,
 	}, -- [731]
@@ -10333,7 +10333,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14128::::::::6:::::::::|h[Wizardweave Robe]|h|r",
 		["quality"] = 2,
 	}, -- [732]
@@ -10347,7 +10347,7 @@ addon.itemData = {
 			[14342] = 4,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:14138::::::::6:::::::::|h[Mooncloth Vest]|h|r",
 		["quality"] = 3,
 	}, -- [733]
@@ -10363,7 +10363,7 @@ addon.itemData = {
 			[12808] = 4,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:14136::::::::6:::::::::|h[Robe of Winter Night]|h|r",
 		["quality"] = 3,
 	}, -- [734]
@@ -10378,7 +10378,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14141::::::::6:::::::::|h[Ghostweave Vest]|h|r",
 		["quality"] = 2,
 	}, -- [735]
@@ -10392,7 +10392,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14100::::::::6:::::::::|h[Brightcloth Robe]|h|r",
 		["quality"] = 2,
 	}, -- [736]
@@ -10406,7 +10406,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14042::::::::6:::::::::|h[Cindercloth Vest]|h|r",
 		["quality"] = 2,
 	}, -- [737]
@@ -10420,7 +10420,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13857::::::::6:::::::::|h[Runecloth Tunic]|h|r",
 		["quality"] = 2,
 	}, -- [738]
@@ -10434,7 +10434,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13858::::::::6:::::::::|h[Runecloth Robe]|h|r",
 		["quality"] = 2,
 	}, -- [739]
@@ -10448,7 +10448,7 @@ addon.itemData = {
 			[7079] = 2,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13868::::::::6:::::::::|h[Frostweave Robe]|h|r",
 		["quality"] = 2,
 	}, -- [740]
@@ -10462,7 +10462,7 @@ addon.itemData = {
 			[7079] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13869::::::::6:::::::::|h[Frostweave Tunic]|h|r",
 		["quality"] = 2,
 	}, -- [741]
@@ -10477,7 +10477,7 @@ addon.itemData = {
 			[8343] = 1,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10053::::::::6:::::::::|h[Simple Black Dress]|h|r",
 		["quality"] = 1,
 	}, -- [742]
@@ -10492,7 +10492,7 @@ addon.itemData = {
 			[8343] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:10021::::::::6:::::::::|h[Dreamweave Vest]|h|r",
 		["quality"] = 3,
 	}, -- [743]
@@ -10506,7 +10506,7 @@ addon.itemData = {
 			[8343] = 2,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10042::::::::6:::::::::|h[Cindercloth Robe]|h|r",
 		["quality"] = 2,
 	}, -- [744]
@@ -10520,7 +10520,7 @@ addon.itemData = {
 			[8343] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10007::::::::6:::::::::|h[Red Mageweave Vest]|h|r",
 		["quality"] = 2,
 	}, -- [745]
@@ -10534,7 +10534,7 @@ addon.itemData = {
 			[4339] = 3,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10004::::::::6:::::::::|h[Shadoweave Robe]|h|r",
 		["quality"] = 2,
 	}, -- [746]
@@ -10547,7 +10547,7 @@ addon.itemData = {
 			[4339] = 3,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10001::::::::6:::::::::|h[Black Mageweave Robe]|h|r",
 		["quality"] = 2,
 	}, -- [747]
@@ -10560,7 +10560,7 @@ addon.itemData = {
 			[4291] = 3,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:9998::::::::6:::::::::|h[Black Mageweave Vest]|h|r",
 		["quality"] = 2,
 	}, -- [748]
@@ -10576,7 +10576,7 @@ addon.itemData = {
 			[4291] = 1,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7063::::::::6:::::::::|h[Crimson Silk Robe]|h|r",
 		["quality"] = 2,
 	}, -- [749]
@@ -10593,7 +10593,7 @@ addon.itemData = {
 			[4291] = 2,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:7054::::::::6:::::::::|h[Robe of Power]|h|r",
 		["quality"] = 3,
 	}, -- [750]
@@ -10607,7 +10607,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:7058::::::::6:::::::::|h[Crimson Silk Vest]|h|r",
 		["quality"] = 1,
 	}, -- [751]
@@ -10621,7 +10621,7 @@ addon.itemData = {
 			[8343] = 3,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10040::::::::6:::::::::|h[White Wedding Dress]|h|r",
 		["quality"] = 1,
 	}, -- [752]
@@ -10634,7 +10634,7 @@ addon.itemData = {
 			[4339] = 5,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10036::::::::6:::::::::|h[Tuxedo Jacket]|h|r",
 		["quality"] = 1,
 	}, -- [753]
@@ -10648,7 +10648,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7051::::::::6:::::::::|h[Earthen Vest]|h|r",
 		["quality"] = 2,
 	}, -- [754]
@@ -10662,7 +10662,7 @@ addon.itemData = {
 			[4291] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7065::::::::6:::::::::|h[Green Silk Armor]|h|r",
 		["quality"] = 2,
 	}, -- [755]
@@ -10676,7 +10676,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:5770::::::::6:::::::::|h[Robes of Arcana]|h|r",
 		["quality"] = 2,
 	}, -- [756]
@@ -10689,7 +10689,7 @@ addon.itemData = {
 			[4305] = 5,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4324::::::::6:::::::::|h[Azure Silk Vest]|h|r",
 		["quality"] = 2,
 	}, -- [757]
@@ -10703,7 +10703,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:5766::::::::6:::::::::|h[Lesser Wizard's Robe]|h|r",
 		["quality"] = 2,
 	}, -- [758]
@@ -10717,7 +10717,7 @@ addon.itemData = {
 			[2604] = 3,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:6264::::::::6:::::::::|h[Greater Adept's Robe]|h|r",
 		["quality"] = 2,
 	}, -- [759]
@@ -10731,7 +10731,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:6787::::::::6:::::::::|h[White Woolen Dress]|h|r",
 		["quality"] = 1,
 	}, -- [760]
@@ -10745,7 +10745,7 @@ addon.itemData = {
 			[4340] = 1,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:2585::::::::6:::::::::|h[Gray Woolen Robe]|h|r",
 		["quality"] = 2,
 	}, -- [761]
@@ -10759,7 +10759,7 @@ addon.itemData = {
 			[6260] = 2,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:6263::::::::6:::::::::|h[Blue Overalls]|h|r",
 		["quality"] = 2,
 	}, -- [762]
@@ -10773,7 +10773,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2582::::::::6:::::::::|h[Green Woolen Vest]|h|r",
 		["quality"] = 1,
 	}, -- [763]
@@ -10787,7 +10787,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:2578::::::::6:::::::::|h[Barbaric Linen Vest]|h|r",
 		["quality"] = 2,
 	}, -- [764]
@@ -10801,7 +10801,7 @@ addon.itemData = {
 			[2996] = 4,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:6242::::::::6:::::::::|h[Blue Linen Robe]|h|r",
 		["quality"] = 2,
 	}, -- [765]
@@ -10815,7 +10815,7 @@ addon.itemData = {
 			[2996] = 3,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:6239::::::::6:::::::::|h[Red Linen Vest]|h|r",
 		["quality"] = 2,
 	}, -- [766]
@@ -10829,7 +10829,7 @@ addon.itemData = {
 			[2996] = 3,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:6240::::::::6:::::::::|h[Blue Linen Vest]|h|r",
 		["quality"] = 2,
 	}, -- [767]
@@ -10844,7 +10844,7 @@ addon.itemData = {
 			[2324] = 1,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:6786::::::::6:::::::::|h[Simple Dress]|h|r",
 		["quality"] = 1,
 	}, -- [768]
@@ -10858,7 +10858,7 @@ addon.itemData = {
 			[2324] = 1,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:6241::::::::6:::::::::|h[White Linen Robe]|h|r",
 		["quality"] = 2,
 	}, -- [769]
@@ -10872,7 +10872,7 @@ addon.itemData = {
 			[2996] = 3,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:2572::::::::6:::::::::|h[Red Linen Robe]|h|r",
 		["quality"] = 2,
 	}, -- [770]
@@ -10885,7 +10885,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:6238::::::::6:::::::::|h[Brown Linen Robe]|h|r",
 		["quality"] = 2,
 	}, -- [771]
@@ -10898,7 +10898,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 5,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2568::::::::6:::::::::|h[Brown Linen Vest]|h|r",
 		["quality"] = 1,
 	}, -- [772]
@@ -10913,7 +10913,7 @@ addon.itemData = {
 			[4625] = 2,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:21542::::::::6:::::::::|h[Festival Suit]|h|r",
 		["quality"] = 1,
 	}, -- [773]
@@ -10928,7 +10928,7 @@ addon.itemData = {
 			[4625] = 2,
 		},
 		["inventorySlot"] = 20,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:21154::::::::6:::::::::|h[Festival Dress]|h|r",
 		["quality"] = 1,
 	}, -- [774]
@@ -10944,7 +10944,7 @@ addon.itemData = {
 			[14048] = 4,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:19684::::::::6:::::::::|h[Bloodvine Boots]|h|r",
 		["quality"] = 3,
 	}, -- [775]
@@ -10960,7 +10960,7 @@ addon.itemData = {
 			[12810] = 2,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:20537::::::::6:::::::::|h[Runed Stygian Boots]|h|r",
 		["quality"] = 3,
 	}, -- [776]
@@ -10976,7 +10976,7 @@ addon.itemData = {
 			[13926] = 2,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:19056::::::::6:::::::::|h[Argent Boots]|h|r",
 		["quality"] = 3,
 	}, -- [777]
@@ -10991,7 +10991,7 @@ addon.itemData = {
 			[14256] = 4,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14108::::::::6:::::::::|h[Felcloth Boots]|h|r",
 		["quality"] = 2,
 	}, -- [778]
@@ -11006,7 +11006,7 @@ addon.itemData = {
 			[7971] = 2,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:15802::::::::6:::::::::|h[Mooncloth Boots]|h|r",
 		["quality"] = 3,
 	}, -- [779]
@@ -11021,7 +11021,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13864::::::::6:::::::::|h[Runecloth Boots]|h|r",
 		["quality"] = 2,
 	}, -- [780]
@@ -11036,7 +11036,7 @@ addon.itemData = {
 			[8343] = 3,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10044::::::::6:::::::::|h[Cindercloth Boots]|h|r",
 		["quality"] = 2,
 	}, -- [781]
@@ -11051,7 +11051,7 @@ addon.itemData = {
 			[4339] = 6,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10031::::::::6:::::::::|h[Shadoweave Boots]|h|r",
 		["quality"] = 2,
 	}, -- [782]
@@ -11065,7 +11065,7 @@ addon.itemData = {
 			[8343] = 2,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10026::::::::6:::::::::|h[Black Mageweave Boots]|h|r",
 		["quality"] = 2,
 	}, -- [783]
@@ -11079,7 +11079,7 @@ addon.itemData = {
 			[4305] = 4,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4325::::::::6:::::::::|h[Boots of the Enchanter]|h|r",
 		["quality"] = 2,
 	}, -- [784]
@@ -11093,7 +11093,7 @@ addon.itemData = {
 			[3182] = 1,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4321::::::::6:::::::::|h[Spider Silk Slippers]|h|r",
 		["quality"] = 2,
 	}, -- [785]
@@ -11108,7 +11108,7 @@ addon.itemData = {
 			[3182] = 4,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:4320::::::::6:::::::::|h[Spidersilk Boots]|h|r",
 		["quality"] = 3,
 	}, -- [786]
@@ -11123,7 +11123,7 @@ addon.itemData = {
 			[2997] = 4,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4313::::::::6:::::::::|h[Red Woolen Boots]|h|r",
 		["quality"] = 2,
 	}, -- [787]
@@ -11137,7 +11137,7 @@ addon.itemData = {
 			[2318] = 2,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:2583::::::::6:::::::::|h[Woolen Boots]|h|r",
 		["quality"] = 2,
 	}, -- [788]
@@ -11151,7 +11151,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4312::::::::6:::::::::|h[Soft-soled Linen Boots]|h|r",
 		["quality"] = 2,
 	}, -- [789]
@@ -11165,7 +11165,7 @@ addon.itemData = {
 			[2996] = 3,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2569::::::::6:::::::::|h[Linen Boots]|h|r",
 		["quality"] = 1,
 	}, -- [790]
@@ -11179,7 +11179,7 @@ addon.itemData = {
 			[2996] = 2,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10046::::::::6:::::::::|h[Simple Linen Boots]|h|r",
 		["quality"] = 1,
 	}, -- [791]
@@ -11194,7 +11194,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:22654::::::::6:::::::::|h[Glacial Gloves]|h|r",
 		["quality"] = 4,
 	}, -- [792]
@@ -11209,7 +11209,7 @@ addon.itemData = {
 			[14342] = 6,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:18409::::::::6:::::::::|h[Mooncloth Gloves]|h|r",
 		["quality"] = 3,
 	}, -- [793]
@@ -11225,7 +11225,7 @@ addon.itemData = {
 			[12808] = 8,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:18407::::::::6:::::::::|h[Felcloth Gloves]|h|r",
 		["quality"] = 3,
 	}, -- [794]
@@ -11241,7 +11241,7 @@ addon.itemData = {
 			[12810] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:16979::::::::6:::::::::|h[Flarecore Gloves]|h|r",
 		["quality"] = 4,
 	}, -- [795]
@@ -11256,7 +11256,7 @@ addon.itemData = {
 			[7910] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:18408::::::::6:::::::::|h[Inferno Gloves]|h|r",
 		["quality"] = 3,
 	}, -- [796]
@@ -11274,7 +11274,7 @@ addon.itemData = {
 			[14341] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:14146::::::::6:::::::::|h[Gloves of Spell Mastery]|h|r",
 		["quality"] = 4,
 	}, -- [797]
@@ -11288,7 +11288,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13863::::::::6:::::::::|h[Runecloth Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [798]
@@ -11302,7 +11302,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14101::::::::6:::::::::|h[Brightcloth Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [799]
@@ -11317,7 +11317,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14142::::::::6:::::::::|h[Ghostweave Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [800]
@@ -11331,7 +11331,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14043::::::::6:::::::::|h[Cindercloth Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [801]
@@ -11345,7 +11345,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13870::::::::6:::::::::|h[Frostweave Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [802]
@@ -11359,7 +11359,7 @@ addon.itemData = {
 			[4339] = 5,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10023::::::::6:::::::::|h[Shadoweave Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [803]
@@ -11373,7 +11373,7 @@ addon.itemData = {
 			[8343] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10018::::::::6:::::::::|h[Red Mageweave Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [804]
@@ -11388,7 +11388,7 @@ addon.itemData = {
 			[8343] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:10019::::::::6:::::::::|h[Dreamweave Gloves]|h|r",
 		["quality"] = 3,
 	}, -- [805]
@@ -11401,7 +11401,7 @@ addon.itemData = {
 			[4339] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10003::::::::6:::::::::|h[Black Mageweave Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [806]
@@ -11418,7 +11418,7 @@ addon.itemData = {
 			[4291] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7064::::::::6:::::::::|h[Crimson Silk Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [807]
@@ -11433,7 +11433,7 @@ addon.itemData = {
 			[929] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7049::::::::6:::::::::|h[Truefaith Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [808]
@@ -11448,7 +11448,7 @@ addon.itemData = {
 			[6048] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7047::::::::6:::::::::|h[Hands of Darkness]|h|r",
 		["quality"] = 2,
 	}, -- [809]
@@ -11463,7 +11463,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4319::::::::6:::::::::|h[Azure Silk Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [810]
@@ -11477,7 +11477,7 @@ addon.itemData = {
 			[2321] = 3,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4318::::::::6:::::::::|h[Gloves of Meditation]|h|r",
 		["quality"] = 2,
 	}, -- [811]
@@ -11492,7 +11492,7 @@ addon.itemData = {
 			[2321] = 4,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4331::::::::6:::::::::|h[Phoenix Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [812]
@@ -11505,7 +11505,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4310::::::::6:::::::::|h[Heavy Woolen Gloves]|h|r",
 		["quality"] = 2,
 	}, -- [813]
@@ -11518,7 +11518,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 10,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4307::::::::6:::::::::|h[Heavy Linen Gloves]|h|r",
 		["quality"] = 1,
 	}, -- [814]
@@ -11534,7 +11534,7 @@ addon.itemData = {
 			[17011] = 3,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:19165::::::::6:::::::::|h[Flarecore Leggings]|h|r",
 		["quality"] = 4,
 	}, -- [815]
@@ -11550,7 +11550,7 @@ addon.itemData = {
 			[14048] = 4,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:19683::::::::6:::::::::|h[Bloodvine Leggings]|h|r",
 		["quality"] = 3,
 	}, -- [816]
@@ -11565,7 +11565,7 @@ addon.itemData = {
 			[20520] = 8,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:20538::::::::6:::::::::|h[Runed Stygian Leggings]|h|r",
 		["quality"] = 3,
 	}, -- [817]
@@ -11579,7 +11579,7 @@ addon.itemData = {
 			[14342] = 4,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:14137::::::::6:::::::::|h[Mooncloth Leggings]|h|r",
 		["quality"] = 3,
 	}, -- [818]
@@ -11594,7 +11594,7 @@ addon.itemData = {
 			[14227] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14104::::::::6:::::::::|h[Brightcloth Pants]|h|r",
 		["quality"] = 2,
 	}, -- [819]
@@ -11608,7 +11608,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14144::::::::6:::::::::|h[Ghostweave Pants]|h|r",
 		["quality"] = 2,
 	}, -- [820]
@@ -11622,7 +11622,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13865::::::::6:::::::::|h[Runecloth Pants]|h|r",
 		["quality"] = 2,
 	}, -- [821]
@@ -11636,7 +11636,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13871::::::::6:::::::::|h[Frostweave Pants]|h|r",
 		["quality"] = 2,
 	}, -- [822]
@@ -11650,7 +11650,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14045::::::::6:::::::::|h[Cindercloth Pants]|h|r",
 		["quality"] = 2,
 	}, -- [823]
@@ -11664,7 +11664,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14107::::::::6:::::::::|h[Felcloth Pants]|h|r",
 		["quality"] = 2,
 	}, -- [824]
@@ -11678,7 +11678,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14132::::::::6:::::::::|h[Wizardweave Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [825]
@@ -11692,7 +11692,7 @@ addon.itemData = {
 			[8343] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10009::::::::6:::::::::|h[Red Mageweave Pants]|h|r",
 		["quality"] = 2,
 	}, -- [826]
@@ -11706,7 +11706,7 @@ addon.itemData = {
 			[4339] = 3,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10002::::::::6:::::::::|h[Shadoweave Pants]|h|r",
 		["quality"] = 2,
 	}, -- [827]
@@ -11719,7 +11719,7 @@ addon.itemData = {
 			[4291] = 3,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:9999::::::::6:::::::::|h[Black Mageweave Leggings]|h|r",
 		["quality"] = 2,
 	}, -- [828]
@@ -11733,7 +11733,7 @@ addon.itemData = {
 			[4305] = 4,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:7062::::::::6:::::::::|h[Crimson Silk Pantaloons]|h|r",
 		["quality"] = 1,
 	}, -- [829]
@@ -11746,7 +11746,7 @@ addon.itemData = {
 			[4339] = 4,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10035::::::::6:::::::::|h[Tuxedo Pants]|h|r",
 		["quality"] = 1,
 	}, -- [830]
@@ -11760,7 +11760,7 @@ addon.itemData = {
 			[2321] = 3,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7046::::::::6:::::::::|h[Azure Silk Pants]|h|r",
 		["quality"] = 2,
 	}, -- [831]
@@ -11774,7 +11774,7 @@ addon.itemData = {
 			[2321] = 3,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4317::::::::6:::::::::|h[Phoenix Pants]|h|r",
 		["quality"] = 2,
 	}, -- [832]
@@ -11788,7 +11788,7 @@ addon.itemData = {
 			[2604] = 3,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:10048::::::::6:::::::::|h[Colorful Kilt]|h|r",
 		["quality"] = 2,
 	}, -- [833]
@@ -11801,7 +11801,7 @@ addon.itemData = {
 			[2321] = 4,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4316::::::::6:::::::::|h[Heavy Woolen Pants]|h|r",
 		["quality"] = 2,
 	}, -- [834]
@@ -11814,7 +11814,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10047::::::::6:::::::::|h[Simple Kilt]|h|r",
 		["quality"] = 1,
 	}, -- [835]
@@ -11827,7 +11827,7 @@ addon.itemData = {
 			[2321] = 2,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4309::::::::6:::::::::|h[Handstitched Linen Britches]|h|r",
 		["quality"] = 2,
 	}, -- [836]
@@ -11840,7 +11840,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4343::::::::6:::::::::|h[Brown Linen Pants]|h|r",
 		["quality"] = 1,
 	}, -- [837]
@@ -11853,7 +11853,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 7,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10045::::::::6:::::::::|h[Simple Linen Pants]|h|r",
 		["quality"] = 1,
 	}, -- [838]
@@ -11866,7 +11866,7 @@ addon.itemData = {
 			[4339] = 4,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10034::::::::6:::::::::|h[Tuxedo Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [839]
@@ -11880,7 +11880,7 @@ addon.itemData = {
 			[8343] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10055::::::::6:::::::::|h[Pink Mageweave Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [840]
@@ -11894,7 +11894,7 @@ addon.itemData = {
 			[4342] = 2,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10054::::::::6:::::::::|h[Lavender Mageweave Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [841]
@@ -11908,7 +11908,7 @@ addon.itemData = {
 			[8343] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10052::::::::6:::::::::|h[Orange Martial Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [842]
@@ -11922,7 +11922,7 @@ addon.itemData = {
 			[8343] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10056::::::::6:::::::::|h[Orange Mageweave Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [843]
@@ -11936,7 +11936,7 @@ addon.itemData = {
 			[4305] = 5,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4336::::::::6:::::::::|h[Black Swashbuckler's Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [844]
@@ -11950,7 +11950,7 @@ addon.itemData = {
 			[4291] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:17723::::::::6:::::::::|h[Green Holiday Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [845]
@@ -11964,7 +11964,7 @@ addon.itemData = {
 			[4291] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4335::::::::6:::::::::|h[Rich Purple Silk Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [846]
@@ -11978,7 +11978,7 @@ addon.itemData = {
 			[4305] = 3,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:6796::::::::6:::::::::|h[Red Swashbuckler's Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [847]
@@ -11992,7 +11992,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4334::::::::6:::::::::|h[Formal White Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [848]
@@ -12006,7 +12006,7 @@ addon.itemData = {
 			[2324] = 2,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:6795::::::::6:::::::::|h[White Swashbuckler's Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [849]
@@ -12020,7 +12020,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4333::::::::6:::::::::|h[Dark Silk Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [850]
@@ -12035,7 +12035,7 @@ addon.itemData = {
 			[4340] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:6385::::::::6:::::::::|h[Stylish Green Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [851]
@@ -12049,7 +12049,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4332::::::::6:::::::::|h[Bright Yellow Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [852]
@@ -12064,7 +12064,7 @@ addon.itemData = {
 			[4340] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:6384::::::::6:::::::::|h[Stylish Blue Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [853]
@@ -12078,7 +12078,7 @@ addon.itemData = {
 			[2604] = 2,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4330::::::::6:::::::::|h[Stylish Red Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [854]
@@ -12092,7 +12092,7 @@ addon.itemData = {
 			[4340] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2587::::::::6:::::::::|h[Gray Woolen Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [855]
@@ -12106,7 +12106,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2579::::::::6:::::::::|h[Green Linen Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [856]
@@ -12120,7 +12120,7 @@ addon.itemData = {
 			[2996] = 2,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2577::::::::6:::::::::|h[Blue Linen Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [857]
@@ -12134,7 +12134,7 @@ addon.itemData = {
 			[2996] = 2,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2575::::::::6:::::::::|h[Red Linen Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [858]
@@ -12148,7 +12148,7 @@ addon.itemData = {
 			[2324] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2576::::::::6:::::::::|h[White Linen Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [859]
@@ -12161,7 +12161,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 4,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4344::::::::6:::::::::|h[Brown Linen Shirt]|h|r",
 		["quality"] = 1,
 	}, -- [860]
@@ -12177,7 +12177,7 @@ addon.itemData = {
 			[12810] = 2,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:20539::::::::6:::::::::|h[Runed Stygian Belt]|h|r",
 		["quality"] = 3,
 	}, -- [861]
@@ -12195,7 +12195,7 @@ addon.itemData = {
 			[14341] = 6,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:18405::::::::6:::::::::|h[Belt of the Archmage]|h|r",
 		["quality"] = 4,
 	}, -- [862]
@@ -12210,7 +12210,7 @@ addon.itemData = {
 			[12803] = 3,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:19047::::::::6:::::::::|h[Wisdom of the Timbermaw]|h|r",
 		["quality"] = 3,
 	}, -- [863]
@@ -12225,7 +12225,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14143::::::::6:::::::::|h[Ghostweave Belt]|h|r",
 		["quality"] = 2,
 	}, -- [864]
@@ -12238,7 +12238,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:13856::::::::6:::::::::|h[Runecloth Belt]|h|r",
 		["quality"] = 2,
 	}, -- [865]
@@ -12254,7 +12254,7 @@ addon.itemData = {
 			[4339] = 4,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4329::::::::6:::::::::|h[Star Belt]|h|r",
 		["quality"] = 2,
 	}, -- [866]
@@ -12270,7 +12270,7 @@ addon.itemData = {
 			[4291] = 2,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7061::::::::6:::::::::|h[Earthen Silk Belt]|h|r",
 		["quality"] = 2,
 	}, -- [867]
@@ -12284,7 +12284,7 @@ addon.itemData = {
 			[4305] = 4,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:4328::::::::6:::::::::|h[Spider Belt]|h|r",
 		["quality"] = 2,
 	}, -- [868]
@@ -12299,7 +12299,7 @@ addon.itemData = {
 			[4305] = 4,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7055::::::::6:::::::::|h[Crimson Silk Belt]|h|r",
 		["quality"] = 2,
 	}, -- [869]
@@ -12315,7 +12315,7 @@ addon.itemData = {
 			[7070] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:7052::::::::6:::::::::|h[Azure Silk Belt]|h|r",
 		["quality"] = 2,
 	}, -- [870]
@@ -12328,7 +12328,7 @@ addon.itemData = {
 			[2320] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:7026::::::::6:::::::::|h[Linen Belt]|h|r",
 		["quality"] = 1,
 	}, -- [871]
@@ -12343,7 +12343,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:22655::::::::6:::::::::|h[Glacial Wrists]|h|r",
 		["quality"] = 4,
 	}, -- [872]
@@ -12359,7 +12359,7 @@ addon.itemData = {
 			[12810] = 6,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:18263::::::::6:::::::::|h[Flarecore Wraps]|h|r",
 		["quality"] = 4,
 	}, -- [873]
@@ -12373,7 +12373,7 @@ addon.itemData = {
 			[2320] = 2,
 		},
 		["inventorySlot"] = 9,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4308::::::::6:::::::::|h[Green Linen Bracers]|h|r",
 		["quality"] = 1,
 	}, -- [874]
@@ -12389,7 +12389,7 @@ addon.itemData = {
 			[14342] = 12,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:14156::::::::6:::::::::|h[Bottomless Bag]|h|r",
 		["quality"] = 3,
 	}, -- [875]
@@ -12403,7 +12403,7 @@ addon.itemData = {
 			[14342] = 1,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:14155::::::::6:::::::::|h[Mooncloth Bag]|h|r",
 		["quality"] = 2,
 	}, -- [876]
@@ -12417,7 +12417,7 @@ addon.itemData = {
 			[14341] = 1,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:14046::::::::6:::::::::|h[Runecloth Bag]|h|r",
 		["quality"] = 1,
 	}, -- [877]
@@ -12431,7 +12431,7 @@ addon.itemData = {
 			[8343] = 2,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10051::::::::6:::::::::|h[Red Mageweave Bag]|h|r",
 		["quality"] = 1,
 	}, -- [878]
@@ -12444,7 +12444,7 @@ addon.itemData = {
 			[4291] = 2,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:10050::::::::6:::::::::|h[Mageweave Bag]|h|r",
 		["quality"] = 1,
 	}, -- [879]
@@ -12458,7 +12458,7 @@ addon.itemData = {
 			[2321] = 4,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:5765::::::::6:::::::::|h[Black Silk Pack]|h|r",
 		["quality"] = 1,
 	}, -- [880]
@@ -12473,7 +12473,7 @@ addon.itemData = {
 			[4234] = 3,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:5764::::::::6:::::::::|h[Green Silk Pack]|h|r",
 		["quality"] = 1,
 	}, -- [881]
@@ -12487,7 +12487,7 @@ addon.itemData = {
 			[2321] = 3,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4245::::::::6:::::::::|h[Small Silk Pack]|h|r",
 		["quality"] = 1,
 	}, -- [882]
@@ -12501,7 +12501,7 @@ addon.itemData = {
 			[2604] = 1,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:5763::::::::6:::::::::|h[Red Woolen Bag]|h|r",
 		["quality"] = 1,
 	}, -- [883]
@@ -12515,7 +12515,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4241::::::::6:::::::::|h[Green Woolen Bag]|h|r",
 		["quality"] = 1,
 	}, -- [884]
@@ -12528,7 +12528,7 @@ addon.itemData = {
 			[2321] = 1,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4240::::::::6:::::::::|h[Woolen Bag]|h|r",
 		["quality"] = 1,
 	}, -- [885]
@@ -12542,7 +12542,7 @@ addon.itemData = {
 			[2996] = 4,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:5762::::::::6:::::::::|h[Red Linen Bag]|h|r",
 		["quality"] = 1,
 	}, -- [886]
@@ -12555,7 +12555,7 @@ addon.itemData = {
 			[2320] = 3,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4238::::::::6:::::::::|h[Linen Bag]|h|r",
 		["quality"] = 1,
 	}, -- [887]
@@ -12570,7 +12570,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:22252::::::::6:::::::::|h[Satchel of Cenarius]|h|r",
 		["quality"] = 2,
 	}, -- [888]
@@ -12585,7 +12585,7 @@ addon.itemData = {
 			[14048] = 5,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:22251::::::::6:::::::::|h[Cenarion Herb Bag]|h|r",
 		["quality"] = 2,
 	}, -- [889]
@@ -12600,7 +12600,7 @@ addon.itemData = {
 			[14344] = 4,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:22249::::::::6:::::::::|h[Big Bag of Enchantment]|h|r",
 		["quality"] = 2,
 	}, -- [890]
@@ -12614,7 +12614,7 @@ addon.itemData = {
 			[14341] = 2,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:22248::::::::6:::::::::|h[Enchanted Runecloth Bag]|h|r",
 		["quality"] = 2,
 	}, -- [891]
@@ -12628,7 +12628,7 @@ addon.itemData = {
 			[8343] = 2,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:22246::::::::6:::::::::|h[Enchanted Mageweave Pouch]|h|r",
 		["quality"] = 2,
 	}, -- [892]
@@ -12644,7 +12644,7 @@ addon.itemData = {
 			[14227] = 4,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffa335ee|Hitem:21342::::::::6:::::::::|h[Core Felcloth Bag]|h|r",
 		["quality"] = 4,
 	}, -- [893]
@@ -12659,7 +12659,7 @@ addon.itemData = {
 			[14256] = 12,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff0070dd|Hitem:21341::::::::6:::::::::|h[Felcloth Bag]|h|r",
 		["quality"] = 3,
 	}, -- [894]
@@ -12674,7 +12674,7 @@ addon.itemData = {
 			[8170] = 4,
 		},
 		["inventorySlot"] = 18,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cff1eff00|Hitem:21340::::::::6:::::::::|h[Soul Pouch]|h|r",
 		["quality"] = 2,
 	}, -- [895]
@@ -12686,7 +12686,7 @@ addon.itemData = {
 			[14256] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:14342::::::::6:::::::::|h[Mooncloth]|h|r",
 		["quality"] = 1,
 	}, -- [896]
@@ -12698,7 +12698,7 @@ addon.itemData = {
 			[14047] = 5,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:14048::::::::6:::::::::|h[Bolt of Runecloth]|h|r",
 		["quality"] = 1,
 	}, -- [897]
@@ -12710,7 +12710,7 @@ addon.itemData = {
 			[4338] = 5,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4339::::::::6:::::::::|h[Bolt of Mageweave]|h|r",
 		["quality"] = 1,
 	}, -- [898]
@@ -12722,7 +12722,7 @@ addon.itemData = {
 			[4306] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:4305::::::::6:::::::::|h[Bolt of Silk Cloth]|h|r",
 		["quality"] = 1,
 	}, -- [899]
@@ -12734,7 +12734,7 @@ addon.itemData = {
 			[2592] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2997::::::::6:::::::::|h[Bolt of Woolen Cloth]|h|r",
 		["quality"] = 1,
 	}, -- [900]
@@ -12746,7 +12746,7 @@ addon.itemData = {
 			[2589] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 197,
+		["tradeskillID"] = 197,
 		["itemLink"] = "|cffffffff|Hitem:2996::::::::6:::::::::|h[Bolt of Linen Cloth]|h|r",
 		["quality"] = 1,
 	}, -- [901]
@@ -12762,7 +12762,7 @@ addon.itemData = {
 			[12360] = 6,
 		},
 		["inventorySlot"] = 14,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffa335ee|Hitem:18168::::::::6:::::::::|h[Force Reactive Disk]|h|r",
 		["quality"] = 4,
 	}, -- [902]
@@ -12778,7 +12778,7 @@ addon.itemData = {
 			[10560] = 1,
 		},
 		["inventorySlot"] = 6,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10721::::::::6:::::::::|h[Gnomish Harm Prevention Belt]|h|r",
 		["quality"] = 2,
 	}, -- [903]
@@ -12794,7 +12794,7 @@ addon.itemData = {
 			[10559] = 2,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:7189::::::::6:::::::::|h[Goblin Rocket Boots]|h|r",
 		["quality"] = 2,
 	}, -- [904]
@@ -12809,7 +12809,7 @@ addon.itemData = {
 			[10558] = 1,
 		},
 		["inventorySlot"] = 2,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:16009::::::::6:::::::::|h[Voice Amplification Modulator]|h|r",
 		["quality"] = 2,
 	}, -- [905]
@@ -12824,7 +12824,7 @@ addon.itemData = {
 			[10560] = 1,
 		},
 		["inventorySlot"] = 16,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10518::::::::6:::::::::|h[Parachute Cloak]|h|r",
 		["quality"] = 2,
 	}, -- [906]
@@ -12840,7 +12840,7 @@ addon.itemData = {
 			[4389] = 4,
 		},
 		["inventorySlot"] = 8,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10724::::::::6:::::::::|h[Gnomish Rocket Boots]|h|r",
 		["quality"] = 2,
 	}, -- [907]
@@ -12856,7 +12856,7 @@ addon.itemData = {
 			[19774] = 5,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff0070dd|Hitem:19998::::::::6:::::::::|h[Bloodvine Lens]|h|r",
 		["quality"] = 3,
 	}, -- [908]
@@ -12872,7 +12872,7 @@ addon.itemData = {
 			[19774] = 5,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff0070dd|Hitem:19999::::::::6:::::::::|h[Bloodvine Goggles]|h|r",
 		["quality"] = 3,
 	}, -- [909]
@@ -12886,7 +12886,7 @@ addon.itemData = {
 			[12810] = 4,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:16008::::::::6:::::::::|h[Master Engineer's Goggles]|h|r",
 		["quality"] = 2,
 	}, -- [910]
@@ -12901,7 +12901,7 @@ addon.itemData = {
 			[7910] = 4,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:15999::::::::6:::::::::|h[Spellpower Goggles Xtreme Plus]|h|r",
 		["quality"] = 2,
 	}, -- [911]
@@ -12917,7 +12917,7 @@ addon.itemData = {
 			[10286] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff0070dd|Hitem:10504::::::::6:::::::::|h[Green Lens]|h|r",
 		["quality"] = 3,
 	}, -- [912]
@@ -12932,7 +12932,7 @@ addon.itemData = {
 			[10543] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10588::::::::6:::::::::|h[Goblin Rocket Helmet]|h|r",
 		["quality"] = 2,
 	}, -- [913]
@@ -12948,7 +12948,7 @@ addon.itemData = {
 			[4338] = 4,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10726::::::::6:::::::::|h[Gnomish Mind Control Cap]|h|r",
 		["quality"] = 2,
 	}, -- [914]
@@ -12961,7 +12961,7 @@ addon.itemData = {
 			[7910] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10503::::::::6:::::::::|h[Rose Colored Goggles]|h|r",
 		["quality"] = 2,
 	}, -- [915]
@@ -12977,7 +12977,7 @@ addon.itemData = {
 			[818] = 4,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10506::::::::6:::::::::|h[Deepdive Helmet]|h|r",
 		["quality"] = 2,
 	}, -- [916]
@@ -12991,7 +12991,7 @@ addon.itemData = {
 			[4304] = 4,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10501::::::::6:::::::::|h[Catseye Ultra Goggles]|h|r",
 		["quality"] = 2,
 	}, -- [917]
@@ -13004,7 +13004,7 @@ addon.itemData = {
 			[7910] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10502::::::::6:::::::::|h[Spellpower Goggles Xtreme]|h|r",
 		["quality"] = 2,
 	}, -- [918]
@@ -13020,7 +13020,7 @@ addon.itemData = {
 			[4234] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10545::::::::6:::::::::|h[Gnomish Goggles]|h|r",
 		["quality"] = 2,
 	}, -- [919]
@@ -13035,7 +13035,7 @@ addon.itemData = {
 			[3864] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10500::::::::6:::::::::|h[Fire Goggles]|h|r",
 		["quality"] = 2,
 	}, -- [920]
@@ -13049,7 +13049,7 @@ addon.itemData = {
 			[7067] = 4,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10542::::::::6:::::::::|h[Goblin Mining Helmet]|h|r",
 		["quality"] = 2,
 	}, -- [921]
@@ -13063,7 +13063,7 @@ addon.itemData = {
 			[7068] = 4,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10543::::::::6:::::::::|h[Goblin Construction Helmet]|h|r",
 		["quality"] = 2,
 	}, -- [922]
@@ -13076,7 +13076,7 @@ addon.itemData = {
 			[3864] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:4393::::::::6:::::::::|h[Craftsman's Monocle]|h|r",
 		["quality"] = 2,
 	}, -- [923]
@@ -13089,7 +13089,7 @@ addon.itemData = {
 			[3864] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10499::::::::6:::::::::|h[Bright-Eye Goggles]|h|r",
 		["quality"] = 2,
 	}, -- [924]
@@ -13103,7 +13103,7 @@ addon.itemData = {
 			[4368] = 1,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:4385::::::::6:::::::::|h[Green Tinted Goggles]|h|r",
 		["quality"] = 2,
 	}, -- [925]
@@ -13116,7 +13116,7 @@ addon.itemData = {
 			[2319] = 4,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:4373::::::::6:::::::::|h[Shadow Goggles]|h|r",
 		["quality"] = 2,
 	}, -- [926]
@@ -13129,7 +13129,7 @@ addon.itemData = {
 			[818] = 2,
 		},
 		["inventorySlot"] = 1,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:4368::::::::6:::::::::|h[Flying Tiger Goggles]|h|r",
 		["quality"] = 2,
 	}, -- [927]
@@ -13146,7 +13146,7 @@ addon.itemData = {
 			[15994] = 6,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff0070dd|Hitem:16022::::::::6:::::::::|h[Arcanite Dragonling]|h|r",
 		["quality"] = 3,
 	}, -- [928]
@@ -13163,7 +13163,7 @@ addon.itemData = {
 			[12799] = 2,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff0070dd|Hitem:18639::::::::6:::::::::|h[Ultra-Flash Shadow Reflector]|h|r",
 		["quality"] = 3,
 	}, -- [929]
@@ -13179,7 +13179,7 @@ addon.itemData = {
 			[12800] = 2,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff0070dd|Hitem:18638::::::::6:::::::::|h[Hyper-Radiant Flame Reflector]|h|r",
 		["quality"] = 3,
 	}, -- [930]
@@ -13195,7 +13195,7 @@ addon.itemData = {
 			[7910] = 2,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:18984::::::::6:::::::::|h[Dimensional Ripper - Everlook]|h|r",
 		["quality"] = 2,
 	}, -- [931]
@@ -13209,7 +13209,7 @@ addon.itemData = {
 			[18631] = 1,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:18637::::::::6:::::::::|h[Major Recombobulator]|h|r",
 		["quality"] = 2,
 	}, -- [932]
@@ -13225,7 +13225,7 @@ addon.itemData = {
 			[7910] = 2,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:18587::::::::6:::::::::|h[Goblin Jumper Cables XL]|h|r",
 		["quality"] = 1,
 	}, -- [933]
@@ -13242,7 +13242,7 @@ addon.itemData = {
 			[13467] = 4,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff0070dd|Hitem:18634::::::::6:::::::::|h[Gyrofreeze Ice Reflector]|h|r",
 		["quality"] = 3,
 	}, -- [934]
@@ -13259,7 +13259,7 @@ addon.itemData = {
 			[9060] = 1,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:18986::::::::6:::::::::|h[Ultrasafe Transporter: Gadgetzan]|h|r",
 		["quality"] = 2,
 	}, -- [935]
@@ -13276,7 +13276,7 @@ addon.itemData = {
 			[7910] = 2,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10576::::::::6:::::::::|h[Mithril Mechanical Dragonling]|h|r",
 		["quality"] = 1,
 	}, -- [936]
@@ -13292,7 +13292,7 @@ addon.itemData = {
 			[6037] = 6,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10727::::::::6:::::::::|h[Goblin Dragon Gun]|h|r",
 		["quality"] = 1,
 	}, -- [937]
@@ -13308,7 +13308,7 @@ addon.itemData = {
 			[7972] = 4,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10645::::::::6:::::::::|h[Gnomish Death Ray]|h|r",
 		["quality"] = 1,
 	}, -- [938]
@@ -13325,7 +13325,7 @@ addon.itemData = {
 			[1529] = 2,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10725::::::::6:::::::::|h[Gnomish Battle Chicken]|h|r",
 		["quality"] = 1,
 	}, -- [939]
@@ -13341,7 +13341,7 @@ addon.itemData = {
 			[6037] = 6,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10587::::::::6:::::::::|h[Goblin Bomb Dispenser]|h|r",
 		["quality"] = 1,
 	}, -- [940]
@@ -13357,7 +13357,7 @@ addon.itemData = {
 			[10505] = 2,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10720::::::::6:::::::::|h[Gnomish Net-o-Matic Projector]|h|r",
 		["quality"] = 1,
 	}, -- [941]
@@ -13373,7 +13373,7 @@ addon.itemData = {
 			[10560] = 1,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10716::::::::6:::::::::|h[Gnomish Shrink Ray]|h|r",
 		["quality"] = 1,
 	}, -- [942]
@@ -13389,7 +13389,7 @@ addon.itemData = {
 			[4389] = 4,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4396::::::::6:::::::::|h[Mechanical Dragonling]|h|r",
 		["quality"] = 1,
 	}, -- [943]
@@ -13405,7 +13405,7 @@ addon.itemData = {
 			[1705] = 2,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4397::::::::6:::::::::|h[Gnomish Cloaking Device]|h|r",
 		["quality"] = 1,
 	}, -- [944]
@@ -13422,7 +13422,7 @@ addon.itemData = {
 			[3575] = 6,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:7148::::::::6:::::::::|h[Goblin Jumper Cables]|h|r",
 		["quality"] = 1,
 	}, -- [945]
@@ -13437,7 +13437,7 @@ addon.itemData = {
 			[4375] = 2,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:4381::::::::6:::::::::|h[Minor Recombobulator]|h|r",
 		["quality"] = 2,
 	}, -- [946]
@@ -13453,7 +13453,7 @@ addon.itemData = {
 			[4375] = 1,
 		},
 		["inventorySlot"] = 12,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:7506::::::::6:::::::::|h[Gnomish Universal Remote]|h|r",
 		["quality"] = 2,
 	}, -- [947]
@@ -13469,7 +13469,7 @@ addon.itemData = {
 			[11371] = 6,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff0070dd|Hitem:18283::::::::6:::::::::|h[Biznicks 247x128 Accurascope]|h|r",
 		["quality"] = 3,
 	}, -- [948]
@@ -13483,7 +13483,7 @@ addon.itemData = {
 			[7910] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10548::::::::6:::::::::|h[Sniper Scope]|h|r",
 		["quality"] = 1,
 	}, -- [949]
@@ -13497,7 +13497,7 @@ addon.itemData = {
 			[10559] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10546::::::::6:::::::::|h[Deadly Scope]|h|r",
 		["quality"] = 1,
 	}, -- [950]
@@ -13511,7 +13511,7 @@ addon.itemData = {
 			[1529] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4407::::::::6:::::::::|h[Accurate Scope]|h|r",
 		["quality"] = 1,
 	}, -- [951]
@@ -13524,7 +13524,7 @@ addon.itemData = {
 			[4371] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4406::::::::6:::::::::|h[Standard Scope]|h|r",
 		["quality"] = 1,
 	}, -- [952]
@@ -13538,7 +13538,7 @@ addon.itemData = {
 			[774] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4405::::::::6:::::::::|h[Crude Scope]|h|r",
 		["quality"] = 1,
 	}, -- [953]
@@ -13554,7 +13554,7 @@ addon.itemData = {
 			[16000] = 2,
 		},
 		["inventorySlot"] = 26,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffa335ee|Hitem:18282::::::::6:::::::::|h[Core Marksman Rifle]|h|r",
 		["quality"] = 4,
 	}, -- [954]
@@ -13571,7 +13571,7 @@ addon.itemData = {
 			[7078] = 2,
 		},
 		["inventorySlot"] = 26,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff0070dd|Hitem:16007::::::::6:::::::::|h[Flawless Arcanite Rifle]|h|r",
 		["quality"] = 3,
 	}, -- [955]
@@ -13588,7 +13588,7 @@ addon.itemData = {
 			[12799] = 2,
 		},
 		["inventorySlot"] = 26,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff0070dd|Hitem:16004::::::::6:::::::::|h[Dark Iron Rifle]|h|r",
 		["quality"] = 3,
 	}, -- [956]
@@ -13604,7 +13604,7 @@ addon.itemData = {
 			[10546] = 1,
 		},
 		["inventorySlot"] = 26,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:15995::::::::6:::::::::|h[Thorium Rifle]|h|r",
 		["quality"] = 2,
 	}, -- [957]
@@ -13620,7 +13620,7 @@ addon.itemData = {
 			[3864] = 2,
 		},
 		["inventorySlot"] = 26,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10510::::::::6:::::::::|h[Mithril Heavy-bore Rifle]|h|r",
 		["quality"] = 2,
 	}, -- [958]
@@ -13636,7 +13636,7 @@ addon.itemData = {
 			[7068] = 2,
 		},
 		["inventorySlot"] = 26,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10508::::::::6:::::::::|h[Mithril Blunderbuss]|h|r",
 		["quality"] = 2,
 	}, -- [959]
@@ -13651,7 +13651,7 @@ addon.itemData = {
 			[1705] = 2,
 		},
 		["inventorySlot"] = 26,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:4383::::::::6:::::::::|h[Moonsight Rifle]|h|r",
 		["quality"] = 2,
 	}, -- [960]
@@ -13666,7 +13666,7 @@ addon.itemData = {
 			[4375] = 2,
 		},
 		["inventorySlot"] = 26,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:4379::::::::6:::::::::|h[Silver-plated Shotgun]|h|r",
 		["quality"] = 2,
 	}, -- [961]
@@ -13681,7 +13681,7 @@ addon.itemData = {
 			[4359] = 2,
 		},
 		["inventorySlot"] = 26,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:4372::::::::6:::::::::|h[Lovingly Crafted Boomstick]|h|r",
 		["quality"] = 2,
 	}, -- [962]
@@ -13696,7 +13696,7 @@ addon.itemData = {
 			[2319] = 2,
 		},
 		["inventorySlot"] = 26,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:4369::::::::6:::::::::|h[Deadly Blunderbuss]|h|r",
 		["quality"] = 2,
 	}, -- [963]
@@ -13710,7 +13710,7 @@ addon.itemData = {
 			[4359] = 1,
 		},
 		["inventorySlot"] = 26,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:4362::::::::6:::::::::|h[Rough Boomstick]|h|r",
 		["quality"] = 2,
 	}, -- [964]
@@ -13723,7 +13723,7 @@ addon.itemData = {
 			[15992] = 1,
 		},
 		["inventorySlot"] = 24,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:15997::::::::6:::::::::|h[Thorium Shells]|h|r",
 		["quality"] = 2,
 	}, -- [965]
@@ -13736,7 +13736,7 @@ addon.itemData = {
 			[10505] = 2,
 		},
 		["inventorySlot"] = 24,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10513::::::::6:::::::::|h[Mithril Gyro-Shot]|h|r",
 		["quality"] = 2,
 	}, -- [966]
@@ -13749,7 +13749,7 @@ addon.itemData = {
 			[10505] = 1,
 		},
 		["inventorySlot"] = 24,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:10512::::::::6:::::::::|h[Hi-Impact Mithril Slugs]|h|r",
 		["quality"] = 2,
 	}, -- [967]
@@ -13762,7 +13762,7 @@ addon.itemData = {
 			[2841] = 1,
 		},
 		["inventorySlot"] = 24,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:8069::::::::6:::::::::|h[Crafted Solid Shot]|h|r",
 		["quality"] = 1,
 	}, -- [968]
@@ -13775,7 +13775,7 @@ addon.itemData = {
 			[4364] = 1,
 		},
 		["inventorySlot"] = 24,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:8068::::::::6:::::::::|h[Crafted Heavy Shot]|h|r",
 		["quality"] = 1,
 	}, -- [969]
@@ -13788,7 +13788,7 @@ addon.itemData = {
 			[4357] = 1,
 		},
 		["inventorySlot"] = 24,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:8067::::::::6:::::::::|h[Crafted Light Shot]|h|r",
 		["quality"] = 1,
 	}, -- [970]
@@ -13801,7 +13801,7 @@ addon.itemData = {
 			[12360] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:16006::::::::6:::::::::|h[Delicate Arcanite Converter]|h|r",
 		["quality"] = 1,
 	}, -- [971]
@@ -13814,7 +13814,7 @@ addon.itemData = {
 			[14047] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:15994::::::::6:::::::::|h[Thorium Widget]|h|r",
 		["quality"] = 1,
 	}, -- [972]
@@ -13826,7 +13826,7 @@ addon.itemData = {
 			[12365] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:15992::::::::6:::::::::|h[Dense Blasting Powder]|h|r",
 		["quality"] = 1,
 	}, -- [973]
@@ -13840,7 +13840,7 @@ addon.itemData = {
 			[6037] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:18631::::::::6:::::::::|h[Truesilver Transformer]|h|r",
 		["quality"] = 1,
 	}, -- [974]
@@ -13852,7 +13852,7 @@ addon.itemData = {
 			[3860] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10561::::::::6:::::::::|h[Mithril Casing]|h|r",
 		["quality"] = 1,
 	}, -- [975]
@@ -13866,7 +13866,7 @@ addon.itemData = {
 			[4338] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10560::::::::6:::::::::|h[Unstable Trigger]|h|r",
 		["quality"] = 1,
 	}, -- [976]
@@ -13878,7 +13878,7 @@ addon.itemData = {
 			[12359] = 6,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:16000::::::::6:::::::::|h[Thorium Tube]|h|r",
 		["quality"] = 1,
 	}, -- [977]
@@ -13890,7 +13890,7 @@ addon.itemData = {
 			[3860] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10559::::::::6:::::::::|h[Mithril Tube]|h|r",
 		["quality"] = 1,
 	}, -- [978]
@@ -13902,7 +13902,7 @@ addon.itemData = {
 			[7912] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10505::::::::6:::::::::|h[Solid Blasting Powder]|h|r",
 		["quality"] = 1,
 	}, -- [979]
@@ -13915,7 +13915,7 @@ addon.itemData = {
 			[10558] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4389::::::::6:::::::::|h[Gyrochronatom]|h|r",
 		["quality"] = 1,
 	}, -- [980]
@@ -13927,7 +13927,7 @@ addon.itemData = {
 			[3575] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4387::::::::6:::::::::|h[Iron Strut]|h|r",
 		["quality"] = 1,
 	}, -- [981]
@@ -13939,7 +13939,7 @@ addon.itemData = {
 			[3577] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10558::::::::6:::::::::|h[Gold Power Core]|h|r",
 		["quality"] = 1,
 	}, -- [982]
@@ -13953,7 +13953,7 @@ addon.itemData = {
 			[2841] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4382::::::::6:::::::::|h[Bronze Framework]|h|r",
 		["quality"] = 1,
 	}, -- [983]
@@ -13965,7 +13965,7 @@ addon.itemData = {
 			[2838] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4377::::::::6:::::::::|h[Heavy Blasting Powder]|h|r",
 		["quality"] = 1,
 	}, -- [984]
@@ -13978,7 +13978,7 @@ addon.itemData = {
 			[2592] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4375::::::::6:::::::::|h[Whirring Bronze Gizmo]|h|r",
 		["quality"] = 1,
 	}, -- [985]
@@ -13991,7 +13991,7 @@ addon.itemData = {
 			[2880] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4371::::::::6:::::::::|h[Bronze Tube]|h|r",
 		["quality"] = 1,
 	}, -- [986]
@@ -14003,7 +14003,7 @@ addon.itemData = {
 			[2842] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4404::::::::6:::::::::|h[Silver Contact]|h|r",
 		["quality"] = 1,
 	}, -- [987]
@@ -14017,7 +14017,7 @@ addon.itemData = {
 			[4359] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4363::::::::6:::::::::|h[Copper Modulator]|h|r",
 		["quality"] = 1,
 	}, -- [988]
@@ -14029,7 +14029,7 @@ addon.itemData = {
 			[2836] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4364::::::::6:::::::::|h[Coarse Blasting Powder]|h|r",
 		["quality"] = 1,
 	}, -- [989]
@@ -14042,7 +14042,7 @@ addon.itemData = {
 			[2880] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4361::::::::6:::::::::|h[Copper Tube]|h|r",
 		["quality"] = 1,
 	}, -- [990]
@@ -14054,7 +14054,7 @@ addon.itemData = {
 			[2840] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4359::::::::6:::::::::|h[Handful of Copper Bolts]|h|r",
 		["quality"] = 1,
 	}, -- [991]
@@ -14066,7 +14066,7 @@ addon.itemData = {
 			[2835] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4357::::::::6:::::::::|h[Rough Blasting Powder]|h|r",
 		["quality"] = 1,
 	}, -- [992]
@@ -14081,7 +14081,7 @@ addon.itemData = {
 			[18631] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21570::::::::6:::::::::|h[Cluster Launcher]|h|r",
 		["quality"] = 1,
 	}, -- [993]
@@ -14096,7 +14096,7 @@ addon.itemData = {
 			[10560] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21569::::::::6:::::::::|h[Firework Launcher]|h|r",
 		["quality"] = 1,
 	}, -- [994]
@@ -14109,7 +14109,7 @@ addon.itemData = {
 			[2319] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21557::::::::6:::::::::|h[Small Red Rocket]|h|r",
 		["quality"] = 1,
 	}, -- [995]
@@ -14122,7 +14122,7 @@ addon.itemData = {
 			[2319] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21559::::::::6:::::::::|h[Small Green Rocket]|h|r",
 		["quality"] = 1,
 	}, -- [996]
@@ -14135,7 +14135,7 @@ addon.itemData = {
 			[2319] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21558::::::::6:::::::::|h[Small Blue Rocket]|h|r",
 		["quality"] = 1,
 	}, -- [997]
@@ -14148,7 +14148,7 @@ addon.itemData = {
 			[10505] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21576::::::::6:::::::::|h[Red Rocket Cluster]|h|r",
 		["quality"] = 1,
 	}, -- [998]
@@ -14161,7 +14161,7 @@ addon.itemData = {
 			[10505] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21574::::::::6:::::::::|h[Green Rocket Cluster]|h|r",
 		["quality"] = 1,
 	}, -- [999]
@@ -14174,7 +14174,7 @@ addon.itemData = {
 			[10505] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21571::::::::6:::::::::|h[Blue Rocket Cluster]|h|r",
 		["quality"] = 1,
 	}, -- [1000]
@@ -14187,7 +14187,7 @@ addon.itemData = {
 			[4234] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:9318::::::::6:::::::::|h[Red Firework]|h|r",
 		["quality"] = 1,
 	}, -- [1001]
@@ -14200,7 +14200,7 @@ addon.itemData = {
 			[4234] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:9313::::::::6:::::::::|h[Green Firework]|h|r",
 		["quality"] = 1,
 	}, -- [1002]
@@ -14213,7 +14213,7 @@ addon.itemData = {
 			[4234] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:9312::::::::6:::::::::|h[Blue Firework]|h|r",
 		["quality"] = 1,
 	}, -- [1003]
@@ -14226,7 +14226,7 @@ addon.itemData = {
 			[4234] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21592::::::::6:::::::::|h[Large Red Rocket]|h|r",
 		["quality"] = 1,
 	}, -- [1004]
@@ -14239,7 +14239,7 @@ addon.itemData = {
 			[4234] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21590::::::::6:::::::::|h[Large Green Rocket]|h|r",
 		["quality"] = 1,
 	}, -- [1005]
@@ -14252,7 +14252,7 @@ addon.itemData = {
 			[4234] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21589::::::::6:::::::::|h[Large Blue Rocket]|h|r",
 		["quality"] = 1,
 	}, -- [1006]
@@ -14265,7 +14265,7 @@ addon.itemData = {
 			[15992] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21718::::::::6:::::::::|h[Large Red Rocket Cluster]|h|r",
 		["quality"] = 1,
 	}, -- [1007]
@@ -14278,7 +14278,7 @@ addon.itemData = {
 			[15992] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21716::::::::6:::::::::|h[Large Green Rocket Cluster]|h|r",
 		["quality"] = 1,
 	}, -- [1008]
@@ -14291,7 +14291,7 @@ addon.itemData = {
 			[15992] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21714::::::::6:::::::::|h[Large Blue Rocket Cluster]|h|r",
 		["quality"] = 1,
 	}, -- [1009]
@@ -14305,7 +14305,7 @@ addon.itemData = {
 			[8150] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:19026::::::::6:::::::::|h[Snake Burst Firework]|h|r",
 		["quality"] = 1,
 	}, -- [1010]
@@ -14319,7 +14319,7 @@ addon.itemData = {
 			[16006] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:16040::::::::6:::::::::|h[Arcane Bomb]|h|r",
 		["quality"] = 1,
 	}, -- [1011]
@@ -14334,7 +14334,7 @@ addon.itemData = {
 			[15994] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:16005::::::::6:::::::::|h[Dark Iron Bomb]|h|r",
 		["quality"] = 1,
 	}, -- [1012]
@@ -14349,7 +14349,7 @@ addon.itemData = {
 			[14047] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:15993::::::::6:::::::::|h[Thorium Grenade]|h|r",
 		["quality"] = 1,
 	}, -- [1013]
@@ -14362,7 +14362,7 @@ addon.itemData = {
 			[14047] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:18641::::::::6:::::::::|h[Dense Dynamite]|h|r",
 		["quality"] = 1,
 	}, -- [1014]
@@ -14376,7 +14376,7 @@ addon.itemData = {
 			[10561] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10562::::::::6:::::::::|h[Hi-Explosive Bomb]|h|r",
 		["quality"] = 1,
 	}, -- [1015]
@@ -14391,7 +14391,7 @@ addon.itemData = {
 			[9061] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10586::::::::6:::::::::|h[The Big One]|h|r",
 		["quality"] = 1,
 	}, -- [1016]
@@ -14405,7 +14405,7 @@ addon.itemData = {
 			[4377] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4395::::::::6:::::::::|h[Goblin Land Mine]|h|r",
 		["quality"] = 1,
 	}, -- [1017]
@@ -14419,7 +14419,7 @@ addon.itemData = {
 			[10561] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10514::::::::6:::::::::|h[Mithril Frag Bomb]|h|r",
 		["quality"] = 1,
 	}, -- [1018]
@@ -14433,7 +14433,7 @@ addon.itemData = {
 			[4338] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10646::::::::6:::::::::|h[Goblin Sapper Charge]|h|r",
 		["quality"] = 1,
 	}, -- [1019]
@@ -14446,7 +14446,7 @@ addon.itemData = {
 			[10505] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:18588::::::::6:::::::::|h[Ez-Thro Dynamite II]|h|r",
 		["quality"] = 1,
 	}, -- [1020]
@@ -14460,7 +14460,7 @@ addon.itemData = {
 			[3575] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4394::::::::6:::::::::|h[Big Iron Bomb]|h|r",
 		["quality"] = 1,
 	}, -- [1021]
@@ -14474,7 +14474,7 @@ addon.itemData = {
 			[4611] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4852::::::::6:::::::::|h[Flash Bomb]|h|r",
 		["quality"] = 1,
 	}, -- [1022]
@@ -14488,7 +14488,7 @@ addon.itemData = {
 			[4377] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4390::::::::6:::::::::|h[Iron Grenade]|h|r",
 		["quality"] = 1,
 	}, -- [1023]
@@ -14501,7 +14501,7 @@ addon.itemData = {
 			[10505] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10507::::::::6:::::::::|h[Solid Dynamite]|h|r",
 		["quality"] = 1,
 	}, -- [1024]
@@ -14516,7 +14516,7 @@ addon.itemData = {
 			[4382] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4384::::::::6:::::::::|h[Explosive Sheep]|h|r",
 		["quality"] = 1,
 	}, -- [1025]
@@ -14530,7 +14530,7 @@ addon.itemData = {
 			[4404] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4380::::::::6:::::::::|h[Big Bronze Bomb]|h|r",
 		["quality"] = 1,
 	}, -- [1026]
@@ -14543,7 +14543,7 @@ addon.itemData = {
 			[2592] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4378::::::::6:::::::::|h[Heavy Dynamite]|h|r",
 		["quality"] = 1,
 	}, -- [1027]
@@ -14558,7 +14558,7 @@ addon.itemData = {
 			[4364] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4374::::::::6:::::::::|h[Small Bronze Bomb]|h|r",
 		["quality"] = 1,
 	}, -- [1028]
@@ -14571,7 +14571,7 @@ addon.itemData = {
 			[2592] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:6714::::::::6:::::::::|h[Ez-Thro Dynamite]|h|r",
 		["quality"] = 1,
 	}, -- [1029]
@@ -14585,7 +14585,7 @@ addon.itemData = {
 			[2840] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4370::::::::6:::::::::|h[Large Copper Bomb]|h|r",
 		["quality"] = 1,
 	}, -- [1030]
@@ -14598,7 +14598,7 @@ addon.itemData = {
 			[4364] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4365::::::::6:::::::::|h[Coarse Dynamite]|h|r",
 		["quality"] = 1,
 	}, -- [1031]
@@ -14613,7 +14613,7 @@ addon.itemData = {
 			[4359] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4360::::::::6:::::::::|h[Rough Copper Bomb]|h|r",
 		["quality"] = 1,
 	}, -- [1032]
@@ -14626,7 +14626,7 @@ addon.itemData = {
 			[4357] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4358::::::::6:::::::::|h[Rough Dynamite]|h|r",
 		["quality"] = 1,
 	}, -- [1033]
@@ -14641,7 +14641,7 @@ addon.itemData = {
 			[10558] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:15996::::::::6:::::::::|h[Lifelike Mechanical Toad]|h|r",
 		["quality"] = 1,
 	}, -- [1034]
@@ -14657,7 +14657,7 @@ addon.itemData = {
 			[3860] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:11826::::::::6:::::::::|h[Lil' Smoky]|h|r",
 		["quality"] = 1,
 	}, -- [1035]
@@ -14672,7 +14672,7 @@ addon.itemData = {
 			[7077] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:11825::::::::6:::::::::|h[Pet Bombling]|h|r",
 		["quality"] = 1,
 	}, -- [1036]
@@ -14687,7 +14687,7 @@ addon.itemData = {
 			[4359] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4401::::::::6:::::::::|h[Mechanical Squirrel Box]|h|r",
 		["quality"] = 1,
 	}, -- [1037]
@@ -14702,7 +14702,7 @@ addon.itemData = {
 			[159] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:18594::::::::6:::::::::|h[Powerful Seaforium Charge]|h|r",
 		["quality"] = 1,
 	}, -- [1038]
@@ -14716,7 +14716,7 @@ addon.itemData = {
 			[4234] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4398::::::::6:::::::::|h[Large Seaforium Charge]|h|r",
 		["quality"] = 1,
 	}, -- [1039]
@@ -14731,7 +14731,7 @@ addon.itemData = {
 			[159] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4367::::::::6:::::::::|h[Small Seaforium Charge]|h|r",
 		["quality"] = 1,
 	}, -- [1040]
@@ -14747,7 +14747,7 @@ addon.itemData = {
 			[7068] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:18232::::::::6:::::::::|h[Field Repair Bot 74A]|h|r",
 		["quality"] = 1,
 	}, -- [1041]
@@ -14761,7 +14761,7 @@ addon.itemData = {
 			[4338] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:11590::::::::6:::::::::|h[Mechanical Repair Kit]|h|r",
 		["quality"] = 1,
 	}, -- [1042]
@@ -14778,7 +14778,7 @@ addon.itemData = {
 			[10561] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:16023::::::::6:::::::::|h[Masterwork Target Dummy]|h|r",
 		["quality"] = 1,
 	}, -- [1043]
@@ -14793,7 +14793,7 @@ addon.itemData = {
 			[4234] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4392::::::::6:::::::::|h[Advanced Target Dummy]|h|r",
 		["quality"] = 1,
 	}, -- [1044]
@@ -14808,7 +14808,7 @@ addon.itemData = {
 			[2592] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4366::::::::6:::::::::|h[Target Dummy]|h|r",
 		["quality"] = 1,
 	}, -- [1045]
@@ -14822,7 +14822,7 @@ addon.itemData = {
 			[10558] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:22728::::::::6:::::::::|h[Steam Tonk Controller]|h|r",
 		["quality"] = 1,
 	}, -- [1046]
@@ -14836,7 +14836,7 @@ addon.itemData = {
 			[2841] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:6533::::::::6:::::::::|h[Aquadynamic Fish Attractor]|h|r",
 		["quality"] = 1,
 	}, -- [1047]
@@ -14849,7 +14849,7 @@ addon.itemData = {
 			[10648] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10644::::::::6:::::::::|h[Recipe: Goblin Rocket Fuel]|h|r",
 		["quality"] = 1,
 	}, -- [1048]
@@ -14862,7 +14862,7 @@ addon.itemData = {
 			[4375] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4386::::::::6:::::::::|h[Ice Deflector]|h|r",
 		["quality"] = 1,
 	}, -- [1049]
@@ -14875,7 +14875,7 @@ addon.itemData = {
 			[4375] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4376::::::::6:::::::::|h[Flame Deflector]|h|r",
 		["quality"] = 1,
 	}, -- [1050]
@@ -14891,7 +14891,7 @@ addon.itemData = {
 			[10561] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cff1eff00|Hitem:18660::::::::6:::::::::|h[World Enlarger]|h|r",
 		["quality"] = 2,
 	}, -- [1051]
@@ -14903,7 +14903,7 @@ addon.itemData = {
 			[3859] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10498::::::::6:::::::::|h[Gyromatic Micro-Adjustor]|h|r",
 		["quality"] = 1,
 	}, -- [1052]
@@ -14918,7 +14918,7 @@ addon.itemData = {
 			[4375] = 3,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4388::::::::6:::::::::|h[Discombobulator Ray]|h|r",
 		["quality"] = 1,
 	}, -- [1053]
@@ -14934,7 +14934,7 @@ addon.itemData = {
 			[10558] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:21277::::::::6:::::::::|h[Tranquil Mechanical Yeti]|h|r",
 		["quality"] = 1,
 	}, -- [1054]
@@ -14950,7 +14950,7 @@ addon.itemData = {
 			[7910] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:18645::::::::6:::::::::|h[Gnomish Alarm-O-Bot]|h|r",
 		["quality"] = 1,
 	}, -- [1055]
@@ -14965,7 +14965,7 @@ addon.itemData = {
 			[10561] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:15846::::::::6:::::::::|h[Salt Shaker]|h|r",
 		["quality"] = 1,
 	}, -- [1056]
@@ -14980,7 +14980,7 @@ addon.itemData = {
 			[4389] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:17716::::::::6:::::::::|h[SnowMaster 9000]|h|r",
 		["quality"] = 1,
 	}, -- [1057]
@@ -14995,7 +14995,7 @@ addon.itemData = {
 			[4234] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4391::::::::6:::::::::|h[Compact Harvest Reaper Kit]|h|r",
 		["quality"] = 1,
 	}, -- [1058]
@@ -15010,7 +15010,7 @@ addon.itemData = {
 			[4377] = 4,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:4403::::::::6:::::::::|h[Portable Bronze Mortar]|h|r",
 		["quality"] = 1,
 	}, -- [1059]
@@ -15025,7 +15025,7 @@ addon.itemData = {
 			[4363] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:5507::::::::6:::::::::|h[Ornate Spyglass]|h|r",
 		["quality"] = 1,
 	}, -- [1060]
@@ -15039,7 +15039,7 @@ addon.itemData = {
 			[2880] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:6712::::::::6:::::::::|h[Practice Lock]|h|r",
 		["quality"] = 1,
 	}, -- [1061]
@@ -15052,7 +15052,7 @@ addon.itemData = {
 			[10648] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 202,
+		["tradeskillID"] = 202,
 		["itemLink"] = "|cffffffff|Hitem:10713::::::::6:::::::::|h[Plans: Inlaid Mithril Cylinder]|h|r",
 		["quality"] = 1,
 	}, -- [1062]
@@ -15064,7 +15064,7 @@ addon.itemData = {
 			[14047] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:14530::::::::6:::::::::|h[Heavy Runecloth Bandage]|h|r",
 		["quality"] = 1,
 	}, -- [1063]
@@ -15076,7 +15076,7 @@ addon.itemData = {
 			[14047] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:14529::::::::6:::::::::|h[Runecloth Bandage]|h|r",
 		["quality"] = 1,
 	}, -- [1064]
@@ -15088,7 +15088,7 @@ addon.itemData = {
 			[4338] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:8545::::::::6:::::::::|h[Heavy Mageweave Bandage]|h|r",
 		["quality"] = 1,
 	}, -- [1065]
@@ -15100,7 +15100,7 @@ addon.itemData = {
 			[4338] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:8544::::::::6:::::::::|h[Mageweave Bandage]|h|r",
 		["quality"] = 1,
 	}, -- [1066]
@@ -15112,7 +15112,7 @@ addon.itemData = {
 			[4306] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:6451::::::::6:::::::::|h[Heavy Silk Bandage]|h|r",
 		["quality"] = 1,
 	}, -- [1067]
@@ -15124,7 +15124,7 @@ addon.itemData = {
 			[4306] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:6450::::::::6:::::::::|h[Silk Bandage]|h|r",
 		["quality"] = 1,
 	}, -- [1068]
@@ -15136,7 +15136,7 @@ addon.itemData = {
 			[2592] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:3531::::::::6:::::::::|h[Heavy Wool Bandage]|h|r",
 		["quality"] = 1,
 	}, -- [1069]
@@ -15148,7 +15148,7 @@ addon.itemData = {
 			[2592] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:3530::::::::6:::::::::|h[Wool Bandage]|h|r",
 		["quality"] = 1,
 	}, -- [1070]
@@ -15160,7 +15160,7 @@ addon.itemData = {
 			[2589] = 2,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:2581::::::::6:::::::::|h[Heavy Linen Bandage]|h|r",
 		["quality"] = 1,
 	}, -- [1071]
@@ -15172,7 +15172,7 @@ addon.itemData = {
 			[2589] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:1251::::::::6:::::::::|h[Linen Bandage]|h|r",
 		["quality"] = 1,
 	}, -- [1072]
@@ -15184,7 +15184,7 @@ addon.itemData = {
 			[19441] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:19440::::::::6:::::::::|h[Powerful Anti-Venom]|h|r",
 		["quality"] = 1,
 	}, -- [1073]
@@ -15196,7 +15196,7 @@ addon.itemData = {
 			[1288] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:6453::::::::6:::::::::|h[Strong Anti-Venom]|h|r",
 		["quality"] = 1,
 	}, -- [1074]
@@ -15208,7 +15208,7 @@ addon.itemData = {
 			[1475] = 1,
 		},
 		["inventorySlot"] = 0,
-		["professionID"] = 129,
+		["tradeskillID"] = 129,
 		["itemLink"] = "|cffffffff|Hitem:6452::::::::6:::::::::|h[Anti-Venom]|h|r",
 		["quality"] = 1,
 	}, -- [1075]
@@ -15222,7 +15222,7 @@ addon.itemData = {
 		["name"] = "Brilliant Mana Oil",
 		["spellID"] = 25130,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25130",
 		["quality"] = 1,
 	}, -- [1076]
@@ -15236,7 +15236,7 @@ addon.itemData = {
 		["name"] = "Brilliant Wizard Oil",
 		["spellID"] = 25129,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25129",
 		["quality"] = 1,
 	}, -- [1077]
@@ -15250,7 +15250,7 @@ addon.itemData = {
 		["name"] = "Wizard Oil",
 		["spellID"] = 25128,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25128",
 		["quality"] = 1,
 	}, -- [1078]
@@ -15264,7 +15264,7 @@ addon.itemData = {
 		["name"] = "Lesser Mana Oil",
 		["spellID"] = 25127,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25127",
 		["quality"] = 1,
 	}, -- [1079]
@@ -15278,7 +15278,7 @@ addon.itemData = {
 		["name"] = "Lesser Wizard Oil",
 		["spellID"] = 25126,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25126",
 		["quality"] = 1,
 	}, -- [1080]
@@ -15292,7 +15292,7 @@ addon.itemData = {
 		["name"] = "Minor Mana Oil",
 		["spellID"] = 25125,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25125",
 		["quality"] = 1,
 	}, -- [1081]
@@ -15306,7 +15306,7 @@ addon.itemData = {
 		["name"] = "Minor Wizard Oil",
 		["spellID"] = 25124,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25124",
 		["quality"] = 1,
 	}, -- [1082]
@@ -15320,7 +15320,7 @@ addon.itemData = {
 		["name"] = "Greater Mystic Wand",
 		["spellID"] = 14810,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:14810",
 		["quality"] = 1,
 	}, -- [1083]
@@ -15334,7 +15334,7 @@ addon.itemData = {
 		["name"] = "Lesser Mystic Wand",
 		["spellID"] = 14809,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:14809",
 		["quality"] = 1,
 	}, -- [1084]
@@ -15347,7 +15347,7 @@ addon.itemData = {
 		["name"] = "Greater Magic Wand",
 		["spellID"] = 14807,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:14807",
 		["quality"] = 1,
 	}, -- [1085]
@@ -15360,7 +15360,7 @@ addon.itemData = {
 		["name"] = "Lesser Magic Wand",
 		["spellID"] = 14293,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:14293",
 		["quality"] = 1,
 	}, -- [1086]
@@ -15377,7 +15377,7 @@ addon.itemData = {
 		["name"] = "Runed Arcanite Rod",
 		["spellID"] = 20051,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20051",
 		["quality"] = 1,
 	}, -- [1087]
@@ -15392,7 +15392,7 @@ addon.itemData = {
 		["name"] = "Runed Truesilver Rod",
 		["spellID"] = 13702,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13702",
 		["quality"] = 1,
 	}, -- [1088]
@@ -15407,7 +15407,7 @@ addon.itemData = {
 		["name"] = "Runed Golden Rod",
 		["spellID"] = 13628,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13628",
 		["quality"] = 1,
 	}, -- [1089]
@@ -15422,7 +15422,7 @@ addon.itemData = {
 		["name"] = "Runed Silver Rod",
 		["spellID"] = 7795,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7795",
 		["quality"] = 1,
 	}, -- [1090]
@@ -15436,7 +15436,7 @@ addon.itemData = {
 		["name"] = "Runed Copper Rod",
 		["spellID"] = 7421,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7421",
 		["quality"] = 1,
 	}, -- [1091]
@@ -15450,7 +15450,7 @@ addon.itemData = {
 		["name"] = "Smoking Heart of the Mountain",
 		["spellID"] = 15596,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:15596",
 		["quality"] = 1,
 	}, -- [1092]
@@ -15463,7 +15463,7 @@ addon.itemData = {
 		["name"] = "Enchanted Leather",
 		["spellID"] = 17181,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:17181",
 		["quality"] = 1,
 	}, -- [1093]
@@ -15476,7 +15476,7 @@ addon.itemData = {
 		["name"] = "Enchanted Thorium",
 		["spellID"] = 17180,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:17180",
 		["quality"] = 1,
 	}, -- [1094]
@@ -15490,7 +15490,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Mighty Intellect",
 		["spellID"] = 23804,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:23804",
 		["quality"] = 1,
 	}, -- [1095]
@@ -15503,7 +15503,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Crusader",
 		["spellID"] = 20034,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20034",
 		["quality"] = 1,
 	}, -- [1096]
@@ -15517,7 +15517,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Lifestealing",
 		["spellID"] = 20032,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20032",
 		["quality"] = 1,
 	}, -- [1097]
@@ -15534,7 +15534,7 @@ addon.itemData = {
 		["name"] = "Enchant  Weapon - Spell Power",
 		["spellID"] = 22749,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:22749",
 		["quality"] = 1,
 	}, -- [1098]
@@ -15550,7 +15550,7 @@ addon.itemData = {
 		["name"] = "Enchant  Weapon - Healing Power",
 		["spellID"] = 22750,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:22750",
 		["quality"] = 1,
 	}, -- [1099]
@@ -15564,7 +15564,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Mighty Spirit",
 		["spellID"] = 23803,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:23803",
 		["quality"] = 1,
 	}, -- [1100]
@@ -15577,7 +15577,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Superior Striking",
 		["spellID"] = 20031,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20031",
 		["quality"] = 1,
 	}, -- [1101]
@@ -15590,7 +15590,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Unholy Weapon",
 		["spellID"] = 20033,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20033",
 		["quality"] = 1,
 	}, -- [1102]
@@ -15605,7 +15605,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Strength",
 		["spellID"] = 23799,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:23799",
 		["quality"] = 1,
 	}, -- [1103]
@@ -15620,7 +15620,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Agility",
 		["spellID"] = 23800,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:23800",
 		["quality"] = 1,
 	}, -- [1104]
@@ -15635,7 +15635,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Icy Chill",
 		["spellID"] = 20029,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20029",
 		["quality"] = 1,
 	}, -- [1105]
@@ -15648,7 +15648,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Fiery Weapon",
 		["spellID"] = 13898,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13898",
 		["quality"] = 1,
 	}, -- [1106]
@@ -15661,7 +15661,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Greater Striking",
 		["spellID"] = 13943,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13943",
 		["quality"] = 1,
 	}, -- [1107]
@@ -15675,7 +15675,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Demonslaying",
 		["spellID"] = 13915,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13915",
 		["quality"] = 1,
 	}, -- [1108]
@@ -15688,7 +15688,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Striking",
 		["spellID"] = 13693,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13693",
 		["quality"] = 1,
 	}, -- [1109]
@@ -15703,7 +15703,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Winter's Might",
 		["spellID"] = 21931,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:21931",
 		["quality"] = 1,
 	}, -- [1110]
@@ -15717,7 +15717,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Lesser Beastslayer",
 		["spellID"] = 13653,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13653",
 		["quality"] = 1,
 	}, -- [1111]
@@ -15731,7 +15731,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Lesser Elemental Slayer",
 		["spellID"] = 13655,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13655",
 		["quality"] = 1,
 	}, -- [1112]
@@ -15744,7 +15744,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Lesser Striking",
 		["spellID"] = 13503,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13503",
 		["quality"] = 1,
 	}, -- [1113]
@@ -15758,7 +15758,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Minor Striking",
 		["spellID"] = 7788,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7788",
 		["quality"] = 1,
 	}, -- [1114]
@@ -15771,7 +15771,7 @@ addon.itemData = {
 		["name"] = "Enchant Weapon - Minor Beastslayer",
 		["spellID"] = 7786,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7786",
 		["quality"] = 1,
 	}, -- [1115]
@@ -15784,7 +15784,7 @@ addon.itemData = {
 		["name"] = "Enchant 2H Weapon - Major Spirit",
 		["spellID"] = 20035,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20035",
 		["quality"] = 1,
 	}, -- [1116]
@@ -15797,7 +15797,7 @@ addon.itemData = {
 		["name"] = "Enchant 2H Weapon - Major Intellect",
 		["spellID"] = 20036,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20036",
 		["quality"] = 1,
 	}, -- [1117]
@@ -15810,7 +15810,7 @@ addon.itemData = {
 		["name"] = "Enchant 2H Weapon - Superior Impact",
 		["spellID"] = 20030,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20030",
 		["quality"] = 1,
 	}, -- [1118]
@@ -15825,7 +15825,7 @@ addon.itemData = {
 		["name"] = "Enchant 2H Weapon - Agility",
 		["spellID"] = 27837,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:27837",
 		["quality"] = 1,
 	}, -- [1119]
@@ -15838,7 +15838,7 @@ addon.itemData = {
 		["name"] = "Enchant 2H Weapon - Greater Impact",
 		["spellID"] = 13937,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13937",
 		["quality"] = 1,
 	}, -- [1120]
@@ -15851,7 +15851,7 @@ addon.itemData = {
 		["name"] = "Enchant 2H Weapon - Impact",
 		["spellID"] = 13695,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13695",
 		["quality"] = 1,
 	}, -- [1121]
@@ -15864,7 +15864,7 @@ addon.itemData = {
 		["name"] = "Enchant 2H Weapon - Lesser Impact",
 		["spellID"] = 13529,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13529",
 		["quality"] = 1,
 	}, -- [1122]
@@ -15877,7 +15877,7 @@ addon.itemData = {
 		["name"] = "Enchant 2H Weapon - Lesser Spirit",
 		["spellID"] = 13380,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13380",
 		["quality"] = 1,
 	}, -- [1123]
@@ -15890,7 +15890,7 @@ addon.itemData = {
 		["name"] = "Enchant 2H Weapon - Minor Impact",
 		["spellID"] = 7745,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7745",
 		["quality"] = 1,
 	}, -- [1124]
@@ -15902,7 +15902,7 @@ addon.itemData = {
 		["name"] = "Enchant 2H Weapon - Lesser Intellect",
 		["spellID"] = 7793,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7793",
 		["quality"] = 1,
 	}, -- [1125]
@@ -15916,7 +15916,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Dodge",
 		["spellID"] = 25086,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25086",
 		["quality"] = 1,
 	}, -- [1126]
@@ -15930,7 +15930,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Greater Fire Resistance",
 		["spellID"] = 25081,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25081",
 		["quality"] = 1,
 	}, -- [1127]
@@ -15944,7 +15944,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Greater Nature Resistance",
 		["spellID"] = 25082,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25082",
 		["quality"] = 1,
 	}, -- [1128]
@@ -15958,7 +15958,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Subtlety",
 		["spellID"] = 25084,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25084",
 		["quality"] = 1,
 	}, -- [1129]
@@ -15972,7 +15972,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Stealth",
 		["spellID"] = 25083,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25083",
 		["quality"] = 1,
 	}, -- [1130]
@@ -15984,7 +15984,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Superior Defense",
 		["spellID"] = 20015,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20015",
 		["quality"] = 1,
 	}, -- [1131]
@@ -16001,7 +16001,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Greater Resistance",
 		["spellID"] = 20014,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20014",
 		["quality"] = 1,
 	}, -- [1132]
@@ -16013,7 +16013,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Lesser Agility",
 		["spellID"] = 13882,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13882",
 		["quality"] = 1,
 	}, -- [1133]
@@ -16025,7 +16025,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Resistance",
 		["spellID"] = 13794,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13794",
 		["quality"] = 1,
 	}, -- [1134]
@@ -16037,7 +16037,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Greater Defense",
 		["spellID"] = 13746,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13746",
 		["quality"] = 1,
 	}, -- [1135]
@@ -16050,7 +16050,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Fire Resistance",
 		["spellID"] = 13657,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13657",
 		["quality"] = 1,
 	}, -- [1136]
@@ -16063,7 +16063,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Defense",
 		["spellID"] = 13635,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13635",
 		["quality"] = 1,
 	}, -- [1137]
@@ -16076,7 +16076,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Lesser Shadow Resistance",
 		["spellID"] = 13522,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13522",
 		["quality"] = 1,
 	}, -- [1138]
@@ -16089,7 +16089,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Lesser Fire Resistance",
 		["spellID"] = 7861,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7861",
 		["quality"] = 1,
 	}, -- [1139]
@@ -16102,7 +16102,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Lesser Protection",
 		["spellID"] = 13421,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13421",
 		["quality"] = 1,
 	}, -- [1140]
@@ -16114,7 +16114,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Minor Agility",
 		["spellID"] = 13419,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13419",
 		["quality"] = 1,
 	}, -- [1141]
@@ -16127,7 +16127,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Minor Protection",
 		["spellID"] = 7771,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7771",
 		["quality"] = 1,
 	}, -- [1142]
@@ -16140,7 +16140,7 @@ addon.itemData = {
 		["name"] = "Enchant Cloak - Minor Resistance",
 		["spellID"] = 7454,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7454",
 		["quality"] = 1,
 	}, -- [1143]
@@ -16154,7 +16154,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Greater Stats",
 		["spellID"] = 20025,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20025",
 		["quality"] = 1,
 	}, -- [1144]
@@ -16167,7 +16167,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Major Mana",
 		["spellID"] = 20028,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20028",
 		["quality"] = 1,
 	}, -- [1145]
@@ -16180,7 +16180,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Major Health",
 		["spellID"] = 20026,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20026",
 		["quality"] = 1,
 	}, -- [1146]
@@ -16194,7 +16194,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Stats",
 		["spellID"] = 13941,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13941",
 		["quality"] = 1,
 	}, -- [1147]
@@ -16207,7 +16207,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Superior Mana",
 		["spellID"] = 13917,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13917",
 		["quality"] = 1,
 	}, -- [1148]
@@ -16219,7 +16219,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Superior Health",
 		["spellID"] = 13858,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13858",
 		["quality"] = 1,
 	}, -- [1149]
@@ -16233,7 +16233,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Lesser Stats",
 		["spellID"] = 13700,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13700",
 		["quality"] = 1,
 	}, -- [1150]
@@ -16245,7 +16245,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Greater Mana",
 		["spellID"] = 13663,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13663",
 		["quality"] = 1,
 	}, -- [1151]
@@ -16257,7 +16257,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Greater Health",
 		["spellID"] = 13640,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13640",
 		["quality"] = 1,
 	}, -- [1152]
@@ -16271,7 +16271,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Minor Stats",
 		["spellID"] = 13626,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13626",
 		["quality"] = 1,
 	}, -- [1153]
@@ -16284,7 +16284,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Mana",
 		["spellID"] = 13607,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13607",
 		["quality"] = 1,
 	}, -- [1154]
@@ -16298,7 +16298,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Lesser Absorption",
 		["spellID"] = 13538,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13538",
 		["quality"] = 1,
 	}, -- [1155]
@@ -16311,7 +16311,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Health",
 		["spellID"] = 7857,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7857",
 		["quality"] = 1,
 	}, -- [1156]
@@ -16324,7 +16324,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Lesser Mana",
 		["spellID"] = 7776,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7776",
 		["quality"] = 1,
 	}, -- [1157]
@@ -16337,7 +16337,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Lesser Health",
 		["spellID"] = 7748,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7748",
 		["quality"] = 1,
 	}, -- [1158]
@@ -16350,7 +16350,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Minor Absorption",
 		["spellID"] = 7426,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7426",
 		["quality"] = 1,
 	}, -- [1159]
@@ -16362,7 +16362,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Minor Mana",
 		["spellID"] = 7443,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7443",
 		["quality"] = 1,
 	}, -- [1160]
@@ -16374,7 +16374,7 @@ addon.itemData = {
 		["name"] = "Enchant Chest - Minor Health",
 		["spellID"] = 7420,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7420",
 		["quality"] = 1,
 	}, -- [1161]
@@ -16386,7 +16386,7 @@ addon.itemData = {
 		["name"] = "Enchant Boots - Greater Agility",
 		["spellID"] = 20023,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20023",
 		["quality"] = 1,
 	}, -- [1162]
@@ -16399,7 +16399,7 @@ addon.itemData = {
 		["name"] = "Enchant Boots - Spirit",
 		["spellID"] = 20024,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20024",
 		["quality"] = 1,
 	}, -- [1163]
@@ -16411,7 +16411,7 @@ addon.itemData = {
 		["name"] = "Enchant Boots - Greater Stamina",
 		["spellID"] = 20020,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20020",
 		["quality"] = 1,
 	}, -- [1164]
@@ -16423,7 +16423,7 @@ addon.itemData = {
 		["name"] = "Enchant Boots - Agility",
 		["spellID"] = 13935,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13935",
 		["quality"] = 1,
 	}, -- [1165]
@@ -16437,7 +16437,7 @@ addon.itemData = {
 		["name"] = "Enchant Boots - Minor Speed",
 		["spellID"] = 13890,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13890",
 		["quality"] = 1,
 	}, -- [1166]
@@ -16449,7 +16449,7 @@ addon.itemData = {
 		["name"] = "Enchant Boots - Stamina",
 		["spellID"] = 13836,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13836",
 		["quality"] = 1,
 	}, -- [1167]
@@ -16462,7 +16462,7 @@ addon.itemData = {
 		["name"] = "Enchant Boots - Lesser Spirit",
 		["spellID"] = 13687,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13687",
 		["quality"] = 1,
 	}, -- [1168]
@@ -16474,7 +16474,7 @@ addon.itemData = {
 		["name"] = "Enchant Boots - Lesser Stamina",
 		["spellID"] = 13644,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13644",
 		["quality"] = 1,
 	}, -- [1169]
@@ -16487,7 +16487,7 @@ addon.itemData = {
 		["name"] = "Enchant Boots - Lesser Agility",
 		["spellID"] = 13637,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13637",
 		["quality"] = 1,
 	}, -- [1170]
@@ -16500,7 +16500,7 @@ addon.itemData = {
 		["name"] = "Enchant Boots - Minor Agility",
 		["spellID"] = 7867,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7867",
 		["quality"] = 1,
 	}, -- [1171]
@@ -16512,7 +16512,7 @@ addon.itemData = {
 		["name"] = "Enchant Boots - Minor Stamina",
 		["spellID"] = 7863,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7863",
 		["quality"] = 1,
 	}, -- [1172]
@@ -16526,7 +16526,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Superior Agility",
 		["spellID"] = 25080,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25080",
 		["quality"] = 1,
 	}, -- [1173]
@@ -16540,7 +16540,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Shadow Power",
 		["spellID"] = 25073,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25073",
 		["quality"] = 1,
 	}, -- [1174]
@@ -16554,7 +16554,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Frost Power",
 		["spellID"] = 25074,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25074",
 		["quality"] = 1,
 	}, -- [1175]
@@ -16568,7 +16568,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Threat",
 		["spellID"] = 25072,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25072",
 		["quality"] = 1,
 	}, -- [1176]
@@ -16582,7 +16582,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Healing Power",
 		["spellID"] = 25079,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25079",
 		["quality"] = 1,
 	}, -- [1177]
@@ -16596,7 +16596,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Fire Power",
 		["spellID"] = 25078,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:25078",
 		["quality"] = 1,
 	}, -- [1178]
@@ -16609,7 +16609,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Greater Strength",
 		["spellID"] = 20013,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20013",
 		["quality"] = 1,
 	}, -- [1179]
@@ -16622,7 +16622,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Greater Agility",
 		["spellID"] = 20012,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20012",
 		["quality"] = 1,
 	}, -- [1180]
@@ -16635,7 +16635,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Minor Haste",
 		["spellID"] = 13948,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13948",
 		["quality"] = 1,
 	}, -- [1181]
@@ -16648,7 +16648,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Riding Skill",
 		["spellID"] = 13947,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13947",
 		["quality"] = 1,
 	}, -- [1182]
@@ -16661,7 +16661,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Advanced Herbalism",
 		["spellID"] = 13868,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13868",
 		["quality"] = 1,
 	}, -- [1183]
@@ -16674,7 +16674,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Strength",
 		["spellID"] = 13887,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13887",
 		["quality"] = 1,
 	}, -- [1184]
@@ -16687,7 +16687,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Advanced Mining",
 		["spellID"] = 13841,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13841",
 		["quality"] = 1,
 	}, -- [1185]
@@ -16700,7 +16700,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Agility",
 		["spellID"] = 13815,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13815",
 		["quality"] = 1,
 	}, -- [1186]
@@ -16713,7 +16713,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Skinning",
 		["spellID"] = 13698,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13698",
 		["quality"] = 1,
 	}, -- [1187]
@@ -16726,7 +16726,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Herbalism",
 		["spellID"] = 13617,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13617",
 		["quality"] = 1,
 	}, -- [1188]
@@ -16739,7 +16739,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Fishing",
 		["spellID"] = 13620,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13620",
 		["quality"] = 1,
 	}, -- [1189]
@@ -16752,7 +16752,7 @@ addon.itemData = {
 		["name"] = "Enchant Gloves - Mining",
 		["spellID"] = 13612,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13612",
 		["quality"] = 1,
 	}, -- [1190]
@@ -16765,7 +16765,7 @@ addon.itemData = {
 		["name"] = "Enchant Shield - Superior Spirit",
 		["spellID"] = 20016,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20016",
 		["quality"] = 1,
 	}, -- [1191]
@@ -16777,7 +16777,7 @@ addon.itemData = {
 		["name"] = "Enchant Shield - Greater Stamina",
 		["spellID"] = 20017,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20017",
 		["quality"] = 1,
 	}, -- [1192]
@@ -16790,7 +16790,7 @@ addon.itemData = {
 		["name"] = "Enchant Shield - Frost Resistance",
 		["spellID"] = 13933,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13933",
 		["quality"] = 1,
 	}, -- [1193]
@@ -16803,7 +16803,7 @@ addon.itemData = {
 		["name"] = "Enchant Shield - Greater Spirit",
 		["spellID"] = 13905,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13905",
 		["quality"] = 1,
 	}, -- [1194]
@@ -16815,7 +16815,7 @@ addon.itemData = {
 		["name"] = "Enchant Shield - Stamina",
 		["spellID"] = 13817,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13817",
 		["quality"] = 1,
 	}, -- [1195]
@@ -16829,7 +16829,7 @@ addon.itemData = {
 		["name"] = "Enchant Shield - Lesser Block",
 		["spellID"] = 13689,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13689",
 		["quality"] = 1,
 	}, -- [1196]
@@ -16842,7 +16842,7 @@ addon.itemData = {
 		["name"] = "Enchant Shield - Spirit",
 		["spellID"] = 13659,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13659",
 		["quality"] = 1,
 	}, -- [1197]
@@ -16855,7 +16855,7 @@ addon.itemData = {
 		["name"] = "Enchant Shield - Lesser Stamina",
 		["spellID"] = 13631,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13631",
 		["quality"] = 1,
 	}, -- [1198]
@@ -16868,7 +16868,7 @@ addon.itemData = {
 		["name"] = "Enchant Shield - Lesser Spirit",
 		["spellID"] = 13485,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13485",
 		["quality"] = 1,
 	}, -- [1199]
@@ -16882,7 +16882,7 @@ addon.itemData = {
 		["name"] = "Enchant Shield - Lesser Protection",
 		["spellID"] = 13464,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13464",
 		["quality"] = 1,
 	}, -- [1200]
@@ -16895,7 +16895,7 @@ addon.itemData = {
 		["name"] = "Enchant Shield - Minor Stamina",
 		["spellID"] = 13378,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13378",
 		["quality"] = 1,
 	}, -- [1201]
@@ -16910,7 +16910,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Healing Power",
 		["spellID"] = 23802,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:23802",
 		["quality"] = 1,
 	}, -- [1202]
@@ -16922,7 +16922,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Superior Stamina",
 		["spellID"] = 20011,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20011",
 		["quality"] = 1,
 	}, -- [1203]
@@ -16935,7 +16935,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Superior Strength",
 		["spellID"] = 20010,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20010",
 		["quality"] = 1,
 	}, -- [1204]
@@ -16949,7 +16949,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Mana Regeneration",
 		["spellID"] = 23801,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:23801",
 		["quality"] = 1,
 	}, -- [1205]
@@ -16962,7 +16962,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Superior Spirit",
 		["spellID"] = 20009,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20009",
 		["quality"] = 1,
 	}, -- [1206]
@@ -16974,7 +16974,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Greater Intellect",
 		["spellID"] = 20008,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:20008",
 		["quality"] = 1,
 	}, -- [1207]
@@ -16986,7 +16986,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Greater Stamina",
 		["spellID"] = 13945,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13945",
 		["quality"] = 1,
 	}, -- [1208]
@@ -16999,7 +16999,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Greater Strength",
 		["spellID"] = 13939,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13939",
 		["quality"] = 1,
 	}, -- [1209]
@@ -17012,7 +17012,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Deflection",
 		["spellID"] = 13931,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13931",
 		["quality"] = 1,
 	}, -- [1210]
@@ -17025,7 +17025,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Greater Spirit",
 		["spellID"] = 13846,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13846",
 		["quality"] = 1,
 	}, -- [1211]
@@ -17037,7 +17037,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Intellect",
 		["spellID"] = 13822,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13822",
 		["quality"] = 1,
 	}, -- [1212]
@@ -17049,7 +17049,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Strength",
 		["spellID"] = 13661,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13661",
 		["quality"] = 1,
 	}, -- [1213]
@@ -17061,7 +17061,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Stamina",
 		["spellID"] = 13648,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13648",
 		["quality"] = 1,
 	}, -- [1214]
@@ -17074,7 +17074,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Lesser Deflection",
 		["spellID"] = 13646,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13646",
 		["quality"] = 1,
 	}, -- [1215]
@@ -17086,7 +17086,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Spirit",
 		["spellID"] = 13642,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13642",
 		["quality"] = 1,
 	}, -- [1216]
@@ -17098,7 +17098,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Lesser Intellect",
 		["spellID"] = 13622,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13622",
 		["quality"] = 1,
 	}, -- [1217]
@@ -17110,7 +17110,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Lesser Strength",
 		["spellID"] = 13536,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13536",
 		["quality"] = 1,
 	}, -- [1218]
@@ -17122,7 +17122,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Lesser Stamina",
 		["spellID"] = 13501,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:13501",
 		["quality"] = 1,
 	}, -- [1219]
@@ -17134,7 +17134,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Lesser Spirit",
 		["spellID"] = 7859,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7859",
 		["quality"] = 1,
 	}, -- [1220]
@@ -17147,7 +17147,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Minor Agility",
 		["spellID"] = 7779,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7779",
 		["quality"] = 1,
 	}, -- [1221]
@@ -17159,7 +17159,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Minor Strength",
 		["spellID"] = 7782,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7782",
 		["quality"] = 1,
 	}, -- [1222]
@@ -17171,7 +17171,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Minor Spirit",
 		["spellID"] = 7766,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7766",
 		["quality"] = 1,
 	}, -- [1223]
@@ -17183,7 +17183,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Minor Stamina",
 		["spellID"] = 7457,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7457",
 		["quality"] = 1,
 	}, -- [1224]
@@ -17196,7 +17196,7 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Minor Deflect",
 		["spellID"] = 7428,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7428",
 		["quality"] = 1,
 	}, -- [1225]
@@ -17208,8 +17208,15 @@ addon.itemData = {
 		["name"] = "Enchant Bracer - Minor Health",
 		["spellID"] = 7418,
 		["itemID"] = false,
-		["professionID"] = 333,
+		["tradeskillID"] = 333,
 		["itemLink"] = "|Hspell:7418",
 		["quality"] = 1,
 	}, -- [1226]
 }
+
+addon.itemIdToDataIndex = {}
+for k, v in ipairs(addon.itemData) do
+	if v.itemID then
+		addon.itemIdToDataIndex[v.itemID] = k
+	end
+end

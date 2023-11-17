@@ -182,14 +182,17 @@ function GuildbookChatMixin:Update()
         end)
         for k, v in ipairs(t) do
             local x = self.chats[v.name]
-            local atlas;
+            local atlas, name;
             if addon.characters[v.name] then
                 atlas = addon.characters[v.name]:GetProfileAvatar()
+                name = addon.characters[v.name]:GetName(true)
             else
                 atlas = "GarrMission_MissionIcon-Recruit"
+                name = v.name
             end
             table.insert(chatList, {
-                label = v.name,
+                label = name,
+                characterName = v.name,
                 atlas = atlas,
                 showMask = true,
 
@@ -235,7 +238,11 @@ function GuildbookChatMixin:SetChatHistory(history, player)
 end
 
 function GuildbookChatMixin:Chat_OnMessageReceived(data)
-    
+
+    if not self.chats then --db not sorted yet
+        return;
+    end
+
     if type(data) == "table" then
 
         local now = time();

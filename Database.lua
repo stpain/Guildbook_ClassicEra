@@ -5,19 +5,48 @@ local json = LibStub('JsonLua-1.0');
 local Database = {}
 
 local configUpdates = {
-    chatGuildHistoryLimit = 50,
-    chatWhisperHistoryLimit = 50,
 
+    --tradeskills
+    tradeskillsRecipesListviewShowItemID = false,
+    tradeskillsShareCooldowns = false,
     tradeskillsShowAllRecipeInfoTooltip = false,
     tradeskillsShowMyRecipeInfoTooltip = false,
-
     tradeskillsShowAllRecipesUsingTooltip = false,
     tradeskillsShowMyRecipesUsingTooltip = false,
+
+    --settings
+    chatGuildHistoryLimit = 30,
+    chatWhisperHistoryLimit = 30,
+
+    modBlizzRoster = false,
+}
+
+local dbUpdates = {
+    calendar = {
+        events = {},
+    },
+    dailies = {
+        quests = {},
+        characters = {},
+    },
+    chats = { --some errors about this causing a bug, maybe old version not getting update in the past
+        guild = {},
+    },
+    --agenda = {},
+}
+local dbToRemove = {
+    "worldEvents",
+    "calendar.birthdays"
 }
 
 function Database:Init()
 
-    --GUILDBOOK_GLOBAL = nil
+    local version = tonumber(GetAddOnMetadata(name, "Version"));
+
+    --due to updates from wrath, force the update UI
+    if version == 2 then
+        GUILDBOOK_GLOBAL.version = 1.9
+    end
 
     if not GUILDBOOK_GLOBAL then
         GUILDBOOK_GLOBAL = {
@@ -28,17 +57,44 @@ function Database:Init()
             minimapButton = {},
             calendarButton = {},
             guilds = {},
-            worldEvents = {},
             myCharacters = {},
             characterDirectory = {},
             chats = {
                 guild = {},
             },
             debug = false,
+            version = version,
+            calendar = {
+                events = {},
+            },
+            dailies = {
+                quests = {},
+                characters = {},
+            },
         }
     end
 
     self.db = GUILDBOOK_GLOBAL;
+
+    for k, v in pairs(dbUpdates) do
+        if not self.db[k] then
+            self.db[k] = v;
+        end
+    end
+    for k, v in ipairs(dbToRemove) do
+        if v:find(".") then
+            local k1, k2 = strsplit(".", v)
+            if k1 and k2 then
+                if self.db[k1] and self.db[k1][k2] then
+                    self.db[k1][k2] = nil
+                    addon.LogDebugMessage("warning", string.format("removed %s from %s", k2, k1))
+                end
+            end
+        else
+            self.db[v] = nil;
+            addon.LogDebugMessage("warning", string.format("removed %s from db", v))
+        end
+    end
 
     for k, v in pairs(configUpdates) do
         if not self.db.config[k] then
@@ -46,36 +102,81 @@ function Database:Init()
         end
     end
 
+    --there might be old data so clear it out
+    if type(GUILDBOOK_CHARACTER) == "table" then
+        if not GUILDBOOK_CHARACTER.syncData then
+            GUILDBOOK_CHARACTER = nil;
+        end
+    end
+
+
+    --per character settings
+    if not GUILDBOOK_CHARACTER then
+        GUILDBOOK_CHARACTER = {
+            syncData = {
+                mainCharacter = 0,
+                publicNote = 0,
+                mainSpec = 0,
+                offSpec = 0,
+                mainSpecIsPvP = 0,
+                offSpecIsPvP = 0,
+                profile = 0,
+                profession1 = 0,
+                profession1Level = 0,
+                profession1Spec = 0,
+                profession1Recipes = 0,
+                profession2 = 0,
+                profession2Level = 0,
+                profession2Spec = 0,
+                profession2Recipes = 0,
+                cookingLevel = 0,
+                cookingRecipes = 0,
+                fishingLevel = 0,
+                firstAidLevel = 0,
+                firstAidRecipes = 0,
+                talents = 0,
+                glyphs = 0,
+                inventory = 0,
+                paperDollStats = 0,
+                resistances = 0,
+                auras = 0,
+                containers = 0,
+                lockouts = 0,
+            },
+        }
+    end
+
+    self.charDb = GUILDBOOK_CHARACTER;
+
+
     addon:TriggerEvent("StatusText_OnChanged", "[Database_OnInitialised]")
     addon:TriggerEvent("Database_OnInitialised")
 end
 
+function Database:CleanGuilds()
+    if self.db then
+        for guildName, guild in pairs(self.db.guilds) do
+            guild.info = nil
+            guild.logs = {}
+            guild.calendar = {}
+        end
+    end
+end
+
 function Database:Reset()
 
-    GUILDBOOK_GLOBAL = {
-        config = {
-            chatGuildHistoryLimit = 50,
-            chatWhisperHistoryLimit = 50,
-        },        
-        minimapButton = {},
-        calendarButton = {},
-        guilds = {},
-        worldEvents = {},
-        myCharacters = {},
-        characterDirectory = {},
-        chats = {
-            guild = {},
-        },
-        debug = false,
-    }
-
-    self.db = GUILDBOOK_GLOBAL;
+    GUILDBOOK_GLOBAL = nil;
 
     addon.guilds = {}
     addon.characters = {}
 
-    addon:TriggerEvent("StatusText_OnChanged", "[Database:Reset]")
-    addon:TriggerEvent("Database_OnInitialised")
+    self:Init()
+end
+
+function Database:ResetKey(key, newVal)
+    if self.db[key] then
+        self.db[key] = newVal;
+    end
 end
 
 function Database:ImportData(data)
@@ -94,15 +195,98 @@ function Database:InsertCharacter(character)
     end
 end
 
+function Database:DeleteCharacter(nameRealm)
+    if self.db then
+         if self.db.characterDirectory[nameRealm] then
+            self.db.characterDirectory[nameRealm] = nil;
+                if addon.characters[nameRealm] then
+                    addon.characters[nameRealm] = nil;
+                end
+            addon:TriggerEvent("Database_OnCharacterRemoved", nameRealm)
+         end
+    end
+end
+
 function Database:GetCharacter(nameRealm)
     if self.db and self.db.characterDirectory[nameRealm] then
         return self.db.characterDirectory[nameRealm];
     end
 end
 
+function Database:GetCharacterNameFromGUID(guid)
+    if self.db and self.db.characterDirectory then
+        for nameRealm, data in pairs(self.db.characterDirectory) do
+            if data.guid and (data.guid == guid) then
+                return nameRealm;
+            end
+        end
+    end
+end
+
+function Database:InsertCalendarEvent(event)
+    if self.db and self.db.calendar then
+        if not self.db.calendar.events then
+            self.db.calendar.events = {}
+        end
+        event.guid = string.format("CalendarEvent-%s", time())
+        table.insert(self.db.calendar.events, event)
+        addon:TriggerEvent("Database_OnCalendarDataChanged")
+    end
+end
+
+function Database:DeleteCalendarEvent(event)
+    if self.db and self.db.calendar and self.db.calendar.events then
+        local keyToRemove;
+        for k, v in ipairs(self.db.calendar.events) do
+            if (v.guid == event.guid) then
+                keyToRemove = k
+            end
+        end
+        if keyToRemove then
+            table.remove(self.db.calendar.events, keyToRemove)
+            addon:TriggerEvent("Database_OnCalendarDataChanged")
+        end
+    end
+end
+
+function Database:GetCalendarEventsBetween(_from, _to)
+
+    local t = {}
+    if not _to then
+        _to = _from
+    end
+    local from = time(_from)
+    local to = time(_to)
+    if self.db and self.db.calendar and self.db.calendar.events then
+        for k, event in ipairs(self.db.calendar.events) do
+            if (event.timestamp >= from) and (event.timestamp <= to) then
+                table.insert(t, event)
+            end
+        end
+    end
+    return t;
+end
+
+function Database:GetCalendarEventsForPeriod(fromTimestamp, period)
+
+    local t = {}
+    period = period or 1
+    local to = fromTimestamp + (60*60*24*period)
+
+    if self.db and self.db.calendar and self.db.calendar.events then
+        for k, event in ipairs(self.db.calendar.events) do
+            if (event.timestamp >= fromTimestamp) and (event.timestamp <= to) then
+                table.insert(t, event)
+            end
+        end
+    end
+    return t;
+end
+
 function Database:SetConfig(conf, val)
     if self.db and self.db.config then
         self.db.config[conf] = val
+        addon:TriggerEvent("Database_OnConfigChanged", conf, val)
     end
 end
 
@@ -111,6 +295,64 @@ function Database:GetConfig(conf)
         return self.db.config[conf];
     end
     return false;
+end
+
+function Database:GetDailyQuestInfo(questID)
+    if self.db and self.db.dailies and self.db.dailies.quests[questID] then
+        return self.db.dailies.quests[questID]
+    end
+    return false;
+end
+
+function Database:GetDailyQuestIDsForCharacter(nameRealm, onlyFavourites)
+    local t = {}
+    if self.db and self.db.dailies and self.db.dailies.characters[nameRealm] then
+        for questID, turnInInfo in pairs(self.db.dailies.characters[nameRealm]) do
+            if onlyFavourites then
+                if onlyFavourites == turnInInfo.isFavorite then
+                    table.insert(t, questID)
+                end
+            else
+                table.insert(t, questID)
+            end
+        end
+    end
+    return t;
+end
+
+function Database:GetDailyQuestInfoForCharacter(nameRealm, onlyFavourites)
+    local t = {}
+    if self.db and self.db.dailies and self.db.dailies.characters[nameRealm] then
+        for questID, turnInInfo in pairs(self.db.dailies.characters[nameRealm]) do
+            local turnIn = {}
+            for k, v in pairs(turnInInfo) do
+                turnIn[k] = v;
+            end
+            turnIn.questID = questID;
+            if onlyFavourites then
+                if onlyFavourites == turnInInfo.isFavorite then
+                    table.insert(t, turnIn)
+                end
+            else
+                table.insert(t, turnIn)
+            end
+        end
+    end
+    return t;
+end
+
+function Database:SetCharacterSyncData(key, val)
+    if self.charDb then
+        self.charDb.syncData[key] = val;
+    end
+end
+
+
+function Database:GetCharacterSyncData(key)
+    if self.charDb then
+        return self.charDb.syncData[key];
+    end
+    return 0;
 end
 
 addon.Database = Database;

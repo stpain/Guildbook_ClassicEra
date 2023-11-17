@@ -5,9 +5,9 @@ Entries are usually stored into a single number, simply for faster loading.
 If a spell must be modified, do it like this:
 
 local lib = LibStub("LibCraftInfo-1.0")
-local professionId = lib:GetProfessionInternalID("First Aid")
+local tradeskillID = lib:GetProfessionInternalID("First Aid")
 
-lib:SetCraftInfo(professionId, spellID, xpack, itemID, recipeID)
+lib:SetCraftInfo(tradeskillID, spellID, xpack, itemID, recipeID)
 
 ex:
 lib:SetCraftInfo(10, 3275, 1, 1251)

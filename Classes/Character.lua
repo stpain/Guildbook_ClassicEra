@@ -11,9 +11,12 @@ local L = addon.Locales;
 --will use a specID as found from spellbook tabs-1 (ignore general) and then get the spec name from this table
 --for display the name value can be used to grab the locale
 local classData = {
-    -- DEATHKNIGHT = { 
-    --     specializations={'Frost','Blood','Unholy'} 
-    -- },
+    DEATHKNIGHT = { 
+        specializations={'Blood','Frost','Unholy'} 
+    },
+    ["DEATH KNIGHT"] = { 
+        specializations={'Blood','Frost','Unholy'} 
+    },
     DRUID = { 
         specializations={'Balance', 'Cat' ,'Bear', 'Restoration',}
     },
@@ -88,7 +91,13 @@ function Character:SetName(name)
     self.data.name = name;
 end
 
-function Character:GetName()
+function Character:GetName(colourized)
+    if colourized then
+        if type(self.data.class) == "number" then
+            local _, class = GetClassInfo(self.data.class);
+            return RAID_CLASS_COLORS[class]:WrapTextInColorCode(self.data.name);
+        end
+    end
     return self.data.name;
 end
 
@@ -248,8 +257,35 @@ function Character:GetSpecIsPvp(spec)
     end
 end
 
+function Character:GetTradeskillCooldowns()
+    if self.data.tradeskillCooldowns then
+        return self.data.tradeskillCooldowns
+    else
+        return {}
+    end
+end
+
+function Character:UpdateTradeskillCooldowns(cooldowns, broadcast)
+
+    if not self.data.tradeskillCooldowns then
+        self.data.tradeskillCooldowns = {}
+    end
+
+    if type(cooldowns) == "table" then
+        for k, cd in ipairs(cooldowns) do
+            self.data.tradeskillCooldowns[cd.name] = cd
+        end
+    end
+
+    addon:TriggerEvent("Character_OnDataChanged", self)
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "UpdateTradeskillCooldowns", "tradeskillCooldowns")
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format("updated tradeskill cooldowns for %s", self.data.name))
+end
 
 function Character:SetTradeskill(slot, id, broadcast)
+    --print("SetTradeskill called", slot, id, tostring(broadcast))
     local k;
     if slot == 1 then
         self.data.profession1 = id;
@@ -260,6 +296,7 @@ function Character:SetTradeskill(slot, id, broadcast)
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
     if broadcast then
+        --print("Broadcasting update SetTradeskill")
         addon:TriggerEvent("Character_BroadcastChange", self, "SetTradeskill", k)
     end
     addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "tradeskill", self.data.name))
@@ -299,19 +336,29 @@ function Character:GetTradeskillLevel(slot)
 end
 
 
-function Character:SetTradeskillSpec(slot, spec, broadcast)
-    local k
-    if slot == 1 then
-        self.data.profession1Spec = spec;
-        k = "profession1Spec"
-    elseif slot == 2 then
-        self.data.profession2Spec = spec;
-        k = "profession2Spec"
+function Character:SetTradeskillSpecs(specs, broadcast)
+
+    if type(specs) == "table" then
+        for k, spec in ipairs(specs) do
+            if spec.tradeskillID == self.data.profession1 then
+                self.data.profession1Spec = spec.spellID
+
+                if broadcast then
+                    addon:TriggerEvent("Character_BroadcastChange", self, "SetTradeskillSpec", "profession1Spec")
+                end
+
+            end
+            if spec.tradeskillID == self.data.profession2 then
+                self.data.profession2Spec = spec.spellID
+
+                if broadcast then
+                    addon:TriggerEvent("Character_BroadcastChange", self, "SetTradeskillSpec", "profession2Spec")
+                end
+            end
+        end
     end
+
     addon:TriggerEvent("Character_OnDataChanged", self)
-    if broadcast then
-        addon:TriggerEvent("Character_BroadcastChange", self, "SetTradeskillSpec", k)
-    end
     addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "tradeskill spec", self.data.name))
 end
 
@@ -335,7 +382,7 @@ function Character:SetTradeskillRecipes(slot, recipes, broadcast)
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
     if broadcast then
-        addon:TriggerEvent("Character_BroadcastChange", self,"SetTradeskillRecipes", k)
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetTradeskillRecipes", k)
     end
     addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "tradeskill recipes", self.data.name))
 end
@@ -366,7 +413,7 @@ end
 function Character:CanCraftItem(item)
 
     --grab item tradeskill first
-    if item.professionID == 185 then
+    if item.tradeskillID == 185 then
         if type(self.data.firstAidRecipes) == "table" then
             for k, spellID in ipairs(self.data.cookingRecipes) do
                 if spellID == item.spellID then
@@ -374,7 +421,7 @@ function Character:CanCraftItem(item)
                 end
             end
         end
-    elseif item.professionID == 129 then
+    elseif item.tradeskillID == 129 then
         if type(self.data.firstAidRecipes) == "table" then
             for k, spellID in ipairs(self.data.firstAidRecipes) do
                 if spellID == item.spellID then
@@ -528,14 +575,20 @@ function Character:GetTalents(spec)
 end
 
 
--- function Character:SetGlyphs(spec, glyphs)
-
---     if (#glyphs > 0) then
---         self.data.glyphs[spec] = glyphs;
---     else
---         --print("glyphs", spec, "no data")
---     end
--- end
+function Character:SetGlyphs(spec, glyphs, broadcast)
+    if not self.data.glyphs then
+        self.data.glyphs = {}
+    end
+    --DevTools_Dump(glyphs)
+    if spec and type(glyphs) == "table" then
+        self.data.glyphs[spec] = glyphs;
+        if broadcast then
+            addon:TriggerEvent("Character_BroadcastChange", self, "SetGlyphs", "glyphs", spec)
+        end
+        addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "glyphs", self.data.name))
+    end
+    --DevTools_Dump(self.data.glyphs)
+end
 
 -- function Character:GetGlyphs(spec)
 --     if self.data.glyphs[spec] then
@@ -543,6 +596,15 @@ end
 --     end
 -- end
 
+function Character:SetEquipmentSets(sets, broadcast)
+    for name, itemIDs in pairs(sets) do
+        self.data.inventory[name] = itemIDs;
+    end
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetEquipmentSets", "inventory", sets)
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "equipment sets", self.data.name))
+end
 
 function Character:SetInventory(set, inventory, broadcast)
     self.data.inventory[set] = inventory;
@@ -601,17 +663,37 @@ end
 
 function Character:SetMainCharacter(main, broadcast)
     self.data.mainCharacter = main;
-    if Database.db.myCharacters then
+
+    local alts = {}
+
+    --this should only apply when setting your own characters data
+    if Database.db.myCharacters and Database.db.myCharacters[main] then
         for name, val in pairs(Database.db.myCharacters) do
             val = false;
 
-            --do not call this func in here just set the data directly
-            if addon.characters and addon.characters[name] then
-                addon.characters[name].data.mainCharacter = self.data.mainCharacter
+            --check if this character exists in this guild before updated their main character
+            if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].members then
+                if addon.guilds[addon.thisGuild].members[name] then
+
+                    --do not call this func in here just set the data directly
+                    --addon.characters will be a table of this guild only
+                    if addon.characters and addon.characters[name] then
+                        addon.characters[name].data.mainCharacter = self.data.mainCharacter
+
+                        --if name ~= main then
+                            table.insert(alts, name)
+                        --end
+                    end
+
+                end
             end
+
         end
+        self:SetAlts(alts, broadcast)
         Database.db.myCharacters[self.data.name] = true;
     end
+
+
     addon:TriggerEvent("Character_OnDataChanged", self)
     if broadcast then
         addon:TriggerEvent("Character_BroadcastChange", self, "SetMainCharacter", "mainCharacter")
@@ -623,9 +705,20 @@ function Character:GetMainCharacter()
     return self.data.mainCharacter;
 end
 
-function Character:SetAlts(alts)
+function Character:SetAlts(alts, broadcast)
     self.data.alts = alts;
-    addon:TriggerEvent("Character_OnDataChanged", self, "alts")
+
+    --don't use the api here it'll cuase a cirle of sending data
+    for k, name in ipairs(alts) do
+        if addon.characters and addon.characters[name] then
+            addon.characters[name].data.alts = alts
+        end
+    end
+    addon:TriggerEvent("Character_OnDataChanged", self)
+    if broadcast then
+        addon:TriggerEvent("Character_OnDataChanged", self, "SetAlts", "alts")
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set alts for %s", self.data.name))
 end
 
 function Character:GetAlts()
@@ -667,6 +760,42 @@ function Character:GetProfileAvatar()
     return "questlegendaryturnin"
 end
 
+
+--this will return spec info as it exists in the game ui
+--mainSpec will be whatever primary spec is
+--unlike the character profile which can be any spec as main as per the players choice
+--use this when getign character data specific to a spec
+--use the .data.mainSpec for display only
+function Character:GetSpecInfo()
+
+    local t = {
+        primary = {
+            [1] = { id = 1, points = 0 },
+            [2] = { id = 2, points = 0 },
+            [3] = { id = 3, points = 0 },
+        },
+        secondary = {
+            [1] = { id = 1, points = 0 },
+            [2] = { id = 2, points = 0 },
+            [3] = { id = 3, points = 0 },
+        },
+    }
+
+    for k, spec in ipairs({"primary", "secondary"}) do
+        if self.data.talents[spec] then
+            for k, v in ipairs(self.data.talents[spec]) do
+                t[spec][v.tabID].points = t[spec][v.tabID].points + v.rank
+            end
+        end
+        table.sort(t[spec], function(a,b)
+            return a.points > b.points
+        end)
+    end
+
+    return t;
+    
+end
+
 function Character:GetClassSpecAtlasInfo()
     if type(self.data.class) == "number" then
         local _, class = GetClassInfo(self.data.class)
@@ -703,8 +832,19 @@ function Character:GetClassSpecAtlasName(spec)
             local s;
             if spec == "primary" then
                 s = classData[class].specializations[self.data.mainSpec]
-            else
+            elseif spec == "secondary" then
                 s = classData[class].specializations[self.data.offSpec]
+
+
+            elseif type(spec) == "number" then
+
+                if class == "DRUID" then
+                    if spec == 3 then
+                        spec = 4;
+                    end
+                end
+
+                s = classData[class].specializations[spec]
             end
 
             if s == "Beast Master" then
@@ -721,12 +861,12 @@ function Character:GetClassSpecAtlasName(spec)
             end
 
             if s then
-                return string.format("GarrMission_ClassIcon-%s-%s", class, s)
+                return string.format("GarrMission_ClassIcon-%s-%s", class, s), s;
             else
-                return string.format("classicon-%s", class):lower()
+                return string.format("classicon-%s", class):lower(), "";
             end
         else
-            return string.format("classicon-%s", class):lower()
+            return string.format("classicon-%s", class):lower(), "";
         end
     end
 
@@ -784,10 +924,18 @@ end
 -- end
 
 
-function Character:CreateFromData(data)
-    --print(string.format("Created Character Obj [%s] at %s", data.name or "-", date('%H:%M:%S', time())))
+function Character:SetLockouts(lockouts)
+    self.data.lockouts = lockouts;
+end
 
-    --lets crack player info
+
+function Character:GetLockouts()
+    return self.data.lockouts or {};
+end
+
+
+
+function Character:CreateFromData(data)
     if (data.race == false) or (data.gender == false) then
         self.ticker = C_Timer.NewTicker(1, function()
             local _, _, _, englishRace, sex = GetPlayerInfoByGUID(data.guid)
@@ -795,7 +943,6 @@ function Character:CreateFromData(data)
                 if addon.characters[data.name] then
                     addon.characters[data.name]:SetGender(sex)
                     addon.characters[data.name]:SetRace(raceFileStringToId[englishRace])
-                    --print(string.format("Got race and gender info [%s] at %s", data.name or "-", date('%H:%M:%S', time())))
                     addon.characters[data.name].ticker:Cancel()
                 end
             end
@@ -805,6 +952,63 @@ function Character:CreateFromData(data)
 end
 
 
+function Character:CreateEmpty()
+    local character = {
+        guid = "",
+        name = "",
+        class = false,
+        gender = false,
+        level = 0,
+        race = false,
+        rank = 0,
+        onlineStatus = {
+            isOnline = false,
+            zone = "",
+        },
+        alts = {},
+        mainCharacter = false,
+        publicNote = "",
+        mainSpec = false,
+        offSpec = false,
+        mainSpecIsPvP = false,
+        offSpecIsPvP = false,
+        profile = {},
+        profession1 = "-",
+        profession1Level = 0,
+        profession1Spec = false,
+        profession1Recipes = {},
+        profession2 = "-",
+        profession2Level = 0,
+        profession2Spec = false,
+        profession2Recipes = {},
+        cookingLevel = 0,
+        cookingRecipes = {},
+        fishingLevel = 0,
+        firstAidLevel = 0,
+        firstAidRecipes = {},
+        talents = {},
+        glyphs = {},
+        inventory = {
+            current = {},
+        },
+        paperDollStats = {
+            current = {},
+        },
+        resistances = {
+            current = {},
+        },
+        auras = {
+            current = {},
+        },
+        containers = {},
+        lockouts = {},
+    }
+    return character;
+end
+
+function Character:SetData(data)
+    self.data = data;
+end
 
 function Character:ResetData()
 
@@ -827,11 +1031,10 @@ function Character:ResetData()
     self.data.firstAidLevel = 0
     self.data.firstAidRecipes = {}
     self.data.talents = {}
-    --Glyphs = glyphs,
+    self.data.glyphs = {}
     self.data.inventory = {
         current = {},
     }
-    --CurrentInventory = currentInventory,
     self.data.paperDollStats = {
         current = {},
     }
@@ -842,7 +1045,7 @@ function Character:ResetData()
         current = {},
     }
     self.data.containers = {}
-    --CurrentPaperdollStats = currentPaperdollStats or {},
+    self.data.lockouts = {}
     addon:TriggerEvent("Character_OnDataChanged", self)
 end
 

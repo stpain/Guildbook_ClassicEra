@@ -1,6 +1,6 @@
-GuildbookWidgetsListviewMixin = {}
+GuildbookWrathEraWidgetsListviewMixin = {}
 
-function GuildbookWidgetsListviewMixin:OnLoad()
+function GuildbookWrathEraWidgetsListviewMixin:OnLoad()
 
     self.DataProvider = CreateDataProvider();
     self.scrollView = CreateScrollBoxListLinearView();
@@ -8,18 +8,16 @@ function GuildbookWidgetsListviewMixin:OnLoad()
 
     ---height is defined in the xml keyValues
     local height = self.elementHeight;
+
+    --print(self:GetName(), height)
+
     self.scrollView:SetElementExtent(height);
 
-    local version, build, _date, tocversion, localizedVersion, buildType = GetBuildInfo()
-    if tocversion == 11403 then
-        self.scrollView:SetElementInitializer(self.frameType, self.itemTemplate, GenerateClosure(self.OnElementInitialize, self));
-    elseif tocversion > 11403 then
-        self.scrollView:SetElementInitializer(self.itemTemplate, GenerateClosure(self.OnElementInitialize, self));
-    end
+    self.scrollView:SetElementInitializer(self.itemTemplate, GenerateClosure(self.OnElementInitialize, self));
 
     self.scrollView:SetElementResetter(GenerateClosure(self.OnElementReset, self));
 
-    self.selectionBehavior = ScrollUtil.AddSelectionBehavior(self.scrollView);
+    --self.selectionBehavior = ScrollUtil.AddSelectionBehavior(self.scrollView);
 
     self.scrollView:SetPadding(1, 1, 1, 1, 1);
 
@@ -36,15 +34,26 @@ function GuildbookWidgetsListviewMixin:OnLoad()
     ScrollUtil.AddManagedScrollBarVisibilityBehavior(self.scrollBox, self.scrollBar, anchorsWithBar, anchorsWithoutBar);
 end
 
-function GuildbookWidgetsListviewMixin:OnElementInitialize(element, elementData, isNew)
+function GuildbookWrathEraWidgetsListviewMixin:OnElementInitialize(element, elementData, isNew)
     if isNew then
         element:OnLoad();
     end
     local height = self.elementHeight;
     element:SetDataBinding(elementData, height);
     element:Show()
+
+    if self.enableSelection then
+        if element.selected then
+            element:HookScript("OnMouseDown", function()
+                self.scrollView:ForEachFrame(function(f, d)
+                    f.selected:Hide()
+                end)
+                element.selected:Show()
+            end)
+        end
+    end
 end
 
-function GuildbookWidgetsListviewMixin:OnElementReset(element)
+function GuildbookWrathEraWidgetsListviewMixin:OnElementReset(element)
     element:ResetDataBinding()
 end

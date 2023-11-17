@@ -1,5 +1,5 @@
 <Ui>
-    <Frame name="GuildbookWidgetsDropDownListviewItemTemplate" mixin="GuildbookWidgetsDropDownListviewItemTemplateMixin" enableMouse="true" virtual="true">
+    <Frame name = "GuildbookWrathEraWidgetsDropDownListviewItemTemplate" mixin="GuildbookWrathEraWidgetsDropDownListviewItemTemplateMixin" enableMouse="true" virtual="true">
         <Layers>
             <Layer level="BACKGROND">
                 <Texture parentKey="background">
@@ -32,9 +32,13 @@
         </Scripts>
     </Frame>
 
-    <Button name="GuildbookWidgetsDropDownTemplate" mixin="GuildbookWidgetsDropDownTemplateMixin" virtual="true">
-        <NormalTexture atlas="PetList-ButtonBackground"/>
-        <HighlightTexture atlas="PetList-ButtonHighlight"/>
+    <Button name = "GuildbookWrathEraWidgetsDropDownTemplate" mixin="GuildbookWrathEraWidgetsDropDownTemplateMixin" virtual="true">
+        <NormalTexture atlas="charactercreate-customize-dropdownbox">
+            <TexCoords left="0.025" right="0.975" top="0.05" bottom="0.95" />
+        </NormalTexture>
+        <HighlightTexture atlas="charactercreate-customize-dropdownbox-hover">
+            <TexCoords left="0.025" right="0.975" top="0.05" bottom="0.95" />
+        </HighlightTexture>
         <Frames>
             <Frame parentKey="label" setAllPoints="true">
                 <Layers>
@@ -48,21 +52,21 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="flyout" frameLevel="7" frameStrata="DIALOG" hidden="true">
+            <Frame parentKey="flyout" frameLevel="7" frameStrata="DIALOG" hidden="true" inherits="InsetFrameTemplate">
                 <Size y="230"/>
                 <Anchors>
                     <Anchor point="TOP" relativePoint="BOTTOM" x="0" y="4"/>
                     <!-- <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" x="10" y="5"/> -->
                 </Anchors>
                 <Frames>
-                    <Frame parentKey="listview" useParentLevel="true" inherits="GuildbookWidgetsListviewTemplate">
+                    <Frame parentKey="listview" useParentLevel="true" inherits="GuildbookWrathEraWidgetsListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="0" y="0"/>
                             <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                         </Anchors>
                         <KeyValues>
                             <KeyValue key="frameType" value="FRAME" type="string"/>
-                            <KeyValue key="itemTemplate" value="GuildbookWidgetsDropDownListviewItemTemplate" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookWrathEraWidgetsDropDownListviewItemTemplate" type="string"/>
                             <KeyValue key="elementHeight" value="24" type="number"/>
                         </KeyValues>
                     </Frame>

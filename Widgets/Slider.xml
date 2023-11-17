@@ -1,5 +1,5 @@
 <Ui>
-    <Slider name="GuildbookSlider" minValue="1" maxValue="60" valueStep="1" inherits="OptionsSliderTemplate" virtual="true">
+    <Slider name = "GuildbookWrathEraSlider" minValue="1" maxValue="100" valueStep="1" inherits="OptionsSliderTemplate" virtual="true">
         <Layers>
             <Layer level="OVERLAY">
                 <FontString parentKey="label" inherits="GameFontNormalSmall">
@@ -15,7 +15,7 @@
             </Layer>
         </Layers>
     </Slider>
-    <Slider name="GuildbookSliderTopLabel" minValue="1" maxValue="60" valueStep="1" inherits="OptionsSliderTemplate" virtual="true">
+    <Slider name = "GuildbookWrathEraSliderTopLabel" minValue="1" maxValue="60" valueStep="1" inherits="OptionsSliderTemplate" virtual="true">
         <Layers>
             <Layer level="OVERLAY">
                 <FontString parentKey="label" inherits="GameFontNormalSmall">

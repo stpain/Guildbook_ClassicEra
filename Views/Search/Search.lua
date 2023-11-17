@@ -56,6 +56,9 @@ function GuildbookSearchMixin:UpdateResults()
         end
 
         if v.type == "character" then
+            v.onMouseDown = function()
+                addon:TriggerEvent("Character_OnProfileSelected", addon.characters[v.data.data.name])
+            end
             table.insert(out, v)
         end
 
@@ -63,8 +66,6 @@ function GuildbookSearchMixin:UpdateResults()
             table.insert(out, v)
         end
     end
-
-    self.resultsListview.DataProvider:Flush()
 
     self.resultsListview.scrollView:SetDataProvider(CreateDataProvider(out))
 
@@ -126,12 +127,31 @@ function GuildbookSearchMixin:RunQuery(term)
         if v.data.inventory then
             for set, links in pairs(v.data.inventory) do
                 for slot, link in pairs(links) do
-                    if link then
+                    if type(link) == "string" then
                         local item = Item:CreateFromItemLink(link)
-                        if not item:IsItemEmpty() then
+                        if item and not item:IsItemEmpty() then
                             item:ContinueOnItemLoad(function()
                                 if item:GetItemName():lower():find(term) then
-
+    
+                                    table.insert(self.results, {
+                                        type = "inventory",
+                                        data = item,
+                                        location = string.format("character-inventory %s", v.data.name),
+                                        count = 1,
+                                    })
+                                    self:UpdateResults()
+                                end
+                            end)
+                        end
+                    end
+                end
+                for k, itemID in ipairs(links) do
+                    if type(itemID) == "number" then
+                        local item = Item:CreateFromItemID(itemID)
+                        if item and not item:IsItemEmpty() then
+                            item:ContinueOnItemLoad(function()
+                                if item:GetItemName():lower():find(term) then
+    
                                     table.insert(self.results, {
                                         type = "inventory",
                                         data = item,

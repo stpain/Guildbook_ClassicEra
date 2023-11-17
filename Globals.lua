@@ -1,17 +1,97 @@
-local name, addon = ...;
+local addonName, addon = ...;
 
 local Database = addon.Database;
+local Character = addon.Character;
 local Talents = addon.Talents;
 local Tradeskills = addon.Tradeskills;
+
+addon.characterDefaults = {
+    guid = "",
+    name = "",
+    class = 3,
+    gender = 1,
+    level = 1,
+    race = false,
+    rank = 1,
+    onlineStatus = {
+        isOnline = false,
+        zone = "",
+    },
+    alts = {},
+    mainCharacter = false,
+    publicNote = "",
+    mainSpec = false,
+    offSpec = false,
+    mainSpecIsPvP = false,
+    offSpecIsPvP = false,
+    profile = {},
+    profession1 = "-",
+    profession1Level = 0,
+    profession1Spec = false,
+    profession1Recipes = {},
+    profession2 = "-",
+    profession2Level = 0,
+    profession2Spec = false,
+    profession2Recipes = {},
+    cookingLevel = 0,
+    cookingRecipes = {},
+    fishingLevel = 0,
+    firstAidLevel = 0,
+    firstAidRecipes = {},
+    talents = {},
+    glyphs = {},
+    inventory = {
+        current = {},
+    },
+    paperDollStats = {
+        current = {},
+    },
+    resistances = {
+        current = {},
+    },
+    auras = {
+        current = {},
+    },
+    containers = {},
+    lockouts = {},
+}
+
+addon.contextMenuSeparator = {
+    hasArrow = false;
+    dist = 0;
+    text = "",
+    isTitle = true;
+    isUninteractable = true;
+    notCheckable = true;
+    iconOnly = true;
+    icon = "Interface\\Common\\UI-TooltipDivider-Transparent";
+    tCoordLeft = 0;
+    tCoordRight = 1;
+    tCoordTop = 0;
+    tCoordBottom = 1;
+    tSizeX = 0;
+    tSizeY = 8;
+    tFitDropDownSizeX = true;
+    iconInfo = {
+        tCoordLeft = 0,
+        tCoordRight = 1,
+        tCoordTop = 0,
+        tCoordBottom = 1,
+        tSizeX = 0,
+        tSizeY = 8,
+        tFitDropDownSizeX = true
+    }}
 
 --create these at addon level
 addon.thisCharacter = "";
 addon.thisGuild = false;
 addon.guilds = {}
 addon.characters = {}
+addon.contextMenu = CreateFrame("Frame", "GuildbookContextMenu", UIParent, "UIDropDownMenuTemplate")
 
 addon.api = {
     classic = {},
+    wrath = {},
 }
 
 local debugTypeIcons = {
@@ -23,12 +103,41 @@ local debugTypeIcons = {
     bank = "ShipMissionIcon-Treasure-Mission",
 }
 
-function addon.LogDebugMessage(debugType, debugMessage)
+function addon.LogDebugMessage(debugType, debugMessage, debugTooltip)
     if GuildbookUI and Database.db.debug then
-        GuildbookUI.debug.messageLogListview.DataProvider:Insert({
-            label = string.format("[%s] %s", date("%T"), debugMessage),
-            atlas = debugTypeIcons[debugType],
-        })
+        if debugTooltip then
+            GuildbookUI.debug.messageLogListview.DataProvider:Insert({
+                label = string.format("[%s] %s", date("%T"), debugMessage),
+                atlas = debugTypeIcons[debugType],
+                onMouseEnter = function()
+                    GameTooltip:SetOwner(GuildbookUI, "ANCHOR_TOPLEFT")
+                    GameTooltip:AddDoubleLine("Version", debugTooltip.version)
+                    -- for k, v in ipairs(debugTooltip.payload) do
+                    --     GameTooltip:AddDoubleLine(k, v)
+                    -- end
+                    for k, v in pairs(debugTooltip.payload) do
+                        GameTooltip:AddDoubleLine(k, v)
+                    end
+                    if type(debugTooltip.payload.data) == "table" then
+                        -- for k, v in ipairs(debugTooltip.payload.data) do
+                        --     GameTooltip:AddDoubleLine(k, v)
+                        -- end
+                        for k, v in pairs(debugTooltip.payload.data) do
+                            GameTooltip:AddDoubleLine(k, v)
+                        end
+                    end
+                    GameTooltip:Show()
+                end,
+                onMouseDown = function()
+                    DevTools_Dump(debugTooltip)
+                end,
+            })
+        else
+            GuildbookUI.debug.messageLogListview.DataProvider:Insert({
+                label = string.format("[%s] %s", date("%T"), debugMessage),
+                atlas = debugTypeIcons[debugType],
+            })
+        end
         GuildbookUI.debug.messageLogListview.scrollBox:ScrollToEnd()
     end
 end
@@ -48,22 +157,22 @@ function addon.api.getTradeskillItemsUsingReagentItemID(itemID, prof1, prof2)
         for id, count in pairs(v.reagents) do
             if id == itemID then
                 if prof1 == nil and prof2 == nil then
-                    if not t[v.professionID] then
-                        t[v.professionID] = {}
+                    if not t[v.tradeskillID] then
+                        t[v.tradeskillID] = {}
                     end
-                    table.insert(t[v.professionID], v)
+                    table.insert(t[v.tradeskillID], v)
                 else
-                    if prof1 and (v.professionID == prof1) then
-                        if not t[v.professionID] then
-                            t[v.professionID] = {}
+                    if prof1 and (v.tradeskillID == prof1) then
+                        if not t[v.tradeskillID] then
+                            t[v.tradeskillID] = {}
                         end
-                        table.insert(t[v.professionID], v)
+                        table.insert(t[v.tradeskillID], v)
                     end
-                    if prof2 and (v.professionID == prof2) then
-                        if not t[v.professionID] then
-                            t[v.professionID] = {}
+                    if prof2 and (v.tradeskillID == prof2) then
+                        if not t[v.tradeskillID] then
+                            t[v.tradeskillID] = {}
                         end
-                        table.insert(t[v.professionID], v)
+                        table.insert(t[v.tradeskillID], v)
                     end
                 end
             end
@@ -79,6 +188,18 @@ function addon.api.extractLink(text)
     -- displayText: (.*)|h matches everything up to the second |h.
     -- Ex: |cffffffff|Htype:a:b:c:d|htext|h|r becomes type, a:b:c:d, text
     return string.match(text, [[|H([^:]*):([^|]*)|h(.*)|h]]);
+end
+
+function addon.api.makeTableUnique(t)
+    
+    local temp, ret = {}, {}
+    for k, v in ipairs(t) do
+        temp[v] = true
+    end
+    for k, v in pairs(temp) do
+        table.insert(ret, k)
+    end
+    return ret;
 end
 
 function addon.api.trimTable(tab, num, reverse)
@@ -118,10 +239,106 @@ function addon.api.characterIsMine(name)
     return false;
 end
 
-function addon.api.classic.getPlayerItemLevel()
+function addon.api.scanForTradeskillSpec()
+    local t = {}
+    for i = 1, GetNumSpellTabs() do
+        local offset, numSlots = select(3, GetSpellTabInfo(i))
+        for j = offset+1, offset+numSlots do
+            --local start, duration, enabled, modRate = GetSpellCooldown(j, BOOKTYPE_SPELL)
+            --local spellLink, _ = GetSpellLink(j, BOOKTYPE_SPELL)
+            local _, spellID = GetSpellBookItemInfo(j, BOOKTYPE_SPELL)
+           
+            if Tradeskills.SpecializationSpellsIDs[spellID] then
+                table.insert(t, {
+                    tradeskillID = Tradeskills.SpecializationSpellsIDs[spellID],
+                    spellID = spellID,
+                })
+            end
+
+        end
+    end
+    return t;
+end
+
+function addon.api.wrath.scanSpellbook()
+    local t = {}
+    for i = 1, GetNumSpellTabs() do
+        local offset, numSlots = select(3, GetSpellTabInfo(i))
+        for j = offset+1, offset+numSlots do
+            local start, duration, enabled, modRate = GetSpellCooldown(j, BOOKTYPE_SPELL)
+            local spellLink = GetSpellLink(j, BOOKTYPE_SPELL)
+            print(spellLink, start, duration)
+            
+            --longer than an hour
+            if duration > 3600 then
+                local name, rank, icon, castTime, minRange, maxRange, spellID, originalIcon = GetSpellInfo(j, BOOKTYPE_SPELL)
+
+                --get finish time in utc
+                local now = GetTime()
+                local ends = (start + duration)
+                local finishesIn = (ends - now)
+
+                local utcFinish = time() + finishesIn
+
+                table.insert(t, {
+                    spellLink = spellLink,
+                    spellID = spellID,
+                    finishes = utcFinish,
+                })
+            end
+        end
+    end
+    --DevTools_Dump(t)
+end
+
+
+function addon.api.wrath.getPlayerEquipment()
+    local sets = C_EquipmentSet.GetEquipmentSetIDs();
+
+    local equipment = {
+        sets = {},
+        current = {},
+    };
+
+    for k, v in ipairs(sets) do
+        
+        local name, iconFileID, setID, isEquipped, numItems, numEquipped, numInInventory, numLost, numIgnored = C_EquipmentSet.GetEquipmentSetInfo(v)
+
+        local setItemIDs = C_EquipmentSet.GetItemIDs(setID)
+
+        equipment.sets[name] = setItemIDs;
+    end
+
+
+    --lets grab the current gear
+    local t = {}
+    for k, v in ipairs(addon.data.inventorySlots) do
+        local link = GetInventoryItemLink('player', GetInventorySlotInfo(v.slot)) or false
+        if link ~= nil then
+            t[v.slot] = link;
+        end
+    end
+    equipment.current = t;
+
+    return equipment;
+end
+
+function addon.api.wrath.getPlayerEquipmentCurrent()
+    local t = {}
+    for k, v in ipairs(addon.data.inventorySlots) do
+        local link = GetInventoryItemLink('player', GetInventorySlotInfo(v.slot)) or false
+        if link ~= nil then
+            t[v.slot] = link;
+        end
+    end
+
+    return t;
+end
+
+function addon.api.getPlayerItemLevel()
     local itemLevel, itemCount = 0, 0
-	for k, slot in ipairs(addon.data.inventorySlots) do
-		local link = GetInventoryItemLink('player', slot.Name)
+	for k, v in ipairs(addon.data.inventorySlots) do
+		local link = GetInventoryItemLink('player', GetInventorySlotInfo(v.slot)) or false
 		if link then
 			local _, _, _, ilvl = GetItemInfo(link)
             if not ilvl then ilvl = 0 end
@@ -137,7 +354,7 @@ function addon.api.classic.getPlayerItemLevel()
     end
 end
 
-function addon.api.classic.getPlayerSkillLevels()
+function addon.api.getPlayerSkillLevels()
     local skills = {}
     for s = 1, GetNumSkillLines() do
         local skill, _, _, level, _, _, _, _, _, _, _, _, _ = GetSkillLineInfo(s)
@@ -151,7 +368,7 @@ function addon.api.classic.getPlayerSkillLevels()
     return skills;
 end
 
-function addon.api.classic.getPlayerAlts(main)
+function addon.api.getPlayerAlts(main)
     if type(main) == "string" then
         local alts = {}
         if addon.characters and addon.characters then
@@ -166,7 +383,7 @@ function addon.api.classic.getPlayerAlts(main)
     return {}
 end
 
-function addon.api.classic.scanPlayerContainers(includeBanks)
+function addon.api.scanPlayerContainers(includeBanks)
 
     local copper = GetMoney()
 
@@ -324,13 +541,103 @@ function addon.api.classic.getPlayerTalents()
     table.sort(tabs, function(a, b)
         return a.pointsSpent > b.pointsSpent;
     end)
-    return {
-        tabs = tabs,
-        talents = talents,
-    }
+    return "current", tabs, talents;
 end
 
-function addon.api.classic.getPlayerAuras()
+local glyphsPopped = {}
+function addon.api.wrath.getPlayerTalents(...)
+    local newSpec, previousSpec = ...;
+
+	if type(newSpec) ~= "number" then
+		newSpec = GetActiveTalentGroup()
+	end
+	if type(newSpec) ~= "number" then
+		newSpec = 1
+	end
+
+    local tabs, talents = {}, {}
+    for tabIndex = 1, GetNumTalentTabs() do
+        local spec, texture, pointsSpent, fileName = GetTalentTabInfo(tabIndex)
+        local engSpec = Talents.TalentBackgroundToSpec[fileName]
+        table.insert(tabs, {
+            fileName = fileName,
+            pointsSpent = pointsSpent,
+        })
+        for talentIndex = 1, GetNumTalents(tabIndex) do
+            local name, iconTexture, row, column, rank, maxRank, isExceptional, available = GetTalentInfo(tabIndex, talentIndex)
+            local spellId = Talents:GetTalentSpellId(fileName, row, column, rank)
+            table.insert(talents, {
+                tabID = tabIndex,
+                row = row,
+                col = column,
+                rank = rank,
+                maxRank = maxRank,
+                spellId = spellId,
+            })
+        end
+    end
+
+    local inGroup = IsInGroup()
+    local inInstance, instanceType = IsInInstance()
+
+    local glyphs = {}
+    for i = 1, 6 do
+        local enabled, glyphType, glyphSpellID, icon = GetGlyphSocketInfo(i);
+        if enabled and glyphSpellID then
+            local name = GetSpellInfo(glyphSpellID) --check its a valid spell ID
+
+            if name then
+                if addon.glyphData.spellIdToItemId[glyphSpellID] then
+                    local itemID = addon.glyphData.spellIdToItemId[glyphSpellID].itemID
+                    local found = false
+                    for k, glyph in ipairs(addon.glyphData.wrath) do
+                        if glyph.itemID == itemID then
+                            table.insert(glyphs, {
+                                socket = i,
+                                itemID = itemID,
+                                classID = glyph.classID,
+                                glyphType = glyph.glyphType,
+                                name = name,
+                            })
+                            found = true
+                        end
+                    end
+                    if not found then
+                        if not inGroup and not inInstance then
+                            if not glyphsPopped[glyphSpellID] then
+                                local s = string.format("[%s] unable to find glyph itemID for %s with GlyphSpellID of %d", addonName, name, glyphSpellID)
+                                StaticPopup_Show("GuildbookReport", s)
+                                glyphsPopped[glyphSpellID] = true
+                            end
+                        end
+                    end
+                else
+                    if not inGroup and not inInstance then
+                        if not glyphsPopped[glyphSpellID] then
+                            local s = string.format("[%s] glyph data for %s with GlyphSpellID of %d missing from lookup table", addonName, name, glyphSpellID)
+                            StaticPopup_Show("GuildbookReport", s)
+                            glyphsPopped[glyphSpellID] = true
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    return newSpec, tabs, talents, glyphs;
+
+    -- if newSpec == 1 then
+    --     self:TriggerEvent("OnPlayerTalentSpecChanged", "primary", talents, glyphs)
+    -- elseif newSpec == 2 then
+    --     self:TriggerEvent("OnPlayerTalentSpecChanged", "secondary", talents, glyphs)
+    -- end
+
+    --DevTools_Dump({glyphs})
+    --DisplayTableInspectorWindow({glyphs = glyphs});
+
+end
+
+function addon.api.getPlayerAuras()
     local buffs = {}
     for i = 1, 40 do
         local name, icon, count, dispellType, duration, expirationTime, source, isStealable, _, spellId = UnitAura("player", i)
@@ -354,7 +661,7 @@ local resistanceIDs = {
     [5] = "shadow",
     [6] = "arcane",
 }
-function addon.api.classic.getPlayerResistances(level)
+function addon.api.getPlayerResistances(level)
     local res = {}
     -- res.physical = addon.api.trimNumber(ResistancePercent(0,level))
     -- res.holy = addon.api.trimNumber(ResistancePercent(1,level))
@@ -522,6 +829,142 @@ function addon.api.classic.getPaperDollStats()
 
     return stats;
 end
+function addon.api.wrath.getPaperDollStats()
+
+    local stats = {
+        attributes = {},
+        defence = {},
+        melee = {},
+        ranged = {},
+        spell = {},
+    }
+
+    ---go through getting each stat value
+    local numSkills = GetNumSkillLines();
+    local skillIndex = 0;
+    local currentHeader = nil;
+
+    for i = 1, numSkills do
+        local skillName = select(1, GetSkillLineInfo(i));
+        local isHeader = select(2, GetSkillLineInfo(i));
+
+        if isHeader ~= nil and isHeader then
+            currentHeader = skillName;
+        else
+            if (currentHeader == "Weapon Skills" and skillName == 'Defense') then
+                skillIndex = i;
+                break;
+            end
+        end
+    end
+
+    local baseDef, modDef;
+    if (skillIndex > 0) then
+        baseDef = select(4, GetSkillLineInfo(skillIndex));
+        modDef = select(6, GetSkillLineInfo(skillIndex));
+    else
+        baseDef, modDef = UnitDefense('player')
+    end
+
+    local posBuff = 0;
+    local negBuff = 0;
+    if ( modDef > 0 ) then
+        posBuff = modDef;
+    elseif ( modDef < 0 ) then
+        negBuff = modDef;
+    end
+    stats.defence.Defence = {
+        Base = addon.api.trimNumber(baseDef),
+        Mod = addon.api.trimNumber(modDef),
+    }
+
+    local baseArmor, effectiveArmor, armr, posBuff, negBuff = UnitArmor('player');
+    stats.defence.Armor = addon.api.trimNumber(baseArmor)
+    stats.defence.Block = addon.api.trimNumber(GetBlockChance());
+    stats.defence.Parry = addon.api.trimNumber(GetParryChance());
+    stats.defence.ShieldBlock = addon.api.trimNumber(GetShieldBlock());
+    stats.defence.Dodge = addon.api.trimNumber(GetDodgeChance());
+
+    --local expertise, offhandExpertise, rangedExpertise = GetExpertise();
+    --stats.Expertise = addon.api.trimNumber(GetExpertise()); --will display mainhand expertise but it stores offhand expertise as well, need to find a way to access it
+    --local base, casting = GetManaRegen();
+
+    stats.spell.SpellHit = addon.api.trimNumber(GetCombatRatingBonus(CR_HIT_SPELL) + GetSpellHitModifier());
+    stats.melee.MeleeHit = addon.api.trimNumber(GetCombatRatingBonus(CR_HIT_MELEE) + GetHitModifier());
+    stats.ranged.RangedHit = addon.api.trimNumber(GetCombatRatingBonus(CR_HIT_RANGED));
+
+    stats.ranged.RangedCrit = addon.api.trimNumber(GetRangedCritChance());
+    stats.melee.MeleeCrit = addon.api.trimNumber(GetCritChance());
+
+    stats.spell.Haste = addon.api.trimNumber(GetCombatRatingBonus(20));
+    local base, casting = GetManaRegen()
+    base = base*5;
+    casting = casting*5;
+    stats.spell.ManaRegen = base and addon.api.trimNumber(base) or 0;
+    stats.spell.ManaRegenCasting = casting and addon.api.trimNumber(casting) or 0;
+
+    local minCrit = 100
+    for id, school in pairs(spellSchools) do
+        if GetSpellCritChance(id) < minCrit then
+            minCrit = GetSpellCritChance(id)
+        end
+        stats.spell['SpellDmg'..school] = addon.api.trimNumber(GetSpellBonusDamage(id));
+        stats.spell['SpellCrit'..school] = addon.api.trimNumber(GetSpellCritChance(id));
+    end
+    stats.spell.SpellCrit = addon.api.trimNumber(minCrit)
+
+    stats.spell.HealingBonus = addon.api.trimNumber(GetSpellBonusHealing());
+
+    local lowDmg, hiDmg, offlowDmg, offhiDmg, posBuff, negBuff, percentmod = UnitDamage("player");
+    local mainSpeed, offSpeed = UnitAttackSpeed("player");
+    local mlow = (lowDmg + posBuff + negBuff) * percentmod
+    local mhigh = (hiDmg + posBuff + negBuff) * percentmod
+    local olow = (offlowDmg + posBuff + negBuff) * percentmod
+    local ohigh = (offhiDmg + posBuff + negBuff) * percentmod
+    if mainSpeed < 1 then mainSpeed = 1 end
+    if mlow < 1 then mlow = 1 end
+    if mhigh < 1 then mhigh = 1 end
+    if olow < 1 then olow = 1 end
+    if ohigh < 1 then ohigh = 1 end
+
+    if offSpeed then
+        if offSpeed < 1 then 
+            offSpeed = 1
+        end
+        stats.melee.MeleeDmgOH = addon.api.trimNumber((olow + ohigh) / 2.0)
+        stats.melee.MeleeDpsOH = addon.api.trimNumber(((olow + ohigh) / 2.0) / offSpeed)
+    else
+        --offSpeed = 1
+        stats.melee.MeleeDmgOH = addon.api.trimNumber(0)
+        stats.melee.MeleeDpsOH = addon.api.trimNumber(0)
+    end
+    stats.melee.MeleeDmgMH = addon.api.trimNumber((mlow + mhigh) / 2.0)
+    stats.melee.MeleeDpsMH = addon.api.trimNumber(((mlow + mhigh) / 2.0) / mainSpeed)
+
+    local speed, lowDmg, hiDmg, posBuff, negBuff, percent = UnitRangedDamage("player");
+    local low = (lowDmg + posBuff + negBuff) * percent
+    local high = (hiDmg + posBuff + negBuff) * percent
+    if speed < 1 then speed = 1 end
+    if low < 1 then low = 1 end
+    if high < 1 then high = 1 end
+    local dmg = (low + high) / 2.0
+    stats.ranged.RangedDmg = addon.api.trimNumber(dmg)
+    stats.ranged.RangedDps = addon.api.trimNumber(dmg/speed)
+
+    local base, posBuff, negBuff = UnitAttackPower('player')
+    stats.melee.AttackPower = addon.api.trimNumber(base + posBuff + negBuff)
+
+    for k, stat in pairs(statIDs) do
+        local a, b, c, d = UnitStat("player", k);
+        stats.attributes[stat] = addon.api.trimNumber(b)
+    end
+
+	--ViragDevTool:AddData(stats, "Guildbook_CharStats_"..equipmentSetName)
+
+	--addon:TriggerEvent("OnPlayerStatsChanged", equipmentSetName, stats)
+
+    return stats;
+end
 
 function addon.api.classic.getPlayerEquipment()
     local equipment = {}
@@ -532,10 +975,154 @@ function addon.api.classic.getPlayerEquipment()
     return equipment;
 end
 
+function addon.api.getDaysInMonth(month, year)
+    local days_in_month = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
+    local d = days_in_month[month]
+    -- check for leap year
+    if (month == 2) then
+        if year % 4 == 0 then
+            if year % 100 == 0 then
+                if year % 400 == 0 then
+                    d = 29
+                end
+            else
+                d = 29
+            end
+        end
+    end
+    return d
+end
 
 
+function addon.api.getLockouts()
+    local t = {}
+    local numSavedInstances = GetNumSavedInstances()
+    if numSavedInstances > 0 then
+        for i = 1, numSavedInstances do
+            --t[i] = {GetSavedInstanceInfo(i)}
+            local name, id, reset, difficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
+
+            reset = (GetServerTime() + reset);
+
+            table.insert(t, {
+                name = name,
+                id = id,
+                reset = reset,
+                difficulty = difficulty,
+                locked = locked,
+                extended = extended,
+                instanceIDMostSig = instanceIDMostSig,
+                isRaid = isRaid,
+                maxPlayers = maxPlayers,
+                difficultyName = difficultyName,
+                numEncounters = numEncounters,
+                encounterProgress = encounterProgress,
+            })
+            --local msg = string.format("name=%s, id=%s, reset=%s, difficulty=%s, locked=%s, numEncounters=%s", tostring(name), tostring(id), tostring(reset), tostring(difficulty), tostring(locked), tostring(numEncounters))
+            --print(msg)
+        end
+    end
+    return t
+end
 
 
+function addon.api.generateExportMenu(character, isClassic)
+
+    if isClassic then
+        local menu  = {
+            {
+                text = character:GetName(true),
+                isTitle = true,
+                notCheckable = true,
+            }
+        }
+        table.insert(menu, addon.contextMenuSeparator)
+        table.insert(menu, {
+            text = "Export",
+            isTitle = true,
+            notCheckable = true,
+        })
+        table.insert(menu, {
+            text = "Current",
+            notCheckable = true,
+            func = function()
+                addon:TriggerEvent("Character_ExportEquipment", character, "current", "current")
+            end,
+        })
+        return menu;
+    end
+
+    local menu = {
+        {
+            text = character:GetName(true),
+            isTitle = true,
+            notCheckable = true,
+        }
+    }
+    table.insert(menu, addon.contextMenuSeparator)
+    table.insert(menu, {
+        text = "Export",
+        isTitle = true,
+        notCheckable = true,
+    })
+
+    local specInfo = character:GetSpecInfo()
+
+    if specInfo then
+
+        local primarySpec, secondarySpec = specInfo.primary[1].id, specInfo.secondary[1].id
+
+        local exportEquipMenu1 = {{
+            text = "Select Gear",
+            isTitle = true,
+            notCheckable = true,
+        },}
+        local exportEquipMenu2 = {{
+            text = "Select Gear",
+            isTitle = true,
+            notCheckable = true,
+        },}
+        for setname, info in pairs(character.data.inventory) do
+            table.insert(exportEquipMenu1, {
+                text = setname,
+                notCheckable = true,
+                func = function()
+                    addon:TriggerEvent("Character_ExportEquipment", character, setname, "primary")
+                end,
+            })
+            table.insert(exportEquipMenu2, {
+                text = setname,
+                notCheckable = true,
+                func = function()
+                    addon:TriggerEvent("Character_ExportEquipment", character, setname, "secondary")
+                end,
+            })
+        end
+    
+        if primarySpec then
+            local atlas, spec = character:GetClassSpecAtlasName(primarySpec)
+            table.insert(menu, {
+                text = string.format("%s %s", CreateAtlasMarkup(atlas, 16, 16), spec),
+                notCheckable = true,
+                hasArrow = true,
+                menuList = exportEquipMenu1,
+    
+            })
+        end
+        if secondarySpec then
+            local atlas, spec = character:GetClassSpecAtlasName(secondarySpec)
+            table.insert(menu, {
+                text = string.format("%s %s", CreateAtlasMarkup(atlas, 16, 16), spec),
+                notCheckable = true,
+                hasArrow = true,
+                menuList = exportEquipMenu2,
+    
+            })
+        end
+
+    end
+    return menu;
+end
 
 
 
@@ -554,6 +1141,10 @@ addon.data.inventorySlots = {
     {
         slot = "SHOULDERSLOT",
         icon = 136526,
+    },
+    {
+        slot = "SHIRTSLOT",
+        icon = 136525,
     },
     {
         slot = "CHESTSLOT",
@@ -597,7 +1188,7 @@ addon.data.inventorySlots = {
     },
     {
         slot = "BACKSLOT",
-        icon = 136512,
+        icon = 136521,
     },
     {
         slot = "MAINHANDSLOT",
@@ -611,10 +1202,25 @@ addon.data.inventorySlots = {
         slot = "RANGEDSLOT",
         icon = 136520,
     },
+    {
+        slot = "TABARDSLOT",
+        icon = 136527,
+    },
     -- {
     --     slot = "RELICSLOT",
     --     icon = 136522,
     -- },
 }
 
---Guildbook = {}
+
+
+
+
+
+
+-- Guildbook = {
+--     enabled = false,
+-- }
+
+-- addon:RegisterCallback("Database_OnInitialised", Guildbook.SetEnabled, Guildbook)
+

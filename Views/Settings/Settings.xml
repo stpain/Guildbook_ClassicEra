@@ -3,11 +3,10 @@
         <Layers>
             <Layer level="BACKGROUND">
                 <Texture atlas="ClassHall_InfoBoxMission-BackgroundTile" vertTile="true" horizTile="true" setAllPoints="true">
-                <!-- <Texture atlas="glueannouncementpopup-background" setAllPoints="true"> -->
-                
+
                 </Texture>
             </Layer>
-            <Layer level="OVERLAY">
+            <!-- <Layer level="OVERLAY">
                 <FontString parentKey="header" inherits="GameFontNormalLarge" text="Settings">
                     <Color r="1" g="1" b="1"/>
                     <Size y="30"/>
@@ -16,20 +15,31 @@
                         <Anchor point="TOPRIGHT" x="0" y="0"/>
                     </Anchors>
                 </FontString>
-            </Layer>
+            </Layer> -->
         </Layers>
 
         <Frames>
-            <Frame parentKey="categoryListview" inherits="GuildbookWidgetsListviewTemplate">
+            <Frame parentKey="categoryListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
                 <Size x="170"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="0" y="-30"/>
+                    <Anchor point="TOPLEFT" x="0" y="0"/>
                     <Anchor point="BOTTOMLEFT" x="0" y="0"/>
                 </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture parentKey="background">
+                            <Color r="0.085" g="0.09" b="0.075" a="0.35"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="0" y="0"/>
+                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
                 <KeyValues>
-                    <KeyValue key="frameType" value="BUTTON" type="string"/>
-                    <KeyValue key="itemTemplate" value="GuildbookListviewItem" type="string"/>
-                    <KeyValue key="elementHeight" value="36" type="number"/>
+                    <KeyValue key="itemTemplate" value="GuildbookWrathEraSimpleIconLabelFrame" type="string"/>
+                    <KeyValue key="elementHeight" value="32" type="number"/>
+                    <KeyValue key="enableSelection" value="true" type="boolean"/>
                 </KeyValues>
             </Frame>
 
@@ -39,12 +49,17 @@
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
 
+                <Animations>
+                    <AnimationGroup parentKey="fadeIn" setToFinalAlpha="true">
+                        <Alpha duration="0.12" startDelay="0.12" fromAlpha="0" toAlpha="1"/>
+                    </AnimationGroup>
+                </Animations>
 
                 <Frames>
                     <Frame parentKey="character" parentArray="panels" hidden="true" inherits="InsetFrameTemplate3">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="0" y="0"/>
-                            <Anchor point="BOTTOMRIGHT" x="-24" y="0"/>
+                            <Anchor point="BOTTOMRIGHT" x="-2" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="OVERLAY">
@@ -67,116 +82,186 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="scrollFrame" inherits="GuildbookScrollFrameTemplate">
+                            <Frame parentKey="tabContainer" inherits="GuildbookTabFrameTemplate">
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" x="0" y="-60"/>
-                                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                    <Anchor point="TOPLEFT" x="4" y="-100"/>
+                                    <Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
                                 </Anchors>
-                                <ScrollChild>
-                                    <Frame parentKey="scrollChild">
-                                        <Anchors>
-                                            <Anchor point="LEFT" x="0" y="0"/>
-                                            <Anchor point="RIGHT" x="0" y="0"/>
-                                        </Anchors>
+                                <Frames>
+                                    <Frame parentKey="specializations" setAllPoints="true" hidden="false">
+                                        <Size x="300" y="320"/>
+                                        <Layers>
+                                            <Layer level="BACKGROUND">
+                                                <Texture parentKey="background" alpha="0.15" setAllPoints="true"/>
+                                            </Layer>
+                                            <Layer level="OVERLAY">
+                                                <FontString parentKey="headerMainSpec" inherits="GameFontNormal" text="Main Spec">
+                                                    <Size y="20"/>
+                                                    <Anchors>
+                                                        <Anchor point="TOPLEFT" x="10" y="-10"/>
+                                                    </Anchors>
+                                                </FontString>
+                                                <FontString parentKey="headerOffSpec" inherits="GameFontNormal" text="Off Spec">
+                                                    <Size y="20"/>
+                                                    <Anchors>
+                                                        <Anchor point="TOPLEFT" x="10" y="-170"/>
+                                                    </Anchors>
+                                                </FontString>
+                                                <FontString parentKey="infoMainSpec" inherits="GameFontWhite" text="-">
+                                                    <Size y="90"/>
+                                                    <Anchors>
+                                                        <Anchor point="TOPLEFT" x="240" y="-42"/>
+                                                        <Anchor point="TOPRIGHT" x="-30" y="-42"/>
+                                                    </Anchors>
+                                                </FontString>
+                                                <FontString parentKey="infoOffSpec" inherits="GameFontWhite" text="-">
+                                                    <Size y="90"/>
+                                                    <Anchors>
+                                                        <Anchor point="TOPLEFT" x="240" y="-202"/>
+                                                        <Anchor point="TOPRIGHT" x="-30" y="-202"/>
+                                                    </Anchors>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>
                                         <Frames>
-                                            <Frame parentKey="specializations">
-                                                <Size x="300" y="160"/>
+                                            <CheckButton parentKey="mainSpec1" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                                <Size x="24" y="24"/>
                                                 <Anchors>
-                                                    <Anchor point="TOPLEFT" x="20" y="-30"/>
+                                                    <Anchor point="TOPLEFT" x="26" y="-42"/>
                                                 </Anchors>
-                                                <Layers>
-                                                    <Layer level="BACKGROUND">
-                                                        <!-- <Texture atlas="Relicforge-Relicsbackground-Previewtraits" setAllPoints="true">
-                                                        
-                                                        </Texture> -->
-                                                    </Layer>
-                                                    <Layer level="OVERLAY">
-                                                        <FontString parentKey="header" inherits="GameFontNormal" text="Specializations">
-                                                            <Size y="20"/>
-                                                            <Anchors>
-                                                                <Anchor point="TOPLEFT" x="0" y="0"/>
-                                                                <Anchor point="TOPRIGHT" x="0" y="0"/>
-                                                            </Anchors>
-                                                        </FontString>
-                                                    </Layer>
-                                                </Layers>
-                                                <Frames>
-                                                    <CheckButton parentKey="spec1" inherits="GuildbookCheckButton">
-                                                        <Size x="24" y="24"/>
-                                                        <Anchors>
-                                                            <Anchor point="TOPLEFT" x="16" y="-32"/>
-                                                        </Anchors>
-                                                    </CheckButton>
-                                                    <CheckButton parentKey="spec2" inherits="GuildbookCheckButton">
-                                                        <Size x="24" y="24"/>
-                                                        <Anchors>
-                                                            <Anchor point="TOPLEFT" x="16" y="-64"/>
-                                                        </Anchors>
-                                                    </CheckButton>
-                                                    <CheckButton parentKey="spec3" inherits="GuildbookCheckButton">
-                                                        <Size x="24" y="24"/>
-                                                        <Anchors>
-                                                            <Anchor point="TOPLEFT" x="16" y="-96"/>
-                                                        </Anchors>
-                                                    </CheckButton>
-                                                    <CheckButton parentKey="spec4" inherits="GuildbookCheckButton">
-                                                        <Size x="24" y="24"/>
-                                                        <Anchors>
-                                                            <Anchor point="TOPLEFT" x="16" y="-128"/>
-                                                        </Anchors>
-                                                    </CheckButton>
-                                                </Frames>                        
+                                            </CheckButton>
+                                            <CheckButton parentKey="mainSpec2" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                                <Size x="24" y="24"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.mainSpec1" x="0" y="-8"/>
+                                                </Anchors>
+                                            </CheckButton>
+                                            <CheckButton parentKey="mainSpec3" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                                <Size x="24" y="24"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.mainSpec2" x="0" y="-8"/>
+                                                </Anchors>
+                                            </CheckButton>
+                                            <CheckButton parentKey="mainSpec4" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                                <Size x="24" y="24"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.mainSpec3" x="0" y="-8"/>
+                                                </Anchors>
+                                            </CheckButton>
+
+
+                                            <CheckButton parentKey="offSpec1" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                                <Size x="24" y="24"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" x="26" y="-202"/>
+                                                </Anchors>
+                                            </CheckButton>
+                                            <CheckButton parentKey="offSpec2" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                                <Size x="24" y="24"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.offSpec1" x="0" y="-8"/>
+                                                </Anchors>
+                                            </CheckButton>
+                                            <CheckButton parentKey="offSpec3" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                                <Size x="24" y="24"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.offSpec2" x="0" y="-8"/>
+                                                </Anchors>
+                                            </CheckButton>
+                                            <CheckButton parentKey="offSpec4" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                                <Size x="24" y="24"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.offSpec3" x="0" y="-8"/>
+                                                </Anchors>
+                                            </CheckButton>
+                                        </Frames>                        
+                                    </Frame>
+                                    <Frame parentKey="tradeskills" setAllPoints="true" hidden="true">
+                                        <Layers>
+                                            <Layer level="BACKGROUND">
+                                                <Texture parentKey="background" alpha="0.2" atlas="GarrLanding_Watermark-Tradeskill">
+                                                    <Size x="100" y="100"/>
+                                                    <Anchors>
+                                                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                                    </Anchors>
+                                                </Texture>
+                                            </Layer>
+                                            <Layer level="OVERLAY">
+                                                <FontString parentKey="header" inherits="GameFontNormal" justifyH="LEFT" text="Profession data and last sync times are shown below.">
+                                                    <!-- <Color r="1" g="1" b="1"/> -->
+                                                    <Size y="28"/>
+                                                    <Anchors>
+                                                        <Anchor point="TOPLEFT" x="10" y="-10"/>
+                                                        <Anchor point="TOPRIGHT" x="-10" y="-10"/>
+                                                    </Anchors>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>
+                                        <Frames>
+                                            <Frame parentKey="prof1" inherits="GuildbookWrathEraSimpleIconLabelFrame">
+                                                <Size x="390" y="40"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" x="10" y="-48"/>
+                                                </Anchors>
                                             </Frame>
-                                            <Frame parentKey="myCharacters">
-                                                <Size x="300" y="300"/>
+                                            <Frame parentKey="prof2" inherits="GuildbookWrathEraSimpleIconLabelFrame">
+                                                <Size x="390" y="40"/>
                                                 <Anchors>
-                                                    <Anchor point="TOPLEFT" relativeKey="$parent.specializations" relativePoint="TOPRIGHT" x="20" y="0"/>
+                                                    <Anchor point="TOPLEFT" relativeKey="$parent.prof1" relativePoint="BOTTOMLEFT" x="0" y="-16"/>
                                                 </Anchors>
-                                                <Layers>
-                                                    <Layer level="OVERLAY">
-                                                        <FontString parentKey="headerLeft" inherits="GameFontNormal" text="Alt Characters" justifyH="LEFT">
-                                                            <Size x="100" y="20"/>
-                                                            <Anchors>
-                                                                <Anchor point="TOPLEFT" x="0" y="0"/>
-                                                            </Anchors>
-                                                        </FontString>
-                                                        <FontString parentKey="headerRight" inherits="GameFontNormal" text="Main" justifyH="RIGHT">
-                                                            <Size x="100" y="20"/>
-                                                            <Anchors>
-                                                                <Anchor point="TOPRIGHT" x="0" y="0"/>
-                                                            </Anchors>
-                                                        </FontString>
-                                                    </Layer>
-                                                </Layers>
-                                                <Frames>
-                                                    <Frame parentKey="listview" inherits="GuildbookWidgetsListviewTemplate">
-                                                        <Anchors>
-                                                            <Anchor point="TOPLEFT" x="0" y="-24"/>
-                                                            <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
-                                                        </Anchors>
-                                                        <KeyValues>
-                                                            <KeyValue key="frameType" value="FRAME" type="string"/>
-                                                            <KeyValue key="itemTemplate" value="GuildbookMyCharactersListviewItem" type="string"/>
-                                                            <KeyValue key="elementHeight" value="40" type="number"/>
-                                                        </KeyValues>
-                                                    </Frame>
-                                                </Frames>
                                             </Frame>
-                                            <Button parentKey="reset" inherits="UIPanelButtonTemplate" text="Reset">
-                                                <Size x="140" y="22"/>
+                                            <Frame parentKey="cooking" inherits="GuildbookWrathEraSimpleIconLabelFrame">
+                                                <Size x="390" y="40"/>
                                                 <Anchors>
-                                                    <Anchor point="BOTTOM" x="16" y="10"/>
+                                                    <Anchor point="TOPLEFT" relativeKey="$parent.prof2" relativePoint="BOTTOMLEFT" x="0" y="-16"/>
                                                 </Anchors>
-                                            </Button>
+                                            </Frame>
+                                            <Frame parentKey="firstAid" inherits="GuildbookWrathEraSimpleIconLabelFrame">
+                                                <Size x="390" y="40"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeKey="$parent.cooking" relativePoint="BOTTOMLEFT" x="0" y="-16"/>
+                                                </Anchors>
+                                            </Frame>
+                                            <Frame parentKey="fishing" inherits="GuildbookWrathEraSimpleIconLabelFrame">
+                                                <Size x="390" y="40"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeKey="$parent.firstAid" relativePoint="BOTTOMLEFT" x="0" y="-16"/>
+                                                </Anchors>
+                                            </Frame>
+
                                         </Frames>
                                     </Frame>
-
-                                </ScrollChild>
-                            </ScrollFrame>                        
+                                    <Frame parentKey="alts" setAllPoints="true" hidden="true">
+                                        <Layers>
+                                            <Layer level="BACKGROUND">
+                                                <Texture parentKey="background" setAllPoints="true"/>
+                                            </Layer>
+                                            <Layer level="OVERLAY">
+                                                <FontString parentKey="header" inherits="GameFontNormal" justifyH="LEFT" text="Set your main character for the current guild">
+                                                    <Size y="20"/>
+                                                    <Anchors>
+                                                        <Anchor point="TOPLEFT" x="10" y="-10"/>
+                                                        <Anchor point="TOPRIGHT" x="-10" y="-10"/>
+                                                    </Anchors>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>
+                                        <Frames>
+                                            <ScrollFrame parentKey="gridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" x="0" y="-40"/>
+                                                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                            </ScrollFrame>
+                                        </Frames>
+                                    </Frame>
+                                </Frames>
+                            </Frame>                       
                         </Frames>
                     </Frame>
 
 
+                    <!-- GuildbookTabFrameTemplate -->
                     <Frame parentKey="guild" parentArray="panels" hidden="true" inherits="InsetFrameTemplate3">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="0" y="0"/>
@@ -201,6 +286,15 @@
                                 </FontString>
                             </Layer>
                         </Layers>
+                        <Frames>
+                            <CheckButton parentKey="modBlizzRoster" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                <Size x="24" y="24"/>
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="16" y="-32"/>
+                                </Anchors>
+                            </CheckButton>
+
+                        </Frames> 
                     </Frame>
 
                     <Frame parentKey="tradeskills" parentArray="panels" hidden="true" inherits="InsetFrameTemplate3">
@@ -228,7 +322,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="scrollFrame" inherits="GuildbookScrollFrameTemplate">
+                            <ScrollFrame parentKey="scrollFrame" inherits = "GuildbookWrathEraScrollFrameTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="-60"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
@@ -262,13 +356,13 @@
                                                     </Layer>
                                                 </Layers>
                                                 <Frames>
-                                                    <CheckButton parentKey="tradeskillsShowAllRecipeInfoTooltip" inherits="GuildbookCheckButton">
+                                                    <CheckButton parentKey="tradeskillsShowAllRecipeInfoTooltip" inherits = "GuildbookWrathEraWidgetsCheckButton">
                                                         <Size x="24" y="24"/>
                                                         <Anchors>
                                                             <Anchor point="TOPLEFT" x="16" y="-32"/>
                                                         </Anchors>
                                                     </CheckButton>
-                                                    <CheckButton parentKey="tradeskillsShowMyRecipeInfoTooltip" inherits="GuildbookCheckButton">
+                                                    <CheckButton parentKey="tradeskillsShowMyRecipeInfoTooltip" inherits = "GuildbookWrathEraWidgetsCheckButton">
                                                         <Size x="24" y="24"/>
                                                         <Anchors>
                                                             <Anchor point="TOPLEFT" x="16" y="-74"/>
@@ -293,13 +387,13 @@
                                                     </Layer>
                                                 </Layers>
                                                 <Frames>
-                                                    <CheckButton parentKey="tradeskillsShowAllRecipesUsingTooltip" inherits="GuildbookCheckButton">
+                                                    <CheckButton parentKey="tradeskillsShowAllRecipesUsingTooltip" inherits = "GuildbookWrathEraWidgetsCheckButton">
                                                         <Size x="24" y="24"/>
                                                         <Anchors>
                                                             <Anchor point="TOPLEFT" x="16" y="-32"/>
                                                         </Anchors>
                                                     </CheckButton>
-                                                    <CheckButton parentKey="tradeskillsShowMyRecipesUsingTooltip" inherits="GuildbookCheckButton">
+                                                    <CheckButton parentKey="tradeskillsShowMyRecipesUsingTooltip" inherits = "GuildbookWrathEraWidgetsCheckButton">
                                                         <Size x="24" y="24"/>
                                                         <Anchors>
                                                             <Anchor point="TOPLEFT" x="16" y="-74"/>
@@ -340,18 +434,24 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <Slider name="GuildbookSettingsChatGuildHistoryLimitSlider" parentKey="chatGuildHistoryLimit" inherits="GuildbookSliderTopLabel">
+                            <Slider name="GuildbookSettingsChatGuildHistoryLimitSlider" parentKey="chatGuildHistoryLimit" inherits = "GuildbookWrathEraSliderTopLabel">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="24" y="-92"/>
                                 </Anchors>
                                 <Size x="180" y="16"/>
                             </Slider>
-                            <Slider name="GuildbookSettingsChatWhisperHistoryLimitSlider" parentKey="chatWhisperHistoryLimit" inherits="GuildbookSliderTopLabel">
+                            <Slider name="GuildbookSettingsChatWhisperHistoryLimitSlider" parentKey="chatWhisperHistoryLimit" inherits = "GuildbookWrathEraSliderTopLabel">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" relativeKey="$parent.chatGuildHistoryLimit" relativePoint="BOTTOMLEFT" x="0" y="-40"/>
                                 </Anchors>
                                 <Size x="180" y="16"/>
                             </Slider>
+                            <Button parentKey="deleteAllChats" inherits="UIPanelButtonTemplate" text="Wipe all chats.">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.chatWhisperHistoryLimit" relativePoint="BOTTOMLEFT" x="0" y="-40"/>
+                                </Anchors>
+                                <Size x="160" y="22"/>
+                            </Button>
                         </Frames>                  
                     </Frame>
 
@@ -380,7 +480,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <Frame parentKey="listview" inherits="GuildbookWidgetsListviewTemplate">
+                            <Frame parentKey="listview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="-60"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
@@ -427,15 +527,69 @@
                                 </Anchors>
                             </Button>
 
-                            <CheckButton parentKey="debug" inherits="GuildbookCheckButton">
+                            <CheckButton parentKey="debug" inherits = "GuildbookWrathEraWidgetsCheckButton">
                                 <Size x="24" y="24"/>
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" x="16" y="-100"/>
+                                    <Anchor point="TOPLEFT" x="16" y="-105"/>
                                 </Anchors>
                             </CheckButton>
+
+                            <EditBox parentKey="discord" inherits="InputBoxTemplate" autoFocus="false">
+                                <Size x="200" y="20"/>
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.debug" relativePoint="BOTTOMLEFT" x="10" y="-30"/>
+                                </Anchors>
+                                <Layers>
+                                    <Layer level="OVERLAY">
+                                        <FontString parentKey="general" inherits="GameFontNormalSmall" text="Discord" justifyH="LEFT">
+                                            <Size x="200" y="20"/>
+                                            <Anchors>
+                                                <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="0" y="0"/>
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                            </EditBox>
+
                         </Frames>                     
                     </Frame>
 
+                    <Frame parentKey="help" parentArray="panels" hidden="true" inherits="InsetFrameTemplate3">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="0"/>
+                            <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="OVERLAY">
+                                <FontString parentKey="header" inherits="GameFontNormalLarge" text="Help">
+                                    <Size y="30"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                                        <Anchor point="TOPRIGHT" x="0" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="general" inherits="GameFontNormal">
+                                    <Size y="30"/>
+                                    <Color r="1" g="1" b="1"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="0" y="-30"/>
+                                        <Anchor point="TOPRIGHT" x="0" y="-30"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <Frame parentKey="text" inherits="ScrollingFontTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="12" y="-60"/>
+                                    <Anchor point="BOTTOMRIGHT" x="-12" y="12"/>
+                                </Anchors>
+                                <KeyValues>
+                                    <KeyValue key="fontName" value="GameFontWhite"/>
+                                </KeyValues>
+                            </Frame>
+                        </Frames>
+                    </Frame>
                 </Frames>
             </Frame>
         </Frames>

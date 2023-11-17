@@ -18,15 +18,17 @@ local name, addon = ...;
 local AceComm = LibStub:GetLibrary("AceComm-3.0")
 local LibDeflate = LibStub:GetLibrary("LibDeflate")
 local LibSerialize = LibStub:GetLibrary("LibSerialize")
+local Database = addon.Database;
+local Character = addon.Character;
 
 local Comms = {
-    prefix = "GuildbookEra", --name var was to long
+    prefix = "Guildbook", --name var was to long
     version = 1,
 
     --delay from transmit request to first dispatch attempt, this prevents spamming if a player opens/closes a panel that triggers a transmit
-    queueWaitingTime = 20.0,
+    queueWaitingTime = 2.0,
     --the time added to each message waiting in the queue, this limits how often a message can be dispatched
-    queueExtendTime = 6.0,
+    queueExtendTime = 2.0,
 
      --limiter effect for the dispatcher onUpdate func, limits the onUpdate to once per second
     dispatcherElapsedDelay = 1.0,
@@ -39,11 +41,16 @@ local Comms = {
 
 
 --this table should contain only the character.data[key] keys which we want to send
+--[[
+    for example, when the characters mainSpec changes, the character obj will notify to broadcast
+    then this table will be checked for the key 'mainSpec' and its value passed on as an EVENT flag for the data payload
+]]
 Comms.characterKeyToEventName = {
     --containers = "CONTAINERS_TRANSMIT", --for guild banks -REMOVED THIS SYSTEM
     inventory = "INVENTORY_TRANSMIT",
     paperDollStats = "PAPERDOLL_STATS_TRANSMIT",
     talents = "TALENT_TRANSMIT",
+    glyphs = "GLYPH_TRANSMIT",
     resistances = "RESISTANCE_TRANSMIT",
     auras = "AURA_TRANSMIT",
     -- alts = self.data.alts,
@@ -53,28 +60,28 @@ Comms.characterKeyToEventName = {
     -- offSpec = self.data.offSpec,
     -- mainSpecIsPvP = self.data.mainSpecIsPvP,
     -- offSpecIsPvP = self.data.offSpecIsPvP,
-    profession1 = "TRADESKILL_TRANSMIT",
-    profession1Level = "TRADESKILL_TRANSMIT",
-    profession1Spec = "TRADESKILL_TRANSMIT",
-    profession1Recipes = "TRADESKILL_TRANSMIT",
-    profession2 = "TRADESKILL_TRANSMIT",
-    profession2Level = "TRADESKILL_TRANSMIT",
-    profession2Spec = "TRADESKILL_TRANSMIT",
-    profession2Recipes = "TRADESKILL_TRANSMIT",
-    cookingLevel = "TRADESKILL_TRANSMIT",
-    cookingRecipes = "TRADESKILL_TRANSMIT",
-    fishingLevel = "TRADESKILL_TRANSMIT",
-    firstAidLevel = "TRADESKILL_TRANSMIT",
-    firstAidRecipes = "TRADESKILL_TRANSMIT",
+    profession1 = "TRADESKILL_TRANSMIT_PROF1",
+    profession1Level = "TRADESKILL_TRANSMIT_PROF1_LEVEL",
+    profession1Spec = "TRADESKILL_TRANSMIT_PROF1_SPEC",
+    profession1Recipes = "TRADESKILL_TRANSMIT_PROF1_RECIPES",
+    profession2 = "TRADESKILL_TRANSMIT_PROF2",
+    profession2Level = "TRADESKILL_TRANSMIT_PROF2_LEVEL",
+    profession2Spec = "TRADESKILL_TRANSMIT_PROF2_SPEC",
+    profession2Recipes = "TRADESKILL_TRANSMIT_PROF2_RECIPES",
+    cookingLevel = "TRADESKILL_TRANSMIT_COOKING_LEVEL",
+    cookingRecipes = "TRADESKILL_TRANSMIT_COOKING_RECIPES",
+    fishingLevel = "TRADESKILL_TRANSMIT_FISHING_LEVEL",
+    firstAidLevel = "TRADESKILL_TRANSMIT_FIRSTAID_LEVEL",
+    firstAidRecipes = "TRADESKILL_TRANSMIT_FIRSTAID_RECIPES",
 
-    --Glyphs = self.data.glyphs,
     --CurrentInventory = self.data.currentInventory,
     --CurrentPaperdollStats = self.data.currentPaperdollStats or {},
 
 }
-Comms.characterKeyToTargetComms = {
-
-}
+Comms.messageEventToCharacterKey = {}
+for k, v in pairs(Comms.characterKeyToEventName) do
+    Comms.messageEventToCharacterKey[v] = k
+end
 
 
 function Comms:Init()
@@ -101,7 +108,7 @@ function Comms:Player_Regen_Disabled()
     self.paused = true;
 end
 
----the pourpose of this function is to check the queued mesages once per second and take action
+---the purpose of this function is to check the queued mesages once per second and take action
 ---if there is a message and its dispatch time has been reached then push the message, then update remaining messages to dispatch at n secon intervals
 ---if the queue is empty remove the onUpdate script
 ---@param self frame the dispatch frame
@@ -132,17 +139,21 @@ function Comms.DispatcherOnUpdate(self, elapsed)
         --if the message is due to go push it
         if message.dispatchTime < now then
 
+            if not message.payload.version then
+                message.payload.version = Comms.version;
+            end
+
             local serialized = LibSerialize:Serialize(message.payload);
             local compressed = LibDeflate:CompressDeflate(serialized);
             local encoded    = LibDeflate:EncodeForWoWAddonChannel(compressed);
 
             Comms:SendCommMessage(Comms.prefix, encoded, message.channel, message.target, "NORMAL")
-            addon.LogDebugMessage("comms_out", string.format("sending message [%s] on channel [%s]", message.event, message.channel))
+            addon.LogDebugMessage("comms_out", string.format("sending message [|cffE7B007%s|r] on channel [%s]", message.event, message.channel))
 
             --set remaining messages to dispatch in 'n' second intervals
             for i = 2, #Comms.queue do
                 Comms.queue[i].dispatchTime = now + ((i - 1) * Comms.queueExtendTime)
-                addon.LogDebugMessage("comms", string.format("updated dispatch time for [%s] will dispatch at %s", Comms.queue[i].event, date("%T", Comms.queue[i].dispatchTime)))
+                addon.LogDebugMessage("comms", string.format("updated dispatch time for [|cffE7B007%s|r] will dispatch at %s", Comms.queue[i].event, date("%T", Comms.queue[i].dispatchTime)))
             end
 
             --remove the message
@@ -183,11 +194,12 @@ end
 function Comms:QueueMessage(event, message, channel, target)
 
     local exists = false;
-    for k, message in ipairs(self.queue) do
-        if message.event == event then
+    for k, v in ipairs(self.queue) do
+        --if (v.event == event) and (v.payload.method == message.payload.method) and (v.payload.subKey == message.payload.subKey) then
+        if (v.event == event) then
             exists = true;
-            message.payload = message
-            addon.LogDebugMessage("comms", string.format("updated message payload for [%s]", event))
+            v.payload = message
+            addon.LogDebugMessage("comms", string.format("updated message payload for [|cffE7B007%s|r]", event))
         end
     end
 
@@ -201,7 +213,7 @@ function Comms:QueueMessage(event, message, channel, target)
             dispatchTime = dispatchTime;
         })
 
-        addon.LogDebugMessage("comms", string.format("queued [%s] dispatch time %s", event, date("%T", dispatchTime)))
+        addon.LogDebugMessage("comms", string.format("queued [|cffE7B007%s|r] dispatch time %s", event, date("%T", dispatchTime)))
     end
 
     if self.dispatcher:GetScript("OnUpdate") == nil then
@@ -213,7 +225,7 @@ end
 function Comms:TransmitToTarget(event, data, method, subKey, target)
     local msg = {
         event = event,
-        version = self.version,
+        version = Comms.version,
         payload = {
             method = method, --the character:method
             subKey = subKey, --a subkey if used
@@ -223,14 +235,29 @@ function Comms:TransmitToTarget(event, data, method, subKey, target)
     Comms:QueueMessage(msg.event, msg, "WHISPER", target)
 end
 
-function Comms:TransmitToGuild(event, data, method, subKey)
+function Comms:TransmitToGuild(event, data, method, subKey, nameRealm)
     local msg = {
         event = event,
-        version = self.version,
+        version = Comms.version,
         payload = {
-            method = method, --these could likely be coded into a lookup table?
+            method = method,
             subKey = subKey,
             data = data,
+            nameRealm = nameRealm,
+        },
+    }
+    Comms:QueueMessage(msg.event, msg, "GUILD", nil)
+end
+function Comms:TransmitToGuild_New(nameRealm, method, key, subKey, data)
+    local msg = {
+        event = self.characterKeyToEventName[key],
+        version = Comms.version,
+        payload = {
+            method = method,
+            key = key,
+            subKey = subKey,
+            data = data,
+            nameRealm = nameRealm,
         },
     }
     Comms:QueueMessage(msg.event, msg, "GUILD", nil)
@@ -262,31 +289,63 @@ function Comms:OnCommReceived(prefix, message, distribution, sender)
         return;
     end
 
+    --print(sender, data.version)
 
-    if Comms.events[data.event] then
-        addon:TriggerEvent("StatusText_OnChanged", string.format("received [%s] from %s", data.event, sender))
-        Comms.events[data.event](Comms, sender, data)
-        addon.LogDebugMessage("comms_in", string.format("[%s] data incoming from %s", data.event, sender))
+    if data.version and (data.version >= self.version) then
+        if Comms.events[data.event] then
+            addon:TriggerEvent("StatusText_OnChanged", string.format("received [|cffE7B007%s|r] from %s", data.event, sender))
+            Comms.events[data.event](Comms, sender, data)
+            addon.LogDebugMessage("comms_in", string.format("[|cffE7B007%s|r] data incoming from %s", data.event, sender), data)
+        end
+    else
+        --DevTools_Dump(data)
     end
 end
 
 
 function Comms:Character_OnDataReceived(sender, message)
 
-    if not sender:find("-") then
-        local realm = GetNormalizedRealmName()
-        sender = string.format("%s-%s", sender, realm)
+    local nameRealm;
+    if message.payload.nameRealm and message.payload.nameRealm:find("Player-") then
+        nameRealm = message.payload.nameRealm
+    else
+        if not sender:find("-") then
+            local realm = GetNormalizedRealmName()
+            sender = string.format("%s-%s", sender, realm)
+        end
+        nameRealm = sender;
     end
 
-    local character = addon.characters[sender]
-    if character and character[message.payload.method] then
-        if message.subKey then
-            character[message.payload.method](character, message.payload.subKey, message.payload.data)
-        else
-            character[message.payload.method](character, message.payload.data)
+
+    if not addon.characters[nameRealm] then
+        if Database.db.characterDirectory[nameRealm] then
+            addon.characters[nameRealm] = Character:CreateFromData(Database.db.characterDirectory[nameRealm])
         end
     end
+    local character = addon.characters[nameRealm]
 
+
+    -- if message.event == "TRADESKILL_TRANSMIT_PROF1" then
+    --     print("Dumping payload")
+    --     DevTools_Dump({message.payload})
+    -- end
+
+    --the version check should prevent issues but worth checking for this
+    if message.payload.key then
+        if character and character[message.payload.method] then
+            --print("calling method", message.payload.method)
+            if message.payload.subKey then
+                -- print("using subKey value", message.payload.key, message.payload.subKey)
+                -- DevTools_Dump({message.payload.data})
+                character.data[message.payload.key][message.payload.subKey] = message.payload.data
+            else
+                -- print("using key value", message.payload.key)
+                -- DevTools_Dump({message.payload.data})
+                character.data[message.payload.key] = message.payload.data
+            end
+            addon:TriggerEvent("Character_OnDataChanged", character)
+        end
+    end
 end
 
 
@@ -294,20 +353,32 @@ end
 --check its the clients character and proceed with sending data
 function Comms:Character_BroadcastChange(character, ...)
 
+    --DevTools_Dump({...})
+
     if addon.thisCharacter and (character.data.name == addon.thisCharacter) then
 
-        --addon:TriggerEvent("Character_BroadcastChange", self, "SetAuras", "auras", set) > method, key, subKey
-        --Character:SetPaperdollStats(set, stats, broadcast) > method=SetPaperdollStats, key=stats, subKey=set
+        --[[
+            the character object comms is a little like an extension of the callback system btu works across the chat channels
+            example use:
+
+                -the character object will fire this event with the following args (string method, string key, var subKey)
+                    addon:TriggerEvent("Character_BroadcastChange", self, "SetAuras", "auras", info)
+
+                -comms will use those args on the receiving end with the correct character object
+                    Character[method](subKey, key, info)
+                    Character[method](key, info)
+
+                in this example 
+                SetAuras is a method of the character class/object
+                auras is the key (this is the object.data.auras)
+                info is the actual aura info
+        ]]
 
         --doing things this way adds addition text to the message but greatly simplifies the addon code required
         --the addon will take the method sent if it exists rather than having to hard code message.event > character.method (although this could be better as time goes on)
         local method, key, subKey = ...;
 
-        --print(method, key, subKey)
-
         if self.characterKeyToEventName[key] then
-
-            addon.LogDebugMessage("comms", string.format("received %s", key))
 
             local data;
             if subKey then
@@ -317,7 +388,16 @@ function Comms:Character_BroadcastChange(character, ...)
             end
 
             if data then
-                self:TransmitToGuild(self.characterKeyToEventName[key], data, method, subKey)
+                if method == "SetTradeskill" then
+                    --print("setting tradeskill", key, data)
+                end
+                --self:TransmitToGuild(self.characterKeyToEventName[key], data, method, subKey, character.data.name)
+                self:TransmitToGuild_New(character.data.name, method, key, subKey, data)
+                Database:SetCharacterSyncData(key, time())
+                --print("setting sync time for", key)
+                addon.LogDebugMessage("comms", string.format("Character_OnDataChanged > %s has changed, sending to comms queue", key))
+            else
+                addon.LogDebugMessage("comms", string.format("no data found in character.data[%s]", key))
             end
 
         end
@@ -427,7 +507,113 @@ function Comms:Guildbank_OnDataReceived(sender, message)
     addon:TriggerEvent("Guildbank_OnDataReceived", sender, message)
 end
 
+
+
+
+function Comms:RequestCharacterData(nameRealm, data)
+    
+    if addon.characters[nameRealm] then
+        if addon.characters[nameRealm].data.onlineStatus.isOnline then
+            local msg = {
+                event = "CHARACTER_DATA_REQUEST",
+                version = self.version,
+                payload = {
+                    requestData = data,
+                    target = nameRealm,
+                }
+            }
+            local name = Ambiguate(nameRealm, "full")
+            self:Transmit_NoQueue(msg, "WHISPER", name)
+            addon.LogDebugMessage("comms", string.format("Sent data request to %s", name))
+            addon:TriggerEvent("StatusText_OnChanged", string.format("Sent data request to %s", name))
+        end
+    end
+end
+
+function Comms:Character_OnDataRequest(sender, message)
+
+    addon.LogDebugMessage("comms", string.format("Data request from %s", sender))
+    addon:TriggerEvent("StatusText_OnChanged", string.format("Data request from %s", sender))
+
+    if message and message.payload then
+
+        if message.payload.requestData and message.payload.requestData:find(".") then
+            
+            local key, subKey = strsplit(".", message.payload.requestData)
+            if type(key) == "string" and type(subKey) == "string" then
+                if addon.characters[addon.thisCharacter] and addon.characters[addon.thisCharacter].data[key] and addon.characters[addon.thisCharacter].data[key][subKey] then
+                    
+                    local msg = {
+                        event = "CHARACTER_DATA_RESPONSE",
+                        version = self.version,
+                        payload = {
+                            target = message.payload.target,
+                            request = message.payload.requestData,
+                            data = addon.characters[addon.thisCharacter].data[key][subKey];
+                        }
+                    }
+                    self:Transmit_NoQueue(msg, "WHISPER", sender)
+                    addon.LogDebugMessage("comms", string.format("Sent data response to %s", sender))
+                    addon:TriggerEvent("StatusText_OnChanged", string.format("Sent data response to %s", sender))
+
+                end
+            else
+                addon.LogDebugMessage("comms", string.format("Invalid keys from string split [%s]", sender))
+            end
+        else
+            if addon.characters[addon.thisCharacter] and addon.characters[addon.thisCharacter].data[message.payload.requestData] then
+
+                local msg = {
+                    event = "CHARACTER_DATA_RESPONSE",
+                    version = self.version,
+                    payload = {
+                        target = message.payload.target,
+                        request = message.payload.requestData,
+                        data = addon.characters[addon.thisCharacter].data[message.payload.requestData];
+                    }
+                }
+                self:Transmit_NoQueue(msg, "WHISPER", sender)
+                addon.LogDebugMessage("comms", string.format("Sent data response to %s", sender))
+                addon:TriggerEvent("StatusText_OnChanged", string.format("Sent data response to %s", sender))
+            end
+        end
+
+    end
+end
+
+function Comms:Character_OnDataResponse(sender, message)
+
+    addon.LogDebugMessage("comms", string.format("Data response from %s", sender))
+    addon:TriggerEvent("StatusText_OnChanged", string.format("Data response from %s", sender))
+
+    if message.payload.request and message.payload.request:find(".") then
+        
+        local key, subKey = strsplit(".", message.payload.request)
+        if type(key) == "string" and type(subKey) == "string" then
+            if message.payload.target and message.payload.data then
+                if addon.characters and addon.characters[message.payload.target] then
+                    addon.characters[message.payload.target].data[key][subKey] = message.payload.data;
+                    addon:TriggerEvent("Character_OnDataChanged", addon.characters[message.payload.target])
+                end
+            end
+        end
+        
+    else
+        if message.payload.target and message.payload.request and message.payload.data then
+            if addon.characters and addon.characters[message.payload.target] then
+                addon.characters[message.payload.target].data[message.payload.request] = message.payload.data;
+                addon:TriggerEvent("Character_OnDataChanged", addon.characters[message.payload.target])
+            end
+        end
+    end
+
+end
+
+--when a comms is received check the event type and pass to the relavent function
 Comms.events = {
+
+    CHARACTER_DATA_REQUEST = Comms.Character_OnDataRequest,
+    CHARACTER_DATA_RESPONSE = Comms.Character_OnDataResponse,
 
     --character events
     --CONTAINERS_TRANSMIT = Comms.Character_OnDataReceived,
@@ -436,8 +622,22 @@ Comms.events = {
     RESISTANCE_TRANSMIT = Comms.Character_OnDataReceived,
     AURA_TRANSMIT = Comms.Character_OnDataReceived,
     TALENT_TRANSMIT = Comms.Character_OnDataReceived,
+    GLYPH_TRANSMIT = Comms.Character_OnDataReceived,
     SPEC_TRANSMIT = Comms.Character_OnDataReceived,
     TRADESKILL_TRANSMIT = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_PROF1 = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_PROF1_LEVEL = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_PROF1_SPEC = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_PROF1_RECIPES = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_PROF2 = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_PROF2_LEVEL = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_PROF2_SPEC = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_PROF2_RECIPES = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_COOKING_LEVEL = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_COOKING_RECIPES = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_FISHING_LEVEL = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_FIRSTAID_LEVEL = Comms.Character_OnDataReceived,
+    TRADESKILL_TRANSMIT_FIRSTAID_RECIPES = Comms.Character_OnDataReceived,
 
     --calendar events
     CALENDAR_EVENT_TRANSMIT = "",

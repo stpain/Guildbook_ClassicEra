@@ -153,6 +153,7 @@ Guildbook.ContextMenu_Separator_Wide = "|TInterface/COMMON/UI-TooltipDivider:8:2
 local Database = addon.Database;
 local L = addon.Locales;
 local Character = addon.Character;
+local Talents = addon.Talents;
 local json = LibStub('JsonLua-1.0');
 
 GuildbookMixin = {
@@ -176,7 +177,7 @@ end
 function GuildbookMixin:OnLoad()
     
     self:RegisterForDrag("LeftButton")
-    self.resize:Init(self, 600, 150, 1100, 650)
+    self.resize:Init(self, 600, 525, 1100, 650)
 
     self.resize:HookScript("OnMouseDown", function()
         self.isRefreshEnabled = true;
@@ -230,7 +231,6 @@ function GuildbookMixin:OnLoad()
         self:ToggleHelptips()
     end)
 
-    self:SetupImportExport()
 end
 
 function GuildbookMixin:Player_Regen_Disabled()
@@ -253,29 +253,7 @@ function GuildbookMixin:ToggleHelptips()
     end
 end
 
-function GuildbookMixin:SetupImportExport()
 
-    self.import.importExportEditbox.EditBox:SetMaxLetters(1000000000)
-
-    local testData = {
-        name = "calendar",
-        data = {
-            {
-                foo = 1,
-                bar = false,
-            }
-        },
-        version = 0.1,
-    }
-    self.import.importExportEditbox.EditBox:SetText(json.encode(testData))
-    
-    self.import.importData:SetScript("OnClick", function()
-        local data = self.import.importExportEditbox.EditBox:GetText()
-        if data and (data ~= "") and (data ~= " ") then
-            Database:ImportData(data);
-        end
-    end)
-end
 
 function GuildbookMixin:ShowSpecialFrame(frame)
     for k, v in ipairs(self.specialFrames) do
@@ -289,7 +267,7 @@ end
 
 function GuildbookMixin:SetStatausText(text)
     self.statusText:SetText(text)
-    --self:LogDebugMessage("info", text)
+    addon.LogDebugMessage("info", text)
 end
 
 function GuildbookMixin:OnUpdate()
@@ -300,12 +278,14 @@ function GuildbookMixin:OnUpdate()
         self:UpdateLayout()
     end
 
-    -- UpdateAddOnMemoryUsage()
-    -- local mem = GetAddOnMemoryUsage(name)
+    -- if Database.db.debug then
+    --     local mem = 0;
+    --     UpdateAddOnMemoryUsage()
+    --     mem = GetAddOnMemoryUsage(name)
 
-    -- local mem = 0.4
-    -- local fr = GetFramerate()
-    -- self.memoryUsage:SetText(string.format("fps: %d mem: %d", math.floor(fr), math.floor(mem)))
+    --     local fr = GetFramerate()
+    --     self.memoryUsage:SetText(string.format("fps: %d mem: %d", math.floor(fr), math.floor(mem)))
+    -- end
 end
 
 function GuildbookMixin:OnEvent()
@@ -325,9 +305,14 @@ function GuildbookMixin:SelectView(view)
         table.insert(self.viewHistory, view)
 --        DevTools_Dump(self.viewHistory)
     end
+    self:Show()
 end
+-- function addon.SelectView(view)
+--     GuildbookUI:SelectView(view)
+-- end
 
 function GuildbookMixin:AddView(view)
+    --print(string.format("adding view [%s]", view.name))
     self.views[view.name] = view;
     view:SetParent(self.content)
     view:SetAllPoints()
@@ -340,6 +325,7 @@ function GuildbookMixin:AddView(view)
     end
 
     if self.ribbon[view.name:lower()] then
+        --print(string.format("setting OnMouseDown script for [%s]", view.name))
         self.ribbon[view.name:lower()]:SetScript("OnMouseDown", function()
             self:SelectView(view.name)
         end)
@@ -354,48 +340,98 @@ function GuildbookMixin:Blizzard_OnInitialGuildRosterScan(guildName)
     --So the addon should now have the guild and characters tables set, but lets hold it 1 second
     C_Timer.After(1, function()
 
-        --atm this will re set the data which is used o trigger the braodcast
-        --TODO: update this to check for data and then broadcast, save the extra fun calls
-        local equipment = addon.api.classic.getPlayerEquipment()
-        local currentStats = addon.api.classic.getPaperDollStats()
-        local resistances = addon.api.classic.getPlayerResistances(UnitLevel("player"))
-        local auras = addon.api.classic.getPlayerAuras()
-        local talents = addon.api.classic.getPlayerTalents()
+        --load all player characters and alts
+        for nameRealm, _ in pairs(Database.db.myCharacters) do
+            local character = Database:GetCharacter(nameRealm)
+            if type(character) == "table" then
+                if not addon.characters then
+                    return
+                end
+                if not addon.characters[nameRealm] then
+                    addon.characters[nameRealm] = Character:CreateFromData(character)
+                end
+            end 
+        end
 
+        --get latest data and transmit to guild
         if addon.characters[addon.thisCharacter] then
+
+            local equipment = addon.api.classic.getPlayerEquipment()
+            local currentStats = addon.api.classic.getPaperDollStats()
+            local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
+            local auras = addon.api.getPlayerAuras()
+            local spec, tabs, talents = addon.api.classic.getPlayerTalents()
+
             addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
             addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
             addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats, true)
             addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
             addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
 
-            if addon.characters[addon.thisCharacter].data.mainSpec then
-                addon:TriggerEvent("Character_BroadcastChange", addon.characters[addon.thisCharacter], "SetSpec", "mainSpec")
+            if addon.characters[addon.thisCharacter] then
+                local lockouts = addon.api.getLockouts()
+                addon.characters[addon.thisCharacter]:SetLockouts(lockouts)
             end
         end
     end)
 
+
+    C_Timer.After(5.0, function()
+        
+        if addon.characters[addon.thisCharacter] then
+            if not addon.characters[addon.thisCharacter].data.mainSpec then
+                StaticPopup_Show("GuildbookReminder", "Guildbook\n\nYou have no main spec set, go to Guildbook > Settings > Character.")
+            end
+        end
+    end)
 end
 
 function GuildbookMixin:Database_OnInitialised()
     self:CreateMinimapButtons()
     self:CreateSlashCommands()
-    if addon.characters[addon.thisCharacter] then
-        self.ribbon.myProfile.background:SetAtlas(addon.characters[addon.thisCharacter]:GetProfileAvatar())
+end
+
+function GuildbookMixin:AddCharacter()
+
+    if not addon.characters then
+        return;
     end
---minortalents-icon-book socialqueuing-icon-eye
+    if not addon.Character then
+        return;
+    end
+    if addon.characters[addon.Character] then
+        return;
+    end
+    local characterInDb = Database:GetCharacter(addon.thisCharacter)
+    if characterInDb then
+        return;
+    end
 
-    --experimental
-    -- local hbd = LibStub("HereBeDragons-2.0")
-    -- local currentMapID = C_Map.GetBestMapForUnit('player')
-    -- if not currentMapID then
-    --     return
-    -- else
-    --     local currentMapPosition = C_Map.GetPlayerMapPosition(currentMapID, 'player')
-    --     local x, y, instance = hbd:GetWorldCoordinatesFromZone(currentMapPosition.x, currentMapPosition.y, currentMapID)
+    local character = Character:CreateEmpty()
+    character.guid = UnitGUID("player")
+    character.name = addon.thisCharacter
+    local _, _, classId = UnitClass("player")
+    character.class = classId
 
-    --     print(x, y)
-    -- end
+    Database:InsertCharacter(character)
+
+    addon.characters[addon.thisCharacter] = Character:CreateFromData(Database:GetCharacter(addon.thisCharacter)) --Råvèn-PyrewoodVillage
+
+    --DevTools_Dump(addon.characters[addon.Character])
+
+    local equipment = addon.api.classic.getPlayerEquipmentCurrent()
+    local currentStats = addon.api.classic.getPaperDollStats()
+    local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
+    local auras = addon.api.getPlayerAuras()
+    local spec, tabs, talents = addon.api.classic.getPlayerTalents()
+
+    if addon.characters[addon.thisCharacter] then
+        addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
+        addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
+        addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats, true)
+        addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
+        addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
+    end
 end
 
 function GuildbookMixin:CreateSlashCommands()
@@ -405,91 +441,103 @@ function GuildbookMixin:CreateSlashCommands()
     SlashCmdList['GUILDBOOK'] = function(msg)
         if msg == "" then
             self:Show()
+
+        elseif msg == "addcharacter" then
+            self:AddCharacter()
         end
     end
+end
+
+function GuildbookMixin:UpdateMinimapTooltip()
+
+    GameTooltip:ClearLines()
+
+    GameTooltip:AddLine(tostring('|cff0070DE'..name))
+
+    local t = {} --addon.characters[name].data.onlineStatus
+    if addon.characters then
+        for name, obj in pairs(addon.characters) do
+            if (name ~= nil) and (obj.data.class ~= nil) and (obj.data.level ~= nil) and obj.data.onlineStatus.isOnline then
+                table.insert(t, {
+                    name = name,
+                    classID = obj.data.class,
+                    level = obj.data.level,
+                    zone = obj.data.onlineStatus.zone or "-",
+                })
+            end
+        end
+        table.sort(t, function(a, b)
+            if a.zone == b.zone then
+                if a.classID == b.classID then
+                    if a.level == b.level then
+                        return a.name < b.name;
+                    else
+                        return a.level > b.level;
+                    end
+                else
+                    return a.classID < b.classID;
+                end
+            else
+                return a.zone < b.zone;
+            end
+        end)
+
+        local formatName = function(t, r)
+            local _, class = GetClassInfo(t.classID)
+            local col = RAID_CLASS_COLORS[class].colorStr
+            return string.format("|cffffffff[%d]|r |c%s%s|r", t.level, col, Ambiguate(t.name, "short"))
+        end
+
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine("Members online")
+        for i = 1, #t do
+            if i < 26 then
+                GameTooltip:AddDoubleLine(formatName(t[i]), "|cffffffff"..t[i].zone)
+            else
+
+            end
+        end
+    end
+
+    GameTooltip:Show()
 end
 
 function GuildbookMixin:CreateMinimapButtons()
 
     local ldb = LibStub("LibDataBroker-1.1")
-    --[[
-    self.MinimapButton = ldb:NewDataObject('GuildbookMinimapIcon', {
-        type = "launcher",
-        icon = 134068,
-        OnClick = function(_, button)
-            if button == "RightButton" then
-                if InterfaceOptionsFrame:IsVisible() then
-                    InterfaceOptionsFrame:Hide()
-                else
-                    InterfaceOptionsFrame_OpenToCategory(name)
-                    InterfaceOptionsFrame_OpenToCategory(name)
-                end
-            elseif button == 'MiddleButton' then
-                if IsShiftKeyDown() then
-                    FriendsFrame:Show()
-                else
-                    ToggleFriendsFrame(3)
-                end
-            elseif button == "LeftButton" then
-                self:SetShown(not self:IsVisible())
-            end
-        end,
-        OnTooltipShow = function(tooltip)
-            if not tooltip or not tooltip.AddLine then return end
-            tooltip:AddLine(tostring('|cff0070DE'..name))
-            tooltip:AddDoubleLine(L["MINIMAP_TOOLTIP_LEFTCLICK"])
-            tooltip:AddDoubleLine(L["MINIMAP_TOOLTIP_LEFTCLICK_SHIFT"])
-            tooltip:AddDoubleLine(L["MINIMAP_TOOLTIP_RIGHTCLICK"])
-            tooltip:AddDoubleLine(L["MINIMAP_TOOLTIP_MIDDLECLICK"])
-        end,
-    })
-    self.MinimapIcon = LibStub("LibDBIcon-1.0")
-    self.MinimapIcon:Register('GuildbookMinimapIcon', self.MinimapButton, GUILDBOOK_GLOBAL.minimapButton)
-    ]]
 
-    if not _G['LibDBIcon10_GuildbookMinimapCalendarIcon'] then
-        self.MinimapCalendarButton = ldb:NewDataObject('GuildbookMinimapCalendarIcon', {
-            type = "data source",
-            icon = 134939,
+    if not _G['LibDBIcon10_GuildbookMinimapButton'] then
+        self.MinimapButtonDataObject = ldb:NewDataObject('GuildbookMinimapButton', {
+            type = "launcher",
+            icon = 134068,
             OnClick = function(_, button)
                 self:SetShown(not self:IsVisible())
             end,
-            OnTooltipShow = function(tooltip)
-                if not tooltip or not tooltip.AddLine then return end
-                tooltip:AddLine(tostring('|cff0070DE'..name))
-            end,
         })
         self.MinimapCalendarIcon = LibStub("LibDBIcon-1.0")
-        self.MinimapCalendarIcon:Register('GuildbookMinimapCalendarIcon', self.MinimapCalendarButton, GUILDBOOK_GLOBAL.calendarButton)
-        for i = 1, _G['LibDBIcon10_GuildbookMinimapCalendarIcon']:GetNumRegions() do
-            local region = select(i, _G['LibDBIcon10_GuildbookMinimapCalendarIcon']:GetRegions())
-            if (region:GetObjectType() == 'Texture') then
-                region:Hide()
-            end
-        end
-        -- modify the minimap icon to match the blizz calendar button
-        _G['LibDBIcon10_GuildbookMinimapCalendarIcon']:SetSize(44,44)
-        _G['LibDBIcon10_GuildbookMinimapCalendarIcon']:SetNormalTexture("Interface\\Calendar\\UI-Calendar-Button")
-        _G['LibDBIcon10_GuildbookMinimapCalendarIcon']:GetNormalTexture():SetTexCoord(0.0, 0.390625, 0.0, 0.78125)
-        _G['LibDBIcon10_GuildbookMinimapCalendarIcon']:SetPushedTexture("Interface\\Calendar\\UI-Calendar-Button")
-        _G['LibDBIcon10_GuildbookMinimapCalendarIcon']:GetPushedTexture():SetTexCoord(0.5, 0.890625, 0.0, 0.78125)
-        _G['LibDBIcon10_GuildbookMinimapCalendarIcon']:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight", "ADD")
-        _G['LibDBIcon10_GuildbookMinimapCalendarIcon'].Text = _G['LibDBIcon10_GuildbookMinimapCalendarIcon']:CreateFontString(nil, 'OVERLAY', 'GameFontBlack')
-        _G['LibDBIcon10_GuildbookMinimapCalendarIcon'].Text:SetPoint('CENTER', -1, -1)
-        _G['LibDBIcon10_GuildbookMinimapCalendarIcon'].Text:SetText(date('*t').day)
-        -- setup a ticker to update the date, kinda overkill maybe ?
-        C_Timer.NewTicker(1, function()
-            _G['LibDBIcon10_GuildbookMinimapCalendarIcon'].Text:SetText(date('*t').day)
-        end)
+        self.MinimapCalendarIcon:Register('GuildbookMinimapButton', self.MinimapButtonDataObject, Database.db.calendarButton)
     end
+
+    _G['LibDBIcon10_GuildbookMinimapButton'].UpdateTooltip = function()
+        self:UpdateMinimapTooltip()
+    end
+
+    _G['LibDBIcon10_GuildbookMinimapButton']:SetScript("OnEnter", function(s)
+        GameTooltip:SetOwner(s, "ANCHOR_RIGHT")
+        s:UpdateTooltip()
+    end)
+    _G['LibDBIcon10_GuildbookMinimapButton']:SetScript("OnLeave", function(s)
+        GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+    end)
+
+
+
+
 end
 
 function GuildbookMixin:Search(text)
     addon:TriggerEvent("Guildbook_OnSearch", text)
 end
-
-
-
 
 
 
@@ -576,3 +624,135 @@ for row = 0, 4 do
 end
 
 ]]
+
+
+
+
+
+-- -- create the available tags array
+-- local tags = { "Sell", "Auction", "Vendor", }
+
+-- -- saved variables table
+-- local savedVariableTable = {}
+
+-- -- modify the bag buttons, adding a new property with the key 'tagID'
+-- for i = 1, 40 do
+--     local bagSlotButton = _G["foo"];
+
+--     bagSlotButton.tagID = 0;
+
+--     -- hook the mouse down event
+--     bagSlotButton:HookScript("OnMouseDown", function(self, button)
+    
+--         -- use alt and right button to avoid game ploay interactions
+--         if (button == "RightButton") and IsAltKeyDown() then
+
+--             -- increment the new property
+--             self.tagID = self.tagID + 1
+--         end
+
+--         -- if the tagID goes beyond tags length return it 0 (0 will create a nil effect as tables start at 1)
+--         if self.tagID > #tags then
+--             self.tagID = 0;
+--         end
+
+--         -- update the saved variables table for this item, can get item data from bag/slot api
+--         savedVariableTable[itemName] = self.tagID
+
+--     end)
+-- end
+
+-- -- sudo tooltip update
+-- function UpdateTooltip(tt)
+
+--     -- check if saved variable table has this item and it the tags table has a matching index
+--     if savedVariableTable[itemName] and tags[savedVariableTable[itemName]] then
+
+--         -- add a line to the tooltip
+--         tt:AddLine(tags[savedVariableTable[itemName]])
+--     end
+-- end
+
+
+
+
+
+
+GuildbookUpdatesMixin = {}
+
+function GuildbookUpdatesMixin:OnLoad()
+    addon:RegisterCallback("Database_OnInitialised", self.SayHello, self)
+end
+
+
+function GuildbookUpdatesMixin:SayHello()
+    
+    local version = tonumber(C_AddOns.GetAddOnMetadata(name, "Version"));
+
+    if version > Database.db.version then
+
+        self.versionHeader:SetText("version: "..addon.changeLog[1].version)
+        self.text:SetText("|cffffffff"..addon.changeLog[1].notes)
+
+        self.accept:SetScript("OnClick", function()
+            Database.db.version = version;
+            self:Hide()
+        end)
+
+        if type(addon.changeLog[1].icon) == "string" then
+            self.icon:SetAtlas(addon.changeLog[1].icon)
+        elseif type(addon.changeLog[1].icon) == "number" then
+            self.icon:SetTexture(addon.changeLog[1].icon)
+        end
+
+        self:Show()
+
+    end
+end
+
+
+
+-- local t = {}
+
+-- for i = 1, 10 do
+--     t[i] = {
+--         name = string.format("Text Item %d", i),
+--     }
+-- end
+
+-- local FooMixin = {}
+-- function FooMixin:SetVar(var)
+--     self.bar = var;
+-- end
+
+-- function FooMixin:GetVar()
+--     return self.bar;
+-- end
+
+-- function FooMixin:GetName(i)
+--     return self[i].name;
+-- end
+
+-- local x = Mixin(t, FooMixin)
+
+-- print(x:GetName(3)) --Text Item 3 prints
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- GuildbookMailMixin = {}
+
+-- function GuildbookMailMixin:OnLoad()
+    
+-- end

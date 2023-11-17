@@ -1,5 +1,5 @@
 <Ui>
-    <Frame name="GuildbookGuildTreeBank" mixin="GuildbookGuildTreeMixin">
+    <Frame name="GuildbookGuildTree" mixin="GuildbookGuildTreeMixin">
 
         <Layers>
             <Layer level="BACKGROUND">
@@ -13,14 +13,14 @@
         </Layers>
 
         <Frames>
-            <Frame parentKey="listview" inherits="GuildbookWidgetsListviewTemplate">
+            <Frame parentKey="listview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="0"/>
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
                 <KeyValues>
                     <KeyValue key="frameType" value="FRAME" type="string"/>
-                    <KeyValue key="itemTemplate" value="GuildbookProfilesRowTemplate" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookWrathEraProfilesRowTemplate" type="string"/>
                     <KeyValue key="elementHeight" value="120" type="number"/>
                 </KeyValues>
             </Frame>

@@ -1,7 +1,7 @@
-## Interface: 11403
+## Interface: 30403
 ## Author: TheBoringDad
-## Version: 1.2
-## Title: Guildbook_ClassicEra
+## Version: 2.0
+## Title: Guildbook Era
 ## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL
 ## SavedVariablesPerCharacter: GUILDBOOK_CHARACTER
@@ -32,10 +32,14 @@ Widgets\ScrollFrame.xml
 Widgets\Slider.xml
 Widgets\Helptips.lua
 Widgets\Helptips.xml
+Widgets\TabFrame.lua
+Widgets\TabFrame.xml
+
+ChangeLog.lua
 
 Locales.lua
-Data2.lua
 ItemData.lua
+#SpellData.lua
 Database.lua
 
 Classes\Tradeskills.lua
@@ -43,8 +47,11 @@ Classes\Character.lua
 Classes\Guild.lua
 Classes\Talents.lua
 
+Dialogs.lua
+
 Globals.lua
 Callbacks.lua
+Comms.lua
 
 Templates.lua
 Templates.xml
@@ -79,7 +86,18 @@ Views\Settings\Settings.xml
 Views\Search\Search.lua
 Views\Search\Search.xml
 
+Views\Alts\Alts.lua
+Views\Alts\Alts.xml
 
-Comms.lua
+Views\Dailies\Dailies.lua
+Views\Dailies\Dailies.xml
+
+Views\ImportExport\ImportExport.lua
+Views\ImportExport\ImportExport.xml
+
+Views\Home\Home.lua
+Views\Home\Home.xml
 
 Events.lua
+
+ModBlizzUI.lua

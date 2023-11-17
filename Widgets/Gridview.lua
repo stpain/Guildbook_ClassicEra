@@ -18,8 +18,8 @@ frames added to the grid can make use of the following methods
 specifically of note is that :UpdateLayout will be called on each frame when calling :UpdateLayout on the gridview itself
 
 ]]
-GuildbookWidgetsGridviewMixin = {}
-function GuildbookWidgetsGridviewMixin:OnLoad()
+GuildbookWrathEraWidgetsGridviewMixin = {}
+function GuildbookWrathEraWidgetsGridviewMixin:OnLoad()
     self.data = {}
     self.frames = {}
     self.itemMinWidth = 0
@@ -29,22 +29,33 @@ function GuildbookWidgetsGridviewMixin:OnLoad()
     self.rowIndex = 0
     self.numItemsPerRow = 1
     self.fixedColumnCount = false;
+    self.anchorOffsetX = 0
+    self.anchorOffsetY = 0
 end
 
-function GuildbookWidgetsGridviewMixin:InitFramePool(type, template)
+function GuildbookWrathEraWidgetsGridviewMixin:InitFramePool(type, template)
     self.framePool = CreateFramePool(type, self.scrollChild, template);
 end
 
-function GuildbookWidgetsGridviewMixin:SetMinMaxSize(min, max)
+function GuildbookWrathEraWidgetsGridviewMixin:SetMinMaxSize(min, max)
     self.itemMinWidth = min;
     self.itemMaxWidth = max;
 end
 
-function GuildbookWidgetsGridviewMixin:SetFixedColumnCount(count)
+function GuildbookWrathEraWidgetsGridviewMixin:SetFixedColumnCount(count)
     self.fixedColumnCount = count;
 end
 
-function GuildbookWidgetsGridviewMixin:InsertCustomFrame(frame)
+function GuildbookWrathEraWidgetsGridviewMixin:SetAnchorOffsets(x, y)
+    if type(x) == "number" then
+        self.anchorOffsetX = x;
+    end
+    if type(y) == "number" then
+        self.anchorOffsetY = y;
+    end
+end
+
+function GuildbookWrathEraWidgetsGridviewMixin:InsertCustomFrame(frame)
     if self.frames then
         local id = #self.frames
         frame:SetID(id + 1);
@@ -58,7 +69,7 @@ function GuildbookWidgetsGridviewMixin:InsertCustomFrame(frame)
     --self:UpdateLayout()
 end
 
-function GuildbookWidgetsGridviewMixin:Insert(info)
+function GuildbookWrathEraWidgetsGridviewMixin:Insert(info)
     table.insert(self.data, info)
 
     local f = self.framePool:Acquire()
@@ -74,7 +85,7 @@ function GuildbookWidgetsGridviewMixin:Insert(info)
     self:UpdateLayout()
 end
 
-function GuildbookWidgetsGridviewMixin:RemoveFrame(frame)
+function GuildbookWrathEraWidgetsGridviewMixin:RemoveFrame(frame)
     local key;
     for k, f in ipairs(self.frames) do
         if f:GetID() == frame:GetID() then
@@ -91,11 +102,11 @@ function GuildbookWidgetsGridviewMixin:RemoveFrame(frame)
     self:UpdateLayout()
 end
 
-function GuildbookWidgetsGridviewMixin:InsertTable(tbl)
+function GuildbookWrathEraWidgetsGridviewMixin:InsertTable(tbl)
 
 end
 
-function GuildbookWidgetsGridviewMixin:Flush()
+function GuildbookWrathEraWidgetsGridviewMixin:Flush()
     self.data = {}
     for k, f in ipairs(self.frames) do
         if f.ResetDataBinding then
@@ -107,8 +118,8 @@ function GuildbookWidgetsGridviewMixin:Flush()
     self.framePool:ReleaseAll()
 end
 
-function GuildbookWidgetsGridviewMixin:GetItemSize()
-    local width = self:GetWidth()
+function GuildbookWrathEraWidgetsGridviewMixin:GetItemSize()
+    local width = self:GetWidth() - (self.anchorOffsetX * 2);
 
     if type(self.fixedColumnCount) == "number" then
         self.itemSize = (width / self.fixedColumnCount)
@@ -141,7 +152,7 @@ function GuildbookWidgetsGridviewMixin:GetItemSize()
     -- end
 end
 
-function GuildbookWidgetsGridviewMixin:UpdateLayout()
+function GuildbookWrathEraWidgetsGridviewMixin:UpdateLayout()
     self:GetItemSize()
 
     self.colIndex = 0;
@@ -154,7 +165,7 @@ function GuildbookWidgetsGridviewMixin:UpdateLayout()
     for k, f in ipairs(self.frames) do
         f:ClearAllPoints()
         f:SetSize(self.itemSize, self.itemSize)
-        f:SetPoint("TOPLEFT", self.itemSize * self.colIndex, -(self.itemSize * self.rowIndex))
+        f:SetPoint("TOPLEFT", (self.itemSize * self.colIndex) + self.anchorOffsetX, -((self.itemSize * self.rowIndex) + self.anchorOffsetY))
         if k < (self.numItemsPerRow * (self.rowIndex + 1)) then
             self.colIndex = self.colIndex + 1
         else
@@ -168,6 +179,6 @@ function GuildbookWidgetsGridviewMixin:UpdateLayout()
     end
 end
 
-function GuildbookWidgetsGridviewMixin:GetFrames()
+function GuildbookWrathEraWidgetsGridviewMixin:GetFrames()
     return self.frames;
 end

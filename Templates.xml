@@ -1,5 +1,12 @@
 <UI>
-    <Frame name="GuildbookProfilesRowTemplate" mixin="GuildbookProfilesRowMixin" virtual="true">
+
+    <Frame name="GuildbookTextWidget" inherits="ScrollingFontTemplate" virtual="true">
+        <KeyValues>
+            <KeyValue key="fontName" value="GameFontWhite"/>
+        </KeyValues>
+    </Frame>
+
+    <Frame name="GuildbookWrathEraProfilesRowTemplate" mixin="GuildbookProfilesRowMixin" virtual="true">
         <Layers>
             <Layer level="BACKGROUND">
 
@@ -22,52 +29,52 @@
             </Layer>
         </Layers>
         <Frames> 
-            <Frame parentKey="avatar1" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+            <Frame parentKey="avatar1" parentArray="avatars" inherits = "GuildbookWrathEraProfileSummaryRowAvatarTemplate">
                 <Anchors>
                     <Anchor point="BOTTOM" x="0" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="avatar2" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+            <Frame parentKey="avatar2" parentArray="avatars" inherits = "GuildbookWrathEraProfileSummaryRowAvatarTemplate">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.avatar1" relativePoint="RIGHT" x="0" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="avatar3" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+            <Frame parentKey="avatar3" parentArray="avatars" inherits = "GuildbookWrathEraProfileSummaryRowAvatarTemplate">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.avatar2" relativePoint="RIGHT" x="0" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="avatar4" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+            <Frame parentKey="avatar4" parentArray="avatars" inherits = "GuildbookWrathEraProfileSummaryRowAvatarTemplate">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.avatar3" relativePoint="RIGHT" x="0" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="avatar5" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+            <Frame parentKey="avatar5" parentArray="avatars" inherits = "GuildbookWrathEraProfileSummaryRowAvatarTemplate">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.avatar4" relativePoint="RIGHT" x="0" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="avatar6" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+            <Frame parentKey="avatar6" parentArray="avatars" inherits = "GuildbookWrathEraProfileSummaryRowAvatarTemplate">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.avatar5" relativePoint="RIGHT" x="0" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="avatar7" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+            <Frame parentKey="avatar7" parentArray="avatars" inherits = "GuildbookWrathEraProfileSummaryRowAvatarTemplate">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.avatar6" relativePoint="RIGHT" x="0" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="avatar8" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+            <Frame parentKey="avatar8" parentArray="avatars" inherits = "GuildbookWrathEraProfileSummaryRowAvatarTemplate">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.avatar7" relativePoint="RIGHT" x="0" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="avatar9" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+            <Frame parentKey="avatar9" parentArray="avatars" inherits = "GuildbookWrathEraProfileSummaryRowAvatarTemplate">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.avatar8" relativePoint="RIGHT" x="0" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="avatar10" parentArray="avatars" inherits="GuildbookProfileSummaryRowAvatarTemplate">
+            <Frame parentKey="avatar10" parentArray="avatars" inherits = "GuildbookWrathEraProfileSummaryRowAvatarTemplate">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.avatar9" relativePoint="RIGHT" x="0" y="0"/>
                 </Anchors>
@@ -78,10 +85,27 @@
         </Scripts>
     </Frame>
 
-    <Frame name="GuildbookCircleLootItemTemplate" mixin="GuildbookCircleLootItemTemplateMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookCircleIconTemplate" mixin="GuildbookCircleIconMixin" virtual="true" enableMouse="true">
         <Layers>
-            <Layer level="BACKGROUND">
-                <Texture parentKey="border" atlas="auctionhouse-itemicon-border-white">
+            <!-- <Layer level="HIGHLIGHT">
+                <Texture parentKey="border" atlas="Artifacts-PerkRing-Highlight">
+                    <Size x="80" y="80"/>
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="10"/>
+                    </Anchors>
+                </Texture>
+            </Layer> -->
+            <Layer level="BORDER">
+                <Texture parentKey="selected" atlas="charactercreate-ring-select">
+                    <Size x="100" y="100"/>
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="10"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="BORDER">
+                <Texture parentKey="border" atlas="charactercreate-ring-metallight">
+                    <Size x="100" y="100"/>
                     <Anchors>
                         <Anchor point="CENTER" x="0" y="10"/>
                     </Anchors>
@@ -89,10 +113,13 @@
             </Layer>
             <Layer level="ARTWORK">
 				<Texture parentKey="icon">
+                    <Size x="60" y="60"/>
                     <Anchors>
-                        <Anchor point="CENTER" x="0" y="10"/>					</Anchors>
+                        <Anchor point="CENTER" x="0" y="10"/>					
+                    </Anchors>
                 </Texture>
                 <MaskTexture parentKey="mask" file="Interface/CHARACTERFRAME/TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+                    <Size x="50" y="50"/>
                     <Anchors>
                         <Anchor point="CENTER" x="0" y="10"/>                    
                     </Anchors>
@@ -102,7 +129,7 @@
                 </MaskTexture>
             </Layer>
             <Layer level="OVERLAY">
-                <FontString parentKey="label" inherits="GameFontBlackSmall" wordwrap="true" justifyV="MIDDLE">
+                <FontString parentKey="label" inherits="GameFontWhite" wordwrap="true" justifyV="MIDDLE">
                     <Size y="26"/>
                     <Anchors>
                         <Anchor point="BOTTOMLEFT" x="0" y="0"/>
@@ -113,11 +140,16 @@
         </Layers>
         <Scripts>
             <OnLeave method="OnLeave"/>
+            <OnEnter method="OnEnter"/>
             <OnLoad method="OnLoad"/>
         </Scripts>
     </Frame>
 
-    <Frame name="GuildbookProfileSummaryRowAvatarTemplate" mixin="GuildbookProfileSummaryRowAvatarTemplateMixin" virtual="true" enableMouse="true" useParentLevel="true">
+    <Frame name="GuildbookSettingsCharacterAltTemplate" mixin="GuildbookSettingsCharacterAltMixin" inherits="GuildbookCircleIconTemplate" virtual="true">
+
+    </Frame>
+
+    <Frame name="GuildbookWrathEraProfileSummaryRowAvatarTemplate" mixin="GuildbookProfileSummaryRowAvatarTemplateMixin" virtual="true" enableMouse="true" useParentLevel="true">
         <Animations>
             <AnimationGroup parentKey="anim" looping="REPEAT">
                 <Rotation parentKey="rotate" childKey="whirl"  duration="1.25" degrees="-360">
@@ -177,21 +209,19 @@
         </Scripts>
     </Frame>
 
-    <Frame name="GuildbookListviewItem" mixin="GuildbookListviewItemMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookWrathEraListviewItem" mixin="GuildbookListviewItemMixin" virtual="true" enableMouse="true">
         <Layers>
 			<Layer level="BACKGROUND">
-				<Texture parentKey="Background" atlas="PetList-ButtonBackground" useAtlasSize="false" setAllPoints="true"/>
+				<Texture parentKey="Background" atlas="ClickCastList-ButtonBackground" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
 			<Layer level="HIGHLIGHT">
-				<Texture parentKey="Highlight" atlas="PetList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
+				<Texture parentKey="Highlight" atlas="ClickCastList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
             <Layer level="OVERLAY">
-            	<Texture parentKey="selected" atlas="PetList-ButtonSelect" useAtlasSize="false" setAllPoints="true" hidden="true"/>
+            	<Texture parentKey="selected" atlas="ReportList-ButtonSelect" useAtlasSize="false" setAllPoints="true" hidden="true"/>
 				<Texture parentKey="icon">
-					<!-- <TexCoords left="0.0" right="0.46875" top="0.0" bottom="0.96875" /> -->
-					<Size x="32" y="32"/>				
 					<Anchors>
-						<Anchor point="LEFT" x="3" y="0"/>
+						<Anchor point="LEFT" x="1" y="0"/>
 					</Anchors>
 				</Texture>
                 <MaskTexture parentKey="mask" file="Interface/CHARACTERFRAME/TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE" hidden="true">
@@ -219,13 +249,13 @@
         </Scripts>
     </Frame>
 
-    <Frame name="GuildbookGuideEncounterListviewItem" mixin="GuildbookListviewItemMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookWrathEraGuideEncounterListviewItem" mixin="GuildbookListviewItemMixin" virtual="true" enableMouse="true">
         <Layers>
 			<Layer level="BACKGROUND">
 				<Texture parentKey="Background" atlas="GarrLanding-HeaderBar" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
 			<Layer level="HIGHLIGHT">
-				<Texture parentKey="Highlight" atlas="PetList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
+				<Texture parentKey="Highlight" atlas="ClickCastList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
             <Layer level="OVERLAY">
 				<FontString parentKey="text" inherits="GameFontNormal">
@@ -243,13 +273,13 @@
         </Scripts>
     </Frame>
 
-    <Frame name="GuildbookMyCharactersListviewItem" mixin="GuildbookMyCharactersListviewItemMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookWrathEraMyCharactersListviewItem" mixin="GuildbookMyCharactersListviewItemMixin" virtual="true" enableMouse="true">
         <Layers>
 			<Layer level="BACKGROUND">
-				<Texture parentKey="Background" atlas="PetList-ButtonBackground" useAtlasSize="false" setAllPoints="true"/>
+				<Texture parentKey="Background" atlas="ClickCastList-ButtonBackground" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
 			<Layer level="HIGHLIGHT">
-				<Texture parentKey="Highlight" atlas="PetList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
+				<Texture parentKey="Highlight" atlas="ClickCastList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
             <Layer level="OVERLAY">
 				<Texture parentKey="icon">
@@ -278,7 +308,7 @@
             </Layer>
         </Layers>
         <Frames>
-            <CheckButton parentKey="isMain" inherits="GuildbookCheckButton">
+            <CheckButton parentKey="isMain" inherits = "GuildbookWrathEraWidgetsCheckButton">
                 <Size x="24" y="24"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-8" y="0"/>
@@ -326,19 +356,19 @@
             </Layer>
         </Layers>
         <Frames>
-            <CheckButton parentKey="shareBank" inherits="GuildbookCheckButton">
+            <CheckButton parentKey="shareBank" inherits="GuildbookWrathEraWidgetsCheckButton">
                 <Size x="24" y="24"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-40" y="0"/>
                 </Anchors>
             </CheckButton>
-            <CheckButton parentKey="shareBags" inherits="GuildbookCheckButton">
+            <CheckButton parentKey="shareBags" inherits="GuildbookWrathEraWidgetsCheckButton">
                 <Size x="24" y="24"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.shareBank" relativePoint="LEFT" x="-40" y="0"/>
                 </Anchors>
             </CheckButton>
-            <CheckButton parentKey="shareCopper" inherits="GuildbookCheckButton">
+            <CheckButton parentKey="shareCopper" inherits="GuildbookWrathEraWidgetsCheckButton">
                 <Size x="24" y="24"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.shareBags" relativePoint="LEFT" x="-60" y="0"/>
@@ -355,6 +385,7 @@
             <OnLoad method="OnLoad"/>
         </Scripts>
     </Frame>
+
 
     <Frame name="GuildbookSearchListviewItem" mixin="GuildbookSearchListviewItemMixin" virtual="true" enableMouse="true">
         <Layers>
@@ -402,14 +433,55 @@
         </Scripts>
     </Frame>
 
-<!-- there are a few templates that folow this layout - probably an idea to create a base template to save code -->
-    <Frame name="GuildbookChatCharacterListviewItem" mixin="GuildbookChatCharacterListviewItemMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookWrathEraSearchListviewItem" mixin="GuildbookSearchListviewItemMixin" virtual="true" enableMouse="true">
         <Layers>
 			<Layer level="BACKGROUND">
-				<Texture parentKey="Background" atlas="PetList-ButtonBackground" useAtlasSize="false" setAllPoints="true"/>
+				<Texture parentKey="Background" atlas="Talent-Background" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
 			<Layer level="HIGHLIGHT">
-				<Texture parentKey="Highlight" atlas="PetList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
+				<!-- <Texture parentKey="Highlight" atlas="GarrMission_ListGlow-Highlight" useAtlasSize="false" setAllPoints="true"/> -->
+				<Texture parentKey="Highlight" atlas="search-highlight-large" useAtlasSize="false" setAllPoints="true"/>
+			</Layer>
+            <Layer level="OVERLAY">
+				<Texture parentKey="icon">
+					<!-- <TexCoords left="0.0" right="0.46875" top="0.0" bottom="0.96875" /> -->
+					<Size x="32" y="32"/>				
+					<Anchors>
+						<Anchor point="LEFT" x="3" y="0"/>
+					</Anchors>
+				</Texture>
+                <MaskTexture parentKey="mask" file="Interface/CHARACTERFRAME/TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE" hidden="true">
+                    <Size x="30" y="30"/>	
+                    <Anchors>
+                        <Anchor point="LEFT" x="5" y="0"/>
+                    </Anchors>
+                    <MaskedTextures>
+                        <MaskedTexture childKey="icon"/>
+                    </MaskedTextures>
+                </MaskTexture>
+				<FontString parentKey="text" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.icon" x="5" y="0"/>
+						<Anchor point="RIGHT" x="-5" y="0"/>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+            </Layer>
+        </Layers>
+
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+
+<!-- there are a few templates that folow this layout - probably an idea to create a base template to save code -->
+    <Frame name="GuildbookWrathEraChatCharacterListviewItem" mixin="GuildbookChatCharacterListviewItemMixin" virtual="true" enableMouse="true">
+        <Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Background" atlas="ClickCastList-ButtonBackground" useAtlasSize="false" setAllPoints="true"/>
+			</Layer>
+			<Layer level="HIGHLIGHT">
+				<Texture parentKey="Highlight" atlas="ClickCastList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
             <Layer level="OVERLAY">
 				<Texture parentKey="icon">
@@ -436,13 +508,14 @@
 				<FontString parentKey="info" inherits="GameFontNormalSmall" justifyH="LEFT">
                     <Size x="150"/>
 					<Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.icon" relativePoint="BOTTOMRIGHT" x="2" y="7"/>
 						<Anchor point="BOTTOMRIGHT" x="-5" y="5"/>
 					</Anchors>
 				</FontString>
             </Layer>
         </Layers>
         <Frames>
-            <Frame parentKey="delete" inherits="GuildbookSmallHighlightButton" enableMouse="true">
+            <Frame parentKey="delete" inherits = "GuildbookWrathEraSmallHighlightButton" enableMouse="true">
                 <Size x="16" y="16"/>
                 <Anchors>
                     <Anchor point="TOPRIGHT" x="-4" y="-4"/>
@@ -463,13 +536,13 @@
         </Scripts>
     </Frame>
 
-    <Frame name="GuildbookGuildbankCharacterListviewItem" mixin="GuildbookGuildbankCharacterListviewItemMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookWrathEraGuildbankCharacterListviewItem" mixin="GuildbookGuildbankCharacterListviewItemMixin" virtual="true" enableMouse="true">
         <Layers>
 			<Layer level="BACKGROUND">
-				<Texture parentKey="Background" atlas="PetList-ButtonBackground" useAtlasSize="false" setAllPoints="true"/>
+				<Texture parentKey="Background" atlas="ClickCastList-ButtonBackground" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
 			<Layer level="HIGHLIGHT">
-				<Texture parentKey="Highlight" atlas="PetList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
+				<Texture parentKey="Highlight" atlas="ClickCastList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
             <Layer level="OVERLAY">
 				<Texture parentKey="icon">
@@ -511,7 +584,7 @@
                         <!-- <Texture atlas="auctionhouse-ui-filter-redx"> -->
                         <!-- <Texture atlas="transmog-icon-remove"> -->
                         <!-- transmog-icon-chat -->
-    <Frame name="GuildbookSmallHighlightButton" mixin="GuildbookButtonMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookWrathEraSmallHighlightButton" mixin="GuildbookButtonMixin" virtual="true" enableMouse="true">
         <Size x="25" y="25"/>
         <Layers>
             <Layer level="HIGHLIGHT">
@@ -533,7 +606,29 @@
         </Scripts>
 	</Frame>
 
-    <Frame name="GuildbookRosterListviewItem" mixin="GuildbookRosterListviewItemMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookProfileIconLabel" inherits = "GuildbookWrathEraSmallHighlightButton" virtual="true" enableMouse="true">
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="icon">
+                    <Size x="24" y="24"/>
+                    <Anchors>
+                        <Anchor point="LEFT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="label" inherits="GameFontNormal" justifyH="LEFT">
+                    <Size x="32" y="26"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.icon" x="2" y="0"/>
+                    </Anchors>
+                    <Color r="1" g="1" b="1"/>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+
+    <Frame name="GuildbookWrathEraRosterListviewItem" mixin="GuildbookRosterListviewItemMixin" virtual="true" enableMouse="true">
         <Animations>
             <AnimationGroup parentKey="anim" setToFinalAlpha="true">
                 <Alpha parentKey="fadeIn" duration="0.15" fromAlpha="0" toAlpha="1"/>
@@ -619,7 +714,7 @@
             </Layer>
         </Layers>
         <Frames>
-            <Frame parentKey="prof1" inherits="GuildbookSmallHighlightButton" enableMouse="true">
+            <Frame parentKey="prof1" inherits = "GuildbookWrathEraSmallHighlightButton" enableMouse="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.mainSpec" x="5" y="0"/>
@@ -635,7 +730,7 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="prof2" inherits="GuildbookSmallHighlightButton" enableMouse="true">
+            <Frame parentKey="prof2" inherits = "GuildbookWrathEraSmallHighlightButton" enableMouse="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.prof1" x="5" y="0"/>
@@ -652,7 +747,7 @@
                 </Layers>
             </Frame>
 
-            <Frame parentKey="inviteToGroup" inherits="GuildbookSmallHighlightButton" enableMouse="true">
+            <Frame parentKey="inviteToGroup" inherits = "GuildbookWrathEraSmallHighlightButton" enableMouse="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="0" y="0"/>
@@ -671,7 +766,7 @@
                     <KeyValue key="tooltipText" value="INVITE_TO_GROUP" type="string"/>
                 </KeyValues>
             </Frame>
-            <Frame parentKey="openChat" inherits="GuildbookSmallHighlightButton" enableMouse="true">
+            <Frame parentKey="openChat" inherits = "GuildbookWrathEraSmallHighlightButton" enableMouse="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.inviteToGroup" relativePoint="LEFT" x="-4" y="0"/>
@@ -690,7 +785,7 @@
                     <KeyValue key="tooltipText" value="OPEN_CHAT" type="string"/>
                 </KeyValues>
             </Frame>
-            <Frame parentKey="openProfile" inherits="GuildbookSmallHighlightButton" enableMouse="true">
+            <Frame parentKey="openProfile" inherits = "GuildbookWrathEraSmallHighlightButton" enableMouse="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.openChat" relativePoint="LEFT" x="-4" y="0"/>
@@ -727,7 +822,190 @@
         </Scripts>
     </Frame>
 
-    <Frame name="GuildbookAvatarFrame" mixin="GuildbookAvatarMixin" enableMouse="true" virtual="true">
+    <Frame name="GuildbookWrathEraRosterTwoListviewItem" mixin="GuildbookAltsListviewTemplateMixin" virtual="true" enableMouse="true">
+        <Animations>
+            <AnimationGroup parentKey="anim" setToFinalAlpha="true">
+                <Alpha parentKey="fadeIn" duration="0.15" fromAlpha="0" toAlpha="1"/>
+            </AnimationGroup>
+        </Animations>
+        <Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="Background" atlas="Talent-Background" useAtlasSize="false" setAllPoints="true"/>
+			</Layer>
+			<Layer level="HIGHLIGHT">
+				<!-- <Texture parentKey="Highlight" atlas="GarrMission_ListGlow-Highlight" useAtlasSize="false" setAllPoints="true"/> -->
+				<Texture parentKey="Highlight" atlas="search-highlight-large" useAtlasSize="false" setAllPoints="true"/>
+			</Layer>
+            <Layer level="OVERLAY">
+				<Texture parentKey="classIcon">
+					<Size x="24" y="24"/>				
+					<Anchors>
+						<Anchor point="LEFT" x="3" y="0"/>
+					</Anchors>
+				</Texture>
+				<FontString parentArray="fontstrings" parentKey="name" inherits="GameFontNormal" justifyH="LEFT">
+                    <Size x="120" y="26"/>
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.classIcon" x="7" y="0"/>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+				<FontString parentArray="fontstrings" parentKey="level" inherits="GameFontNormal" justifyH="CENTER">
+                    <Size x="30" y="26"/>
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.name" x="5" y="0"/>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+				<FontString parentArray="fontstrings" parentKey="gold" inherits="GameFontNormal" justifyH="RIGHT">
+                    <Size x="200" y="26"/>
+					<Anchors>
+						<Anchor point="RIGHT" x="-30" y="0"/>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Frame parentKey="mainSpec" inherits = "GuildbookWrathEraSmallHighlightButton" enableMouse="true">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.level" x="5" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture parentKey="icon">
+                            <Size x="24" y="24"/>
+                            <Anchors>
+                                <Anchor point="CENTER"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <Frame parentKey="offSpec" inherits = "GuildbookWrathEraSmallHighlightButton" enableMouse="true">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.mainSpec" x="5" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture parentKey="icon">
+                            <Size x="24" y="24"/>
+                            <Anchors>
+                                <Anchor point="CENTER"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <Frame parentKey="equipment" inherits = "GuildbookWrathEraSmallHighlightButton" enableMouse="true">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.offSpec" x="5" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture parentKey="icon">
+                            <Size x="24" y="24"/>
+                            <Anchors>
+                                <Anchor point="CENTER"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </Frame>
+
+            <Frame parentKey="prof1" inherits = "GuildbookProfileIconLabel" enableMouse="true">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.equipment" x="5" y="0"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="prof2" inherits = "GuildbookProfileIconLabel" enableMouse="true">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.prof1" x="40" y="0"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="cooking" inherits = "GuildbookProfileIconLabel" enableMouse="true">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.prof2" x="40" y="0"/>
+                </Anchors>
+
+            </Frame>
+            <Frame parentKey="firstAid" inherits = "GuildbookProfileIconLabel" enableMouse="true">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.cooking" x="40" y="0"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="fishing" inherits = "GuildbookProfileIconLabel" enableMouse="true">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.firstAid" x="40" y="0"/>
+                </Anchors>
+            </Frame>
+<!-- 
+            <Frame parentKey="inviteToGroup" inherits = "GuildbookWrathEraSmallHighlightButton" enableMouse="true">
+                <Size x="26" y="26"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="0" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture atlas="communities-icon-addchannelplus">
+                            <Size x="26" y="26"/>
+                            <Anchors>
+                                <Anchor point="CENTER"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <KeyValues>
+                    <KeyValue key="tooltipText" value="INVITE_TO_GROUP" type="string"/>
+                </KeyValues>
+            </Frame> -->
+            <Frame parentKey="openProfile" inherits = "GuildbookWrathEraSmallHighlightButton" enableMouse="true">
+                <Size x="26" y="26"/>
+                <Anchors>
+                    <!-- <Anchor point="RIGHT" relativeKey="$parent.inviteToGroup" relativePoint="LEFT" x="-4" y="0"/> -->
+                    <Anchor point="RIGHT" x="0" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture parentKey="background" atlas="GarrMission_MissionIcon-Recruit" setAllPoints="true">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="-2" y="2"/>
+                                <Anchor point="BOTTOMRIGHT" x="2" y="-2"/>
+                            </Anchors>
+                        </Texture>
+                        <MaskTexture parentKey="mask" file="Interface/CHARACTERFRAME/TempPortraitAlphaMask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="1" y="-1"/>
+                                <Anchor point="BOTTOMRIGHT" x="-1" y="1"/>
+                            </Anchors>
+                            <MaskedTextures>
+                                <MaskedTexture childKey="background"/>
+                            </MaskedTextures>
+                        </MaskTexture>
+                    </Layer>
+                </Layers>
+                <KeyValues>
+                    <KeyValue key="tooltipText" value="OPEN_PROFILE" type="string"/>
+                </KeyValues>
+            </Frame>
+        </Frames>
+
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnEnter method="OnEnter"/>
+            <OnLeave method="OnLeave"/>
+        </Scripts>
+    </Frame>
+
+    <Frame name="GuildbookWrathEraAvatarFrame" mixin="GuildbookAvatarMixin" enableMouse="true" virtual="true">
         <Layers>
 			<Layer level="BACKGROUND">
 				<Texture parentKey="Background" setAllPoints="true"/>
@@ -747,13 +1025,13 @@
         </Scripts>
     </Frame>
 
-    <Frame name="GuildbookCharacterListviewItem" mixin="GuildbookCharacterListviewItemMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookWrathEraCharacterListviewItem" mixin="GuildbookCharacterListviewItemMixin" virtual="true" enableMouse="true">
         <Layers>
 			<Layer level="BACKGROUND">
-				<Texture parentKey="Background" atlas="PetList-ButtonBackground" useAtlasSize="false" setAllPoints="true"/>
+				<Texture parentKey="Background" atlas="ClickCastList-ButtonBackground" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
 			<Layer level="HIGHLIGHT">
-				<Texture parentKey="Highlight" atlas="PetList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
+				<Texture parentKey="Highlight" atlas="ClickCastList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
             <Layer level="OVERLAY">
 				<Texture parentKey="Icon">
@@ -814,7 +1092,7 @@
         </Scripts>
     </Frame>
 
-    <Frame name="GuildbookResistanceFrame" mixin="GuildbookResistanceFrameMixin" virtual="true">
+    <Frame name="GuildbookWrathEraResistanceFrame" mixin="GuildbookResistanceFrameMixin" virtual="true">
         <Animations>
             <AnimationGroup parentKey="anim" setToFinalAlpha="true">
                 <Alpha parentKey="fadeIn" duration="0.2" fromAlpha="0" toAlpha="1"/>
@@ -840,7 +1118,7 @@
         </Scripts>
     </Frame>
 
-    <Frame name="GuildbookItemIconFrame" mixin="GuildbookItemIconFrameMixin" virtual="true">
+    <Frame name="GuildbookWrathEraItemIconFrame" mixin="GuildbookItemIconFrameMixin" virtual="true">
         <Animations>
             <AnimationGroup parentKey="anim" setToFinalAlpha="true">
                 <Alpha parentKey="fadeIn" duration="0.2" fromAlpha="0" toAlpha="1"/>
@@ -906,12 +1184,7 @@
         </Scripts>
     </Frame>
     
-    <Frame name="GuildbookRecipeListviewItem" mixin="GuildbookRecipeListviewItemMixin" virtual="true" enableMouse="true">
-        <Animations>
-            <AnimationGroup parentKey="anim" setToFinalAlpha="true">
-                <Alpha parentKey="fadeIn" duration="0.1" fromAlpha="0" toAlpha="1"/>
-            </AnimationGroup>
-        </Animations>
+    <Frame name="GuildbookWrathEraRecipeListviewItem" mixin="GuildbookRecipeListviewItemMixin" virtual="true" enableMouse="true">
         <Layers>
 			<Layer level="BACKGROUND">
 				<!-- <Texture parentKey="Background" atlas="friendslist-categorybutton" useAtlasSize="false" setAllPoints="true"/> -->
@@ -935,7 +1208,7 @@
                 </Texture>
 			</Layer>
             <Layer level="OVERLAY">
-				<FontString parentKey="label" inherits="GameFontNormal">
+				<FontString parentKey="label" inherits="GameFontNormal" alpha="0">
 					<Anchors>
 						<Anchor point="LEFT" relativeKey="$parent.icon" relativePoint="RIGHT" x="5" y="0"/>
 					</Anchors>
@@ -943,49 +1216,49 @@
             </Layer>
         </Layers>
         <Frames>
-            <Frame parentKey="reagentIcon1" parentArray="reagentIcons" inherits="GuildbookItemIconFrame">
+            <Frame parentKey="reagentIcon1" parentArray="reagentIcons" alpha="0" inherits = "GuildbookWrathEraItemIconFrame">
                 <Size x="20" y="20"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-1" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="reagentIcon2" parentArray="reagentIcons" inherits="GuildbookItemIconFrame">
+            <Frame parentKey="reagentIcon2" parentArray="reagentIcons" alpha="0" inherits = "GuildbookWrathEraItemIconFrame">
                 <Size x="20" y="20"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-22" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="reagentIcon3" parentArray="reagentIcons" inherits="GuildbookItemIconFrame">
+            <Frame parentKey="reagentIcon3" parentArray="reagentIcons" alpha="0" inherits = "GuildbookWrathEraItemIconFrame">
                 <Size x="20" y="20"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-43" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="reagentIcon4" parentArray="reagentIcons" inherits="GuildbookItemIconFrame">
+            <Frame parentKey="reagentIcon4" parentArray="reagentIcons" alpha="0" inherits = "GuildbookWrathEraItemIconFrame">
                 <Size x="20" y="20"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-64" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="reagentIcon5" parentArray="reagentIcons" inherits="GuildbookItemIconFrame">
+            <Frame parentKey="reagentIcon5" parentArray="reagentIcons" alpha="0" inherits = "GuildbookWrathEraItemIconFrame">
                 <Size x="20" y="20"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-85" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="reagentIcon6" parentArray="reagentIcons" inherits="GuildbookItemIconFrame">
+            <Frame parentKey="reagentIcon6" parentArray="reagentIcons" alpha="0" inherits = "GuildbookWrathEraItemIconFrame">
                 <Size x="20" y="20"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-106" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="reagentIcon7" parentArray="reagentIcons" inherits="GuildbookItemIconFrame">
+            <Frame parentKey="reagentIcon7" parentArray="reagentIcons" alpha="0" inherits = "GuildbookWrathEraItemIconFrame">
                 <Size x="20" y="20"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-127" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="reagentIcon8" parentArray="reagentIcons" inherits="GuildbookItemIconFrame">
+            <Frame parentKey="reagentIcon8" parentArray="reagentIcons" alpha="0" inherits = "GuildbookWrathEraItemIconFrame">
                 <Size x="20" y="20"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-148" y="0"/>
@@ -993,13 +1266,25 @@
             </Frame>
             <!-- if recipes have more than 8 reagents just add more frames here -->
         </Frames>
-
+        <Animations>
+            <AnimationGroup parentKey="anim" setToFinalAlpha="true">
+                <Alpha childKey="label" duration="0.325" fromAlpha="0" toAlpha="1"/>
+                <Alpha childKey="reagentIcon1" duration="0.1" startDelay="0.0175" fromAlpha="0" toAlpha="1"/>
+                <Alpha childKey="reagentIcon2" duration="0.1" startDelay="0.035" fromAlpha="0" toAlpha="1"/>
+                <Alpha childKey="reagentIcon3" duration="0.1" startDelay="0.07" fromAlpha="0" toAlpha="1"/>
+                <Alpha childKey="reagentIcon4" duration="0.1" startDelay="0.15" fromAlpha="0" toAlpha="1"/>
+                <Alpha childKey="reagentIcon5" duration="0.1" startDelay="0.19" fromAlpha="0" toAlpha="1"/>
+                <Alpha childKey="reagentIcon6" duration="0.1" startDelay="0.21" fromAlpha="0" toAlpha="1"/>
+                <Alpha childKey="reagentIcon7" duration="0.1" startDelay="0.22" fromAlpha="0" toAlpha="1"/>
+                <Alpha childKey="reagentIcon8" duration="0.1" startDelay="0.225" fromAlpha="0" toAlpha="1"/>
+            </AnimationGroup>
+        </Animations>
         <Scripts>
             <OnLoad method="OnLoad"/>
         </Scripts>
     </Frame>
     
-    <Frame name="GuildbookChatBubble" mixin="GuildbookChatBubbleMixin" virtual="true" hyperlinksEnabled="true" enableMouse="true">
+    <Frame name="GuildbookWrathEraChatBubble" mixin="GuildbookChatBubbleMixin" virtual="true" hyperlinksEnabled="true" enableMouse="true">
         <Layers>
             <Layer level="BACKGROUND">
                 <Texture parentKey="Background" setAllPoints="true">
@@ -1030,14 +1315,24 @@
         </Scripts>
     </Frame>
     
-    <Frame name="GuildbookSimpleIconLabelFrame" mixin="GuildbookSimpleIconLabelMixin" virtual="true">
+    <Frame name="GuildbookWrathEraSimpleIconLabelFrame" mixin="GuildbookSimpleIconLabelMixin" virtual="true">
         <Layers>
             <Layer level="HIGHLIGHT">
-                <Texture parentKey="highlight" atlas="search-select" setAllPoints="true">
+                <Texture parentKey="highlight" atlas="search-highlight" setAllPoints="true">
 
                 </Texture>
             </Layer>
             <Layer level="BACKGROUND">
+                <Texture parentKey="selected" atlas="search-select" hidden="true" setAllPoints="true">
+
+                </Texture>
+				<Texture parentKey="background" alpha="0.0">	
+                    <Color r="0" g="0" b="0"/>			
+					<Anchors>
+						<Anchor point="TOPLEFT" x="1" y="0"/>
+						<Anchor point="BOTTOMRIGHT" x="0" y="1"/>
+					</Anchors>
+				</Texture>
 				<Texture parentKey="icon">
 					<Size x="32" y="32"/>				
 					<Anchors>
@@ -1055,8 +1350,13 @@
                 </MaskTexture>
                 <FontString parentKey="label" inherits="GameFontWhite" justifyH="LEFT">
                     <Anchors>
-                        <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.icon" x="10" y="0"/>
-                        <Anchor point="RIGHT" x="-5" y="0"/>
+                        <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.icon" x="6" y="0"/>
+                        <Anchor point="RIGHT" x="-1" y="0"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="labelRight" inherits="GameFontWhite" justifyH="RIGHT">
+                    <Anchors>
+                        <Anchor point="RIGHT" x="-1" y="0"/>
                     </Anchors>
                 </FontString>
             </Layer>
@@ -1071,7 +1371,7 @@
         </Scripts>
     </Frame>
 
-    <Frame name="GuildbookItemIconLinkFrame" virtual="true">
+    <Frame name="GuildbookWrathEraItemIconLinkFrame" virtual="true">
         <Size x="230" y="30"/>
         <Layers>
             <Layer level="BACKGROUND">
@@ -1107,7 +1407,7 @@
         </Scripts>
     </Frame>
 
-	<StatusBar name="GuildbookCastBar" drawLayer="BORDER" virtual="true" minValue="0" maxValue="1" defaultValue="0" orientation="HORIZONTAL">
+	<StatusBar name="GuildbookWrathEraCastBar" drawLayer="BORDER" virtual="true" minValue="0" maxValue="1" defaultValue="0" orientation="HORIZONTAL">
 		<Layers>
 			<Layer level="BACKGROUND">
 				<Texture setAllPoints="true">
@@ -1191,7 +1491,7 @@
 		<BarColor r="1.0" g="0.7" b="0.0"/>
 	</StatusBar>
 
-    <Frame name="GuildbookStatsGroup" mixin="GuildbookStatsGroupMixin" virtual="true">
+    <Frame name="GuildbookWrathEraStatsGroup" mixin="GuildbookStatsGroupMixin" virtual="true">
         <Layers>
             <Layer level="BACKGROUND">
                 <Texture parentKey="background" atlas="UI-Character-Info-Title"> <!--UI-Character-Info-Line-Bounce -->
@@ -1213,7 +1513,7 @@
     </Frame>
 
 
-    <Frame name="GuildbookGuildBankListviewItem" mixin="GuildbookGuildBankListviewItemMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookWrathEraGuildBankListviewItem" mixin="GuildbookGuildBankListviewItemMixin" virtual="true" enableMouse="true">
         <Animations>
             <AnimationGroup parentKey="anim" setToFinalAlpha="true">
                 <Alpha parentKey="fadeIn" duration="0.33" fromAlpha="0" toAlpha="1"/>
@@ -1256,7 +1556,7 @@
 
 
 
-    <Frame name="GuildbookMySacksListviewItem" mixin="GuildbookMySacksListviewItemMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookWrathEraMySacksListviewItem" mixin="GuildbookMySacksListviewItemMixin" virtual="true" enableMouse="true">
         <Animations>
             <AnimationGroup parentKey="anim" setToFinalAlpha="true">
                 <Alpha parentKey="fadeIn" duration="0.33" fromAlpha="0" toAlpha="1"/>
@@ -1304,7 +1604,7 @@
             </Layer>
         </Layers>
         <Frames>
-            <Frame parentKey="tooltip" inherits="GuildbookSmallHighlightButton">
+            <Frame parentKey="tooltip" inherits = "GuildbookWrathEraSmallHighlightButton">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-5" y="0"/>
@@ -1315,7 +1615,7 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="character1" parentArray="characterIcons" inherits="GuildbookSmallHighlightButton" hidden="true">
+            <Frame parentKey="character1" parentArray="characterIcons" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.tooltip" relativePoint="LEFT" x="-1" y="0"/>
@@ -1335,7 +1635,7 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="character2" parentArray="characterIcons" inherits="GuildbookSmallHighlightButton" hidden="true">
+            <Frame parentKey="character2" parentArray="characterIcons" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.character1" relativePoint="LEFT" x="-1" y="0"/>
@@ -1355,7 +1655,7 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="character3" parentArray="characterIcons" inherits="GuildbookSmallHighlightButton" hidden="true">
+            <Frame parentKey="character3" parentArray="characterIcons" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.character2" relativePoint="LEFT" x="-1" y="0"/>
@@ -1375,7 +1675,7 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="character4" parentArray="characterIcons" inherits="GuildbookSmallHighlightButton" hidden="true">
+            <Frame parentKey="character4" parentArray="characterIcons" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.character2" relativePoint="LEFT" x="-1" y="0"/>
@@ -1395,7 +1695,7 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="character5" parentArray="characterIcons" inherits="GuildbookSmallHighlightButton" hidden="true">
+            <Frame parentKey="character5" parentArray="characterIcons" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.character2" relativePoint="LEFT" x="-1" y="0"/>
@@ -1415,7 +1715,7 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="character6" parentArray="characterIcons" inherits="GuildbookSmallHighlightButton" hidden="true">
+            <Frame parentKey="character6" parentArray="characterIcons" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.character2" relativePoint="LEFT" x="-1" y="0"/>
@@ -1435,7 +1735,7 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="character7" parentArray="characterIcons" inherits="GuildbookSmallHighlightButton" hidden="true">
+            <Frame parentKey="character7" parentArray="characterIcons" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.character2" relativePoint="LEFT" x="-1" y="0"/>
@@ -1455,7 +1755,7 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="character8" parentArray="characterIcons" inherits="GuildbookSmallHighlightButton" hidden="true">
+            <Frame parentKey="character8" parentArray="characterIcons" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.character2" relativePoint="LEFT" x="-1" y="0"/>
@@ -1475,7 +1775,7 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="character9" parentArray="characterIcons" inherits="GuildbookSmallHighlightButton" hidden="true">
+            <Frame parentKey="character9" parentArray="characterIcons" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.character2" relativePoint="LEFT" x="-1" y="0"/>
@@ -1495,7 +1795,7 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="character10" parentArray="characterIcons" inherits="GuildbookSmallHighlightButton" hidden="true">
+            <Frame parentKey="character10" parentArray="characterIcons" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="true">
                 <Size x="26" y="26"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.character2" relativePoint="LEFT" x="-1" y="0"/>
@@ -1525,7 +1825,7 @@
 
 <!-- AdventureMapLabel-Large  BossBanner-BgBanner-Bottom challenges-timerbg -->
 
-    <Frame name="GuildbookStatsClassChartBar" virtual="true" enableMouse="true">
+    <Frame name="GuildbookWrathEraStatsClassChartBar" virtual="true" enableMouse="true">
         <Size x="200" y="30"/>
         <Layers>
             <Layer level="BACKGROUND">
@@ -1534,7 +1834,7 @@
                 </Texture>
             </Layer>
 			<Layer level="HIGHLIGHT">
-				<Texture parentKey="highlight" atlas="PetList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
+				<Texture parentKey="highlight" atlas="ClickCastList-ButtonHighlight" useAtlasSize="false" setAllPoints="true"/>
 			</Layer>
             <Layer level="ARTWORK">
                 <Texture parentKey="icon">
@@ -1576,7 +1876,7 @@
     </Frame>
 
 
-    <Frame name="GuildbookSearchResult" mixin="GuildbookSearchResultMixin" virtual="true" enableMouse="true">
+    <Frame name="GuildbookWrathEraSearchResult" mixin="GuildbookSearchResultMixin" virtual="true" enableMouse="true">
         <Layers>
             <Layer level="BACKGROUND">
 				<Texture parentKey="Background" atlas="Talent-Background" useAtlasSize="false" setAllPoints="true"/>
@@ -1613,7 +1913,7 @@
             </Layer>
         </Layers>
         <Frames>
-            <!-- <Frame parentKey="goto" inherits="GuildbookSmallHighlightButton">
+            <!-- <Frame parentKey="goto" inherits = "GuildbookWrathEraSmallHighlightButton">
                 <Size x="40" y="40"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-5" y="0"/>
@@ -1634,7 +1934,7 @@
 
 
 
-	<Frame name="GuildbookDropdownFlyout" mixin="GuildbookDropdownFlyoutMixin" virtual="true" hidden="true">
+	<Frame name="GuildbookWrathEraDropdownFlyout" mixin="GuildbookDropdownFlyoutMixin" virtual="true" hidden="true">
 		<Size x="100" y="275"/>
 		<Anchors>
 			<Anchor point="TOPLEFT" x="2" y="-28"/>
@@ -1646,7 +1946,7 @@
 		</Scripts>
 	</Frame>
 
-	<Frame name="GuildbookDropdown" mixin="GuildbookDropdownMixin" virtual="true" enableMouse="true">
+	<Frame name="GuildbookWrathEraDropdown" mixin="GuildbookDropdownMixin" virtual="true" enableMouse="true">
 		<Size x="115" y="28"/>
         <!-- <Anchors>
             <Anchor point="CENTER" x="0" y="0"/>
@@ -1737,7 +2037,7 @@
 	</Frame>
 
 
-	<Frame name="GuildbookDropDownFrame" mixin="GuildbookDropDownFrameMixin" virtual="true">
+	<Frame name="GuildbookWrathEraDropDownFrame" mixin="GuildbookDropDownFrameMixin" virtual="true">
         <Size x="100" y="275"/>
         <Anchors>
             <Anchor point="CENTER" x="0" y="0"/>
@@ -1750,7 +2050,7 @@
     </Frame>
 
 
-	<Frame name="GuildbookDropDownButton" mixin="GuildbookDropDownFlyoutButtonMixin" virtual="true" enableMouse="true">
+	<Frame name="GuildbookWrathEraDropDownButton" mixin="GuildbookDropDownFlyoutButtonMixin" virtual="true" enableMouse="true">
         <Size x="50" y="22"/>
         <Anchors>
             <Anchor point="CENTER" x="0" y="0"/>
@@ -1784,7 +2084,7 @@
     </Frame>
 
 
-    <Frame name="GuildbookTalentIconFrame" mixin="GuildbookTalentIconFrameMixin" virtual="true">
+    <Frame name="GuildbookWrathEraTalentIconFrame" mixin="GuildbookTalentIconFrameMixin" virtual="true">
         <Layers>
             <Layer level="OVERLAY">
                 <Texture parentKey="pointsBackground">

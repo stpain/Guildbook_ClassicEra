@@ -2,6 +2,13 @@ local _, addon = ...
 local L = addon.Locales
 local Database = addon.Database;
 local Talents = addon.Talents;
+local Tradeskills = addon.Tradeskills;
+local Comms = addon.Comms;
+
+
+
+
+
 
 --- basic button mixin
 GuildbookButtonMixin = {}
@@ -71,7 +78,10 @@ function GuildbookListviewItemMixin:ResetDataBinding()
 
 end
 
-function GuildbookListviewItemMixin:SetDataBinding(info)
+function GuildbookListviewItemMixin:SetDataBinding(info, height)
+
+    self:SetHeight(height)
+    self.icon:SetSize(height-2, height-2)
 
     if info.atlas then
         self.icon:SetAtlas(info.atlas)
@@ -82,8 +92,8 @@ function GuildbookListviewItemMixin:SetDataBinding(info)
 
     if info.showMask then
         self.mask:Show()
-        local x, y = self.icon:GetSize()
-        self.icon:SetSize(x + 2, y + 2)
+        -- local x, y = self.icon:GetSize()
+        -- self.icon:SetSize(x + 2, y + 2)
 
     end
 
@@ -116,16 +126,13 @@ function GuildbookSearchListviewItemMixin:OnLoad()
 end
 
 function GuildbookSearchListviewItemMixin:ResetDataBinding()
-    self.text:SetText("")
-    self.location:SetText("")
+
 end
 
 function GuildbookSearchListviewItemMixin:UpdateInfo(info)
 
 end
 
----this template is used to display the search results and coudl be passed in a character, tradeskill item, general item from bank or inventory
----@param binding any
 function GuildbookSearchListviewItemMixin:SetDataBinding(binding)
 
     -- self.icon:SetAtlas(info.atlas)
@@ -141,48 +148,19 @@ function GuildbookSearchListviewItemMixin:SetDataBinding(binding)
         
         self.text:SetText(binding.data.itemLink)
 
-        self.icon:SetTexture(binding.data.icon)
-
     elseif binding.type == "character" then
 
         self.text:SetText(binding.data.data.name)
-
-        self.icon:SetAtlas(binding.data:GetProfileAvatar())
 
     elseif binding.type == "bankItem" then
 
         self.text:SetText(binding.data:GetItemLink())
 
-        self.icon:SetTexture(binding.data:GetItemIcon())
-
     elseif binding.type == "inventory" then
 
         self.text:SetText(binding.data:GetItemLink())
-
-        self.icon:SetTexture(binding.data:GetItemIcon())
         
     end
-
-    if type(binding.location) == "string" then
-        self.location:SetText(binding.location)
-        self:SetScript("OnEnter", nil)
-    else
-        self.location:SetText("mulitple locations")
-
-        self:SetScript("OnEnter", function()
-            GameTooltip:SetOwner(self, 'ANCHOR_LEFT')
-
-            for name, count in pairs(binding.location) do
-                GameTooltip:AddDoubleLine(name, count)
-            end
-
-            GameTooltip:Show()
-        end)
-    end
-
-    self:SetScript("OnLeave", function()
-        GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-    end)
 
     self:SetScript("OnMouseDown", function()
 
@@ -195,7 +173,9 @@ end
 
 
 
-GuildbookChatCharacterListviewItemMixin = {}
+GuildbookChatCharacterListviewItemMixin = {
+    contextMenu = {},
+}
 function GuildbookChatCharacterListviewItemMixin:OnLoad()
     addon:RegisterCallback("Chat_OnMessageReceived", self.UpdateInfo, self)
 
@@ -227,7 +207,7 @@ function GuildbookChatCharacterListviewItemMixin:SetDataBinding(info, height)
         self.delete:Hide()
     end
 
-    self.characterName = info.label
+    self.characterName = info.characterName
     self.icon:SetAtlas(info.atlas)
     self.text:SetText(Ambiguate(info.label, "short"))
     self.icon:SetSize(height-2, height-2)
@@ -235,11 +215,33 @@ function GuildbookChatCharacterListviewItemMixin:SetDataBinding(info, height)
         self.mask:Show()
     end
 
-    self:SetScript("OnMouseDown", function()
-        self:AdjustPointsOffset(-1,-1)
-        if info.func then
-            info.func()
-            self.info:SetText("")
+    self.contextMenu = {
+        {
+            text = self.characterName,
+            isTitle = true,
+            notCheckable = true,
+        },
+
+    }
+    table.insert(self.contextMenu, addon.contextMenuSeparator)
+    table.insert(self.contextMenu, {
+        text = "Invite",
+        notCheckable = true,
+        func = function()
+            InviteUnit(info.characterName)
+            print(info.characterName)
+        end,
+    })
+
+    self:SetScript("OnMouseDown", function(_, button)
+        if button == "RightButton" then
+            EasyMenu(self.contextMenu, addon.contextMenu, "cursor", 0, 0, "MENU", 1)
+        else
+            self:AdjustPointsOffset(-1,-1)
+            if info.func then
+                info.func()
+                self.info:SetText("")
+            end
         end
     end)
 end
@@ -571,31 +573,52 @@ end
 
 
 
-GuildbookCircleLootItemTemplateMixin = {}
-function GuildbookCircleLootItemTemplateMixin:OnLoad()
+GuildbookCircleIconMixin = {}
+function GuildbookCircleIconMixin:OnLoad()
     
 end
-function GuildbookCircleLootItemTemplateMixin:UpdateLayout()
-    local x, y = self:GetSize()
-    self.icon:SetSize(x * 0.65, x * 0.65)
-    self.mask:SetSize(x * 0.52, x * 0.52)
-    self.border:SetSize(x * 0.85, x * 0.85)
-    self.label:SetSize(x, y*0.3)
+
+function GuildbookCircleIconMixin:SetDataBinding()
+
 end
-function GuildbookCircleLootItemTemplateMixin:SetDataBinding(binding)
-    self.label:SetText(binding.subClass)
-    self.icon:SetTexture(binding.icon)
-    self.border:SetVertexColor(binding.colour.color:GetRGB())
-    self:SetScript("OnEnter", function()
-        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-        GameTooltip:SetHyperlink(binding.link)
-        GameTooltip:Show()
-    end)
+
+--make this % based to be reusable
+function GuildbookCircleIconMixin:OnEnter()
+    self.selected:SetSize(120,120)
+    self.border:SetSize(120,120)
+    self.icon:SetSize(72,72)
+    self.mask:SetSize(60,60)
 end
-function GuildbookCircleLootItemTemplateMixin:OnLeave(item)
+function GuildbookCircleIconMixin:OnLeave()
+    self.selected:SetSize(100,100)
+    self.border:SetSize(100,100)
+    self.icon:SetSize(60,60)
+    self.mask:SetSize(50,50)
     GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
 end
 
+
+--alts template
+GuildbookSettingsCharacterAltMixin = {}
+function GuildbookSettingsCharacterAltMixin:SetDataBinding(binding)
+    self.character = binding;
+    self.icon:SetAtlas(self.character:GetProfileAvatar())
+    self.label:SetText("|cffffffff"..Ambiguate(self.character.data.name, "short"))
+
+    if self.character.data.name == self.character.data.mainCharacter then
+        self.selected:Show()
+    else
+        self.selected:Hide()
+    end
+
+    local _, class = GetClassInfo(self.character.data.class)
+    local colour = RAID_CLASS_COLORS[class]
+    self.border:SetVertexColor(colour:GetRGB())
+
+    self:SetScript("OnMouseDown", function()
+        self.character:SetMainCharacter(self.character.data.name, true)
+    end)
+end
 
 
 GuildbookProfileSummaryRowAvatarTemplateMixin = {}
@@ -648,7 +671,13 @@ end
 GuildbookRecipeListviewItemMixin = {}
 
 function GuildbookRecipeListviewItemMixin:OnLoad()
+
+    for k = 1, 8 do
+        self.reagentIcons[k]:Raise()
+    end
+
     addon:RegisterCallback("UI_OnSizeChanged", self.UpdateLayout, self)
+    addon:RegisterCallback("Database_OnConfigChanged", self.Database_OnConfigChanged, self)
 end
 
 function GuildbookRecipeListviewItemMixin:UpdateLayout()
@@ -666,32 +695,75 @@ function GuildbookRecipeListviewItemMixin:UpdateLayout()
     end
 end
 
+function GuildbookRecipeListviewItemMixin:Database_OnConfigChanged()
+    if self.item and not self.item:IsItemEmpty() then
+        if Database:GetConfig("tradeskillsRecipesListviewShowItemID") then
+            self.label:SetText(self.item:GetItemID().." "..self.item:GetItemLink())
+        else
+            self.label:SetText(self.item:GetItemLink())
+        end
+        self.anim:Play()
+    end
+end
+
 function GuildbookRecipeListviewItemMixin:SetDataBinding(binding, height)
     self.icon:SetWidth(height - 2)
     self.icon:SetTexture(binding.icon)
-
-    self.item = binding;
 
     for k, v in ipairs(self.reagentIcons) do
         v:Hide()
     end
 
-    if binding.professionID == 333 then
-        self.label:SetText(binding.itemName)
-        self.anim:Play()
+    self.item = nil;
+
+    if binding.tradeskillID == 333 then
+        if binding.spellID then
+            self.spell = Spell:CreateFromSpellID(binding.spellID)
+            if not self.spell:IsSpellEmpty() then
+                self.spell:ContinueOnSpellLoad(function()
+                    self.label:SetText(self.spell:GetSpellName())
+                    self.anim:Play()
+
+                    self:SetScript("OnEnter", function()
+                        if self.spell then
+                            GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+                            GameTooltip:SetSpellByID(self.spell:GetSpellID())
+                            GameTooltip:Show()
+                        end
+                    end)
+                end)
+            end
+
+        end
+
     else
-        local item = Item:CreateFromItemID(self.item.itemID)
-        if not item:IsItemEmpty() then
-            item:ContinueOnItemLoad(function()
-                self.label:SetText(item:GetItemLink())
-                self.anim:Play()
-            end)
+        if binding.itemID then
+            self.item = Item:CreateFromItemID(binding.itemID)
+            if not self.item:IsItemEmpty() then
+                self.item:ContinueOnItemLoad(function()
+                    if Database:GetConfig("tradeskillsRecipesListviewShowItemID") then
+                        self.label:SetText(binding.itemID.." "..self.item:GetItemLink())
+                    else
+                        self.label:SetText(self.item:GetItemLink())
+                    end
+                    self.anim:Play()
+
+                    self:SetScript("OnEnter", function()
+                        if self.item then
+                            GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+                            GameTooltip:SetHyperlink(self.item:GetItemLink())
+                            GameTooltip:Show()
+                        end
+                    end)
+
+                end)
+            end
         end
     end
 
     local i = 1;
     local reagents = {}
-    for k, v in pairs(self.item.reagents) do
+    for k, v in pairs(binding.reagents) do
         table.insert(reagents, {
             itemID = k,
             count = v
@@ -705,18 +777,33 @@ function GuildbookRecipeListviewItemMixin:SetDataBinding(binding, height)
         self.reagentIcons[k]:Show()
     end
 
-    self:SetScript("OnEnter", function()
-        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-        GameTooltip:SetHyperlink(binding.itemLink)
-        GameTooltip:Show()
-    end)
     self:SetScript("OnLeave", function()
         GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
     end)
 
     self:SetScript("OnMouseDown", function()
-        if binding.func then
-            binding.func()
+        if IsLeftAltKeyDown() then
+            if AuctionFrameBrowse and AuctionFrameBrowse:IsVisible() then
+                BrowseName:SetText(string.format('"%s"', self.item:GetItemName()))
+                BrowseSearchButton:Click()
+            end
+        else
+            if binding.func then
+                binding.func()
+            end
+        end
+
+        if self.item then
+            if IsControlKeyDown() then
+                DressUpItemLink(self.item:GetItemLink())
+            elseif IsShiftKeyDown() then
+                HandleModifiedItemClick(self.item:GetItemLink())
+            end
+        end
+        if self.spell then
+            if IsShiftKeyDown() then
+                HandleModifiedItemClick(GetSpellLink(self.spell:GetSpellID()))
+            end
         end
     end)
 
@@ -726,6 +813,12 @@ function GuildbookRecipeListviewItemMixin:ResetDataBinding()
     for k, v in ipairs(self.reagentIcons) do
         v:Hide()
     end
+    self.item = nil;
+    self.label:SetText("")
+    for i = 1, 8 do
+        self.reagentIcons[i]:SetAlpha(0)
+    end
+    self:SetScript("OnEnter", nil)
 end
 
 
@@ -744,6 +837,27 @@ function GuildbookRosterListviewItemMixin:OnLoad()
         end
     end)
 
+    self.prof1:SetScript("OnEnter", function()
+        if self.character and self.character.data.profession1Spec then
+            GameTooltip:SetOwner(self.prof1, "ANCHOR_RIGHT")
+            GameTooltip:SetSpellByID(self.character.data.profession1Spec)
+            GameTooltip:Show()
+        end
+    end)
+    self.prof2:SetScript("OnEnter", function()
+        if self.character and self.character.data.profession2Spec then
+            GameTooltip:SetOwner(self.prof1, "ANCHOR_RIGHT")
+            GameTooltip:SetSpellByID(self.character.data.profession2Spec)
+            GameTooltip:Show()
+        end
+    end)
+    self.prof1:SetScript("OnLeave", function()
+        GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+    end)
+    self.prof2:SetScript("OnLeave", function()
+        GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+    end)
+
     self.inviteToGroup:SetScript("OnMouseDown", function()
         if self.character then
             InviteUnit(self.character.data.name)
@@ -759,6 +873,12 @@ function GuildbookRosterListviewItemMixin:OnLoad()
             addon:TriggerEvent("Chat_OnChatOpened", self.character.data.name)
         end
     end)
+
+    self:SetScript("OnMouseDown", function(f, b)
+        if b == "RightButton" then
+            EasyMenu(self.contextMenu, addon.contextMenu, "cursor", 0, 0, "MENU", 1)
+        end
+    end)
     
     addon:RegisterCallback("UI_OnSizeChanged", self.UpdateLayout, self)
     addon:RegisterCallback("Character_OnDataChanged", self.Character_OnDataChanged, self)
@@ -768,7 +888,8 @@ function GuildbookRosterListviewItemMixin:SetDataBinding(binding, height)
 
     self.character = binding;
 
-    self.classIcon:SetAtlas(self.character:GetClassSpecAtlasName())
+    local atlas, _ = self.character:GetClassSpecAtlasName()
+    self.classIcon:SetAtlas(atlas)
     self.name:SetText(Ambiguate(self.character.data.name, "short"))
 
     self:Update()
@@ -816,39 +937,139 @@ function GuildbookRosterListviewItemMixin:UpdateLayout()
 end
 
 function GuildbookRosterListviewItemMixin:Update()
+
     self.level:SetText(self.character.data.level)
     self.zone:SetText(self.character.data.onlineStatus.zone)
     self.rank:SetText(GuildControlGetRankName(self.character.data.rank + 1))
+
     self.prof1.icon:SetAtlas(self.character:GetTradeskillIcon(1))
+
     self.prof2.icon:SetAtlas(self.character:GetTradeskillIcon(2))
+
+    
     if self.character.data.mainSpec == false then
-        --self.mainSpecIcon:SetAtlas(self.character:GetClassSpecAtlasName())
         self.mainSpecIcon:Hide()
         self.mainSpec:SetText("|cff7f7f7f".."No Spec")
     else
-        self.mainSpecIcon:SetAtlas(self.character:GetClassSpecAtlasName("primary"))
+        local atlas, _ = self.character:GetClassSpecAtlasName("primary")
+        self.mainSpecIcon:SetAtlas(atlas)
         self.mainSpecIcon:Show()
         local localeName, engName, Id = self.character:GetSpec("primary")
         self.mainSpec:SetText(engName)
     end
+
+
     self.publicNote:SetText(self.character.data.publicNote)
     self.openProfile.background:SetAtlas(self.character:GetProfileAvatar())
 
     if self.character.data.onlineStatus.isOnline == true then
         self.name:SetTextColor(1,1,1)
-        self.publicNote:SetTextColor(1,1,1)
         self.level:SetTextColor(1,1,1)
         self.mainSpec:SetTextColor(1,1,1)
         self.zone:SetTextColor(1,1,1)
         self.rank:SetTextColor(1,1,1)
+        self.publicNote:SetTextColor(1,1,1)
     else
         self.name:SetTextColor(0.5,0.5,0.5)
-        self.publicNote:SetTextColor(0.5,0.5,0.5)
         self.level:SetTextColor(0.5,0.5,0.5)
         self.mainSpec:SetTextColor(0.5,0.5,0.5)
         self.zone:SetTextColor(0.5,0.5,0.5)
         self.rank:SetTextColor(0.5,0.5,0.5)
+        self.publicNote:SetTextColor(0.5,0.5,0.5)
     end
+
+    self.contextMenu = {
+        {
+            text = self.character:GetName(true),
+            isTitle = true,
+            notCheckable = true,
+        }
+    }
+    table.insert(self.contextMenu, addon.contextMenuSeparator)
+    table.insert(self.contextMenu, {
+        text = "Export",
+        isTitle = true,
+        notCheckable = true,
+    })
+    table.insert(self.contextMenu, {
+        text = "Current",
+        notCheckable = true,
+        func = function()
+            addon:TriggerEvent("Character_ExportEquipment", self.character, "current", "current")
+        end,
+    })
+
+
+    table.insert(self.contextMenu, addon.contextMenuSeparator)
+    table.insert(self.contextMenu, {
+        text = "Reset",
+        isTitle = true,
+        notCheckable = true,
+    })
+    local profMenu = {
+        {
+            text = Tradeskills:GetLocaleNameFromID(self.character.data.profession1) or "Proferssion 1",
+            notCheckable = true,
+            func = function()
+                self.character.data.profession1 = "-"
+                self.character.data.profession1Recipes = {}
+                self.character.data.profession1Level = 0
+                addon:TriggerEvent("Character_OnDataChanged", self.character)
+            end,
+        },
+        {
+            text = Tradeskills:GetLocaleNameFromID(self.character.data.profession2) or "Proferssion 2",
+            notCheckable = true,
+            func = function()
+                self.character.data.profession2 = "-"
+                self.character.data.profession2Recipes = {}
+                self.character.data.profession2Level = 0
+                addon:TriggerEvent("Character_OnDataChanged", self.character)
+            end,
+        },
+    }
+    table.insert(self.contextMenu, {
+        text = TRADESKILLS,
+        notCheckable = true,
+        hasArrow = true,
+        menuList = profMenu,
+
+    })
+
+    table.insert(self.contextMenu, addon.contextMenuSeparator)
+    table.insert(self.contextMenu, {
+        text = "Request Data",
+        isTitle = true,
+        notCheckable = true,
+    })
+    local profMenu = {
+        {
+            text = Tradeskills:GetLocaleNameFromID(self.character.data.profession1) or "Proferssion 1",
+            notCheckable = true,
+            func = function()
+                Comms:RequestCharacterData(self.character.data.name, "profession1")
+                Comms:RequestCharacterData(self.character.data.name, "profession1Level")
+                Comms:RequestCharacterData(self.character.data.name, "profession1Recipes")
+            end,
+        },
+        {
+            text = Tradeskills:GetLocaleNameFromID(self.character.data.profession2) or "Proferssion 2",
+            notCheckable = true,
+            func = function()
+                Comms:RequestCharacterData(self.character.data.name, "profession2")
+                Comms:RequestCharacterData(self.character.data.name, "profession2Level")
+                Comms:RequestCharacterData(self.character.data.name, "profession2Recipes")
+            end,
+        },
+    }
+    table.insert(self.contextMenu, {
+        text = TRADESKILLS,
+        notCheckable = true,
+        hasArrow = true,
+        menuList = profMenu,
+
+    })
+
 end
 
 function GuildbookRosterListviewItemMixin:Character_OnDataChanged(character)
@@ -888,6 +1109,285 @@ end
 function GuildbookRosterListviewItemMixin:OnLeave()
     GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
 end
+
+
+
+
+
+
+
+
+
+
+
+
+GuildbookAltsListviewTemplateMixin = {}
+
+function GuildbookAltsListviewTemplateMixin:OnLoad()
+
+    self.prof1:SetScript("OnMouseDown", function()
+        if self.character then
+            addon:TriggerEvent("Character_OnTradeskillSelected", self.character.data.profession1, self.character.data.profession1Recipes)
+        end
+    end)
+    self.prof2:SetScript("OnMouseDown", function()
+        if self.character then
+            addon:TriggerEvent("Character_OnTradeskillSelected", self.character.data.profession2, self.character.data.profession2Recipes)
+        end
+    end)
+
+    if self.cooking then
+        self.cooking.icon:SetAtlas("Mobile-Cooking")
+        self.cooking.icon:SetRotation(-0.261)
+        self.cooking:SetScript("OnMouseDown", function()
+            if self.character then
+                addon:TriggerEvent("Character_OnTradeskillSelected", 185, self.character.data.cookingRecipes)
+            end
+        end)
+    end
+    if self.firstAid then
+        self.firstAid.icon:SetAtlas("Mobile-FirstAid")
+        self.firstAid:SetScript("OnMouseDown", function()
+            if self.character then
+                addon:TriggerEvent("Character_OnTradeskillSelected", 129, self.character.data.firstAidRecipes)
+            end
+        end)
+    end
+    if self.fishing then
+        self.fishing.icon:SetAtlas("Mobile-Fishing")
+        self.fishing:SetScript("OnMouseDown", function()
+            if self.character then
+                addon:TriggerEvent("Character_OnTradeskillSelected", 356, self.character.data.fishingRecipes)
+            end
+        end)
+    end
+
+
+    self.openProfile:SetScript("OnMouseDown", function()
+        if self.character then
+            addon:TriggerEvent("Character_OnProfileSelected", self.character)
+        end
+    end)
+
+    self:SetScript("OnMouseDown", function(f, b)
+        if b == "RightButton" then
+            EasyMenu(self.contextMenu, addon.contextMenu, "cursor", 0, 0, "MENU", 1)
+        end
+    end)
+
+
+    addon:RegisterCallback("Character_OnDataChanged", self.Character_OnDataChanged, self)
+
+end
+
+function GuildbookAltsListviewTemplateMixin:Character_OnDataChanged(character)
+    if self.character.data.guid == character.data.guid then
+        self:Update()
+    end
+end
+
+function GuildbookAltsListviewTemplateMixin:SetDataBinding(character)
+    
+    self.character = character;
+
+    local _, class = GetClassInfo(self.character.data.class)
+
+    self.classIcon:SetAtlas(string.format("classicon-%s", class):lower())
+    self.name:SetText(Ambiguate(self.character.data.name, "short"))
+
+    self:Update()
+end
+
+function GuildbookAltsListviewTemplateMixin:ResetDataBinding()
+    
+end
+
+function GuildbookAltsListviewTemplateMixin:Update()
+
+    self.level:SetText(self.character.data.level)
+
+    self.prof1.icon:SetAtlas(self.character:GetTradeskillIcon(1))
+    self.prof1.label:SetText(self.character.data.profession1Level)
+
+    self.prof2.icon:SetAtlas(self.character:GetTradeskillIcon(2))
+    self.prof2.label:SetText(self.character.data.profession2Level)
+
+    self.cooking.label:SetText(self.character.data.cookingLevel)
+    self.firstAid.label:SetText(self.character.data.firstAidLevel)
+    self.fishing.label:SetText(self.character.data.fishingLevel)
+
+    local copper = self.character.data.containers.copper or 0
+    self.gold:SetText(GetCoinTextureString(copper))
+    
+    local atlas, _ = self.character:GetClassSpecAtlasName("primary")
+    self.mainSpec.icon:SetAtlas(atlas)
+
+    local atlas, _ = self.character:GetClassSpecAtlasName("secondary")
+    self.offSpec.icon:SetAtlas(atlas)
+
+    self.openProfile.background:SetAtlas(self.character:GetProfileAvatar())
+
+    local specMenu1, specMenu2 = {}, {}
+    for k, spec in ipairs(self.character:GetSpecializations()) do
+        table.insert(specMenu1, {
+            text = spec,
+            isNotRadio = true,
+            checked = function()
+                return self.character.data.mainSpec == k and true or false;
+            end,
+            func = function()
+                self.character:SetSpec("primary", k, true)
+            end,
+        })
+        table.insert(specMenu2, {
+            text = spec,
+            isNotRadio = true,
+            checked = function()
+                return self.character.data.offSpec == k and true or false;
+            end,
+            func = function()
+                self.character:SetSpec("secondary", k, true)
+            end,
+        })
+    end
+
+    local deleteEquipMenu, exportEquipMenu = {}, {}
+    for setname, info in pairs(self.character.data.inventory) do
+        table.insert(deleteEquipMenu, {
+            text = setname,
+            notCheckable = true,
+            func = function()
+                self.character.data.inventory[setname] = {};
+                addon:TriggerEvent("Character_OnDataChanged", self.character)
+            end,
+        })
+        table.insert(exportEquipMenu, {
+            text = setname,
+            notCheckable = true,
+            func = function()
+                addon:TriggerEvent("Character_ExportEquipment", self.character, setname)
+            end,
+        })
+    end
+
+    self.contextMenu = {
+        {
+            text = self.character:GetName(true),
+            isTitle = true,
+            notCheckable = true,
+        }
+    }
+    table.insert(self.contextMenu, addon.contextMenuSeparator)
+    table.insert(self.contextMenu, {
+        text = "Specializations",
+        isTitle = true,
+        notCheckable = true,
+    })
+    table.insert(self.contextMenu, {
+        text = "Main",
+        hasArrow = true,
+        menuList = specMenu1,
+        notCheckable = true,
+    })
+    table.insert(self.contextMenu, {
+        text = "Off",
+        hasArrow = true,
+        menuList = specMenu2,
+        notCheckable = true,
+    })
+    table.insert(self.contextMenu, {
+        text = "Reset All",
+        func = function()
+            self.character:SetSpec("primary", false)
+            self.character:SetSpec("secondary", false)
+            addon:TriggerEvent("Character_OnDataChanged", self.character)
+        end,
+        notCheckable = true,
+    })
+    table.insert(self.contextMenu, addon.contextMenuSeparator)
+    table.insert(self.contextMenu, {
+        text = "Equipment",
+        isTitle = true,
+        notCheckable = true,
+    })
+    -- table.insert(self.contextMenu, {
+    --     text = "Export",
+    --     hasArrow = true,
+    --     menuList = exportEquipMenu,
+    --     notCheckable = true,
+    -- })
+    table.insert(self.contextMenu, {
+        text = "Delete",
+        hasArrow = true,
+        menuList = deleteEquipMenu,
+        notCheckable = true,
+    })
+    if Database.db.debug then
+        table.insert(self.contextMenu, addon.contextMenuSeparator)
+        table.insert(self.contextMenu, {
+            text = "Debug",
+            isTitle = true,
+            notCheckable = true,
+        })
+        for k, v in pairs(self.character.data) do
+            local subMenu = {
+                {
+                    text = "Dump",
+                    notCheckable = true,
+                    func = function()
+                        DevTools_Dump(v)
+                    end,
+                },
+                {
+                    text = "Reset",
+                    notCheckable = true,
+                    func = function()
+                        if addon.characterDefaults[k] then
+                            self.character.data[k] = addon.characterDefaults[k] --WARNING - this will not trigger a data changed
+                        end
+                    end,
+                },
+
+            }
+            table.insert(self.contextMenu, {
+                text = k,
+                notCheckable = true,
+                hasArrow = true,
+                menuList = subMenu,
+            })
+        end
+
+    end
+    table.insert(self.contextMenu, addon.contextMenuSeparator)
+    table.insert(self.contextMenu, {
+        text = DELETE,
+        notCheckable = true,
+        func = function()
+            StaticPopup_Show("GuildbookDeleteCharacter", self.character.data.name, nil, self.character.data.name)
+        end,
+    })
+
+
+end
+
+
+function GuildbookAltsListviewTemplateMixin:OnEnter()
+
+end
+
+function GuildbookAltsListviewTemplateMixin:OnLeave()
+    GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+end
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -977,21 +1477,65 @@ end
 
 
 
+---this template can do many things
+--you can set the icon byt fileID or an atlas
+--you can add a mask
+--you can set tex coords
+--set a background rgb and alpha
 GuildbookSimpleIconLabelMixin = {}
 function GuildbookSimpleIconLabelMixin:OnLoad()
 
 end
 function GuildbookSimpleIconLabelMixin:SetDataBinding(binding, height)
 
-    self:SetScript("OnMouseDown", nil)
+    if binding.backgroundAlpha then
+        self.background:SetAlpha(binding.backgroundAlpha)
+    else
+        self.background:SetAlpha(0)
+    end
+    if binding.backgroundAtlas then
+        self.background:SetAtlas(binding.backgroundAtlas)
+        self.background:SetAlpha(1)
+    else
+        if binding.backgroundRGB then
+            self.background:SetColorTexture(binding.backgroundRGB.r, binding.backgroundRGB.g, binding.backgroundRGB.b)
+         else
+             self.background:SetColorTexture(0,0,0)
+         end
+    end
 
-    self.label:SetText(binding.label)
+    if binding.label then
+        self.label:SetText(binding.label)
+    end
+    if binding.labelRight then
+        self.labelRight:SetText(binding.labelRight)
+    end
+
+    if binding.fontObject then
+        self.label:SetFontObject(binding.fontObject)
+        self.labelRight:SetFontObject(binding.fontObject)
+    else
+        self.label:SetFontObject(GameFontWhite)
+        self.labelRight:SetFontObject(GameFontWhite)
+    end
+
     if binding.atlas then
         self.icon:SetAtlas(binding.atlas)
     elseif binding.icon then
         self.icon:SetTexture(binding.icon)
     end
-    self.icon:SetSize(height-4, height-4)
+
+    if binding.iconCoords then
+        self.icon:SetTexCoord(binding.iconCoords[1], binding.iconCoords[2], binding.iconCoords[3], binding.iconCoords[4])
+    else
+        self.icon:SetTexCoord(0,1,0,1)
+    end
+
+    if not binding.icon and not binding.atlas then
+        self.icon:SetSize(1, height-4)
+    else
+        self.icon:SetSize(height-4, height-4)
+    end
 
     if binding.showMask then
         self.mask:Show()
@@ -1010,23 +1554,60 @@ function GuildbookSimpleIconLabelMixin:SetDataBinding(binding, height)
         self:EnableMouse(true)
     end
 
+    if binding.onMouseEnter then
+        self:SetScript("OnEnter", binding.onMouseEnter)
+        self:EnableMouse(true)
+    end
+    if binding.onMouseLeave then
+        self:SetScript("OnLeave", binding.onMouseLeave)
+    else
+        self:SetScript("OnLeave", function()
+            GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+        end)
+    end
+
     if binding.link then
         self:SetScript("OnEnter", function()
             GameTooltip:SetOwner(self, "ANCHOR_LEFT")
             GameTooltip:SetHyperlink(binding.link)
             GameTooltip:Show()
         end)
-        self:SetScript("OnLeave", function()
-            GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-        end)
+        -- self:SetScript("OnLeave", function()
+        --     GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+        -- end)
+    end
 
-        --if we have a link its very likely we need to get the info?
-        -- local item = Item:CreateFromItemLink(binding.link)
-        -- if not item:IsItemEmpty() then
-        --     item:ContinueOnItemLoad(function()
-        --         self.label:SetText(item:GetItemLink())
-        --     end)
-        -- end
+    if binding.getItemInfoFromID then
+        if binding.itemID then
+            local item = Item:CreateFromItemID(binding.itemID)
+            if not item:IsItemEmpty() then
+                item:ContinueOnItemLoad(function()
+                    local link = item:GetItemLink()
+                    self.label:SetText(link)
+                    self:EnableMouse(true)
+                    self:SetScript("OnEnter", function()
+                        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+                        GameTooltip:SetHyperlink(link)
+                        GameTooltip:Show()
+                    end)
+                    -- self:SetScript("OnLeave", function()
+                    --     GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+                    -- end)
+                    self:SetScript("OnMouseDown", function()
+                        if IsControlKeyDown() then
+							DressUpItemLink(link)
+						elseif IsShiftKeyDown() then
+							HandleModifiedItemClick(link)
+						end
+                        if binding.onMouseDown then
+                            binding.onMouseDown()
+                        end
+                    end)
+
+                    addon:TriggerEvent("Profile_OnItemDataLoaded")
+                end)
+            end
+        end
     end
 
     --self.anim:Play()
@@ -1036,6 +1617,7 @@ function GuildbookSimpleIconLabelMixin:ResetDataBinding()
     self:SetScript("OnEnter", nil)
     self:SetScript("OnLeave", nil)
     self:EnableMouse(false)
+    self.icon:SetTexture(nil)
 end
 
 
@@ -1125,7 +1707,7 @@ function GuildbookTalentIconFrameMixin:SetDataBinding(binding)
     end
 
     self:SetScript("OnEnter", function()
-        if self.talent then
+        if self.talent and (type(self.talent.spellId) == "number") then
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
             GameTooltip:SetSpellByID(self.talent.spellId)
             GameTooltip:Show()
@@ -1145,6 +1727,7 @@ function GuildbookTalentIconFrameMixin:SetTalent(talent)
     self.talent = talent;
     local name, _, icon = GetSpellInfo(self.talent.spellId)
     self.icon:SetTexture(icon)
+    self.icon:SetDesaturation(0)
     self.icon:Show()
     self.border:Show()
     self.pointsBackground:Show()
@@ -1155,6 +1738,7 @@ function GuildbookTalentIconFrameMixin:SetTalent(talent)
         self.border:SetAtlas("orderhalltalents-spellborder-yellow")
     elseif self.talent.rank == 0 then
         self.border:SetAtlas("orderhalltalents-spellborder")
+        self.icon:SetDesaturation(1)
     else
         self.border:SetAtlas("orderhalltalents-spellborder-green")
     end
@@ -1398,7 +1982,7 @@ function GuildbookChatBubbleMixin:OnLoad()
 end
 function GuildbookChatBubbleMixin:SetDataBinding(binding)
 
-    if binding.sender == addon.thisCharacter then
+    if Database.db.myCharacters[binding.sender] == true or Database.db.myCharacters[binding.sender] == false then
         self.message:SetJustifyH("RIGHT")
 
         if Database.db.characterDirectory[binding.sender] then
@@ -1433,3 +2017,73 @@ function GuildbookChatBubbleMixin:ResetDataBinding()
     
 end
 
+
+
+
+
+---this template is used to display the search results and coudl be passed in a character, tradeskill item, general item from bank or inventory
+---@param binding any
+function GuildbookSearchListviewItemMixin:SetDataBinding(binding)
+
+    -- self.icon:SetAtlas(info.atlas)
+    -- self.text:SetText(Ambiguate(info.label, "short"))
+
+    -- if info.showMask then
+    --     self.mask:Show()
+    --     local x, y = self.icon:GetSize()
+    --     self.icon:SetSize(x + 2, y + 2)
+    -- end
+
+    if binding.type == "tradeskillItem" then
+        
+        self.text:SetText(binding.data.itemLink)
+
+        self.icon:SetTexture(binding.data.icon)
+
+    elseif binding.type == "character" then
+
+        self.text:SetText(binding.data.data.name)
+
+        self.icon:SetAtlas(binding.data:GetProfileAvatar())
+
+    elseif binding.type == "bankItem" then
+
+        self.text:SetText(binding.data:GetItemLink())
+
+        self.icon:SetTexture(binding.data:GetItemIcon())
+
+    elseif binding.type == "inventory" then
+
+        self.text:SetText(binding.data:GetItemLink())
+
+        self.icon:SetTexture(binding.data:GetItemIcon())
+        
+    end
+
+    if type(binding.location) == "string" then
+        self.location:SetText(binding.location)
+        self:SetScript("OnEnter", nil)
+    else
+        self.location:SetText("mulitple locations")
+
+        self:SetScript("OnEnter", function()
+            GameTooltip:SetOwner(self, 'ANCHOR_LEFT')
+
+            for name, count in pairs(binding.location) do
+                GameTooltip:AddDoubleLine(name, count)
+            end
+
+            GameTooltip:Show()
+        end)
+    end
+
+    self:SetScript("OnLeave", function()
+        GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+    end)
+
+    if binding.onMouseDown then
+        self:SetScript("OnMouseDown", binding.onMouseDown)
+    else
+        self:SetScript("OnMouseDown", nil)
+    end
+end
