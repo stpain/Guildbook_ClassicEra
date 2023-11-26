@@ -3,6 +3,7 @@ local L = addon.Locales
 local Database = addon.Database;
 local Tradeskills = addon.Tradeskills;
 local Talents = addon.Talents;
+local Comms = addon.Comms;
 
 local tradeskills = {
     171,
@@ -23,6 +24,7 @@ local tradeskills = {
 
 GuildbookSettingsMixin = {
     name = "Settings",
+    helptips = {},
     panelsLoaded = {
         character = false,
         guild = false,
@@ -103,9 +105,10 @@ function GuildbookSettingsMixin:OnLoad()
     self.content.addon.general:SetText(L.SETTINGS_ADDON_GENERAL)
     self.content.addon.discord:SetText("https://discord.gg/st5uDAX5Cn")
     self.content.guildBank.header:SetText(L.GUILDBANK)
-    self.content.guildBank.general:SetText(L.SETTINGS_GUILDBANK_GENERAL)
+    self.content.guildBank.guildBankHelptip:SetText(L.SETTINGS_GUILDBANK_HT)
     self.content.tradeskills.header:SetText(L.TRADESKILLS)
     self.content.tradeskills.general:SetText(L.SETTINGS_TRADESKILLS_GENERAL)
+    self.content.guildBank.autoShareItems.label:SetText("Auto Share Items")
     
     --character tab panels
     local tabs = {
@@ -174,6 +177,8 @@ function GuildbookSettingsMixin:OnLoad()
         L.SETTINGS_HELP_TEXT_TRADESKILLS,
         L.SETTINGS_HELP_TEXT_DAILIES
     ))
+
+    table.insert(self.helptips, self.content.guildBank.guildBankHelptip)
 
     addon.AddView(self)
 end
@@ -621,6 +626,13 @@ function GuildbookSettingsMixin:PreparePanels()
     self.content.addon.debug:SetChecked(Database.db.debug)
     
 
+    --=guildbank
+    --=========================================
+    self.content.guildBank.autoShareItems:SetScript("OnClick", function(cb)
+        Database.db.config.guildbankAutoShareItems = cb:GetChecked()
+    end)
+
+
 
     --=========================================
     --guild panel
@@ -797,20 +809,34 @@ end
 
 function GuildbookSettingsMixin:GuildBankPanel_OnShow()
 
-    --this remains in OnShow as bank characters can eb added/removed during gameplay
-    self.content.guildBank.listview.DataProvider:Flush()
-    local t = {}
+    --this remains in OnShow as bank characters can be added/removed during gameplay
+
+    self.content.guildBank.bankCharacters = {}
+
+    self.content.guildBank.autoShareItems:SetChecked(Database.db.config.guildbankAutoShareItems)
+
     if addon.characters then
         for k, character in pairs(addon.characters) do
             if character.data.publicNote:lower() == "guildbank" then
-                table.insert(t, {
-                    character = character,
-                })
+                local guild = Database:GetCharacterGuild(character.data.name)
+                if (guild == addon.thisGuild) and addon.api.characterIsMine(character.data.name) then
+                    table.insert(self.content.guildBank.bankCharacters, {
+                        character = character
+                    })
+                end
             end
         end
     end
 
-    self.content.guildBank.listview.DataProvider:InsertTable(t)
+    self.content.guildBank.syncRules:SetScript("OnClick", function()
+        for k, v in ipairs(self.content.guildBank.bankCharacters) do
+            local rules = addon.guilds[addon.thisGuild].bankRules[v.character.data.name];
+            Comms:GuildBank_TransmitRules(addon.thisGuild, v.character.data.name, rules)
+        end
+    end)
+
+    local dp = CreateDataProvider(self.content.guildBank.bankCharacters)
+    self.content.guildBank.listview.scrollView:SetDataProvider(dp)
 end
 
 

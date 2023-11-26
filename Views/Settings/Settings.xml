@@ -469,17 +469,42 @@
                                         <Anchor point="TOPRIGHT" x="0" y="0"/>
                                     </Anchors>
                                 </FontString>
-                                <FontString parentKey="general" inherits="GameFontNormal" text="Chat">
-                                    <Size y="30"/>
+                                <FontString parentKey="headerName" inherits="GameFontNormal" text="Character">
+                                    <Size x="200" y="30"/>
                                     <Color r="1" g="1" b="1"/>
                                     <Anchors>
                                         <Anchor point="TOPLEFT" x="0" y="-30"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="headerContainers" inherits="GameFontNormal" text="Containers">
+                                    <Size x="220" y="30"/>
+                                    <Color r="1" g="1" b="1"/>
+                                    <Anchors>
                                         <Anchor point="TOPRIGHT" x="0" y="-30"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="headerRank" inherits="GameFontNormal" text="Rank">
+                                    <Size x="160" y="30"/>
+                                    <Color r="1" g="1" b="1"/>
+                                    <Anchors>
+                                        <Anchor point="RIGHT" relativeKey="$parent.headerContainers" relativePoint="LEFT" x="0" y="0"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
                         </Layers>
                         <Frames>
+                            <CheckButton parentKey="autoShareItems" inherits = "GuildbookWrathEraWidgetsCheckButton" hidden="true">
+                                <Size x="24" y="24"/>
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="4" y="-4"/>
+                                </Anchors>
+                            </CheckButton>
+                            <Button parentKey="syncRules" inherits="UIPanelButtonTemplate" text="Sync Rules">
+                                <Anchors>
+                                    <Anchor point="TOPRIGHT" x="-3" y="-3"/>
+                                </Anchors>
+                                <Size x="140" y="22"/>
+                            </Button>
                             <Frame parentKey="listview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="-60"/>
@@ -490,6 +515,12 @@
                                     <KeyValue key="itemTemplate" value="GuildbookBankCharactersListviewItem" type="string"/>
                                     <KeyValue key="elementHeight" value="40" type="number"/>
                                 </KeyValues>
+                            </Frame>
+                            <Frame parentKey="guildBankHelptip" frameLevel="7" inherits="GuildbookWrathEraHelpTipTemplate_LeftArrow">
+                                <Size x="200" y="160"/>
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.listview" relativePoint="TOPRIGHT" x="20" y="20"/>
+                                </Anchors>
                             </Frame>
                         </Frames>
                     </Frame>

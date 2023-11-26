@@ -75,6 +75,7 @@ local L = {
 	--guild bank
 	GUILDBANK = "Guild Bank",
 	SETTINGS_GUILDBANK_GENERAL = "",
+	SETTINGS_GUILDBANK_HT = "You can set rules for your own bank characters.\n\nClick the rank button to cycle through guild ranks.\n\nSelect which containers to share.\n\nClick 'Sync' to update settings with online players.",
 
 	--chat
 	CHAT = "Chat",

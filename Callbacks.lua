@@ -9,12 +9,15 @@ addon:GenerateCallbackEvents({
     "Database_OnConfigChanged",
     "Database_OnDailyQuestCompleted",
     "Database_OnCalendarDataChanged",
+    "Database_OnNewsEventAdded",
 
     "Character_OnProfileSelected",
     "Character_OnDataChanged",
     "Character_OnTradeskillSelected",
     "Character_BroadcastChange",
     "Character_ExportEquipment",
+    "Character_OnContainersChanged",
+    "Character_OnNewsEvent",
     
     "Profile_OnItemDataLoaded",
 

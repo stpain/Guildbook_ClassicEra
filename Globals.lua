@@ -52,7 +52,11 @@ addon.characterDefaults = {
     auras = {
         current = {},
     },
-    containers = {},
+    containers = {
+        bags = {},
+        copper = 0,
+        banks = {},
+    },
     lockouts = {},
 }
 

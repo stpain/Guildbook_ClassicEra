@@ -18,6 +18,8 @@ local configUpdates = {
     chatGuildHistoryLimit = 30,
     chatWhisperHistoryLimit = 30,
 
+    guildbankAutoShareItems = false,
+
     modBlizzRoster = false,
 }
 
@@ -33,6 +35,7 @@ local dbUpdates = {
         guild = {},
     },
     --agenda = {},
+    news = {},
 }
 local dbToRemove = {
     "worldEvents",
@@ -163,6 +166,37 @@ function Database:CleanGuilds()
     end
 end
 
+function Database:UpdateGuildbankRules(guild, bank, rules)
+    if self.db and self.db.guilds[guild] then
+        self.db.guilds[guild].bankRules[bank] = rules
+        addon:TriggerEvent("StatusText_OnChanged", string.format("[UpdateGuildbankRules] set rules for %s", bank))
+
+        --remove data as per rule changes
+        if addon.thisCharacter and (bank ~= addon.thisCharacter) then
+            if addon.characters and addon.characters[bank] then
+                if rules.shareBags == false then
+                    addon.characters[bank].data.containers.bags = {
+                        items = {
+                        },
+                        slotsFree = 0,
+                        slotsUsed = 0,
+                    }
+                    addon:TriggerEvent("StatusText_OnChanged", string.format("[UpdateGuildbankRules] removed bags data %s", bank))
+                end
+                if rules.shareBanks == false then
+                    addon.characters[bank].data.containers.bank = {
+                        items = {
+                        },
+                        slotsFree = 0,
+                        slotsUsed = 0,
+                    }
+                    addon:TriggerEvent("StatusText_OnChanged", string.format("[UpdateGuildbankRules] removed banks data %s", bank))
+                end
+            end
+        end
+    end
+end
+
 function Database:Reset()
 
     GUILDBOOK_GLOBAL = nil;
@@ -171,6 +205,13 @@ function Database:Reset()
     addon.characters = {}
 
     self:Init()
+end
+
+function Database:InsertNewsEvent(event)
+    if self.db and self.db.news then
+        table.insert(self.db.news, 1, event)
+        addon:TriggerEvent("Database_OnNewsEventAdded", event)
+    end
 end
 
 function Database:ResetKey(key, newVal)
@@ -185,6 +226,13 @@ function Database:ImportData(data)
         if import.name and import.data and import.version then
             DevTools_Dump(import)
         end
+    end
+end
+
+function Database:ExportData(key)
+    if key and self.db[key] then
+        local export = json.encode(self.db[key])
+        return export
     end
 end
 
@@ -221,6 +269,19 @@ function Database:GetCharacterNameFromGUID(guid)
             end
         end
     end
+end
+
+function Database:GetCharacterGuild(nameRealm)
+    if self.db then
+        for guildName, info in pairs(self.db.guilds) do
+            for name, _ in pairs(info.members) do
+                if name == nameRealm then
+                    return guildName
+                end
+            end
+        end
+    end
+    return "unknown";
 end
 
 function Database:InsertCalendarEvent(event)

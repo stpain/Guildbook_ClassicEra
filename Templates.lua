@@ -1344,6 +1344,7 @@ function GuildbookAltsListviewTemplateMixin:Update()
                     func = function()
                         if addon.characterDefaults[k] then
                             self.character.data[k] = addon.characterDefaults[k] --WARNING - this will not trigger a data changed
+                            print(string.format("[Guildbook] reset %s for %s", k, self.character.data.name))
                         end
                     end,
                 },
@@ -1618,6 +1619,8 @@ function GuildbookSimpleIconLabelMixin:ResetDataBinding()
     self:SetScript("OnLeave", nil)
     self:EnableMouse(false)
     self.icon:SetTexture(nil)
+    self.label:SetText("")
+    self.labelRight:SetText("")
 end
 
 
@@ -1914,7 +1917,12 @@ function GuildbookBankCharactersListviewItemMixin:ResetDataBinding()
 end
 function GuildbookBankCharactersListviewItemMixin:Update(character)
     if self.character.data.guid == character.data.guid then
-        self.text:SetText(self.character.data.name)
+        local isMine = addon.api.characterIsMine(self.character.data.name)
+        if isMine then
+            self.text:SetText("|cffffffff"..self.character.data.name)
+        else
+            self.text:SetText("|cff808080"..self.character.data.name)
+        end
         self.icon:SetAtlas(self.character:GetProfileAvatar())
 
         if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].bankRules[self.character.data.name] then

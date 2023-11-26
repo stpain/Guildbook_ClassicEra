@@ -271,6 +271,17 @@ function Comms:Transmit_NoQueue(msg, channel, target)
     addon.LogDebugMessage("comms_out", string.format("No queue message [%s] to %s", (msg.event or "-"), (target or "-")))
 end
 
+function Comms:Character_BroadcastNewsEvent(news)
+    if type(news) == "table" then
+        local msg = {
+            event = "CHARACTER_NEWS_BROADCAST",
+            version = Comms.version,
+            payload = news,
+        }
+        self:Transmit_NoQueue(msg, "GUILD", nil)
+    end
+end
+
 function Comms:OnCommReceived(prefix, message, distribution, sender)
 
     if prefix ~= self.prefix then 
@@ -291,7 +302,7 @@ function Comms:OnCommReceived(prefix, message, distribution, sender)
 
     --print(sender, data.version)
 
-    if data.version and (data.version >= self.version) then
+    if (type(data.version) == "number") and (type(self.version) == "number") and (data.version >= self.version) then
         if Comms.events[data.event] then
             addon:TriggerEvent("StatusText_OnChanged", string.format("received [|cffE7B007%s|r] from %s", data.event, sender))
             Comms.events[data.event](Comms, sender, data)
@@ -420,34 +431,34 @@ end
 
 function Comms:Guildbank_OnTimestampsRequested(sender, message)
 
-    local transmit = false;
+    -- local transmit = false;
 
-    if not sender:find("-") then
-        local realm = GetNormalizedRealmName()
-        sender = string.format("%s-%s", sender, realm)
-    end
+    -- if not sender:find("-") then
+    --     local realm = GetNormalizedRealmName()
+    --     sender = string.format("%s-%s", sender, realm)
+    -- end
 
-    --see if this sender has access to any banks
-    if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].banks[message.payload.bank] and addon.guilds[addon.thisGuild].bankRules[message.payload.bank] then
-        if addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareBags or addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareBank then
-            --DevTools_Dump(addon.characters[sender])
-            if addon.characters[sender] and addon.characters[sender].data.rank then
-                if addon.characters[sender].data.rank <= addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareRank then
-                    transmit = true;
-                end
-            end
-        end
-    end
+    -- --see if this sender has access to any banks
+    -- if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].banks[message.payload.bank] and addon.guilds[addon.thisGuild].bankRules[message.payload.bank] then
+    --     if addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareBags or addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareBank then
+    --         --DevTools_Dump(addon.characters[sender])
+    --         if addon.characters[sender] and addon.characters[sender].data.rank then
+    --             if addon.characters[sender].data.rank <= addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareRank then
+    --                 transmit = true;
+    --             end
+    --         end
+    --     end
+    -- end
 
     --
-    if transmit == true then
+    --if transmit == true then
         local msg = {
             event = "GUILDBANK_TIMESTAMPS_TRANSMIT",
             version = self.version,
             payload = addon.guilds[addon.thisGuild].banks,
         }
         self:Transmit_NoQueue(msg, "WHISPER", sender)
-    end
+    --end
 end
 
 function Comms:Guildbank_OnTimestampsReceived(sender, message)
@@ -480,7 +491,7 @@ function Comms:Guildbank_OnDataRequested(sender, message)
             bank = {},
         }
 
-        --check if sharing gold as this could be different from items
+        --check each bank component to see if it can be shared, if so add it to the containers table
         if addon.guilds[addon.thisGuild].bankRules[message.payload.bank].shareCopper then
             containers.copper = addon.characters[message.payload.bank].data.containers.copper
         end
@@ -507,6 +518,26 @@ function Comms:Guildbank_OnDataReceived(sender, message)
     addon:TriggerEvent("Guildbank_OnDataReceived", sender, message)
 end
 
+
+function Comms:GuildBank_TransmitRules(guild, bank, rules)
+
+    local msg = {
+        event = "GUILDBANK_RULES_TRANSMIT",
+        version = self.version,
+        payload = {
+            guild = guild,
+            bank = bank,
+            rules = rules,
+        }
+    }
+    self:Transmit_NoQueue(msg, "GUILD", nil)
+end
+
+function Comms:Guildbank_OnRulesReceived(sender, message)
+    if message.guild and message.bank and message.rules then
+        Database:UpdateGuildbankRules(message.guild, message.bank, message.rules)
+    end
+end
 
 
 
@@ -609,11 +640,17 @@ function Comms:Character_OnDataResponse(sender, message)
 
 end
 
+function Comms:Character_OnNewsBroadcast(sender, message)
+    addon:TriggerEvent("Character_OnNewsEvent", message.payload, sender)
+end
+
 --when a comms is received check the event type and pass to the relavent function
 Comms.events = {
 
     CHARACTER_DATA_REQUEST = Comms.Character_OnDataRequest,
     CHARACTER_DATA_RESPONSE = Comms.Character_OnDataResponse,
+
+    CHARACTER_NEWS_BROADCAST = Comms.Character_OnNewsBroadcast,
 
     --character events
     --CONTAINERS_TRANSMIT = Comms.Character_OnDataReceived,
@@ -647,6 +684,8 @@ Comms.events = {
     GUILDBANK_DATA_REQUEST = Comms.Guildbank_OnDataRequested,
     GUILDBANK_TIMESTAMPS_TRANSMIT = Comms.Guildbank_OnTimestampsReceived,
     GUILDBANK_DATA_TRANSMIT = Comms.Guildbank_OnDataReceived,
+
+    GUILDBANK_RULES_TRANSMIT = Comms.Guildbank_OnRulesReceived,
 }
 
 addon:RegisterCallback("Guildbank_DataRequest", Comms.Guildbank_DataRequest, Comms)

@@ -44,6 +44,19 @@ e:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 
+function e:PLAYER_LEVEL_UP(...)
+    --local curLevel = UnitLevel("player")
+    if addon.thisCharacter and addon.thisGuild then
+        local newLevel = ...;
+
+        --make this use the SimpleTemplate to make it easier to display
+        local news = {
+            label = string.format("%s reached level %d", addon.characters[addon.thisCharacter]:GetName(true), newLevel)
+        }
+        Comms:Character_BroadcastNewsEvent(news)
+    end
+end
+
 function e:QUEST_TURNED_IN(...)
     addon:TriggerEvent("Quest_OnTurnIn", ...)
 end
@@ -308,6 +321,9 @@ function e:BAG_UPDATE_DELAYED()
     if addon.characters and addon.characters[addon.thisCharacter] then
         local bags = addon.api.scanPlayerContainers()
         addon.characters[addon.thisCharacter]:SetContainers(bags)
+        if addon.guilds[addon.thisGuild] then
+            addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
+        end
     end
 end
 
@@ -442,7 +458,7 @@ function e:GUILD_ROSTER_UPDATE()
                 if not addon.guilds[guildName].banks[name] then
                     addon.guilds[guildName].banks[name] = 0;
                     addon.guilds[guildName].bankRules[name] = {
-                        shareBanks = false,
+                        shareBank = false,
                         shareBags = false,
                         shareRank = 0,
                         shareCopper = false,

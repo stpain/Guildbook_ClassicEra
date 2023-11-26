@@ -189,10 +189,11 @@ end
 function Character:SetContainers(containers, broadcast)
     self.data.containers = containers;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    if broadcast then
-        addon:TriggerEvent("Character_BroadcastChange", self, "SetContainers", "containers")
-    end
     addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "containers", self.data.name))
+
+    if broadcast then
+        addon:TriggerEvent("Character_OnContainersChanged", self)
+    end
 end
 
 function Character:GetContainers()
