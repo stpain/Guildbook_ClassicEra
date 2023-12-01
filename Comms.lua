@@ -119,6 +119,11 @@ function Comms.DispatcherOnUpdate(self, elapsed)
         return;
     end
 
+    local guildName = GetGuildInfo("player")
+    if not guildName then
+        return;
+    end
+
     Comms.dispatcherElapsed = Comms.dispatcherElapsed + elapsed;
 
     if Comms.dispatcherElapsed < Comms.dispatcherElapsedDelay then

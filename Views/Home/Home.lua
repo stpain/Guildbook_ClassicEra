@@ -104,21 +104,24 @@ function GuildbookHomeMixin:UpdateCensus()
             [11] = 0,
             --[12] = 0,
         }
+        local guildName, guildRankName, guildRankIndex, realm = GetGuildInfo("player")
         local numTotalGuildMembers, numOnlineGuildMembers, numOnlineAndMobileMembers = GetNumGuildMembers()
         self.census.info:SetText(string.format("%d total (%d online)", numTotalGuildMembers, numOnlineGuildMembers))
         for _, info in pairs(addon.characters) do
-            if self.censusShowOffline then
-                if not classes[info.data.class] then
-                    classes[info.data.class] = 1
-                else
-                    classes[info.data.class] = classes[info.data.class] + 1
-                end
-            else
-                if info.data.onlineStatus.isOnline then
+            if Database.db.guilds and Database.db.guilds[guildName] and Database.db.guilds[guildName].members and Database.db.guilds[guildName].members[info.data.name] then
+                if self.censusShowOffline then
                     if not classes[info.data.class] then
                         classes[info.data.class] = 1
                     else
                         classes[info.data.class] = classes[info.data.class] + 1
+                    end
+                else
+                    if info.data.onlineStatus.isOnline then
+                        if not classes[info.data.class] then
+                            classes[info.data.class] = 1
+                        else
+                            classes[info.data.class] = classes[info.data.class] + 1
+                        end
                     end
                 end
             end

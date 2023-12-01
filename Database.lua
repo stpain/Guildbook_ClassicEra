@@ -44,11 +44,17 @@ local dbToRemove = {
 
 function Database:Init()
 
-    local version = tonumber(GetAddOnMetadata(name, "Version"));
+    local version = tonumber(C_AddOns.GetAddOnMetadata(name, "Version"));
+    if not version then
+        version = 0.1
+    end
 
     --due to updates from wrath, force the update UI
     if version == 2 then
         GUILDBOOK_GLOBAL.version = 1.9
+    end
+    if not GUILDBOOK_GLOBAL.version then
+        GUILDBOOK_GLOBAL.version = version;
     end
 
     if not GUILDBOOK_GLOBAL then

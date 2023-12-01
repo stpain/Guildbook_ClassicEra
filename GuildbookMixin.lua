@@ -389,6 +389,19 @@ end
 function GuildbookMixin:Database_OnInitialised()
     self:CreateMinimapButtons()
     self:CreateSlashCommands()
+    self:LoadMyCharacters()
+end
+
+function GuildbookMixin:LoadMyCharacters()
+    if Database.db.myCharacters and Database.db.characterDirectory then
+        for nameRealm, _ in pairs(Database.db.myCharacters) do
+            if Database.db.characterDirectory[nameRealm] then
+                if not addon.characters[nameRealm] then
+                    addon.characters[nameRealm] = Character:CreateFromData(Database.db.characterDirectory[nameRealm])
+                end
+            end
+        end
+    end
 end
 
 function GuildbookMixin:AddCharacter()

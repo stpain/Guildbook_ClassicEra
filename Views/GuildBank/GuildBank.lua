@@ -1,6 +1,7 @@
 local name, addon = ...;
 local L = addon.Locales;
 local Database = addon.Database;
+local Character = addon.Character;
 
 GuildbookGuildBankMixin = {
     name = "GuildBank",
@@ -400,13 +401,16 @@ function GuildbookGuildBankMixin:UpdateConatinerUI()
             headersAdded[classType] = true
             self.containerInfo.itemsListview.DataProvider:Insert({
                 label = classType,
-                backgroundAlpha = 0.6,
+                backgroundAlpha = 0.4,
+                backgroundRGB = { r = 0.1, g = 0.4, b = 0.4 }
             })
         end
         self.containerInfo.itemsListview.DataProvider:Insert({
             label = v.link,
             labelRight = v.count,
             icon = v.icon,
+            backgroundAlpha = 0.05,
+            backgroundRGB = { r = 0.4, g = 0.4, b = 0.4 }
         })
     end
 end

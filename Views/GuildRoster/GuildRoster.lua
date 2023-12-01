@@ -1,6 +1,8 @@
 local name, addon = ...;
 local L = addon.Locales;
 
+local Database = addon.Database;
+
 GuildbookGuildRosterMixin = {
     name = "GuildRoster",
     showOffline = false,
@@ -115,32 +117,33 @@ function GuildbookGuildRosterMixin:Update()
     local t = {}
     for nameRealm, character in pairs(addon.characters) do
 
-        --if Database.db.guilds[addon.thisGuild].members[nameRealm] then
+        if Database.db.guilds and Database.db.guilds[guildName] and Database.db.guilds[guildName].members and Database.db.guilds[guildName].members[info.data.name] then
 
-        local match = false;
-        -- for k, filter in ipairs(filters) do
-        --     if not filter(character) then
-        --         match = false;
-        --     end
-        -- end
-        if (character.data.level >= self.selectedMinLevel) and (character.data.level <= self.selectedMaxLevel) then
-            if self.selectedClass and (character.data.class == self.selectedClass) then
-                if self.showOffline == false then
-                    match = character.data.onlineStatus.isOnline
-                else
-                    match = true
-                end
-            elseif self.selectedClass == false then
-                if self.showOffline == false then
-                    match = character.data.onlineStatus.isOnline
-                else
-                    match = true
+            local match = false;
+            -- for k, filter in ipairs(filters) do
+            --     if not filter(character) then
+            --         match = false;
+            --     end
+            -- end
+            if (character.data.level >= self.selectedMinLevel) and (character.data.level <= self.selectedMaxLevel) then
+                if self.selectedClass and (character.data.class == self.selectedClass) then
+                    if self.showOffline == false then
+                        match = character.data.onlineStatus.isOnline
+                    else
+                        match = true
+                    end
+                elseif self.selectedClass == false then
+                    if self.showOffline == false then
+                        match = character.data.onlineStatus.isOnline
+                    else
+                        match = true
+                    end
                 end
             end
-        end
 
-        if match then
-            table.insert(t, character)
+            if match then
+                table.insert(t, character)
+            end
         end
     end
 
