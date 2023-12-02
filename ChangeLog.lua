@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "2.31",
+        notes = "Quick bug fix for the roster view.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "2.3",
         notes = "Working on alts being available when not in a guild (new characters etc).\n\nChanged the bank item header colour.\n\nFixed issue with database version checks.",
         icon = "ClassHall-QuestIcon-Desaturated",

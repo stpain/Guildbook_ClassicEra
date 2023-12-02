@@ -114,10 +114,12 @@ function GuildbookGuildRosterMixin:Update()
     --     generateLevelFilter(),
     -- }
 
+    local guildName, guildRankName, guildRankIndex, realm = GetGuildInfo("player")
+
     local t = {}
     for nameRealm, character in pairs(addon.characters) do
 
-        if Database.db.guilds and Database.db.guilds[guildName] and Database.db.guilds[guildName].members and Database.db.guilds[guildName].members[info.data.name] then
+        if Database and guildName and Database.db.guilds and Database.db.guilds[guildName] and Database.db.guilds[guildName].members and Database.db.guilds[guildName].members[character.data.name] then
 
             local match = false;
             -- for k, filter in ipairs(filters) do

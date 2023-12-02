@@ -388,7 +388,7 @@ function GuildbookCalendarMixin:OnTabSelected(tab, index)
 end
 
 function GuildbookCalendarMixin:Blizzard_OnInitialGuildRosterScan()
-    self.sidePanel.lockouts.background:SetAtlas("QuestLogBackground")
+    --self.sidePanel.lockouts.background:SetAtlas("QuestLogBackground")
     --self.sidePanel.lockouts.background:SetAtlas(string.format("transmog-background-race-%s", addon.characters[addon.thisCharacter]:GetRace().clientFileString:lower()))
 end
 
