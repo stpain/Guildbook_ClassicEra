@@ -109,6 +109,7 @@
         "NineSliceUtil",
         "NineSliceLayouts",
         "GameFontNormal",
-        "GameFontNormalLarge"
+        "GameFontNormalLarge",
+        "PUBLIC_NOTE"
     ]
 }

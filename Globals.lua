@@ -243,6 +243,19 @@ function addon.api.characterIsMine(name)
     return false;
 end
 
+function addon.api.getGuildRosterIndex(nameOrGUID)
+    if IsInGuild() and GetGuildInfo("player") then
+        GuildRoster()
+        local totalMembers, onlineMember, _ = GetNumGuildMembers()
+        for i = 1, totalMembers do
+            local name, rankName, rankIndex, level, _, zone, publicNote, officerNote, isOnline, status, class, _, _, _, _, _, guid = GetGuildRosterInfo(i)
+            if nameOrGUID == name or nameOrGUID == guid then
+                return i
+            end
+        end
+    end
+end
+
 function addon.api.scanForTradeskillSpec()
     local t = {}
     for i = 1, GetNumSpellTabs() do

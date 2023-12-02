@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "2.32",
+        notes = "Version error fix.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "2.31",
         notes = "Quick bug fix for the roster view.",
         icon = "ClassHall-QuestIcon-Desaturated",

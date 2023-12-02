@@ -49,14 +49,6 @@ function Database:Init()
         version = 0.1
     end
 
-    --due to updates from wrath, force the update UI
-    if version == 2 then
-        GUILDBOOK_GLOBAL.version = 1.9
-    end
-    if not GUILDBOOK_GLOBAL.version then
-        GUILDBOOK_GLOBAL.version = version;
-    end
-
     if not GUILDBOOK_GLOBAL then
         GUILDBOOK_GLOBAL = {
             config = {
@@ -81,6 +73,11 @@ function Database:Init()
                 characters = {},
             },
         }
+    end
+
+    --potential bug with users who have older saved variable
+    if not GUILDBOOK_GLOBAL.version then
+        GUILDBOOK_GLOBAL.version = version;
     end
 
     self.db = GUILDBOOK_GLOBAL;

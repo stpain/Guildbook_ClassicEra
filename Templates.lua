@@ -983,7 +983,18 @@ function GuildbookRosterListviewItemMixin:Update()
             text = self.character:GetName(true),
             isTitle = true,
             notCheckable = true,
-        }
+        },
+        -- {
+        --     text = PUBLIC_NOTE,
+        --     notCheckable = true,
+        --     func = function()
+        --         local rosterIndex = addon.api.getGuildRosterIndex(self.character.data.name)
+        --         if type(rosterIndex) == "number" then
+        --             SetGuildRosterSelection(rosterIndex)
+        --             StaticPopup_Show("SET_GUILDPLAYERNOTE");
+        --         end
+        --     end
+        -- },
     }
     table.insert(self.contextMenu, addon.contextMenuSeparator)
     table.insert(self.contextMenu, {
