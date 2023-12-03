@@ -717,7 +717,7 @@ function Character:SetAlts(alts, broadcast)
     end
     addon:TriggerEvent("Character_OnDataChanged", self)
     if broadcast then
-        addon:TriggerEvent("Character_OnDataChanged", self, "SetAlts", "alts")
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetAlts", "alts")
     end
     addon:TriggerEvent("StatusText_OnChanged", string.format(" set alts for %s", self.data.name))
 end
@@ -949,6 +949,7 @@ function Character:CreateFromData(data)
             end
         end)
     end
+
     return Mixin({data = data}, self)
 end
 
@@ -1049,6 +1050,30 @@ function Character:ResetData()
     self.data.lockouts = {}
     addon:TriggerEvent("Character_OnDataChanged", self)
 end
+
+
+
+
+
+--[[
+    SoD
+]]
+
+function Character:SetSodRunes(runes, broadcast)
+    self.data.runes = runes
+    addon:TriggerEvent("Character_OnDataChanged", self)
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetSodRunes", "runes")
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set runes for %s", self.data.name))
+end
+
+function Character:GetSodRunes()
+    return self.data.runes or {};
+end
+
+
+
 
 
 addon.Character = Character;

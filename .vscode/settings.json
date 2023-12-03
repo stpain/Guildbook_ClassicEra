@@ -110,6 +110,8 @@
         "NineSliceLayouts",
         "GameFontNormal",
         "GameFontNormalLarge",
-        "PUBLIC_NOTE"
+        "PUBLIC_NOTE",
+        "OFF",
+        "OFFICER"
     ]
 }

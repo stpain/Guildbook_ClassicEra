@@ -95,6 +95,7 @@ addon.contextMenu = CreateFrame("Frame", "GuildbookContextMenu", UIParent, "UIDr
 
 addon.api = {
     classic = {},
+    sod = {},
     wrath = {},
 }
 
@@ -262,7 +263,7 @@ function addon.api.scanForTradeskillSpec()
         local offset, numSlots = select(3, GetSpellTabInfo(i))
         for j = offset+1, offset+numSlots do
             --local start, duration, enabled, modRate = GetSpellCooldown(j, BOOKTYPE_SPELL)
-            --local spellLink, _ = GetSpellLink(j, BOOKTYPE_SPELL)
+            --local spellLink = GetSpellLink(j, BOOKTYPE_SPELL)
             local _, spellID = GetSpellBookItemInfo(j, BOOKTYPE_SPELL)
            
             if Tradeskills.SpecializationSpellsIDs[spellID] then
@@ -270,6 +271,43 @@ function addon.api.scanForTradeskillSpec()
                     tradeskillID = Tradeskills.SpecializationSpellsIDs[spellID],
                     spellID = spellID,
                 })
+            end
+
+        end
+    end
+    return t;
+end
+
+function addon.api.sod.scanForRunes()
+    local exclusiveFilter = C_Engraving.GetExclusiveCategoryFilter();
+    C_Engraving.ClearExclusiveCategoryFilter();
+    C_Engraving.EnableEquippedFilter(true);
+    local t = {}
+    local categories = C_Engraving.GetRuneCategories(false, true);
+    for _, category in ipairs(categories) do
+        local runes = C_Engraving.GetRunesForCategory(category, true);
+		for _, rune in ipairs(runes) do
+            table.insert(t, rune)
+        end
+    end
+    if exclusiveFilter then
+        C_Engraving.AddExclusiveCategoryFilter(exclusiveFilter);
+    end
+    C_Engraving.EnableEquippedFilter(false);
+    return t;
+end
+
+function addon.api.sod.scanSpellbookForRunes()
+    local t = {}
+    for i = 1, GetNumSpellTabs() do
+        local offset, numSlots = select(3, GetSpellTabInfo(i))
+        for j = offset+1, offset+numSlots do
+            local spellLink = GetSpellLink(j, BOOKTYPE_SPELL)
+            local _, spellID = GetSpellBookItemInfo(j, BOOKTYPE_SPELL)
+
+            if i == 5 then
+                local name, rank, icon = GetSpellInfo(spellID)
+                print(spellLink, spellID, name, icon)
             end
 
         end

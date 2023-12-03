@@ -203,7 +203,10 @@ end
 
 function GuildbookChatCharacterListviewItemMixin:SetDataBinding(info, height)
 
-    if info.label == "Guild" then
+    if info.label == GUILD then
+        self.delete:Hide()
+    end
+    if info.label == OFFICER then
         self.delete:Hide()
     end
 
@@ -978,23 +981,25 @@ function GuildbookRosterListviewItemMixin:Update()
         self.publicNote:SetTextColor(0.5,0.5,0.5)
     end
 
+    local editPublicNote = CanEditPublicNote()
     self.contextMenu = {
         {
             text = self.character:GetName(true),
             isTitle = true,
             notCheckable = true,
         },
-        -- {
-        --     text = PUBLIC_NOTE,
-        --     notCheckable = true,
-        --     func = function()
-        --         local rosterIndex = addon.api.getGuildRosterIndex(self.character.data.name)
-        --         if type(rosterIndex) == "number" then
-        --             SetGuildRosterSelection(rosterIndex)
-        --             StaticPopup_Show("SET_GUILDPLAYERNOTE");
-        --         end
-        --     end
-        -- },
+        {
+            text = PUBLIC_NOTE,
+            notCheckable = true,
+            func = function()
+                local rosterIndex = addon.api.getGuildRosterIndex(self.character.data.name)
+                if type(rosterIndex) == "number" then
+                    SetGuildRosterSelection(rosterIndex)
+                    StaticPopup_Show("SET_GUILDPLAYERNOTE");
+                end
+            end,
+            disabled = not editPublicNote,
+        },
     }
     table.insert(self.contextMenu, addon.contextMenuSeparator)
     table.insert(self.contextMenu, {
@@ -1569,7 +1574,16 @@ function GuildbookSimpleIconLabelMixin:SetDataBinding(binding, height)
     if binding.onMouseEnter then
         self:SetScript("OnEnter", binding.onMouseEnter)
         self:EnableMouse(true)
+    else
+        if binding.link then
+            self:SetScript("OnEnter", function()
+                GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+                GameTooltip:SetHyperlink(binding.link)
+                GameTooltip:Show()
+            end)
+        end
     end
+
     if binding.onMouseLeave then
         self:SetScript("OnLeave", binding.onMouseLeave)
     else
@@ -1578,49 +1592,38 @@ function GuildbookSimpleIconLabelMixin:SetDataBinding(binding, height)
         end)
     end
 
-    if binding.link then
-        self:SetScript("OnEnter", function()
-            GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-            GameTooltip:SetHyperlink(binding.link)
-            GameTooltip:Show()
-        end)
-        -- self:SetScript("OnLeave", function()
-        --     GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-        -- end)
-    end
+    -- if binding.getItemInfoFromID then
+    --     if binding.itemID then
+    --         local item = Item:CreateFromItemID(binding.itemID)
+    --         if not item:IsItemEmpty() then
+    --             item:ContinueOnItemLoad(function()
+    --                 local link = item:GetItemLink()
+    --                 self.label:SetText(link)
+    --                 self:EnableMouse(true)
+    --                 self:SetScript("OnEnter", function()
+    --                     GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+    --                     GameTooltip:SetHyperlink(link)
+    --                     GameTooltip:Show()
+    --                 end)
+    --                 -- self:SetScript("OnLeave", function()
+    --                 --     GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+    --                 -- end)
+    --                 self:SetScript("OnMouseDown", function()
+    --                     if IsControlKeyDown() then
+	-- 						DressUpItemLink(link)
+	-- 					elseif IsShiftKeyDown() then
+	-- 						HandleModifiedItemClick(link)
+	-- 					end
+    --                     if binding.onMouseDown then
+    --                         binding.onMouseDown()
+    --                     end
+    --                 end)
 
-    if binding.getItemInfoFromID then
-        if binding.itemID then
-            local item = Item:CreateFromItemID(binding.itemID)
-            if not item:IsItemEmpty() then
-                item:ContinueOnItemLoad(function()
-                    local link = item:GetItemLink()
-                    self.label:SetText(link)
-                    self:EnableMouse(true)
-                    self:SetScript("OnEnter", function()
-                        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-                        GameTooltip:SetHyperlink(link)
-                        GameTooltip:Show()
-                    end)
-                    -- self:SetScript("OnLeave", function()
-                    --     GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-                    -- end)
-                    self:SetScript("OnMouseDown", function()
-                        if IsControlKeyDown() then
-							DressUpItemLink(link)
-						elseif IsShiftKeyDown() then
-							HandleModifiedItemClick(link)
-						end
-                        if binding.onMouseDown then
-                            binding.onMouseDown()
-                        end
-                    end)
-
-                    addon:TriggerEvent("Profile_OnItemDataLoaded")
-                end)
-            end
-        end
-    end
+    --                 addon:TriggerEvent("Profile_OnItemDataLoaded")
+    --             end)
+    --         end
+    --     end
+    -- end
 
     --self.anim:Play()
 end

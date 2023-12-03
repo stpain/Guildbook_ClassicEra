@@ -485,31 +485,33 @@ function GuildbookProfileMixin:Update()
     self.inventory.statsListview.background:SetAtlas(string.format("UI-Character-Info-%s-BG", class:lower()))
 
 	if not self.ignoreCharacterUpdates then
-		self.inventory.equipmentListview.DataProvider:Flush()
+		self:UpdateEquipmentListview("current")
+		-- self.inventory.equipmentListview.DataProvider:Flush()
 
-		local t = {}
-		for k, v in ipairs(addon.data.inventorySlots) do
-			if self.character.data.inventory.current and self.character.data.inventory.current[v.slot] then
-				self.inventory.equipmentListview.DataProvider:Insert({
-					label = self.character.data.inventory.current[v.slot],
-					icon = v.icon,
-					link = self.character.data.inventory.current[v.slot],
+		-- local t = {}
+		-- for k, v in ipairs(addon.data.inventorySlots) do
+		-- 	local slotID = GetInventorySlotInfo(v.slot)
+		-- 	if self.character.data.inventory.current and self.character.data.inventory.current[v.slot] then
+		-- 		self.inventory.equipmentListview.DataProvider:Insert({
+		-- 			label = self.character.data.inventory.current[v.slot],
+		-- 			icon = v.icon,
+		-- 			link = self.character.data.inventory.current[v.slot],
 
-					onMouseDown = function()
-						if IsControlKeyDown() then
-							DressUpItemLink(self.character.data.inventory.current[v.slot])
-						elseif IsShiftKeyDown() then
-							HandleModifiedItemClick(self.character.data.inventory.current[v.slot])
-						end
-					end,
-				})
-			else
-				self.inventory.equipmentListview.DataProvider:Insert({
-					label = "-",
-					icon = v.icon,
-				})
-			end
-		end
+		-- 			onMouseDown = function()
+		-- 				if IsControlKeyDown() then
+		-- 					DressUpItemLink(self.character.data.inventory.current[v.slot])
+		-- 				elseif IsShiftKeyDown() then
+		-- 					HandleModifiedItemClick(self.character.data.inventory.current[v.slot])
+		-- 				end
+		-- 			end,
+		-- 		})
+		-- 	else
+		-- 		self.inventory.equipmentListview.DataProvider:Insert({
+		-- 			label = "-",
+		-- 			icon = v.icon,
+		-- 		})
+		-- 	end
+		-- end
 	end
 
 	self:LoadEquipmentSetInfo("current")
@@ -532,31 +534,32 @@ function GuildbookProfileMixin:Update()
 						self:UpdateItemLevel()
 
 						self:LoadEquipmentSetInfo(name)
+						self:UpdateEquipmentListview(name)
 
-						self.inventory.equipmentListview.DataProvider:Flush() --getItemInfoFromID
+						-- self.inventory.equipmentListview.DataProvider:Flush() --getItemInfoFromID
 
-						for k, v in ipairs(addon.data.inventorySlots) do
-							if self.character.data.inventory[name] and self.character.data.inventory[name][v.slot] then
-								self.inventory.equipmentListview.DataProvider:Insert({
-									label = self.character.data.inventory[name][v.slot],
-									icon = v.icon,
-									link = self.character.data.inventory[name][v.slot],
-									--backgroundAlpha = 0.6,
-									onMouseDown = function()
-										if IsControlKeyDown() then
-											DressUpItemLink(self.character.data.inventory[name][v.slot])
-										elseif IsShiftKeyDown() then
-											HandleModifiedItemClick(self.character.data.inventory[name][v.slot])
-										end
-									end,
-								})
-							else
-								self.inventory.equipmentListview.DataProvider:Insert({
-									label = "-",
-									icon = v.icon,
-								})
-							end
-						end
+						-- for k, v in ipairs(addon.data.inventorySlots) do
+						-- 	if self.character.data.inventory[name] and self.character.data.inventory[name][v.slot] then
+						-- 		self.inventory.equipmentListview.DataProvider:Insert({
+						-- 			label = self.character.data.inventory[name][v.slot],
+						-- 			icon = v.icon,
+						-- 			link = self.character.data.inventory[name][v.slot],
+						-- 			--backgroundAlpha = 0.6,
+						-- 			onMouseDown = function()
+						-- 				if IsControlKeyDown() then
+						-- 					DressUpItemLink(self.character.data.inventory[name][v.slot])
+						-- 				elseif IsShiftKeyDown() then
+						-- 					HandleModifiedItemClick(self.character.data.inventory[name][v.slot])
+						-- 				end
+						-- 			end,
+						-- 		})
+						-- 	else
+						-- 		self.inventory.equipmentListview.DataProvider:Insert({
+						-- 			label = "-",
+						-- 			icon = v.icon,
+						-- 		})
+						-- 	end
+						-- end
 
 						--[[
 							with a change to wrath including the gear manager the initial method here was to just grab itemIDs via Bliz api
@@ -646,6 +649,58 @@ function GuildbookProfileMixin:Update()
 	end
 
 	self:UpdateLayout()
+end
+
+function GuildbookProfileMixin:UpdateEquipmentListview(setName)
+
+	--runes should only be 1 per slot as we only share 'equipped' runes
+	local runes = {}
+	if self.character.data.runes then
+		for k, rune in ipairs(self.character.data.runes) do
+			runes[rune.equipmentSlot] = rune
+		end
+	end
+
+	local t = {}
+	for k, v in ipairs(addon.data.inventorySlots) do
+		local slotID = GetInventorySlotInfo(v.slot)
+		local icon = v.icon
+		if runes[slotID] then
+			icon = runes[slotID].iconTexture
+		end
+		if self.character.data.inventory[setName] and self.character.data.inventory[setName][v.slot] then
+			table.insert(t, {
+				label = self.character.data.inventory[setName][v.slot],
+				icon = icon,
+				link = self.character.data.inventory[setName][v.slot],
+
+				onMouseEnter = function()
+					GameTooltip:SetOwner(self.inventory.equipmentListview, "ANCHOR_CURSOR")
+					GameTooltip:SetHyperlink(self.character.data.inventory[setName][v.slot])
+					if runes[slotID] then
+						GameTooltip:AddLine(" ")
+						GameTooltip:AddLine("Guildbook", 1,1,1)
+						GameTooltip:AddLine(runes[slotID].name, 0, 1, 0)
+					end
+					GameTooltip:Show()
+				end,
+
+				onMouseDown = function()
+					if IsControlKeyDown() then
+						DressUpItemLink(self.character.data.inventory[setName][v.slot])
+					elseif IsShiftKeyDown() then
+						HandleModifiedItemClick(self.character.data.inventory[setName][v.slot])
+					end
+				end,
+			})
+		else
+			table.insert(t, {
+				label = "-",
+				icon = v.icon,
+			})
+		end
+	end
+	self.inventory.equipmentListview.scrollView:SetDataProvider(CreateDataProvider(t))
 end
 
 function GuildbookProfileMixin:LoadTalentsAndGlyphs()

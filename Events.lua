@@ -22,6 +22,7 @@ e:RegisterEvent('BANKFRAME_CLOSED')
 --e:RegisterEvent('BAG_UPDATE')
 e:RegisterEvent('BAG_UPDATE_DELAYED')
 e:RegisterEvent('CHAT_MSG_GUILD')
+e:RegisterEvent('CHAT_MSG_OFFICER')
 e:RegisterEvent('CHAT_MSG_WHISPER')
 e:RegisterEvent('CHAT_MSG_WHISPER_INFORM')
 e:RegisterEvent('CHAT_MSG_SYSTEM')
@@ -119,6 +120,17 @@ function e:CHAT_MSG_GUILD(...)
         message = msg,
         guid = guid,
         channel = "guild",
+    })
+end
+
+function e:CHAT_MSG_OFFICER(...)
+    local msg, sender = ...;
+    local guid = select(12, ...)
+    addon:TriggerEvent("Chat_OnMessageReceived", {
+        sender = sender,
+        message = msg,
+        guid = guid,
+        channel = "guildOfficer",
     })
 end
 
@@ -914,19 +926,35 @@ function e:Database_OnInitialised()
     end
 
     UIParentLoadAddOn("Blizzard_DebugTools");
+    UIParentLoadAddOn("Blizzard_EngravingUI");
 
-    if not PlayerTalentFrame then
-        UIParentLoadAddOn("Blizzard_TalentUI")
-    end
 
-    PlayerTalentFrame:HookScript("OnHide", function()
-        setPlayerTalentsAndGlyphs({})
-	end)
-	SkillFrame:HookScript("OnShow", function()
-		--self:ScanSkills()
-	end)
-    CharacterFrame:HookScript("OnHide", function()
-        --self:GetCharacterStats()
+    -- if not PlayerTalentFrame then
+    --     UIParentLoadAddOn("Blizzard_TalentUI")
+    -- end
+
+    -- PlayerTalentFrame:HookScript("OnHide", function()
+    --     setPlayerTalentsAndGlyphs({})
+	-- end)
+	-- SkillFrame:HookScript("OnShow", function()
+	-- 	--self:ScanSkills()
+	-- end)
+    CharacterFrame:HookScript("OnShow", function()
+        -- local runes = addon.api.sod.scanForRunes()
+        -- if runes and (next(runes) ~= nil) then
+        --     if addon.characters and addon.characters[addon.thisCharacter] then
+        --         addon.characters[addon.thisCharacter]:SetSodRunes(runes)
+        --     end
+        -- end
+    end)
+
+    hooksecurefunc("EngravingFrame_UpdateRuneList", function ()
+        local runes = addon.api.sod.scanForRunes()
+        if runes and (next(runes) ~= nil) then
+            if addon.characters and addon.characters[addon.thisCharacter] then
+                addon.characters[addon.thisCharacter]:SetSodRunes(runes)
+            end
+        end
     end)
 
 

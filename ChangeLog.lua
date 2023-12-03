@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "3.0",
+        notes = "Added Runes to character equipment list. The rune icon will show on the left and the name in the tooltip (currently fixed as english).\n\nStarted to added roster functionality, can now set public notes via a right click.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "2.32",
         notes = "Version error fix.",
         icon = "ClassHall-QuestIcon-Desaturated",

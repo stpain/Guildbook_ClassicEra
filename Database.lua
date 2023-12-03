@@ -33,9 +33,16 @@ local dbUpdates = {
     },
     chats = { --some errors about this causing a bug, maybe old version not getting update in the past
         guild = {},
+        guildOfficer = {},
     },
     --agenda = {},
     news = {},
+
+
+
+    --can also use a string for sub keys
+    --added to fix errors where a key exists but not a new sub key
+    ["chats.guildOfficer"] = {},
 }
 local dbToRemove = {
     "worldEvents",
@@ -62,6 +69,7 @@ function Database:Init()
             characterDirectory = {},
             chats = {
                 guild = {},
+                guildOfficer = {},
             },
             debug = false,
             version = version,
@@ -83,8 +91,17 @@ function Database:Init()
     self.db = GUILDBOOK_GLOBAL;
 
     for k, v in pairs(dbUpdates) do
-        if not self.db[k] then
-            self.db[k] = v;
+        if k:find(".") then
+            local k1, k2 = strsplit(".", k)
+            if k1 and k2 then
+                if self.db[k1] then
+                    self.db[k1][k2] = v
+                end
+            end
+        else
+            if not self.db[k] then
+                self.db[k] = v;
+            end
         end
     end
     for k, v in ipairs(dbToRemove) do
