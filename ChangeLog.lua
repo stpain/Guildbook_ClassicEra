@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "3.1",
+        notes = "Fixed spacing issue with default blizz roster mod.\n\nChanged profession columns on default roster mod into clickable links.\n\nRemoved print call.\n\nStarted work on adding a 'list' feature, this will allow you to track items, for example posted in chat messages (I have poor memory for these things!).",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "3.0",
         notes = "Added Runes to character equipment list. The rune icon will show on the left and the name in the tooltip (currently fixed as english).\n\nStarted to added roster functionality, can now set public notes via a right click.",
         icon = "ClassHall-QuestIcon-Desaturated",

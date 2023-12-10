@@ -131,6 +131,9 @@ function addon:ModBlizzUI()
     GuildFrameButton1:SetPoint('TOPLEFT', GuildFrame, 'TOPLEFT', 8.0, -82.0)
     GuildFrameButton1:SetPoint('TOPRIGHT', GuildFrame, 'TOPRIGHT', -32.0, -82.0)
     GuildFrameButton1:GetHighlightTexture():SetAllPoints(GuildFrameButton1)
+
+    GuildFrameButton1Class:SetWidth(80)
+    GuildFrameButton1:SetHyperlinksEnabled(true)
     
     local x = IsAddOnLoaded('ElvUI') and 86.0 or 7.0
     for i = 1, 13 do
@@ -142,6 +145,15 @@ function addon:ModBlizzUI()
     local function formatGuildFrameButton(button, col)
         button:SetJustifyH('LEFT')
         button:SetTextColor(col[1], col[2], col[3], col[4])
+    end
+
+    local function clearFontStrings(button)
+        button.GuildbookColumnRank:SetText(" ")
+        button.GuildbookColumnNote:SetText(" ")
+        button.GuildbookColumnMainSpec:SetText(" ")
+        button.GuildbookColumnProfession1:SetText(" ")
+        button.GuildbookColumnProfession2:SetText(" ")
+        button.GuildbookColumnOnline:SetText(" ")
     end
     
     local anchor = IsAddOnLoaded('ElvUI') and GuildFrameButton1Zone or GuildFrameButton1Class
@@ -180,9 +192,12 @@ function addon:ModBlizzUI()
         local anchor = IsAddOnLoaded('ElvUI') and _G['GuildFrameButton'..i..'Zone'] or _G['GuildFrameButton'..i..'Class']
         local button = _G['GuildFrameButton'..i]
         button:ClearAllPoints()
+        button:SetHyperlinksEnabled(true)
         button:SetPoint('TOPLEFT', _G['GuildFrameButton'..(i-1)], 'BOTTOMLEFT', 0.0, 0.0)
         button:SetPoint('TOPRIGHT', _G['GuildFrameButton'..(i-1)], 'BOTTOMRIGHT', 0.0, 0.0)
         button:GetHighlightTexture():SetAllPoints(button)
+
+        _G['GuildFrameButton'..i..'Class']:SetWidth(80)
     
         --local x = IsAddOnLoaded('ElvUI') and 12.0 or 0
         button.GuildbookColumnRank = button:CreateFontString('$parentGuildbookRank', 'OVERLAY', 'GameFontNormalSmall')
@@ -223,12 +238,7 @@ function addon:ModBlizzUI()
             local idx = tonumber(button.guildIndex)
             button:Show()
             --clear text
-            button.GuildbookColumnRank:SetText('')
-            button.GuildbookColumnNote:SetText('')
-            button.GuildbookColumnMainSpec:SetText('')
-            button.GuildbookColumnProfession1:SetText('')
-            button.GuildbookColumnProfession2:SetText('')
-            button.GuildbookColumnOnline:SetText('')
+            clearFontStrings(button)
             local memberName, rankName, rankIndex, level, classDisplayName, zone, publicNote, officerNote, isOnline, status, class, achievementPoints, achievementRank, isMobile, canSoR, repStanding, GUID = GetGuildRosterInfo(idx)
             local offline = L['Online']
             if isOnline == false then            
@@ -292,13 +302,33 @@ function addon:ModBlizzUI()
 
                 local prof1 = addon.characters[memberName]:GetTradeskill(1);
                 if prof1 then
-                    button.GuildbookColumnProfession1:SetText(Tradeskills:GetLocaleNameFromID(prof1))
+                    local prof = Tradeskills:GetLocaleNameFromID(prof1)
+                    if prof then
+                        local label = string.format("|cff71d5ff|Haddon:%s:%s:%s|h[%s]|h|r", addonName, "tradeskill", "profession1", prof)
+                        button.GuildbookColumnProfession1:SetText(label)
+                    else
+                        button.GuildbookColumnProfession1:SetText("")
+                    end
                 end
 
                 local prof2 = addon.characters[memberName]:GetTradeskill(2);
                 if prof2 then
-                    button.GuildbookColumnProfession2:SetText(Tradeskills:GetLocaleNameFromID(prof2))
+                    local prof = Tradeskills:GetLocaleNameFromID(prof2)
+                    if prof then
+                        local label = string.format("|cff71d5ff|Haddon:%s:%s:%s|h[%s]|h|r", addonName, "tradeskill", "profession2", prof)
+                        button.GuildbookColumnProfession2:SetText(label)
+                    else
+                        button.GuildbookColumnProfession2:SetText("")
+                    end
                 end
+
+                button:HookScript("OnHyperlinkClick", function(_, _link)
+                    local type, _name, linkType, profSlot = strsplit(":", _link)
+                    --print(type, _name, linkType, profSlot)
+                    if type == "addon" and _name == addonName and linkType == "tradeskill" then
+                        addon:TriggerEvent("Character_OnTradeskillSelected", addon.characters[memberName].data[profSlot], addon.characters[memberName].data[profSlot.."Recipes"])
+                    end
+                end)
 
             else
                 button.GuildbookColumnMainSpec:SetText('')
@@ -308,6 +338,7 @@ function addon:ModBlizzUI()
             if (GuildFrameLFGButton:GetChecked() == false) and(i > numOnline) then
                 button:Hide()
             end
+
         end
     end)
     

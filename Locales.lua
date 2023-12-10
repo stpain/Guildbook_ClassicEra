@@ -81,6 +81,8 @@ local L = {
 	CHAT = "Chat",
 	SETTINGS_CHAT_GENERAL = "Set the limits for your message history. Larger limits may cause issues on busy accounts.",
 
+	SETTINGS_ITEM_LISTS_CB = "Enable item lists",
+
 	--addon
 	ADDON = "Addon",
 	SETTINGS_ADDON_GENERAL = "Addon config options, if something goes wrong you can enable debug or reset the addon completely.",

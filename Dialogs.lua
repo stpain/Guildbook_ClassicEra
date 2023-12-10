@@ -152,3 +152,26 @@ StaticPopupDialogs['GuildbookCalendarAddEvent'] = {
     preferredIndex = 3,
     showAlert = 1,
 }
+
+
+StaticPopupDialogs['GuildbookNewItemlist'] = {
+    text = "%s",
+    button1 = YES,
+    button2 = NO,
+    OnAccept = function(self, data)
+        local str = self.editBox:GetText()
+        if str and (#str > 0) and (str ~= " ") then
+            local list = str;
+            Database:AddItemToList(list, data)
+        end
+    end,
+    OnCancel = function(self)
+
+    end,
+    timeout = 0,
+    hasEditBox = true,
+    whileDead = true,
+    hideOnEscape = false,
+    preferredIndex = 3,
+    showAlert = 1,
+}

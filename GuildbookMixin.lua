@@ -769,3 +769,77 @@ end
 -- function GuildbookMailMixin:OnLoad()
     
 -- end
+
+
+
+
+
+--ItemRefTooltip ItemRefCloseButton GameTooltip
+
+GuildbookTooltipExtensionMixin = {}
+function GuildbookTooltipExtensionMixin:CreateAndShowAddListItemMenu(anchorFrame, itemID)
+
+    local listItem = {
+        itemID = itemID,
+        character = addon.thisCharacter,
+    }
+
+    local menu = {
+        {
+            isTitle = true,
+            text = "Select list",
+            notCheckable = true,
+        },
+        {
+            text = "New list",
+            notCheckable = true,
+            func = function()
+                StaticPopup_Show("GuildbookNewItemlist", string.format("New list name."), nil, listItem)
+            end,
+        }
+    }
+    local sort = {}
+    local itemLists = Database:GetItemLists()
+    for listName, itemIDs in pairs(itemLists) do
+        table.insert(sort, {
+            name = listName,
+        })
+    end
+    table.sort(sort, function(a, b)
+        return a.name < b.name;
+    end)
+    for _, list in ipairs(sort) do
+        table.insert(menu, {
+            text = list.name,
+            notCheckable = true,
+            func = function()
+                Database:AddItemToList(list.name, listItem)
+            end
+        })
+    end
+
+    EasyMenu(menu, addon.contextMenu, anchorFrame, anchorFrame:GetWidth(), 10, "MENU", 1.5)
+end
+
+function GuildbookTooltipExtensionMixin:OnLoad()    
+    hooksecurefunc("SetItemRef", function(link)
+        if Database:GetConfig("enableItemLists") then
+            local linkType, linkData = LinkUtil.SplitLinkData(link);
+            if linkType == "item" then
+                local itemID = strsplit(":", linkData)
+                itemID = tonumber(itemID)                
+                if itemID and type(itemID) == "number" then
+                    ItemRefTooltip:AddLine(string.format("|cff71d5ff|Haddon:%s:%s:%d|h[%s]|h|r", name, "itemList", itemID, "Guildbook - Add item to list"))
+                    ItemRefTooltip:SetHyperlinksEnabled(true)
+                    ItemRefTooltip:HookScript("OnHyperlinkClick", function(_, _link)
+                        local type, _name, linkType = strsplit(":", _link)
+                        if type == "addon" and _name == name and linkType == "itemList" then
+                            self:CreateAndShowAddListItemMenu(ItemRefTooltip, itemID)
+                        end
+                    end)
+                    ItemRefTooltip:Show()
+                end
+            end
+        end
+    end)
+end

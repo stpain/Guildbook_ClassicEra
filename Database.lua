@@ -21,6 +21,9 @@ local configUpdates = {
     guildbankAutoShareItems = false,
 
     modBlizzRoster = false,
+    blizzRosterShowOffline = false,
+
+    enableItemLists = true,
 }
 
 local dbUpdates = {
@@ -38,7 +41,7 @@ local dbUpdates = {
     --agenda = {},
     news = {},
 
-
+    itemLists = {},
 
     --can also use a string for sub keys
     --added to fix errors where a key exists but not a new sub key
@@ -91,7 +94,7 @@ function Database:Init()
     self.db = GUILDBOOK_GLOBAL;
 
     for k, v in pairs(dbUpdates) do
-        if k:find(".") then
+        if k:find(".", nil, true) then
             local k1, k2 = strsplit(".", k)
             if k1 and k2 then
                 if self.db[k1] then
@@ -186,6 +189,34 @@ function Database:CleanGuilds()
     end
 end
 
+function Database:DeleteList(list)
+    if self.db and self.db.itemLists and self.db.itemLists[list] then
+        self.db.itemLists[list] = nil;
+    end
+end
+
+function Database:AddItemToList(list, item)
+    if self.db and self.db.itemLists then
+        if not self.db.itemLists[list] then
+            self.db.itemLists[list] = {}
+        end
+        table.insert(self.db.itemLists[list], item)
+    end
+end
+
+function Database:GetItemLists()
+    if self.db and self.db.itemLists then
+        return self.db.itemLists
+    end
+    return {};
+end
+
+function Database:GetItemListItems(list)
+    if self.db and self.db.itemLists then
+        return self.db.itemLists[list] or {};
+    end
+end
+
 function Database:UpdateGuildbankRules(guild, bank, rules)
     if self.db and self.db.guilds[guild] then
         self.db.guilds[guild].bankRules[bank] = rules
@@ -229,6 +260,7 @@ end
 
 function Database:InsertNewsEvent(event)
     if self.db and self.db.news then
+        event.timestamp = time()
         table.insert(self.db.news, 1, event)
         addon:TriggerEvent("Database_OnNewsEventAdded", event)
     end

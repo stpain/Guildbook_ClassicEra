@@ -241,7 +241,7 @@ ERR_GUILD_WITHDRAW_LIMIT = "You cannot withdraw that much from the guild bank.";
 
 ]]
 
-function e:ADDON_LOADED()
+function e:ADDON_LOADED(...)
     
     --hooks
     -- GuildFramePromoteButton:HookScript("OnClick", function()
@@ -250,6 +250,11 @@ function e:ADDON_LOADED()
     -- GuildFrameDemoteButton:HookScript("OnClick", function()
     
     -- end)
+
+    -- local addonLoaded = ...
+    -- if addonName == addonLoaded then
+    --     print("it works")
+    -- end
 
 end
 
@@ -645,7 +650,7 @@ local function processSkillLines(skills)
                 end
 
                 if missingTradeskillId and knownProfSlot then
-                    print(missingTradeskillId, knownProfSlot)
+                    --print(missingTradeskillId, knownProfSlot)
                     if knownProfSlot == 1 then
                         addon.characters[addon.thisCharacter]:SetTradeskill(2, tradeskillId, true);
                         addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level, true)
@@ -881,7 +886,7 @@ function e:CRAFT_UPDATE()
         end
     end
 
-    print(prof)
+    --print(prof)
     setCharacterTradeskill(prof, recipes)
     --addon:TriggerEvent("Blizzard_OnTradeskillUpdate", prof, recipes)
 end
@@ -946,15 +951,6 @@ function e:Database_OnInitialised()
         --         addon.characters[addon.thisCharacter]:SetSodRunes(runes)
         --     end
         -- end
-    end)
-
-    hooksecurefunc("EngravingFrame_UpdateRuneList", function ()
-        local runes = addon.api.sod.scanForRunes()
-        if runes and (next(runes) ~= nil) then
-            if addon.characters and addon.characters[addon.thisCharacter] then
-                addon.characters[addon.thisCharacter]:SetSodRunes(runes)
-            end
-        end
     end)
 
 

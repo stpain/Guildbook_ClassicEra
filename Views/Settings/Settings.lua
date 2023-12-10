@@ -79,6 +79,14 @@ function GuildbookSettingsMixin:OnLoad()
             end,
         },
         {
+            label = "Tooltips",
+            --atlas = "GarrMission_MissionIcon-Engineering",
+            backgroundAlpha = 0.15,
+            onMouseDown = function ()
+                self:SelectCategory("tooltips")
+            end,
+        },
+        {
             label = "Addon",
             --atlas = "GarrMission_MissionIcon-Engineering",
             backgroundAlpha = 0.15,
@@ -109,6 +117,7 @@ function GuildbookSettingsMixin:OnLoad()
     self.content.tradeskills.header:SetText(L.TRADESKILLS)
     self.content.tradeskills.general:SetText(L.SETTINGS_TRADESKILLS_GENERAL)
     self.content.guildBank.autoShareItems.label:SetText("Auto Share Items")
+    self.content.tooltips.enableItemLists.label:SetText(L.SETTINGS_ITEM_LISTS_CB)
     
     --character tab panels
     local tabs = {
@@ -617,6 +626,13 @@ function GuildbookSettingsMixin:PreparePanels()
             guild = {},
         })
     end)
+
+
+
+    --=========================================
+    --tooltips panel
+    --=========================================
+    self.content.tooltips.enableItemLists:SetChecked(Database.db.config.enableItemLists)
 
 
 
