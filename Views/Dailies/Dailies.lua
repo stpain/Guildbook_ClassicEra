@@ -90,43 +90,45 @@ function GuildbookWrathDailiesMixin:ScanQuestLog()
 
     currentQuestLog = {}
 
-    ExpandQuestHeader(0)
-
     local header;
-    for i = 1, GetNumQuestLogEntries() do
+    local i = 1
+    repeat
 
         local title, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questId = GetQuestLogTitle(i)
 
-        if not isHeader then
-            currentQuestLog[questId] = true;
+        if title ~= nil then
+            if not isHeader then
+                currentQuestLog[questId] = true;
+            end
+
+            -- if title:find("Die!") then
+            --     print(frequency)
+            -- end
+
+            if isHeader then
+                header = title;
+            end
+            if frequency == 2 or frequency == 3 then
+                --local questDescription, questObjectives = GetQuestLogQuestText(i)
+                local questLink = GetQuestLink(questId)
+                local questData = {
+                    link = questLink,
+                    title = title,
+                    header = header,
+                    questId = questId,
+                    -- description = questDescription,
+                    -- objectives = questObjectives,
+                    level = level,
+                    frequency = frequency,
+                }
+
+                Database.db.dailies.quests[questId] = questData
+            end
+            i = i + 1
         end
 
-        -- if title:find("Die!") then
-        --     print(frequency)
-        -- end
+    until (title == nil)
 
-        if isHeader then
-            header = title;
-        end
-        if frequency == 2 or frequency == 3 then
-            --local questDescription, questObjectives = GetQuestLogQuestText(i)
-            local questLink = GetQuestLink(questId)
-            local questData = {
-                link = questLink,
-                title = title,
-                header = header,
-                questId = questId,
-                -- description = questDescription,
-                -- objectives = questObjectives,
-                level = level,
-                frequency = frequency,
-            }
-
-            Database.db.dailies.quests[questId] = questData
-        end
-    end
-
-    CollapseQuestHeader(0)    
 end
 
 function GuildbookWrathDailiesMixin:Quest_OnAccepted()
