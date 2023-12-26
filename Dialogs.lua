@@ -139,6 +139,11 @@ StaticPopupDialogs['GuildbookCalendarAddEvent'] = {
                 text = str,
                 timestamp = data.timestamp
             }
+
+            if data.calendarTypeEnum == 3 then
+                event.attendees = {}
+            end
+
             Database:InsertCalendarEvent(event)
         end
     end,

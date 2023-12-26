@@ -661,6 +661,10 @@ function Character:GetPaperdollStats(set)
     end
 end
 
+function Character:GetGuildName()
+    return self.data.guild or "unknown";
+end
+
 
 function Character:SetMainCharacter(main, broadcast)
     self.data.mainCharacter = main;

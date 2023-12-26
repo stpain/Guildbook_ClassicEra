@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "3.2",
+        notes = "Quest log fix.\n\nFound bug with bag and bank scanning all going into bags not bags and bank.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "3.1",
         notes = "Fixed spacing issue with default blizz roster mod.\n\nChanged profession columns on default roster mod into clickable links.\n\nRemoved print call.\n\nStarted work on adding a 'list' feature, this will allow you to track items, for example posted in chat messages (I have poor memory for these things!).",
         icon = "ClassHall-QuestIcon-Desaturated",

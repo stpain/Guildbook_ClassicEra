@@ -84,7 +84,8 @@ addon.contextMenuSeparator = {
         tSizeX = 0,
         tSizeY = 8,
         tFitDropDownSizeX = true
-    }}
+    }
+}
 
 --create these at addon level
 addon.thisCharacter = "";
@@ -519,7 +520,7 @@ function addon.api.scanPlayerContainers(includeBanks)
             end
 
             if (type(itemID) == "number") and (type(stackCount) == "number") then
-                table.insert(containers.bags.items, {
+                table.insert(containers.bank.items, {
                     id = itemID,
                     count = stackCount,
                 })
@@ -553,7 +554,7 @@ function addon.api.scanPlayerContainers(includeBanks)
                 end
     
                 if (type(itemID) == "number") and (type(stackCount) == "number") then
-                    table.insert(containers.bags.items, {
+                    table.insert(containers.bank.items, {
                         id = itemID,
                         count = stackCount,
                     })

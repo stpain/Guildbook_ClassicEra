@@ -611,6 +611,21 @@ function GuildbookCalendarMixin:MonthChanged()
                     end,
                 },
                 {
+                    text = "Add Event",
+                    notCheckable = true,
+                    func = function()
+                        StaticPopup_Show(
+                            "GuildbookCalendarAddEvent", --popup name
+                            string.format("Create event for %s", date("%d %B %Y", time(day.date))),
+                            nil, --arg2 for %s
+                            {
+                                timestamp = time(day.date), --data
+                                calendarTypeEnum = 3,
+                            }
+                        )
+                    end,
+                },
+                {
                     text = "Add Note",
                     notCheckable = true,
                     func = function()

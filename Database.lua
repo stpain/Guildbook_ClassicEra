@@ -323,6 +323,8 @@ function Database:GetCharacterNameFromGUID(guid)
     end
 end
 
+
+--failed approach
 function Database:GetCharacterGuild(nameRealm)
     if self.db then
         for guildName, info in pairs(self.db.guilds) do

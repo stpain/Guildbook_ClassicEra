@@ -834,8 +834,7 @@ function GuildbookSettingsMixin:GuildBankPanel_OnShow()
     if addon.characters then
         for k, character in pairs(addon.characters) do
             if character.data.publicNote:lower() == "guildbank" then
-                local guild = Database:GetCharacterGuild(character.data.name)
-                if (guild == addon.thisGuild) and addon.api.characterIsMine(character.data.name) then
+                if (character.data.guild == addon.thisGuild) then
                     table.insert(self.content.guildBank.bankCharacters, {
                         character = character
                     })

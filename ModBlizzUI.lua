@@ -324,8 +324,7 @@ function addon:ModBlizzUI()
 
                 button:HookScript("OnHyperlinkClick", function(_, _link)
                     local type, _name, linkType, profSlot = strsplit(":", _link)
-                    --print(type, _name, linkType, profSlot)
-                    if type == "addon" and _name == addonName and linkType == "tradeskill" then
+                    if (type == "addon") and (_name == addonName) and (linkType == "tradeskill") then
                         addon:TriggerEvent("Character_OnTradeskillSelected", addon.characters[memberName].data[profSlot], addon.characters[memberName].data[profSlot.."Recipes"])
                     end
                 end)

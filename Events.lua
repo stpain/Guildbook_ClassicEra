@@ -28,7 +28,7 @@ e:RegisterEvent('CHAT_MSG_WHISPER_INFORM')
 e:RegisterEvent('CHAT_MSG_SYSTEM')
 e:RegisterEvent('CHAT_MSG_BN_WHISPER_INFORM')
 e:RegisterEvent('CHAT_MSG_BN_WHISPER')
-e:RegisterEvent('UPDATE_MOUSEOVER_UNIT')
+--e:RegisterEvent('UPDATE_MOUSEOVER_UNIT')
 e:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
 e:RegisterEvent('ZONE_CHANGED_NEW_AREA')
 e:RegisterEvent('CHARACTER_POINTS_CHANGED')
@@ -558,6 +558,7 @@ function e:GUILD_ROSTER_UPDATE()
             addon.characters[name].data.level = level
             addon.characters[name].data.rank = rankIndex
             addon.characters[name].data.publicNote = publicNote
+            addon.characters[name].data.guild = guildName
             
             if i == totalMembers then
 
