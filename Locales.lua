@@ -504,14 +504,14 @@ if locale == "deDE" then
     L['RaidRoster'] = 'Raid Roster |cffffffff(Rechtsklick auf einen Spieler für mehr Optionen.)|r'
     L['Cancel'] = 'Abbrechen'
     L['GuildBank'] = 'Gildenbank'
-	L['SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER'] = 'Reagenz für die folgenden Rezepte'
-	L['TRADESKILLS'] = 'Fertigkeiten'
-	L['REAGENT'] = 'Reagenz'
-	L['SETTINGS_TRADESKILLS_GENERAL'] = 'Zeige Tooltip-Informationen für Fertigkeitsgegenstände und Reagenzien.'
-	L['SETTINGS_TRADESKILLS_TT_RECIPE_INFO_ALL'] = 'Zeige Rezeptinformationen im Tooltip (für alle Fertigkeiten).'
-	L['SETTINGS_TRADESKILLS_TT_RECIPE_INFO_MY'] = 'Zeige Rezeptinformationen im Tooltip (nur meine Fertigkeiten).'
-	L['SETTINGS_TRADESKILLS_TT_REAGENT_FOR_ALL'] = 'Zeige alle Rezepte im Tooltip, die ein Item verwenden können.'
-	L['SETTINGS_TRADESKILLS_TT_REAGENT_FOR_MY'] = 'Zeige nur meine Rezepte im Tooltip, die ein Item verwenden können.'
+    L['SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER'] = 'Reagenz für die folgenden Rezepte'
+    L['TRADESKILLS'] = 'Fertigkeiten'
+    L['REAGENT'] = 'Reagenz'
+    L['SETTINGS_TRADESKILLS_GENERAL'] = 'Zeige Tooltip-Informationen für Fertigkeitsgegenstände und Reagenzien.'
+    L['SETTINGS_TRADESKILLS_TT_RECIPE_INFO_ALL'] = 'Zeige Rezeptinformationen im Tooltip (für alle Fertigkeiten).'
+    L['SETTINGS_TRADESKILLS_TT_RECIPE_INFO_MY'] = 'Zeige Rezeptinformationen im Tooltip (nur meine Fertigkeiten).'
+    L['SETTINGS_TRADESKILLS_TT_REAGENT_FOR_ALL'] = 'Zeige alle Rezepte im Tooltip, die ein Item verwenden können.'
+    L['SETTINGS_TRADESKILLS_TT_REAGENT_FOR_MY'] = 'Zeige nur meine Rezepte im Tooltip, die ein Item verwenden können.'
 
     --professions
     L['Alchemy'] = "Alchimie"
