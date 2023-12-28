@@ -504,6 +504,7 @@ if locale == "deDE" then
     L['RaidRoster'] = 'Raid Roster |cffffffff(Rechtsklick auf einen Spieler für mehr Optionen.)|r'
     L['Cancel'] = 'Abbrechen'
     L['GuildBank'] = 'Gildenbank'
+	L['SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER'] = 'Reagenz für die folgenden Rezepte'
 
     --professions
     L['Alchemy'] = "Alchimie"
