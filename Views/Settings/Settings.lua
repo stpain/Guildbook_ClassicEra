@@ -770,41 +770,90 @@ function GuildbookSettingsMixin:PreparePanels()
                     end
                 end
 
+                --addon.api.getTradeskillItemSkillColour(itemID, profLevel)
+
                 if Database.db.config.tradeskillsShowAllRecipesUsingTooltip == true then
                     local recipesUsingItem = addon.api.getTradeskillItemsUsingReagentItemID(itemID)
                     if next(recipesUsingItem) then
                         tt:AddLine(" ")
-                        tt:AddLine(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER)
+                        tt:AddLine(USED_IN_TRADESKILL_COLOR:WrapTextInColorCode(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER))
                     end
                     for tradeskillID, recipes in pairs(recipesUsingItem) do
                         tt:AddLine(" ")
                         tt:AddLine(string.format("%s %s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(tradeskillID)))
                         for k, v in ipairs(recipes) do
                             --tt:AddLine(v.itemLink)
-                            local item = Item:CreateFromItemID(v.itemID)
-                            if not item:IsItemEmpty() then
-                                item:ContinueOnItemLoad(function()
-                                    tt:AddLine(item:GetItemLink())
-                                end)
+                            if tradeskillID == 333 then
+                                tt:SetHyperlink(v.itemLink)
+                            else
+                                if v.itemID then
+                                    local item = Item:CreateFromItemID(v.itemID)
+                                    if not item:IsItemEmpty() then
+                                        item:ContinueOnItemLoad(function()
+                                            tt:AddLine(item:GetItemLink())
+                                        end)
+                                    end
+                                else
+                                    tt:AddLine(v.itemLink)
+                                end 
                             end
                         end
                     end
                 else
                     if Database.db.config.tradeskillsShowMyRecipesUsingTooltip == true and addon.characters[addon.thisCharacter] then
                         local recipesUsingItem = addon.api.getTradeskillItemsUsingReagentItemID(itemID, addon.characters[addon.thisCharacter].data.profession1, addon.characters[addon.thisCharacter].data.profession2)
+                        
+                        local cookingFirstaidRecipesUsingItem = addon.api.getTradeskillItemsUsingReagentItemID(itemID, 129, 185)
+                        for k, v in pairs(cookingFirstaidRecipesUsingItem) do
+                            recipesUsingItem[k] = v;
+                        end
+                        
                         if next(recipesUsingItem) then
                             tt:AddLine(" ")
-                            tt:AddLine(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER)
-                        end                        for tradeskillID, recipes in pairs(recipesUsingItem) do
+                            tt:AddLine(USED_IN_TRADESKILL_COLOR:WrapTextInColorCode(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER))
+                        end                        
+                        for tradeskillID, recipes in pairs(recipesUsingItem) do
                             tt:AddLine(" ")
                             tt:AddLine(string.format("%s %s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(tradeskillID)))
+                            
+                            local profLevel;
+                            local skillColour;
+                            if addon.characters[addon.thisCharacter].data.profession1 == tradeskillID then
+                                profLevel = addon.characters[addon.thisCharacter].data.profession1Level
+                            end
+                            if addon.characters[addon.thisCharacter].data.profession2 == tradeskillID then
+                                profLevel = addon.characters[addon.thisCharacter].data.profession2Level
+                            end
+                            if tradeskillID == 129 then --FA
+                                profLevel = addon.characters[addon.thisCharacter].data.firstAidLevel
+                            end
+                            if tradeskillID == 185 then --cooking
+                                profLevel = addon.characters[addon.thisCharacter].data.cookingLevel
+                            end
+                            
                             for k, v in ipairs(recipes) do
-                                --tt:AddLine(v.itemLink)
-                                local item = Item:CreateFromItemID(v.itemID)
-                                if not item:IsItemEmpty() then
-                                    item:ContinueOnItemLoad(function()
-                                        tt:AddLine(item:GetItemLink())
-                                    end)
+                                if tradeskillID == 333 then
+                                    tt:SetHyperlink(v.itemLink)
+                                else
+                                    if v.itemID then
+
+                                        if profLevel then
+                                            skillColour = addon.api.getTradeskillItemSkillColour(v.spellID, profLevel)
+                                        end
+
+                                        local item = Item:CreateFromItemID(v.itemID)
+                                        if not item:IsItemEmpty() then
+                                            item:ContinueOnItemLoad(function()
+                                                if skillColour then
+                                                    tt:AddDoubleLine(item:GetItemLink(), skillColour:WrapTextInColorCode("Current Skill"))
+                                                else
+                                                    tt:AddLine(item:GetItemLink())
+                                                end
+                                            end)
+                                        end
+                                    else
+                                        tt:AddLine(v.itemLink)
+                                    end 
                                 end
                             end
                         end

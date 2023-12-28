@@ -148,6 +148,37 @@ function addon.LogDebugMessage(debugType, debugMessage, debugTooltip)
     end
 end
 
+function addon.api.getTradeskillItemSkillChanges(itemID)
+    if addon.tradeskillLevels[itemID] then
+        return addon.tradeskillLevels[itemID].colors;
+    end
+    return false;
+ end
+
+function addon.api.getTradeskillItemSkillColour(itemID, profLevel)
+
+    local colours = {
+        [1] = RED_FONT_COLOR,
+        [2] = ORANGE_FONT_COLOR,
+        [3] = YELLOW_FONT_COLOR,
+        [4] = GREEN_FONT_COLOR,
+        [5] = GRAY_FONT_COLOR,
+    }
+
+    if addon.tradeskillLevels[itemID] and addon.tradeskillLevels[itemID].colors then
+        for i = #addon.tradeskillLevels[itemID].colors, 1, -1 do
+            if profLevel > addon.tradeskillLevels[itemID].colors[i] then
+                if colours[i+1] then
+                    return colours[i+1]
+                else
+                    return colours[5]
+                end
+            end
+        end
+    end
+    return colours[1]
+ end
+
 function addon.api.getTradeskillItemDataFromID(itemID)
     for k, v in ipairs(addon.itemData) do
         if v.itemID == itemID then
