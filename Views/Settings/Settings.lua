@@ -780,7 +780,13 @@ function GuildbookSettingsMixin:PreparePanels()
                         tt:AddLine(" ")
                         tt:AddLine(string.format("%s %s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(tradeskillID)))
                         for k, v in ipairs(recipes) do
-                            tt:AddLine(v.itemLink)
+                            --tt:AddLine(v.itemLink)
+                            local item = Item:CreateFromItemID(v.itemID)
+                            if not item:IsItemEmpty() then
+                                item:ContinueOnItemLoad(function()
+                                    tt:AddLine(item:GetItemLink())
+                                end)
+                            end
                         end
                     end
                 else
@@ -793,7 +799,13 @@ function GuildbookSettingsMixin:PreparePanels()
                             tt:AddLine(" ")
                             tt:AddLine(string.format("%s %s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(tradeskillID)))
                             for k, v in ipairs(recipes) do
-                                tt:AddLine(v.itemLink)
+                                --tt:AddLine(v.itemLink)
+                                local item = Item:CreateFromItemID(v.itemID)
+                                if not item:IsItemEmpty() then
+                                    item:ContinueOnItemLoad(function()
+                                        tt:AddLine(item:GetItemLink())
+                                    end)
+                                end
                             end
                         end
                     end
