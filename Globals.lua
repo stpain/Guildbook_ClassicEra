@@ -168,15 +168,17 @@ function addon.api.getTradeskillItemSkillColour(itemID, profLevel)
     if addon.tradeskillLevels[itemID] and addon.tradeskillLevels[itemID].colors then
         for i = #addon.tradeskillLevels[itemID].colors, 1, -1 do
             if profLevel > addon.tradeskillLevels[itemID].colors[i] then
-                if colours[i+1] then
-                    return colours[i+1]
+                if colours[i+1] and colours[i+2] then
+                    return colours[i+1], colours[i+2], addon.tradeskillLevels[itemID].colors, i
+                elseif colours[i+1] then
+                    return colours[i+1], colours[i+1], addon.tradeskillLevels[itemID].colors, i
                 else
-                    return colours[5]
+                    return colours[5], colours[5], addon.tradeskillLevels[itemID].colors, i
                 end
             end
         end
     end
-    return colours[1]
+    return colours[1], colours[2], addon.tradeskillLevels[itemID].colors, 1
  end
 
 function addon.api.getTradeskillItemDataFromID(itemID)

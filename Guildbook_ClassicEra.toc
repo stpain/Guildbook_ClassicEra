@@ -1,6 +1,6 @@
 ## Interface: 11500
 ## Author: TheBoringDad
-## Version: 3.2
+## Version: 3.3
 ## Title: Guildbook Era
 ## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL

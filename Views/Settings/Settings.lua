@@ -813,11 +813,9 @@ function GuildbookSettingsMixin:PreparePanels()
                             tt:AddLine(USED_IN_TRADESKILL_COLOR:WrapTextInColorCode(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER))
                         end                        
                         for tradeskillID, recipes in pairs(recipesUsingItem) do
-                            tt:AddLine(" ")
-                            tt:AddLine(string.format("%s %s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(tradeskillID)))
-                            
+
                             local profLevel;
-                            local skillColour;
+                            local skillColour, nextLevel, skillChanges, skillIndex
                             if addon.characters[addon.thisCharacter].data.profession1 == tradeskillID then
                                 profLevel = addon.characters[addon.thisCharacter].data.profession1Level
                             end
@@ -830,22 +828,51 @@ function GuildbookSettingsMixin:PreparePanels()
                             if tradeskillID == 185 then --cooking
                                 profLevel = addon.characters[addon.thisCharacter].data.cookingLevel
                             end
+
+                            tt:AddLine(" ")
+                            tt:AddLine(string.format("%s %s [%d]", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(tradeskillID), profLevel))
+                            
                             
                             for k, v in ipairs(recipes) do
+
+                                if profLevel then
+
+                                    --this is awkward coding but just got it working for now
+                                    --will change this into maybe a character object method ?
+                                    skillColour, nextLevel, skillChanges, skillIndex = addon.api.getTradeskillItemSkillColour(v.spellID, profLevel)
+                                end
+
+                                local infoString = "";
+                                if skillIndex == 1 then
+                                    infoString = LIGHTBLUE_FONT_COLOR:WrapTextInColorCode(string.format("Learnable at: %s", skillChanges[skillIndex]))
+                                else
+                                    if not skillChanges[skillIndex+1] then
+                                        infoString = string.format("%s|r", skillColour:WrapTextInColorCode(skillChanges[skillIndex]))
+                                    else
+                                        infoString = string.format("Skill Changes: %s|r |cffffffff>|r %s", skillColour:WrapTextInColorCode(skillChanges[skillIndex]), nextLevel:WrapTextInColorCode(skillChanges[skillIndex+1]))
+                                    end
+                                end
+
+
                                 if tradeskillID == 333 then
-                                    tt:SetHyperlink(v.itemLink)
+                                    
+                                    local spell = Spell:CreateFromSpellID(v.spellID)
+                                    if not spell:IsSpellEmpty() then
+                                        spell:ContinueOnSpellLoad(function()
+                                            if skillColour then
+                                                tt:AddDoubleLine(spell:GetSpellName(), infoString)
+                                            else
+                                                tt:AddLine(spell:GetSpellName())
+                                            end
+                                        end)
+                                    end
                                 else
                                     if v.itemID then
-
-                                        if profLevel then
-                                            skillColour = addon.api.getTradeskillItemSkillColour(v.spellID, profLevel)
-                                        end
-
                                         local item = Item:CreateFromItemID(v.itemID)
                                         if not item:IsItemEmpty() then
                                             item:ContinueOnItemLoad(function()
                                                 if skillColour then
-                                                    tt:AddDoubleLine(item:GetItemLink(), skillColour:WrapTextInColorCode("Current Skill"))
+                                                    tt:AddDoubleLine(item:GetItemLink(), infoString)
                                                 else
                                                     tt:AddLine(item:GetItemLink())
                                                 end

@@ -190,6 +190,8 @@
         "RED_FONT_COLOR",
         "YELLOW_FONT_COLOR",
         "GREEN_FONT_COLOR",
-        "GRAY_FONT_COLOR"
+        "GRAY_FONT_COLOR",
+        "TRADESKILL_EXPERIENCE_COLOR",
+        "LIGHTBLUE_FONT_COLOR"
     ]
 }

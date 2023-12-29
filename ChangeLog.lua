@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "3.3",
+        notes = "Tradeskill tooltip updates, now show recipe skill level changes (orange/yellow/green etc).\n\nAdded soem German translations.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "3.2",
         notes = "Quest log fix.\n\nFound bug with bag and bank scanning all going into bags not bags and bank.",
         icon = "ClassHall-QuestIcon-Desaturated",
