@@ -784,7 +784,12 @@ function GuildbookSettingsMixin:PreparePanels()
                         for k, v in ipairs(recipes) do
                             --tt:AddLine(v.itemLink)
                             if tradeskillID == 333 then
-                                tt:SetHyperlink(v.itemLink)
+                                local spell = Spell:CreateFromSpellID(v.spellID)
+                                if not spell:IsSpellEmpty() then
+                                    spell:ContinueOnSpellLoad(function()
+                                        tt:AddLine(spell:GetSpellName())
+                                    end)
+                                end
                             else
                                 if v.itemID then
                                     local item = Item:CreateFromItemID(v.itemID)

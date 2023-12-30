@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "3.31",
+        notes = "Enchanting recipes should now show in tooltips when you mouse over a reagent.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "3.3",
         notes = "Tradeskill tooltip updates, now show recipe skill level changes (orange/yellow/green etc).\n\nAdded soem German translations.",
         icon = "ClassHall-QuestIcon-Desaturated",
