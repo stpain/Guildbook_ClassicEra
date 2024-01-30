@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "3.32",
+        notes = "Started work on Calendar events.\n\nFixed bug with comms.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "3.31",
         notes = "Enchanting recipes should now show in tooltips when you mouse over a reagent.",
         icon = "ClassHall-QuestIcon-Desaturated",

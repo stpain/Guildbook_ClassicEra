@@ -573,7 +573,7 @@ function Comms:Character_OnDataRequest(sender, message)
 
     if message and message.payload then
 
-        if message.payload.requestData and message.payload.requestData:find(".") then
+        if message.payload.requestData and message.payload.requestData:find(".", nil, true) then
             
             local key, subKey = strsplit(".", message.payload.requestData)
             if type(key) == "string" and type(subKey) == "string" then
@@ -595,6 +595,7 @@ function Comms:Character_OnDataRequest(sender, message)
                 end
             else
                 addon.LogDebugMessage("comms", string.format("Invalid keys from string split [%s]", sender))
+                DevTools_Dump(message)
             end
         else
             if addon.characters[addon.thisCharacter] and addon.characters[addon.thisCharacter].data[message.payload.requestData] then
@@ -622,7 +623,7 @@ function Comms:Character_OnDataResponse(sender, message)
     addon.LogDebugMessage("comms", string.format("Data response from %s", sender))
     addon:TriggerEvent("StatusText_OnChanged", string.format("Data response from %s", sender))
 
-    if message.payload.request and message.payload.request:find(".") then
+    if message.payload.request and message.payload.request:find(".", nil, true) then
         
         local key, subKey = strsplit(".", message.payload.request)
         if type(key) == "string" and type(subKey) == "string" then

@@ -756,8 +756,12 @@ local function scanTradeskills()
     for i = 1, numTradeskills do
         local name, _type, _, _, _ = GetTradeSkillInfo(i)
         if name and (_type == "optimal" or _type == "medium" or _type == "easy" or _type == "trivial") then
+            
             local itemLink = GetTradeSkillItemLink(i)
+            --print(i, name, itemLink)
+
             local cooldown = GetTradeSkillCooldown(i)
+
             if cooldown then
 
                 if name:find(":") then
@@ -780,6 +784,7 @@ local function scanTradeskills()
 
             end
             if itemLink then
+                --print("got link")
                 local id = GetItemInfoFromHyperlink(itemLink)
                 if id then
                     for k, v in ipairs(addon.itemData) do

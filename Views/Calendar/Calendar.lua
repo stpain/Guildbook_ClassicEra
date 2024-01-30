@@ -515,7 +515,9 @@ end
 function GuildbookCalendarMixin:MonthChanged()
 
     --this appears to also update the default calendar, which is fine, the main thing is it means we can make use of calendar api using month offset
-    --C_Calendar.SetAbsMonth(self.date.month, self.date.year)
+    if addon.Calendar then
+        addon.Calendar.SetAbsMonth(self.date.month, self.date.year)
+    end
 
     self.sidePanel.monthName:SetText(date("%B %Y", time(self.date)))
     local monthStart = self:GetMonthStart(self.date.month, self.date.year)
@@ -575,9 +577,9 @@ function GuildbookCalendarMixin:MonthChanged()
 
             --grab the events for the day and loop in reverse order, do this as it seems larger events (events spanning weeks not just a day) are indexed lower
             --so going reverse we add the small single day events first and use a low number for the subLayer
-            if C_Calendar then
-                for i = C_Calendar.GetNumDayEvents(0, thisMonthDay), 1, -1 do
-                    local event = C_Calendar.GetHolidayInfo(0, thisMonthDay, i)
+            if addon.Calendar then
+                for i = addon.Calendar.GetNumDayEvents(0, thisMonthDay), 1, -1 do
+                    local event = addon.Calendar.GetHolidayInfo(0, thisMonthDay, i)
                     local subLayer = 1
                     if event then
                         if not day.holidayTextures[i] then

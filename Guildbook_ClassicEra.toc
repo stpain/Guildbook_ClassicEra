@@ -1,6 +1,6 @@
 ## Interface: 11500
 ## Author: TheBoringDad
-## Version: 3.31
+## Version: 3.32
 ## Title: Guildbook Era
 ## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL
@@ -40,6 +40,7 @@ ChangeLog.lua
 Locales.lua
 ItemData.lua
 #SpellData.lua
+CalendarData.lua
 Database.lua
 
 Classes\Tradeskills.lua
