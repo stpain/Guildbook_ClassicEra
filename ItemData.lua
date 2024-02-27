@@ -17212,6 +17212,292 @@ addon.itemData = {
 		["itemLink"] = "|Hspell:7418",
 		["quality"] = 1,
 	}, -- [1226]
+	{
+        ["spellID"] = 435610,
+        ["icon"] = 237290,
+        ["itemID"] = 215111,
+        ["reagents"] = {
+            [213379] = 5,
+            [213369] = 2,
+            [213372] = 1,
+            [11137] = 10,
+            [4339] = 10,
+        },
+        ["inventorySlot"] = 1,
+        ["tradeskillID"] = 197,
+        ["itemLink"] = "|cffffffff|Hitem:215111::::::::6:::::::::|h[Gneuro-Linked Arcano-Filament Monocle]|h|r",
+        ["quality"] = 4,
+    }, -- [1227]
+    {
+        ["spellID"] = 435827,
+        ["icon"] = 237428,
+        ["itemID"] = 213379,
+        ["reagents"] = {
+            [4339] = 2,
+            [213378] = 5,
+            [8343] = 5,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 197,
+        ["itemLink"] = "|cffffffff|Hitem:213379::::::::6:::::::::|h[Hyperconductive Arcano-Filament]|h|r",
+        ["quality"] = 3,
+    }, -- [1228]
+    {
+        ["spellID"] = 435951,
+        ["icon"] = 133144,
+        ["itemID"] = 215381,
+        ["reagents"] = {
+            [213372] = 1,
+            [8172] = 5,
+            [213369] = 5,
+            [213379] = 1,
+        },
+        ["inventorySlot"] = 1,
+        ["tradeskillID"] = 165,
+        ["itemLink"] = "|cffffffff|Hitem:215381::::::::6:::::::::|h[Gneuro-Conductive Channeler's Hood]|h|r",
+        ["quality"] = 4,
+     }, -- [1229]
+     {
+        ["spellID"] = 435904,
+        ["icon"] = 133117,
+        ["itemID"] = 215166,
+        ["reagents"] = {
+            [4291] = 2,
+            [8172] = 5,
+            [213369] = 5,
+            [213379] = 1,
+        },
+        ["inventorySlot"] = 1,
+        ["tradeskillID"] = 165,
+        ["itemLink"] = "|cffffffff|Hitem:215166::::::::6:::::::::|h[Glowing Gneuro-Linked Cowl]|h|r",
+        ["quality"] = 4,
+     }, -- [1230]
+     {
+        ["spellID"] = 435949,
+        ["icon"] = 133145,
+        ["itemID"] = 215114,
+        ["reagents"] = {
+            [213376] = 1,
+            [5785] = 10,
+            [213369] = 5,
+            [213372] = 1,
+        },
+        ["inventorySlot"] = 1,
+        ["tradeskillID"] = 165,
+        ["itemLink"] = "|cffffffff|Hitem:215114::::::::6:::::::::|h[Glowing Hyperconductive Scale Coif]|h|r",
+        ["quality"] = 4,
+     }, -- [1231]
+     {
+        ["spellID"] = 435953,
+        ["icon"] = 133143,
+        ["itemID"] = 215382,
+        ["reagents"] = {
+            [213376] = 1,
+            [8172] = 5,
+            [213369] = 5,
+            [213372] = 1,
+        },
+        ["inventorySlot"] = 1,
+        ["tradeskillID"] = 165,
+        ["itemLink"] = "|cffffffff|Hitem:215382::::::::6:::::::::|h[Rad-Resistant Scale Hood]|h|r",
+        ["quality"] = 4,
+     }, -- [1232]
+     {
+        ["spellID"] = 435819,
+        ["icon"] = 237420,
+        ["itemID"] = 213369,
+        ["reagents"] = {
+            [8172] = 5,
+            [213370] = 5,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 165,
+        ["itemLink"] = "|cffffffff|Hitem:215382::::::::6:::::::::|h[Faintly Glowing Leather]|h|r",
+        ["quality"] = 3,
+     }, -- [1233]
+     {
+        ["spellID"] = 435906,
+        ["icon"] = 133151,
+        ["itemID"] = 215167,
+        ["reagents"] = {
+            [3860] = 25,
+            [213376] = 4,
+            [213379] = 2,
+            [213383] = 1,
+        },
+        ["inventorySlot"] = 1,
+        ["tradeskillID"] = 164,
+        ["itemLink"] = "|cffffffff|Hitem:215167::::::::6:::::::::|h[Reflective Truesilver Braincage]|h|r",
+        ["quality"] = 4,
+     }, -- [1234]
+     {
+        ["spellID"] = 435908,
+        ["icon"] = 133151,
+        ["itemID"] = 215167,
+        ["reagents"] = {
+            [3860] = 25,
+            [213376] = 4,
+            [213379] = 1,
+            [213369] = 2,
+        },
+        ["inventorySlot"] = 1,
+        ["tradeskillID"] = 164,
+        ["itemLink"] = "|cffffffff|Hitem:215382::::::::6:::::::::|h[Tempered Interference-Negating Helmet]|h|r",
+        ["quality"] = 4,
+     }, -- [1235]
+     {
+        ["spellID"] = 435910,
+        ["icon"] = 133022,
+        ["itemID"] = 213376,
+        ["reagents"] = {
+            [6037] = 1,
+            [213373] = 5,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 164,
+        ["itemLink"] = "|cffffffff|Hitem:213376::::::::6:::::::::|h[Low-Background Truesilver Plates]|h|r",
+        ["quality"] = 3,
+     }, -- [1236]
+     {
+        ["spellID"] = 435960,
+        ["icon"] = 132521,
+        ["itemID"] = 215115,
+        ["reagents"] = {
+            [213383] = 3,
+            [213379] = 3,
+            [213369] = 1,
+            [3577] = 10,
+        },
+        ["inventorySlot"] = 6,
+        ["tradeskillID"] = 202,
+        ["itemLink"] = "|cffffffff|Hitem:215115::::::::6:::::::::|h[Hyperconductive Goldwrap]|h|r",
+        ["quality"] = 4,
+     }, -- [1237]
+     {
+        ["spellID"] = 435958,
+        ["icon"] = 236307,
+        ["itemID"] = 213390,
+        ["reagents"] = {
+            [213376] = 3,
+            [213383] = 5,
+            [213369] = 2,
+            [10561] = 2,
+            [4389] = 2,
+            [3860] = 15,
+        },
+        ["inventorySlot"] = 17,
+        ["tradeskillID"] = 202,
+        ["itemLink"] = "|cffffffff|Hitem:213390::::::::6:::::::::|h[Whirling Truesilver Gearwall]|h|r",
+        ["quality"] = 4,
+     }, -- [1238]
+     {
+        ["spellID"] = 435964,
+        ["icon"] = 133009,
+        ["itemID"] = 215127,
+        ["reagents"] = {
+            [10505] = 1,
+            [215430] = 1,
+            [3860] = 2,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 202,
+        ["itemLink"] = "|cffffffff|Hitem:215127::::::::6:::::::::|h[High-Yield Radiation Bomb]|h|r",
+        ["quality"] = 2,
+     }, -- [1239]
+     {
+        ["spellID"] = 435966,
+        ["icon"] = 133009,
+        ["itemID"] = 215168,
+        ["reagents"] = {
+            [10505] = 2,
+            [215430] = 1,
+            [3860] = 2,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 202,
+        ["itemLink"] = "|cffffffff|Hitem:215168::::::::6:::::::::|h[Ez-Thro Radiation Bomb]|h|r",
+        ["quality"] = 2,
+     }, -- [1240]
+     {
+        ["spellID"] = 435956,
+        ["icon"] = 305162,
+        ["itemID"] = 213383,
+        ["reagents"] = {
+            [6037] = 1,
+            [213381] = 5,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 202,
+        ["itemLink"] = "|cffffffff|Hitem:213383::::::::6:::::::::|h[Polished Truesilver Gears]|h|r",
+        ["quality"] = 3,
+     }, -- [1241]
+     {
+        ["spellID"] = 439156,
+        ["icon"] = 254884,
+        ["itemID"] = 217308,
+        ["reagents"] = {
+            [11137] = 5,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 333,
+        ["itemLink"] = "|cffffffff|Hitem:217308::::::::6:::::::::|h[Sigil of Innovation]|h|r",
+        ["quality"] = 2,
+     }, -- [1242]
+     {
+		["reagents"] = {
+			[11177] = 1,
+			[11176] = 2,
+		},
+		["icon"] = 135913,
+		["name"] = "Enchant Chest - Retricutioner",
+		["spellID"] = 435903,
+		["itemID"] = false,
+		["tradeskillID"] = 333,
+		["itemLink"] = "|Hspell:435903",
+		["quality"] = 4,
+	}, -- [1243]
+	{
+		["reagents"] = {
+			[11174] = 4,
+			[5637] = 2,
+			[11177] = 2,
+		},
+		["icon"] = 135913,
+		["name"] = "Enchant Weapon - Dismantle",
+		["spellID"] = 435481,
+		["itemID"] = false,
+		["tradeskillID"] = 333,
+		["itemLink"] = "|Hspell:435481",
+		["quality"] = 4,
+	}, -- [1243]
+	{
+        ["spellID"] = 435971,
+        ["icon"] = 236870,
+        ["itemID"] = 215162,
+        ["reagents"] = {
+            [213371] = 1,
+            [2456] = 1,
+            [215430] = 3,
+            [8925] = 5,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 171,
+        ["itemLink"] = "|cffffffff|Hitem:215162::::::::6:::::::::|h[Mildly Irradiated Rejuvenation Potion]|h|r",
+        ["quality"] = 1,
+     }, -- [1244]
+     	{
+        ["spellID"] = 435969,
+        ["icon"] = 134792,
+        ["itemID"] = 213372,
+        ["reagents"] = {
+            [3372] = 1,
+            [213371] = 5,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 171,
+        ["itemLink"] = "|cffffffff|Hitem:213372::::::::6:::::::::|h[Mildly Irradiated Rejuvenation Potion]|h|r",
+        ["quality"] = 1,
+     }, -- [1245]
 }
 
 addon.itemIdToDataIndex = {}
