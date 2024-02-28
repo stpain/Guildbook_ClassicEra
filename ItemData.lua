@@ -17498,6 +17498,188 @@ addon.itemData = {
         ["itemLink"] = "|cffffffff|Hitem:213372::::::::6:::::::::|h[Mildly Irradiated Rejuvenation Potion]|h|r",
         ["quality"] = 1,
      }, -- [1245]
+     {
+        ["spellID"] = 428424,
+        ["icon"] = 236968,
+        ["itemID"] = 210781,
+        ["reagents"] = {
+            [2997] = 6,
+            [814] = 2,
+            [2321] = 2,
+        },
+        ["inventorySlot"] = 9,
+        ["tradeskillID"] = 197,
+        ["itemLink"] = "|cffffffff|Hitem:210781::::::::6:::::::::|h[Phoenix Bindings]|h|r",
+        ["quality"] = 3,
+     }, -- [1246]
+     {
+        ["spellID"] = 439960,
+        ["icon"] = 134730,
+        ["itemID"] = 217398,
+        ["reagents"] = {
+            [3356] = 1,
+            [3821] = 1,
+            [8925] = 1,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 171,
+        ["itemLink"] = "|cffffffff|Hitem:217398::::::::6:::::::::|h[Lesser Arcane Elixir]|h|r",
+        ["quality"] = 1,
+     }, -- [1247]
+     {
+        ["spellID"] = 435848,
+        ["icon"] = 135033,
+        ["itemID"] = 215365,
+        ["reagents"] = {
+            [4305] = 4,
+            [4340] = 4,
+            [2321] = 1,
+            [6260] = 4,
+        },
+        ["inventorySlot"] = 3,
+        ["tradeskillID"] = 197,
+        ["itemLink"] = "|cffffffff|Hitem:215365::::::::6:::::::::|h[Invoker's Mantle]|h|r",
+        ["quality"] = 2,
+     }, -- [1248]
+     {
+        ["spellID"] = 435841,
+        ["icon"] = 132492,
+        ["itemID"] = 215366,
+        ["reagents"] = {
+            [4305] = 3,
+            [1210] = 1,
+            [2321] = 1,
+            [4340] = 1,
+        },
+        ["inventorySlot"] = 6,
+        ["tradeskillID"] = 197,
+        ["itemLink"] = "|cffffffff|Hitem:215366::::::::6:::::::::|h[Invoker's Cord]|h|r",
+        ["quality"] = 2,
+     }, -- [1249]
+     {
+        ["spellID"] = 429351,
+        ["icon"] = 132539,
+        ["itemID"] = 210795,
+        ["reagents"] = {
+            [4320] = 1,
+            [211422] = 1,
+        },
+        ["inventorySlot"] = 8,
+        ["tradeskillID"] = 197,
+        ["itemLink"] = "|cffffffff|Hitem:210795::::::::6:::::::::|h[Extraplanar Spidersilk Boots]|h|r",
+        ["quality"] = 4,
+     }, -- [1250]
+     {
+        ["spellID"] = 429348,
+        ["icon"] = 133831,
+        ["itemID"] = 210794,
+        ["reagents"] = {
+            [2870] = 1,
+            [211422] = 1,
+        },
+        ["inventorySlot"] = 5,
+        ["tradeskillID"] = 164,
+        ["itemLink"] = "|cffffffff|Hitem:210794::::::::6:::::::::|h[Shifting Silver Breastplate]|h|r",
+        ["quality"] = 4,
+     }, -- [1251]
+     {
+        ["spellID"] = 427061,
+        ["icon"] = 135059,
+        ["itemID"] = 210773,
+        ["reagents"] = {
+            [2841] = 20,
+            [1206] = 2,
+            [1705] = 2,
+            [5500] = 2,
+            [2842] = 4,
+        },
+        ["inventorySlot"] = 3,
+        ["tradeskillID"] = 164,
+        ["itemLink"] = "|cffffffff|Hitem:210773::::::::6:::::::::|h[Mantle of the Second War]|h|r",
+        ["quality"] = 3,
+     }, -- [1252]
+     {
+        ["spellID"] = 429354,
+        ["icon"] = 132958,
+        ["itemID"] = 211423,
+        ["reagents"] = {
+            [4253] = 1,
+            [211422] = 1,
+        },
+        ["inventorySlot"] = 10,
+        ["tradeskillID"] = 165,
+        ["itemLink"] = "|cffffffff|Hitem:211423::::::::6:::::::::|h[Void-Touched Leather Gloves]|h|r",
+        ["quality"] = 4,
+     }, -- [1253]
+     {
+        ["spellID"] = 429869,
+        ["icon"] = 132958,
+        ["itemID"] = 211502,
+        ["reagents"] = {
+            [4253] = 1,
+            [211422] = 1,
+        },
+        ["inventorySlot"] = 10,
+        ["tradeskillID"] = 165,
+        ["itemLink"] = "|cffffffff|Hitem:211502::::::::6:::::::::|h[Void-Touched Leather Gauntlets]|h|r",
+        ["quality"] = 4,
+     }, -- [1254]
+     {
+        ["spellID"] = 430397,
+        ["icon"] = 134417,
+        ["itemID"] = 211845,
+        ["reagents"] = {
+            [2863] = 1,
+            [10938] = 1,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 164,
+        ["itemLink"] = "|cffffffff|Hitem:211845::::::::6:::::::::|h[Blackfathom Sharpening Stone]|h|r",
+        ["quality"] = 2,
+     }, -- [1255]
+     {
+        ["spellID"] = 430409,
+        ["icon"] = 134879,
+        ["itemID"] = 211848,
+        ["reagents"] = {
+            [3372] = 1,
+            [10939] = 1,
+            [10940] = 5,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 333,
+        ["itemLink"] = "|cffffffff|Hitem:211848::::::::6:::::::::|h[Blackfathom Mana Oil]|h|r",
+        ["quality"] = 2,
+     }, -- [1256]
+     {
+        ["spellID"] = 426607,
+        ["icon"] = 134799,
+        ["itemID"] = 210708,
+        ["reagents"] = {
+            [3820] = 5,
+            [3372] = 1,
+            [3369] = 5,
+            [11083] = 1,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 171,
+        ["itemLink"] = "|cffffffff|Hitem:210708::::::::6:::::::::|h[Elixir of Coalesced Regret]|h|r",
+        ["quality"] = 1,
+     }, -- [1257]
+     {
+        ["spellID"] = 424641,
+        ["icon"] = 133870,
+        ["itemID"] = 210147,
+        ["reagents"] = {
+            [4382] = 1,
+            [4375] = 2,
+            [4234] = 1,
+        },
+        ["inventorySlot"] = 0,
+        ["tradeskillID"] = 202,
+        ["itemLink"] = "|cffffffff|Hitem:210147::::::::6:::::::::|h[Shredder Autosalvage Unit]|h|r",
+        ["quality"] = 1,
+     }, -- [1258]
 }
 
 addon.itemIdToDataIndex = {}
