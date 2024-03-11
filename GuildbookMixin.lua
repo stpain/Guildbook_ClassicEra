@@ -197,6 +197,11 @@ function GuildbookMixin:OnLoad()
         end
     end)
 
+    -- EventRegistry:RegisterCallback("EQUIPMATE_ON_OUTFIT_CREATED", function(...)
+    --     DevTools_Dump({...})
+    --     print("from guildbook")
+    -- end)
+
     addon:RegisterCallback("Database_OnInitialised", self.Database_OnInitialised, self)
     addon:RegisterCallback("StatusText_OnChanged", self.SetStatausText, self)
     addon:RegisterCallback("Player_Regen_Enabled", self.Player_Regen_Enabled, self)
