@@ -1,5 +1,5 @@
 <Ui>
-    <ScrollFrame name = "GuildbookWrathEraWidgetsGridviewTemplate" mixin="GuildbookWrathEraWidgetsGridviewMixin" inherits="UIPanelScrollFrameTemplate" enableMouse="true" virtual="true">
+    <ScrollFrame name = "GuildbookClassicEraWidgetsGridviewTemplate" mixin="GuildbookClassicEraWidgetsGridviewMixin" inherits="UIPanelScrollFrameTemplate" enableMouse="true" virtual="true">
         <ScrollChild>
             <Frame parentKey="scrollChild" enableMouse="true">
                 <Anchors>

@@ -1,8 +1,22 @@
 local name, addon = ...;
 
-GuildbookWrathEraWidgetsDropDownTemplateMixin = {}
+local flyoutLayout = {
+    TopLeftCorner =	{ atlas = "CharacterCreateDropdown-NineSlice-CornerTopLeft", x = -36, y = 30, },
+    TopRightCorner =	{ atlas = "CharacterCreateDropdown-NineSlice-CornerTopRight", x = 36, y = 30, },
+    BottomLeftCorner =	{ atlas = "CharacterCreateDropdown-NineSlice-CornerBottomLeft", x = -36, y = -40, },
+    BottomRightCorner =	{ atlas = "CharacterCreateDropdown-NineSlice-CornerBottomRight", x = 36, y = -40, },
+    TopEdge = { atlas = "_CharacterCreateDropdown-NineSlice-EdgeTop", },
+    BottomEdge = { atlas = "_CharacterCreateDropdown-NineSlice-EdgeBottom", },
+    LeftEdge = { atlas = "!CharacterCreateDropdown-NineSlice-EdgeLeft", },
+    RightEdge = { atlas = "!CharacterCreateDropdown-NineSlice-EdgeRight", },
+    Center = { atlas = "CharacterCreateDropdown-NineSlice-Center", },
+}
 
-function GuildbookWrathEraWidgetsDropDownTemplateMixin:OnLoad()
+GuildbookClassicEraWidgetsDropDownTemplateMixin = {}
+
+function GuildbookClassicEraWidgetsDropDownTemplateMixin:OnLoad()
+
+    NineSliceUtil.ApplyLayout(self.flyout, flyoutLayout)
 
     if not addon.dropdownWidgets then
         addon.dropdownWidgets = {}
@@ -28,19 +42,19 @@ function GuildbookWrathEraWidgetsDropDownTemplateMixin:OnLoad()
 
 end
 
-function GuildbookWrathEraWidgetsDropDownTemplateMixin:SetWidth(width)
+function GuildbookClassicEraWidgetsDropDownTemplateMixin:SetWidth(width)
     --self.flyout:SetWidth(width)
 end
 
-function GuildbookWrathEraWidgetsDropDownTemplateMixin:SetText(text)
+function GuildbookClassicEraWidgetsDropDownTemplateMixin:SetText(text)
     self.label.text:SetText(text)
 end
 
-function GuildbookWrathEraWidgetsDropDownTemplateMixin:ClearMenu()
+function GuildbookClassicEraWidgetsDropDownTemplateMixin:ClearMenu()
     self.flyout.listview.DataProvider:Flush()
 end
 
-function GuildbookWrathEraWidgetsDropDownTemplateMixin:SetMenu(t)
+function GuildbookClassicEraWidgetsDropDownTemplateMixin:SetMenu(t)
 
     if type(t) ~= "table" then
         return;
@@ -52,7 +66,7 @@ function GuildbookWrathEraWidgetsDropDownTemplateMixin:SetMenu(t)
     if menulength > 7 then
         self.flyout:SetHeight(182)
     else
-        self.flyout:SetHeight(menulength * 27)
+        self.flyout:SetHeight(menulength * 30)
     end
 
     self.maxWidth = 0.0;
@@ -62,13 +76,13 @@ function GuildbookWrathEraWidgetsDropDownTemplateMixin:SetMenu(t)
 end
 
 
-GuildbookWrathEraWidgetsDropDownListviewItemTemplateMixin = {}
+GuildbookClassicEraWidgetsDropDownListviewItemTemplateMixin = {}
 
-function GuildbookWrathEraWidgetsDropDownListviewItemTemplateMixin:OnLoad()
+function GuildbookClassicEraWidgetsDropDownListviewItemTemplateMixin:OnLoad()
     self.dropdown = self:GetParent():GetParent():GetParent():GetParent():GetParent()
 end
 
-function GuildbookWrathEraWidgetsDropDownListviewItemTemplateMixin:SetDataBinding(binding, height)
+function GuildbookClassicEraWidgetsDropDownListviewItemTemplateMixin:SetDataBinding(binding, height)
     self:SetHeight(height)
     self.text:SetText(binding.text)
 
@@ -88,7 +102,7 @@ function GuildbookWrathEraWidgetsDropDownListviewItemTemplateMixin:SetDataBindin
         self.dropdown.flyout:SetWidth(self.dropdown.maxWidth + 44)
         self.dropdown.flyout.listview:ClearAllPoints()
         self.dropdown.flyout.listview:SetPoint("TOPLEFT", 0, 0)
-        self.dropdown.flyout.listview:SetPoint("BOTTOMRIGHT", 0, 0)
+        self.dropdown.flyout.listview:SetPoint("BOTTOMRIGHT", 0, 8)
         self.dropdown.flyout.listview:SetWidth(self.dropdown.maxWidth)
     end
 
@@ -104,7 +118,7 @@ function GuildbookWrathEraWidgetsDropDownListviewItemTemplateMixin:SetDataBindin
 
 end
 
-function GuildbookWrathEraWidgetsDropDownListviewItemTemplateMixin:ResetDataBinding()
+function GuildbookClassicEraWidgetsDropDownListviewItemTemplateMixin:ResetDataBinding()
     self.text:SetText(nil)
     self.icon:SetTexture(nil)
     self.menuTable = nil;

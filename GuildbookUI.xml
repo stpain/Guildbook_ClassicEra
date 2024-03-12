@@ -152,7 +152,7 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="viewHistoryBack" inherits = "GuildbookWrathEraSmallHighlightButton" enableMouse="true">
+                    <Frame parentKey="viewHistoryBack" inherits = "GuildbookClassicEraSmallHighlightButton" enableMouse="true">
                         <Size x="30" y="30"/>
                         <Anchors>
                             <Anchor point="LEFT" x="60" y="0"/>
@@ -166,7 +166,7 @@
                             <KeyValue key="tooltipText" value="RIBBON_VIEW_HISTORY_BACK_TT" type="string"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="home" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="false">
+                    <Frame parentKey="home" inherits = "GuildbookClassicEraSmallHighlightButton" hidden="false">
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.viewHistoryBack" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
@@ -184,7 +184,7 @@
                             <KeyValue key="tooltipText" value="Home" type="string"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="guildtree" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="false">
+                    <Frame parentKey="guildtree" inherits = "GuildbookClassicEraSmallHighlightButton" hidden="false">
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.home" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
@@ -202,7 +202,7 @@
                             <KeyValue key="tooltipText" value="PROFILES" type="string"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="tradeskills" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="false">
+                    <Frame parentKey="tradeskills" inherits = "GuildbookClassicEraSmallHighlightButton" hidden="false">
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.guildtree" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
@@ -215,7 +215,7 @@
                             <KeyValue key="tooltipText" value="TRADESKILLS" type="string"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="chat" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="false">
+                    <Frame parentKey="chat" inherits = "GuildbookClassicEraSmallHighlightButton" hidden="false">
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.tradeskills" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
@@ -234,7 +234,7 @@
                             <KeyValue key="tooltipText" value="CHAT" type="string"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="guildroster" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="false">
+                    <Frame parentKey="guildroster" inherits = "GuildbookClassicEraSmallHighlightButton" hidden="false">
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.chat" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
@@ -247,7 +247,7 @@
                             <KeyValue key="tooltipText" value="ROSTER" type="string"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="calendar" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="false">
+                    <Frame parentKey="calendar" inherits = "GuildbookClassicEraSmallHighlightButton" hidden="false">
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.guildroster" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
@@ -262,7 +262,7 @@
                             <KeyValue key="tooltipText" value="CALENDAR" type="string"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="guildbank" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="false">
+                    <Frame parentKey="guildbank" inherits = "GuildbookClassicEraSmallHighlightButton" hidden="false">
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.calendar" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
@@ -280,7 +280,7 @@
                             <KeyValue key="tooltipText" value="GUILD_BANK" type="string"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="alts" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="false">
+                    <Frame parentKey="alts" inherits = "GuildbookClassicEraSmallHighlightButton" hidden="false">
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.guildbank" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
@@ -298,7 +298,7 @@
                             <KeyValue key="tooltipText" value="Alts" type="string"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="dailies" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="false">
+                    <Frame parentKey="dailies" inherits = "GuildbookClassicEraSmallHighlightButton" hidden="false">
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.alts" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
@@ -316,7 +316,7 @@
                             <KeyValue key="tooltipText" value="Dailies" type="string"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="export" inherits="GuildbookWrathEraSmallHighlightButton" hidden="false">
+                    <Frame parentKey="export" inherits="GuildbookClassicEraSmallHighlightButton" hidden="false">
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.dailies" relativePoint="RIGHT" x="4" y="0"/>
                         </Anchors>
@@ -358,14 +358,14 @@
                     <Anchor point="BOTTOMRIGHT" x="-6" y="16"/>
                 </Anchors>
                 <Frames>
-                    <Frame parentKey="messageLogListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate,InsetFrameTemplate">
+                    <Frame parentKey="messageLogListview" inherits = "GuildbookClassicEraWidgetsListviewTemplate,InsetFrameTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="1" y="-1"/>
                             <Anchor point="BOTTOMRIGHT" x="-1" y="1"/>
                         </Anchors>
                         <KeyValues>
                             <KeyValue key="frameType" value="FRAME" type="string"/>
-                            <KeyValue key="itemTemplate" value="GuildbookWrathEraSimpleIconLabelFrame" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookClassicEraSimpleIconLabelFrame" type="string"/>
                             <KeyValue key="elementHeight" value="26" type="number"/>
                         </KeyValues>
                     </Frame>

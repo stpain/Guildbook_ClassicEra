@@ -47,18 +47,18 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="listview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+                    <Frame parentKey="listview" inherits = "GuildbookClassicEraWidgetsListviewTemplate">
                         <Anchors>
                             <Anchor point="TOP" relativeKey="$parent.mainSpec" relativePoint="BOTTOM" x="0" y="-15"/>
                             <Anchor point="BOTTOMLEFT" x="0" y="0"/>
                             <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                         </Anchors>
                         <KeyValues>
-                            <KeyValue key="itemTemplate" value="GuildbookWrathEraSimpleIconLabelFrame" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookClassicEraSimpleIconLabelFrame" type="string"/>
                             <KeyValue key="elementHeight" value="32" type="number"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="helptip" frameLevel="7" inherits = "GuildbookWrathEraHelpTipTemplate_RightArrow">
+                    <Frame parentKey="helptip" frameLevel="7" inherits = "GuildbookClassicEraHelpTipTemplate_RightArrow">
                         <Size x="200" y="210"/>
                         <Anchors>
                             <Anchor point="RIGHT" relativeKey="$parent.listview" relativePoint="LEFT" x="-20" y="60"/>
@@ -76,24 +76,24 @@
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
                 <Frames>
-                    <ScrollFrame parentKey="resistanceGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
+                    <ScrollFrame parentKey="resistanceGridview" inherits = "GuildbookClassicEraWidgetsGridviewTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" x="0" y="0"/>
                         </Anchors>
                     </ScrollFrame>
-                    <Frame parentKey="equipmentHelptip" frameLevel="7" inherits = "GuildbookWrathEraHelpTipTemplate_RightArrow">
+                    <Frame parentKey="equipmentHelptip" frameLevel="7" inherits = "GuildbookClassicEraHelpTipTemplate_RightArrow">
                         <Size x="360" y="140"/>
                         <Anchors>
                             <Anchor point="RIGHT" relativeKey="$parent.resistanceGridview" relativePoint="LEFT" x="-10" y="-80"/>
                         </Anchors>
                     </Frame>
-                    <ScrollFrame parentKey="auraGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
+                    <ScrollFrame parentKey="auraGridview" inherits = "GuildbookClassicEraWidgetsGridviewTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeKey="$parent.resistanceGridview" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
                             <Anchor point="TOPLEFT" relativeKey="$parent.resistanceGridview" relativePoint="BOTTOMLEFT" x="0" y="0"/>
                         </Anchors>
                     </ScrollFrame>
-                    <Frame parentKey="statsListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+                    <Frame parentKey="statsListview" inherits = "GuildbookClassicEraWidgetsListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeKey="$parent.auraGridview" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
                             <Anchor point="TOPLEFT" relativeKey="$parent.auraGridview" relativePoint="BOTTOMLEFT" x="0" y="0"/>
@@ -107,11 +107,11 @@
                         </Layers>
                         <KeyValues>
                             <KeyValue key="frameType" value="FRAME" type="string"/>
-                            <KeyValue key="itemTemplate" value="GuildbookWrathEraStatsGroup" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookClassicEraStatsGroup" type="string"/>
                             <KeyValue key="elementHeight" value="26" type="number"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="equipmentListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+                    <Frame parentKey="equipmentListview" inherits = "GuildbookClassicEraWidgetsListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="0" y="-32"/>
                             <Anchor point="BOTTOMLEFT" x="0" y="0"/>
@@ -129,17 +129,17 @@
                         </Layers>
                         <KeyValues>
                             <KeyValue key="frameType" value="FRAME" type="string"/>
-                            <KeyValue key="itemTemplate" value="GuildbookWrathEraSimpleIconLabelFrame" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookClassicEraSimpleIconLabelFrame" type="string"/>
                             <KeyValue key="elementHeight" value="32" type="number"/>
                         </KeyValues>                        
                     </Frame>
-                    <Button parentKey="equipmentMenu" inherits="GuildbookWrathEraWidgetsDropDownTemplate">
+                    <Button parentKey="equipmentMenu" inherits="GuildbookClassicEraWidgetsDropDownTemplate">
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" relativeKey="$parent.equipmentListview" relativePoint="TOPLEFT" x="0" y="0"/>
                         </Anchors>
                         <Size x="120" y="32"/>
                     </Button>
-                    <Button parentKey="exportButton" inherits="GuildbookWrathEraSmallHighlightButton">
+                    <Button parentKey="exportButton" inherits="GuildbookClassicEraSmallHighlightButton">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeKey="$parent.resistanceGridview" relativePoint="TOPLEFT" x="0" y="0"/>
                         </Anchors>
@@ -295,7 +295,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
+                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookClassicEraWidgetsGridviewTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="0"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
@@ -316,7 +316,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
+                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookClassicEraWidgetsGridviewTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="0"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
@@ -338,7 +338,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
+                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookClassicEraWidgetsGridviewTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="0"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>

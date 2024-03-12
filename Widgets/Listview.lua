@@ -1,6 +1,6 @@
-GuildbookWrathEraWidgetsListviewMixin = {}
+GuildbookClassicEraWidgetsListviewMixin = {}
 
-function GuildbookWrathEraWidgetsListviewMixin:OnLoad()
+function GuildbookClassicEraWidgetsListviewMixin:OnLoad()
 
     self.DataProvider = CreateDataProvider();
     self.scrollView = CreateScrollBoxListLinearView();
@@ -34,7 +34,7 @@ function GuildbookWrathEraWidgetsListviewMixin:OnLoad()
     ScrollUtil.AddManagedScrollBarVisibilityBehavior(self.scrollBox, self.scrollBar, anchorsWithBar, anchorsWithoutBar);
 end
 
-function GuildbookWrathEraWidgetsListviewMixin:OnElementInitialize(element, elementData, isNew)
+function GuildbookClassicEraWidgetsListviewMixin:OnElementInitialize(element, elementData, isNew)
     if isNew then
         element:OnLoad();
     end
@@ -54,6 +54,6 @@ function GuildbookWrathEraWidgetsListviewMixin:OnElementInitialize(element, elem
     end
 end
 
-function GuildbookWrathEraWidgetsListviewMixin:OnElementReset(element)
+function GuildbookClassicEraWidgetsListviewMixin:OnElementReset(element)
     element:ResetDataBinding()
 end

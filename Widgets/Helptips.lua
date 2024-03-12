@@ -1,9 +1,9 @@
 local name, addon = ...;
 
-GuildbookWrathEraHelpTipMixin = {};
-function GuildbookWrathEraHelpTipMixin:SetText(text)
+GuildbookClassicEraHelpTipMixin = {};
+function GuildbookClassicEraHelpTipMixin:SetText(text)
     self.text:SetText(text)
 end
-function GuildbookWrathEraHelpTipMixin:OnShow()
+function GuildbookClassicEraHelpTipMixin:OnShow()
 
 end

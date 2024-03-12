@@ -21,7 +21,7 @@
         </Layers>
 
         <Frames>
-            <Frame parentKey="resultsListview" inherits="GuildbookWrathEraWidgetsListviewTemplate">
+            <Frame parentKey="resultsListview" inherits="GuildbookClassicEraWidgetsListviewTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="-30"/>
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>

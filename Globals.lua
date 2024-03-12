@@ -5,6 +5,42 @@ local Character = addon.Character;
 local Talents = addon.Talents;
 local Tradeskills = addon.Tradeskills;
 
+local classData = {
+    DEATHKNIGHT = { 
+        specializations={'Blood','Frost','Unholy'} 
+    },
+    ["DEATH KNIGHT"] = { 
+        specializations={'Blood','Frost','Unholy'} 
+    },
+    DRUID = { 
+        specializations={'Balance', 'Cat' ,'Bear', 'Restoration',}
+    },
+    HUNTER = { 
+        specializations={'Beast Master', 'Marksmanship','Survival',} 
+    },
+    MAGE = { 
+        specializations={'Arcane', 'Fire','Frost',} 
+    },
+    PALADIN = { 
+        specializations={'Holy','Protection','Retribution',} 
+    },
+    PRIEST = { 
+        specializations={'Discipline','Holy','Shadow',} 
+    },
+    ROGUE = { 
+        specializations={'Assassination','Combat','Subtlety',} -- outlaw = combat
+    },
+    SHAMAN = { 
+        specializations={'Elemental', 'Enhancement', 'Restoration'} 
+    },
+    WARLOCK = {  
+        specializations={'Affliction','Demonology','Destruction',} 
+    },
+    WARRIOR = { 
+        specializations={'Arms','Fury','Protection',} 
+    },
+}
+
 addon.characterDefaults = {
     guid = "",
     name = "",
@@ -94,6 +130,16 @@ addon.guilds = {}
 addon.characters = {}
 addon.contextMenu = CreateFrame("Frame", "GuildbookContextMenu", UIParent, "UIDropDownMenuTemplate")
 
+addon.recruitment = {
+    statusIDs = {
+        [0] = "Imported",
+        [1] = "Invite sent",
+        [2] = "Invite responded",
+        [3] = "",
+        [4] = "",
+    }
+}
+
 addon.api = {
     classic = {},
     sod = {},
@@ -146,6 +192,10 @@ function addon.LogDebugMessage(debugType, debugMessage, debugTooltip)
         end
         GuildbookUI.debug.messageLogListview.scrollBox:ScrollToEnd()
     end
+end
+
+function addon.api.getClassSpecialization(class)
+    return classData[class:upper()].specializations or {}
 end
 
 function addon.api.getTradeskillItemSkillChanges(itemID)

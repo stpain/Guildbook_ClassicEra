@@ -9,41 +9,41 @@
             </Layer>
         </Layers>
         <Frames>
-            <Button parentKey="classFilter" inherits = "GuildbookWrathEraWidgetsDropDownTemplate">
+            <Button parentKey="classFilter" inherits = "GuildbookClassicEraWidgetsDropDownTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="0"/>
                 </Anchors>
                 <Size x="120" y="32"/>
             </Button>
-            <Slider name="GuildbookGuildRosterMinLevelSlider" parentKey="minLevel" inherits = "GuildbookWrathEraSlider">
+            <Slider name="GuildbookGuildRosterMinLevelSlider" parentKey="minLevel" inherits = "GuildbookClassicEraSlider">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.classFilter" relativePoint="RIGHT" x="70" y="0"/>
                 </Anchors>
                 <Size x="80" y="16"/>
             </Slider>
-            <Slider name="GuildbookGuildRosterMaxLevelSlider" parentKey="maxLevel" inherits = "GuildbookWrathEraSlider">
+            <Slider name="GuildbookGuildRosterMaxLevelSlider" parentKey="maxLevel" inherits = "GuildbookClassicEraSlider">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.minLevel" relativePoint="RIGHT" x="90" y="0"/>
                 </Anchors>
                 <Size x="80" y="16"/>
             </Slider>
-            <CheckButton parentKey="showOfflineCheckbox" inherits = "GuildbookWrathEraWidgetsCheckButton">
+            <CheckButton parentKey="showOfflineCheckbox" inherits = "GuildbookClassicEraWidgetsCheckButton">
                 <Anchors>
                     <Anchor point="TOPRIGHT" x="-120" y="-8"/>
                 </Anchors>
             </CheckButton>
-            <Frame parentKey="rosterListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+            <Frame parentKey="rosterListview" inherits = "GuildbookClassicEraWidgetsListviewTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="-32"/>
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
                 <KeyValues>
                     <KeyValue key="frameType" value="FRAME" type="string"/>
-                    <KeyValue key="itemTemplate" value="GuildbookWrathEraRosterListviewItem" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookClassicEraRosterListviewItem" type="string"/>
                     <KeyValue key="elementHeight" value="26" type="number"/>
                 </KeyValues>
             </Frame>
-            <Frame parentKey="rosterHelptip" frameLevel="7" inherits = "GuildbookWrathEraHelpTipTemplate_RightArrow">
+            <Frame parentKey="rosterHelptip" frameLevel="7" inherits = "GuildbookClassicEraHelpTipTemplate_RightArrow">
                 <Size x="200" y="100"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.rosterListview" relativePoint="LEFT" x="-20" y="60"/>

@@ -104,7 +104,7 @@ GuildbookProfileMixin = {
 
 function GuildbookProfileMixin:OnLoad()
 
-    self.inventory.resistanceGridview:InitFramePool("FRAME", "GuildbookWrathEraResistanceFrame")
+    self.inventory.resistanceGridview:InitFramePool("FRAME", "GuildbookClassicEraResistanceFrame")
     self.inventory.resistanceGridview:SetFixedColumnCount(5)
     self.inventory.resistanceGridview.ScrollBar:Hide()
 
@@ -117,7 +117,7 @@ function GuildbookProfileMixin:OnLoad()
         })
     end
 
-    self.inventory.auraGridview:InitFramePool("FRAME", "GuildbookWrathEraResistanceFrame")
+    self.inventory.auraGridview:InitFramePool("FRAME", "GuildbookClassicEraResistanceFrame")
     self.inventory.auraGridview:SetFixedColumnCount(8)
     self.inventory.auraGridview.ScrollBar:Hide()
 
@@ -132,7 +132,7 @@ function GuildbookProfileMixin:OnLoad()
 	end)
 
     for i = 1, 3 do
-        self.talents["tree"..i].talentsGridview:InitFramePool("FRAME", "GuildbookWrathEraTalentIconFrame")
+        self.talents["tree"..i].talentsGridview:InitFramePool("FRAME", "GuildbookClassicEraTalentIconFrame")
         self.talents["tree"..i].talentsGridview:SetFixedColumnCount(4)
 
         C_Timer.After(0.1, function()

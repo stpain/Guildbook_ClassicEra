@@ -1,2 +1,2 @@
-# Guildbook_WrathEra
+# Guildbook_ClassicEra
 Classic Guildbook for Era servers

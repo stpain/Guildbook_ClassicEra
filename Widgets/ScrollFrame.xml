@@ -1,6 +1,6 @@
 <Ui>
-    <!-- <ScrollFrame name = "GuildbookWrathEraScrollFrameTemplate" inherits="UIPanelScrollFrameTemplate,InsetFrameTemplate3"> -->
-    <ScrollFrame name = "GuildbookWrathEraScrollFrameTemplate" mixin="GuildbookWrathEraScrollFrameMixin" inherits="UIPanelScrollFrameTemplate" virtual="true">
+    <!-- <ScrollFrame name = "GuildbookClassicEraScrollFrameTemplate" inherits="UIPanelScrollFrameTemplate,InsetFrameTemplate3"> -->
+    <ScrollFrame name = "GuildbookClassicEraScrollFrameTemplate" mixin="GuildbookClassicEraScrollFrameMixin" inherits="UIPanelScrollFrameTemplate" virtual="true">
         <ScrollChild>
             <Frame parentKey="scrollChild">
             </Frame>

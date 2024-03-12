@@ -38,12 +38,17 @@ e:RegisterEvent("SKILL_LINES_CHANGED")
 e:RegisterEvent("QUEST_TURNED_IN")
 e:RegisterEvent("QUEST_ACCEPTED")
 e:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+e:RegisterEvent("PLAYER_LOGOUT")
 
 e:SetScript("OnEvent", function(self, event, ...)
     if self[event] then
         self[event](self, ...)
     end
 end)
+
+function e:PLAYER_LOGOUT()
+    Database:CleanUpRecruitment()
+end
 
 function e:PLAYER_LEVEL_UP(...)
     --local curLevel = UnitLevel("player")

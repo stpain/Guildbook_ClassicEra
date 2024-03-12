@@ -46,6 +46,9 @@ local dbUpdates = {
     --can also use a string for sub keys
     --added to fix errors where a key exists but not a new sub key
     ["chats.guildOfficer"] = {},
+
+
+    recruitment = {},
 }
 local dbToRemove = {
     "worldEvents",
@@ -469,5 +472,48 @@ function Database:GetCharacterSyncData(key)
     end
     return 0;
 end
+
+
+
+
+
+function Database:InsertRecruitmentCSV(csv)
+    if self.db and self.db.recruitment then
+        
+        local existingEntries = {}
+        for k, v in ipairs(self.db.recruitment) do
+            existingEntries[v.name] = true;
+        end
+
+        for k, v in ipairs(csv) do
+            if not existingEntries[v.name] then
+                table.insert(self.db.recruitment, v)
+            end
+        end
+    end
+end
+
+function Database:DeleteAllRecruit()
+    if self.db and self.db.recruitment then
+        self.db.recruitment = {}
+    end
+end
+
+function Database:GetAllRecruitment()
+    if self.db and self.db.recruitment then
+        return self.db.recruitment;
+    end
+    return {};
+end
+
+function Database:CleanUpRecruitment()
+    if self.db and self.db.recruitment then
+        for k, v in ipairs(self.db.recruitment) do
+            v.isSelected = nil;
+        end
+    end
+end
+
+
 
 addon.Database = Database;

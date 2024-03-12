@@ -31,13 +31,13 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="listview" inherits="GuildbookWrathEraWidgetsListviewTemplate">
+                    <Frame parentKey="listview" inherits="GuildbookClassicEraWidgetsListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="10" y="-30"/>
                             <Anchor point="BOTTOMRIGHT" x="-11" y="10"/>
                         </Anchors>
                         <KeyValues>
-                            <KeyValue key="itemTemplate" value="GuildbookWrathEraSimpleIconLabelFrame" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookClassicEraSimpleIconLabelFrame" type="string"/>
                             <KeyValue key="elementHeight" value="40" type="number"/>
                         </KeyValues>
                     </Frame>
@@ -50,7 +50,7 @@
                     <Anchor point="TOPLEFT" relativeKey="$parent.agenda" relativePoint="TOPRIGHT" x="20" y="0"/>
                 </Anchors>
                 <Frames>
-                    <CheckButton parentKey="toggleOffline" inherits="GuildbookWrathEraWidgetsCheckButton">
+                    <CheckButton parentKey="toggleOffline" inherits="GuildbookClassicEraWidgetsCheckButton">
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" x="11" y="10"/>
                         </Anchors>
@@ -87,13 +87,13 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="listview" inherits="GuildbookWrathEraWidgetsListviewTemplate">
+                    <Frame parentKey="listview" inherits="GuildbookClassicEraWidgetsListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="10" y="-30"/>
                             <Anchor point="BOTTOMRIGHT" x="-11" y="10"/>
                         </Anchors>
                         <KeyValues>
-                            <KeyValue key="itemTemplate" value="GuildbookWrathEraSimpleIconLabelFrame" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookClassicEraSimpleIconLabelFrame" type="string"/>
                             <KeyValue key="elementHeight" value="26" type="number"/>
                         </KeyValues>
                     </Frame>

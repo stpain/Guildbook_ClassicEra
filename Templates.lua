@@ -619,6 +619,7 @@ function GuildbookSettingsCharacterAltMixin:SetDataBinding(binding)
     self.border:SetVertexColor(colour:GetRGB())
 
     self:SetScript("OnMouseDown", function()
+        --addon.characters[addon.thisCharacter]:SetMainCharacter(self.character.data.name, true)
         self.character:SetMainCharacter(self.character.data.name, true)
     end)
 end
@@ -1566,8 +1567,16 @@ function GuildbookSimpleIconLabelMixin:SetDataBinding(binding, height)
         -- self.icon:SetSize(x - 2, y - 2)
     end
 
+    if binding.onUpdate then
+        self:SetScript("OnUpdate", binding.onUpdate)
+    end
+
     if binding.onMouseDown then
         self:SetScript("OnMouseDown", binding.onMouseDown)
+        self:EnableMouse(true)
+    end
+    if binding.onMouseUp then
+        self:SetScript("OnMouseUp", binding.onMouseUp)
         self:EnableMouse(true)
     end
 
@@ -1592,38 +1601,9 @@ function GuildbookSimpleIconLabelMixin:SetDataBinding(binding, height)
         end)
     end
 
-    -- if binding.getItemInfoFromID then
-    --     if binding.itemID then
-    --         local item = Item:CreateFromItemID(binding.itemID)
-    --         if not item:IsItemEmpty() then
-    --             item:ContinueOnItemLoad(function()
-    --                 local link = item:GetItemLink()
-    --                 self.label:SetText(link)
-    --                 self:EnableMouse(true)
-    --                 self:SetScript("OnEnter", function()
-    --                     GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-    --                     GameTooltip:SetHyperlink(link)
-    --                     GameTooltip:Show()
-    --                 end)
-    --                 -- self:SetScript("OnLeave", function()
-    --                 --     GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-    --                 -- end)
-    --                 self:SetScript("OnMouseDown", function()
-    --                     if IsControlKeyDown() then
-	-- 						DressUpItemLink(link)
-	-- 					elseif IsShiftKeyDown() then
-	-- 						HandleModifiedItemClick(link)
-	-- 					end
-    --                     if binding.onMouseDown then
-    --                         binding.onMouseDown()
-    --                     end
-    --                 end)
-
-    --                 addon:TriggerEvent("Profile_OnItemDataLoaded")
-    --             end)
-    --         end
-    --     end
-    -- end
+    if binding.init then
+        binding.init(self)
+    end
 
     --self.anim:Play()
 end
@@ -1636,6 +1616,202 @@ function GuildbookSimpleIconLabelMixin:ResetDataBinding()
     self.label:SetText("")
     self.labelRight:SetText("")
 end
+
+
+
+
+GuildbookClassicEraRecruitmentMixin = {}
+function GuildbookClassicEraRecruitmentMixin:OnLoad()
+    
+end
+
+function GuildbookClassicEraRecruitmentMixin:SetDataBinding(binding, height)
+    
+    if binding.backgroundAlpha then
+        self.background:SetAlpha(binding.backgroundAlpha)
+    else
+        self.background:SetAlpha(0)
+    end
+    if binding.backgroundAtlas then
+        self.background:SetAtlas(binding.backgroundAtlas)
+        self.background:SetAlpha(1)
+    else
+        if binding.backgroundRGB then
+            self.background:SetColorTexture(binding.backgroundRGB.r, binding.backgroundRGB.g, binding.backgroundRGB.b)
+         else
+             self.background:SetColorTexture(0,0,0)
+         end
+    end
+
+    self.character = binding.character
+
+    self.contextMenu = {
+        {
+            text = binding.character.name,
+            isTitle = true,
+            notCheckable = true,
+        },
+
+    }
+    table.insert(self.contextMenu, addon.contextMenuSeparator)
+
+    if self.character.class then
+
+        -- local classID;
+        -- for i = 1, 12 do
+        --     local c, gc, cid = GetClassInfo(i)
+        --     if (c:lower() == self.character.class:lower()) or (gc:lower() == self.character.class:lower()) then
+        --         classID = i;
+        --     end
+        -- end
+
+        local specs;
+        if RAID_CLASS_COLORS[self.character.class:upper()] then
+            specs = addon.api.getClassSpecialization(self.character.class)
+
+
+            --might as well add some colour
+
+
+        end
+
+        if specs then
+            local specMenu = {}
+            for k, v in ipairs(specs) do
+                table.insert(specMenu, {
+                    text = L[v],
+                    func = function()
+                        self.character.spec = v;
+                        self:Update()
+                    end,
+                    notCheckable = true,
+                })
+            end
+            table.insert(self.contextMenu, {
+                text = "Set Spec",
+                notCheckable = true,
+                menuList = specMenu,
+                hasArrow = true,
+            })
+        end
+    else
+
+    end
+
+    local statusMenu = {}
+    for i = 0, #addon.recruitment.statusIDs do
+        table.insert(statusMenu, {
+            text = addon.recruitment.statusIDs[i],
+            func = function()
+                self.character.status = i;
+                self:Update()
+            end,
+            notCheckable = true,
+        })
+    end
+    table.insert(self.contextMenu, {
+        text = "Set Status",
+        notCheckable = true,
+        menuList = statusMenu,
+        hasArrow = true,
+    })
+
+    self:Update()
+
+    self:SetScript("OnMouseDown", function(f, b)
+        if b == "RightButton" then
+            EasyMenu(self.contextMenu, addon.contextMenu, "cursor", 0, 0, "MENU", 1)
+        end
+    end)
+
+    self.select:SetScript("OnClick", function()
+        self.character.isSelected = not self.character.isSelected;
+    end)
+
+    -- if binding.onUpdate then
+    --     self:SetScript("OnUpdate", binding.onUpdate)
+    -- end
+
+    -- if binding.onMouseDown then
+    --     self:SetScript("OnMouseDown", binding.onMouseDown)
+    -- end
+    -- if binding.onMouseUp then
+    --     self:SetScript("OnMouseUp", binding.onMouseUp)
+    -- end
+
+    -- if binding.onMouseEnter then
+    --     self:SetScript("OnEnter", binding.onMouseEnter)
+    -- end
+
+    -- if binding.onMouseLeave then
+    --     self:SetScript("OnLeave", binding.onMouseLeave)
+    -- end
+
+    self:SetScript("OnLeave", function()
+        GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+    end)
+
+    if binding.init then
+        binding.init(self)
+    end
+end
+
+--addon.recruitment
+
+function GuildbookClassicEraRecruitmentMixin:Update()
+    for k, v in pairs(self.character) do
+        if self[k] then
+            if k == "status" then
+                self[k]:SetText(addon.recruitment.statusIDs[tonumber(v)])
+            else
+                if k == "name" then
+                    if self.character.class and RAID_CLASS_COLORS[self.character.class:upper()] then
+                        self[k]:SetText(RAID_CLASS_COLORS[self.character.class:upper()]:WrapTextInColorCode(v))
+                    else
+                        self[k]:SetText(v)
+                    end
+                else
+                    self[k]:SetText(v)
+                end
+            end
+        end
+    end
+
+    self.select:SetChecked(self.character.isSelected)
+
+
+    self:SetScript("OnEnter", function()
+        if self.character then
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:AddLine(self.character.name)
+            GameTooltip:Show()
+        end
+    end)
+end
+
+function GuildbookClassicEraRecruitmentMixin:ResetDataBinding()
+    self.name:SetText("")
+    self.class:SetText("")
+    self.spec:SetText("")
+    self.level:SetText("")
+    self.race:SetText("")
+    self.select:SetChecked(false)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 GuildbookStatsGroupMixin = {}

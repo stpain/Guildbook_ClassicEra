@@ -46,6 +46,7 @@ local classData = {
     },
 }
 
+
 local raceFileStringToId = {
     Human = 1,
     Orc = 2,
@@ -671,19 +672,27 @@ function Character:SetMainCharacter(main, broadcast)
 
     local alts = {}
 
+    --print(main)
+
     --this should only apply when setting your own characters data
-    if Database.db.myCharacters and Database.db.myCharacters[main] then
+    if addon.api.characterIsMine(main) then
         for name, val in pairs(Database.db.myCharacters) do
             val = false;
+
+            --print(name)
 
             --check if this character exists in this guild before updated their main character
             if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].members then
                 if addon.guilds[addon.thisGuild].members[name] then
 
+                    --print(name)
+
                     --do not call this func in here just set the data directly
                     --addon.characters will be a table of this guild only
                     if addon.characters and addon.characters[name] then
                         addon.characters[name].data.mainCharacter = self.data.mainCharacter
+
+                        --print(string.format("set %s main char as %s", name, self.data.mainCharacter))
 
                         --if name ~= main then
                             table.insert(alts, name)
