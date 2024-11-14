@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.1",
+        notes = "Minor fixes where some variables changed between current classic (Cata) and Classic Era/Fresh.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "4.0",
         notes = "Updated to use the Classic Cata version.\nUpdated and removed Cata data, this version should contain only era data (or fresh if you prefer).",
         icon = "ClassHall-QuestIcon-Desaturated",

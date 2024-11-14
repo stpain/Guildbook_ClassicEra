@@ -51,8 +51,8 @@ function Database:Init()
 
     local version = tonumber(GetAddOnMetadata(addonName, "Version"));
 
-    if not GUILDBOOK_GLOBAL_TEST then
-        GUILDBOOK_GLOBAL_TEST = {
+    if not GUILDBOOK_GLOBAL then
+        GUILDBOOK_GLOBAL = {
             config = {
                 chatGuildHistoryLimit = 50,
                 chatWhisperHistoryLimit = 50,
@@ -77,7 +77,7 @@ function Database:Init()
         }
     end
 
-    self.db = GUILDBOOK_GLOBAL_TEST;
+    self.db = GUILDBOOK_GLOBAL;
 
     for k, v in pairs(dbUpdates) do
         if not self.db[k] then
@@ -106,16 +106,16 @@ function Database:Init()
     end
 
     --there might be old data so clear it out
-    if type(GUILDBOOK_CHARACTER_TEST) == "table" then
-        if not GUILDBOOK_CHARACTER_TEST.syncData then
-            GUILDBOOK_CHARACTER_TEST = nil;
+    if type(GUILDBOOK_CHARACTER) == "table" then
+        if not GUILDBOOK_CHARACTER.syncData then
+            GUILDBOOK_CHARACTER = nil;
         end
     end
 
 
     --per character settings
-    if not GUILDBOOK_CHARACTER_TEST then
-        GUILDBOOK_CHARACTER_TEST = {
+    if not GUILDBOOK_CHARACTER then
+        GUILDBOOK_CHARACTER = {
             syncData = {
                 mainCharacter = 0,
                 publicNote = 0,
@@ -149,7 +149,7 @@ function Database:Init()
         }
     end
 
-    self.charDb = GUILDBOOK_CHARACTER_TEST;
+    self.charDb = GUILDBOOK_CHARACTER;
 
     self:TidyUpGuildTables()
 
@@ -189,7 +189,7 @@ end
 
 function Database:Reset()
 
-    GUILDBOOK_GLOBAL_TEST = nil;
+    GUILDBOOK_GLOBAL = nil;
 
     addon.guilds = {}
     addon.characters = {}

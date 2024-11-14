@@ -4,7 +4,7 @@ local Tradeskills = addon.Tradeskills;
 local Character = addon.Character;
 local Database = addon.Database;
 
-local artworkFilePath = [[Interface\AddOns\Guildbook\Media\Tradeskills\ProfessionBackgroundArt]]
+local artworkFilePath = [[Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\ProfessionBackgroundArt]]
 local MILLING_SPELL_NAME = ""
 
 MillingMacroButtonMixin = {}
@@ -981,7 +981,8 @@ function GuildbookTradskillsMixin:LoadTradeskillRecipes(tradeskillID, tradeskill
                             local spellDesc = spell:GetSpellDescription()
                             --local spellSubtext = spell:GetSpellSubtext()
                             local _, _, icon = GetSpellInfo(spellID)
-                            local spellLink = GetSpellLink(spellID)
+                            --local spellLink = GetSpellLink(spellID)
+                            local spellLink = string.format("Hspell:%s", spellID)
 
 
                             if tradeskillID == 333 then

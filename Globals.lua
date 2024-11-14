@@ -1913,11 +1913,23 @@ function addon.api.addThisCharacter()
 
     --DevTools_Dump(addon.characters[addon.Character])
 
+    local clientName;
+
+    if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+        clientName = "classic"
+    end
+    if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+        clientName = "classic"
+    end
+    if WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
+        clientName = "wrath"
+    end
+
     local equipment = addon.api.getPlayerEquipmentCurrent()
-    local currentStats = addon.api.wrath.getPaperDollStats()
+    local currentStats = addon.api[clientName].getPaperDollStats()
     local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
     local auras = addon.api.getPlayerAuras()
-    local talents = addon.api.cata.getPlayerTalents()
+    local talents = addon.api[clientName].getPlayerTalents()
 
     if addon.characters[addon.thisCharacter] then
         addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)

@@ -115,7 +115,7 @@
 
                 <Layers>
                     <Layer level="BACKGROUND">
-                        <Texture parentKey="background" file="Interface\AddOns\Guildbook\Media\Tradeskills\ProfessionBackgroundArt.png">
+                        <Texture parentKey="background" file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\ProfessionBackgroundArt.png">
                             <TexCoords left="0" right="0.6601" top="0" bottom="0.5361"/>
                             <Anchors>
                                 <Anchor point="TOPLEFT" x="0" y="0"/>
@@ -142,7 +142,7 @@
 
                 <Layers>
                     <Layer level="BACKGROUND">
-                        <Texture parentKey="background" file="Interface\AddOns\Guildbook\Media\Tradeskills\ProfessionBackgroundArtHerbalism.png">
+                        <Texture parentKey="background" file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\ProfessionBackgroundArtHerbalism.png">
                             <TexCoords left="0" right="0.6601" top="0" bottom="0.5361"/>
                             <Anchors>
                                 <Anchor point="TOPLEFT" x="0" y="0"/>
@@ -234,7 +234,7 @@
 
                 <Layers>
                     <Layer level="BACKGROUND">
-                        <Texture parentKey="background" file="Interface\AddOns\Guildbook\Media\Tradeskills\ProfessionBackgroundArt.png">
+                        <Texture parentKey="background" file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\ProfessionBackgroundArt.png">
                             <TexCoords left="0" right="0.6601" top="0" bottom="0.5361"/>
                             <Anchors>
                                 <Anchor point="TOPLEFT" x="0" y="0"/>
@@ -466,7 +466,7 @@
                                     </Anchors>
                                 </FontString>
 
-                                <Texture parentKey="bgTop" file="Interface\AddOns\Guildbook\Media\Tradeskills\Professions.png">
+                                <Texture parentKey="bgTop" file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\Professions.png">
                                     <Size y="62"/>
                                     <Anchors>
                                         <Anchor point="TOPLEFT" y="8"/>
@@ -474,7 +474,7 @@
                                     </Anchors>
                                     <TexCoords left="0.14599609375" right="0.27294921875" top="0.734375" bottom="0.83203125"/>
                                 </Texture>
-                                <Texture parentKey="bgBottom" file="Interface\AddOns\Guildbook\Media\Tradeskills\Professions.png">
+                                <Texture parentKey="bgBottom" file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\Professions.png">
                                     <Size y="62"/>
                                     <Anchors>
                                         <Anchor point="BOTTOMLEFT" y="-8"/>
@@ -482,7 +482,7 @@
                                     </Anchors>
                                     <TexCoords left="0.14599609375" right="0.27294921875" top="0.5087890625" bottom="0.60546875"/>
                                 </Texture>
-                                <Texture file="Interface\AddOns\Guildbook\Media\Tradeskills\Professions.png" verTile="true">
+                                <Texture file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\Professions.png" verTile="true">
                                     <Anchors>
                                         <Anchor point="TOPLEFT" relativeKey="$parent.bgTop" relativePoint="BOTTOMLEFT"/>
                                         <Anchor point="TOPRIGHT" relativeKey="$parent.bgTop" relativePoint="BOTTOMRIGHT"/>
@@ -514,7 +514,7 @@
                                     </Anchors>
                                 </FontString>
 
-                                <Texture parentKey="bgTop" file="Interface\AddOns\Guildbook\Media\Tradeskills\Professions.png">
+                                <Texture parentKey="bgTop" file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\Professions.png">
                                     <Size y="62"/>
                                     <Anchors>
                                         <Anchor point="TOPLEFT" y="8"/>
@@ -522,7 +522,7 @@
                                     </Anchors>
                                     <TexCoords left="0.14599609375" right="0.27294921875" top="0.734375" bottom="0.83203125"/>
                                 </Texture>
-                                <Texture parentKey="bgBottom" file="Interface\AddOns\Guildbook\Media\Tradeskills\Professions.png">
+                                <Texture parentKey="bgBottom" file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\Professions.png">
                                     <Size y="62"/>
                                     <Anchors>
                                         <Anchor point="BOTTOMLEFT" y="-8"/>
@@ -530,7 +530,7 @@
                                     </Anchors>
                                     <TexCoords left="0.14599609375" right="0.27294921875" top="0.5087890625" bottom="0.60546875"/>
                                 </Texture>
-                                <Texture file="Interface\AddOns\Guildbook\Media\Tradeskills\Professions.png" verTile="true">
+                                <Texture file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\Professions.png" verTile="true">
                                     <Anchors>
                                         <Anchor point="TOPLEFT" relativeKey="$parent.bgTop" relativePoint="BOTTOMLEFT"/>
                                         <Anchor point="TOPRIGHT" relativeKey="$parent.bgTop" relativePoint="BOTTOMRIGHT"/>

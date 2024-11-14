@@ -255,7 +255,7 @@
                         </Anchors>
                         <Layers>
                             <Layer level="BACKGROUND">
-                                <Texture file="Interface\Addons\Guildbook\Media\CalendarMinimapButton">
+                                <Texture file="Interface\AddOns\Guildbook_ClassicEra\Media\CalendarMinimapButton">
                                     <TexCoords left="0.0" right="0.72" top="0.0" bottom="0.72"/>
                                 </Texture>
                             </Layer>
