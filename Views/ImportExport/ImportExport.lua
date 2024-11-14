@@ -51,10 +51,28 @@ function GuildbookImportExportMixin:OnLoad()
 
     end)
 
+    addon:RegisterCallback("SetExportString", self.SetExportString, self)
+    addon:RegisterCallback("Guildbook_OnExport", self.Guildbook_OnExport, self)
     addon:RegisterCallback("Character_ExportEquipment", self.Character_ExportEquipment, self)
     addon:RegisterCallback("UI_OnSizeChanged", self.UpdateLayout, self)
 
     addon.AddView(self)
+end
+
+function GuildbookImportExportMixin:SetExportString(string)
+    self.importExportEditbox.EditBox:SetText(string)
+
+    GuildbookUI:SelectView(self.name)
+end
+
+function GuildbookImportExportMixin:Guildbook_OnExport(data)
+
+    if type(data) == "table" then
+        local export = json.encode(data)
+        self.importExportEditbox.EditBox:SetText(export)
+
+        GuildbookUI:SelectView(self.name)
+    end
 end
 
 
@@ -177,7 +195,8 @@ function GuildbookImportExportMixin:Character_ExportEquipment(character, setName
             end
 
             if not spec then
-                spec = "current";
+                spec = "primary";
+                print("Using primary spec as none provided")
             end
 
             if character.data.talents[spec] then

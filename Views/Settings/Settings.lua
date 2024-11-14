@@ -1,9 +1,8 @@
-local name, addon = ...;
+local addonName, addon = ...;
 local L = addon.Locales
 local Database = addon.Database;
 local Tradeskills = addon.Tradeskills;
 local Talents = addon.Talents;
-local Comms = addon.Comms;
 
 local tradeskills = {
     171,
@@ -24,7 +23,6 @@ local tradeskills = {
 
 GuildbookSettingsMixin = {
     name = "Settings",
-    helptips = {},
     panelsLoaded = {
         character = false,
         guild = false,
@@ -70,22 +68,14 @@ function GuildbookSettingsMixin:OnLoad()
                 self:SelectCategory("chat")
             end,
         },
-        {
-            label = "Guild Bank",
-            --atlas = "ShipMissionIcon-Treasure-Mission",
-            backgroundAlpha = 0.15,
-            onMouseDown = function ()
-                self:SelectCategory("guildBank")
-            end,
-        },
-        {
-            label = "Tooltips",
-            --atlas = "GarrMission_MissionIcon-Engineering",
-            backgroundAlpha = 0.15,
-            onMouseDown = function ()
-                self:SelectCategory("tooltips")
-            end,
-        },
+        -- {
+        --     label = "Guild Bank",
+        --     --atlas = "ShipMissionIcon-Treasure-Mission",
+        --     backgroundAlpha = 0.15,
+        --     onMouseDown = function ()
+        --         self:SelectCategory("guildBank")
+        --     end,
+        -- },
         {
             label = "Addon",
             --atlas = "GarrMission_MissionIcon-Engineering",
@@ -113,11 +103,9 @@ function GuildbookSettingsMixin:OnLoad()
     self.content.addon.general:SetText(L.SETTINGS_ADDON_GENERAL)
     self.content.addon.discord:SetText("https://discord.gg/st5uDAX5Cn")
     self.content.guildBank.header:SetText(L.GUILDBANK)
-    self.content.guildBank.guildBankHelptip:SetText(L.SETTINGS_GUILDBANK_HT)
+    self.content.guildBank.general:SetText(L.SETTINGS_GUILDBANK_GENERAL)
     self.content.tradeskills.header:SetText(L.TRADESKILLS)
     self.content.tradeskills.general:SetText(L.SETTINGS_TRADESKILLS_GENERAL)
-    self.content.guildBank.autoShareItems.label:SetText("Auto Share Items")
-    self.content.tooltips.enableItemLists.label:SetText(L.SETTINGS_ITEM_LISTS_CB)
     
     --character tab panels
     local tabs = {
@@ -131,20 +119,8 @@ function GuildbookSettingsMixin:OnLoad()
             width = 100,
             panel = self.content.character.tabContainer.tradeskills,
         },
-        {
-            label = "Alts",
-            width = 100,
-            panel = self.content.character.tabContainer.alts,
-        },
     }
     self.content.character.tabContainer:CreateTabButtons(tabs)
-
-    self.content.character.tabContainer.alts.gridview:InitFramePool("FRAME", "GuildbookSettingsCharacterAltTemplate")
-    --self.content.character.tabContainer.alts.gridview:SetFixedColumnCount(6)
-    self.content.character.tabContainer.alts.gridview:SetMinMaxSize(80,120)
-    self.content.character.tabContainer.alts.gridview:SetAnchorOffsets(10,10)
-    self.content.character.tabContainer.alts.gridview.ScrollBar:Hide()
-    
 
     self.content.character:SetScript("OnShow", function()
         self:CharacterPanel_OnShow()
@@ -179,6 +155,19 @@ function GuildbookSettingsMixin:OnLoad()
         Database.db.debug = cb:GetChecked()
     end)
 
+    self.content.addon.enhancedPaperDoll.label:SetText(L.SETTINGS_ADDON_ENHANCE_PAPERDOLL_LABEL)
+    self.content.addon.enhancedPaperDoll:SetScript("OnClick", function(cb)
+        local isChecked = cb:GetChecked()
+        Database:SetConfig("enhancedPaperDoll", isChecked)
+        addon.api.updatePaperdollOverlays()
+    end)
+
+    self.content.addon.wholeNineYards.label:SetSize(550, 80)
+    self.content.addon.wholeNineYards.label:SetText(L.SETTINGS_ADDON_WNY_LABEL)
+    self.content.addon.wholeNineYards:SetScript("OnClick", function(cb)
+        Database:SetConfig("wholeNineYards", cb:GetChecked())
+    end)
+
 
     self.content.help.text:SetText(string.format("%s\n\n\n\n%s\n\n\n\n%s\n\n\n\n%s",
         L.SETTINGS_HELP_TEXT_GENERAL,
@@ -186,8 +175,6 @@ function GuildbookSettingsMixin:OnLoad()
         L.SETTINGS_HELP_TEXT_TRADESKILLS,
         L.SETTINGS_HELP_TEXT_DAILIES
     ))
-
-    table.insert(self.helptips, self.content.guildBank.guildBankHelptip)
 
     addon.AddView(self)
 end
@@ -207,8 +194,6 @@ function GuildbookSettingsMixin:UpdateLayout()
         tradeskillsScroll.reagentItems:ClearAllPoints()
         tradeskillsScroll.reagentItems:SetPoint("TOPLEFT", tradeskillsScroll.tradeskillItems, "TOPRIGHT", 20, 0)
     end
-
-    self.content.character.tabContainer.alts.gridview:UpdateLayout()
 
 end
 
@@ -323,7 +308,7 @@ function GuildbookSettingsMixin:PrepareCharacterPanel()
                             end,
                         })
 
-                        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 1)
+                        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 0.2)
                     end
 
                 end,
@@ -358,7 +343,7 @@ function GuildbookSettingsMixin:PrepareCharacterPanel()
                             })
                         end
 
-                        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 1)
+                        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 0.2)
                     end
                 end,
                 onMouseEnter = function()
@@ -407,7 +392,7 @@ function GuildbookSettingsMixin:PrepareCharacterPanel()
                             end,
                         })
 
-                        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 1)
+                        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 0.2)
                     end
                 end,
                 onMouseEnter = function()
@@ -441,7 +426,7 @@ function GuildbookSettingsMixin:PrepareCharacterPanel()
                             })
                         end
 
-                        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 1)
+                        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 0.2)
                     end
                 end,
                 onMouseEnter = function()
@@ -477,7 +462,7 @@ function GuildbookSettingsMixin:PrepareCharacterPanel()
                             end,
                         })
 
-                        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 1)
+                        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 0.2)
                     end
                 end,
                 onMouseEnter = function()
@@ -523,7 +508,7 @@ function GuildbookSettingsMixin:PrepareCharacterPanel()
                             end,
                         })
 
-                        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 1)
+                        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 0.2)
                     end
                 end,
                 onMouseEnter = function()
@@ -553,34 +538,6 @@ function GuildbookSettingsMixin:PrepareCharacterPanel()
             end,
             backgroundAtlas = "transmog-set-iconrow-background"
         }, 40)
-
-
-
-        panel.alts.gridview:Flush()
-        
-        for nameRealm, _ in pairs(Database.db.myCharacters) do
-            if Database and Database.db.guilds[addon.thisGuild] and Database.db.guilds[addon.thisGuild].members and Database.db.guilds[addon.thisGuild].members[nameRealm] then
-                panel.alts.gridview:Insert(addon.characters[nameRealm])
-            end
-        end
-        -- panel.myCharacters.listview.DataProvider:Flush()
-        -- local alts = {}
-        -- if Database.db.myCharacters then
-        --     for name, isMain in pairs(Database.db.myCharacters) do
-        --         if addon.characters[name] then
-        --             table.insert(alts, {
-        --                 character = addon.characters[name],
-        --             }) 
-        --         end
-        --     end
-        -- end
-        -- panel.myCharacters.listview.DataProvider:InsertTable(alts)
-
-        -- panel.reset:SetScript("OnClick", function()
-        --     if addon.characters and addon.characters[addon.thisCharacter] then
-        --         addon.characters[addon.thisCharacter]:ResetData()
-        --     end
-        -- end)
 
     end
 end
@@ -628,12 +585,73 @@ function GuildbookSettingsMixin:PreparePanels()
     end)
 
 
+    local function myChatFilter(_, event, msg, author, ...)
+        if addon.thisCharacter and (addon.thisCharacter ~= author) and addon.characters and addon.characters[author] then
+            local mainCharacter = addon.characters[author]:GetMainCharacter()
+            if mainCharacter then
 
-    --=========================================
-    --tooltips panel
-    --=========================================
-    self.content.tooltips.enableItemLists:SetChecked(Database.db.config.enableItemLists)
+                if addon.characters[mainCharacter] then
 
+                    local _, class = GetClassInfo(addon.characters[mainCharacter].data.class)
+                    if class then
+                        local specAtlas = ""
+                        if Database:GetConfig("showMainCharacterSpecInChat") then
+                            if addon.characters[mainCharacter].data.mainSpec ~= false then
+                                specAtlas = CreateAtlasMarkup(addon.characters[mainCharacter]:GetClassSpecAtlasName("primary"))
+                            end
+                        end
+                        return false, string.format("[%s%s] %s", specAtlas, RAID_CLASS_COLORS[class]:WrapTextInColorCode(Ambiguate(mainCharacter, "short")), msg), author, ...
+                    else
+                        return false, string.format("[%s] %s", Ambiguate(mainCharacter, "short"), msg), author, ...
+                    end
+                end
+            end
+        else
+            return false, msg, author, ...
+        end
+    end
+
+    --could probably just accept the boolean val from the db here but this is maybe more readable
+    local showMain = Database:GetConfig("showMainCharacterInChat")
+    if showMain then
+        self.content.chat.showMainCharacterInChat:SetChecked(true)
+        ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", myChatFilter)
+        ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", myChatFilter)
+    else
+        self.content.chat.showMainCharacterInChat:SetChecked(false)
+        ChatFrame_RemoveMessageEventFilter("CHAT_MSG_GUILD", myChatFilter)
+        ChatFrame_RemoveMessageEventFilter("CHAT_MSG_WHISPER", myChatFilter)
+    end
+
+    self.content.chat.showMainCharacterInChat.label:SetText(L.SETTINGS_CHAT_SHOW_MAIN)
+    self.content.chat.showMainCharacterInChat:SetScript("OnClick", function(cb)
+        
+        local showMain = cb:GetChecked()
+        if showMain then
+            self.content.chat.showMainCharacterInChat:SetChecked(true)
+            Database:SetConfig("showMainCharacterInChat", true)
+            ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", myChatFilter)
+        else
+            self.content.chat.showMainCharacterInChat:SetChecked(false)
+            Database:SetConfig("showMainCharacterInChat", false)
+            ChatFrame_RemoveMessageEventFilter("CHAT_MSG_GUILD", myChatFilter)
+        end
+    end)
+
+
+    self.content.chat.showMainCharacterSpecInChat.label:SetText(L.SETTINGS_CHAT_SHOW_MAIN_SPEC)
+    self.content.chat.showMainCharacterSpecInChat:SetChecked(Database:GetConfig("showMainCharacterSpecInChat"))
+    self.content.chat.showMainCharacterSpecInChat:SetScript("OnClick", function(cb)
+        
+        local showMainSpec = cb:GetChecked()
+        if showMainSpec then
+            self.content.chat.showMainCharacterSpecInChat:SetChecked(true)
+            Database:SetConfig("showMainCharacterSpecInChat", true)
+        else
+            self.content.chat.showMainCharacterSpecInChat:SetChecked(false)
+            Database:SetConfig("showMainCharacterSpecInChat", false)
+        end
+    end)
 
 
     --=========================================
@@ -641,14 +659,7 @@ function GuildbookSettingsMixin:PreparePanels()
     --=========================================
     self.content.addon.debug:SetChecked(Database.db.debug)
     
-
-    --=guildbank
-    --=========================================
-    self.content.guildBank.autoShareItems:SetScript("OnClick", function(cb)
-        Database.db.config.guildbankAutoShareItems = cb:GetChecked()
-    end)
-
-
+    self.content.addon.enhancedPaperDoll:SetChecked(Database:GetConfig("enhancedPaperDoll"))
 
     --=========================================
     --guild panel
@@ -670,8 +681,6 @@ function GuildbookSettingsMixin:PreparePanels()
     if Database.db.config["modBlizzRoster"] then
         addon:ModBlizzUI()
     end
-
-
 
 
     --[[
@@ -706,9 +715,9 @@ function GuildbookSettingsMixin:PreparePanels()
     slider:SetMinMaxValues(1, 5)
     slider:SetValue(1)
 
-    _G[slider:GetName().."Low"]:SetText(" ")
-    _G[slider:GetName().."High"]:SetText(" ")
-    _G[slider:GetName().."Text"]:SetText(" ")
+    -- _G[slider:GetName().."Low"]:SetText(" ")
+    -- _G[slider:GetName().."High"]:SetText(" ")
+    -- _G[slider:GetName().."Text"]:SetText(" ")
 
     --GuildbookClassicEraWidgetsDropDownTemplate
 
@@ -718,7 +727,7 @@ function GuildbookSettingsMixin:PreparePanels()
         end
         local t = {}
 
-        inputstr = string.gsub(inputstr, "\n", ",")
+        inputstr = string.gsub(inputstr, "\n", sep)
 
         for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
             table.insert(t, str)
@@ -775,7 +784,7 @@ function GuildbookSettingsMixin:PreparePanels()
     for i = 1, 5 do
         local x = (i - 1) * 55
         local y = -12
-        local b = CreateFrame("Button", nil, self.content.guild.tabContainer.csvInput.columnDataContainer, "GuildbookClassicEraWidgetsDropDownTemplate")
+        local b = CreateFrame("Button", nil, self.content.guild.tabContainer.csvInput.columnDataContainer, "TBDDropDownTemplate")
         b:SetSize(55, 22)
         b:SetPoint("TOPLEFT", x + 2, y)
 
@@ -812,6 +821,15 @@ function GuildbookSettingsMixin:PreparePanels()
         fs:SetText(i)
     end
 
+    local classDataLookup = {}
+    for i = 1, 12 do
+        local lClass, gClass, id = GetClassInfo(i)
+        if lClass then
+            classDataLookup[lClass:lower()]  = i
+            classDataLookup[gClass:lower()]  = i
+        end
+    end
+
     self.content.guild.tabContainer.csvInput.import:SetScript("OnClick", function()
         
         local data = {}
@@ -832,13 +850,22 @@ function GuildbookSettingsMixin:PreparePanels()
             for j = i, (i + columns - 1) do
                 if csv[j] and (csv[j] ~= " ") then
                     if colKeys[k] then
-                        entry[colKeys[k]] = csv[j];
+
+                        if colKeys[k] == "class" then
+                            
+                            if classDataLookup[csv[j]:lower()] then
+                                entry[colKeys[k]] = classDataLookup[csv[j]:lower()]
+                            end
+                        else
+                            entry[colKeys[k]] = csv[j];
+                        end
+
                     end
                 end
                 k = k + 1;
             end
 
-            entry.meta = {
+            entry.notes = {
                 {
                     user = addon.thisCharacter,
                     note = "Imported",
@@ -853,7 +880,7 @@ function GuildbookSettingsMixin:PreparePanels()
         --DevTools_Dump(data)
 
 
-        Database:InsertRecruitmentCSV(data)
+        --Database:InsertRecruitmentCSV(data)
 
     end)
 
@@ -867,7 +894,7 @@ function GuildbookSettingsMixin:PreparePanels()
             end
             if character.class then
                 local class, classString, classID = GetClassInfo(classFilterID)
-                if (character.class:lower() == class:lower()) or (character.class:lower() == classString:lower()) then
+                if character.class == classID then
                     return true
                 end
             end
@@ -889,7 +916,7 @@ function GuildbookSettingsMixin:PreparePanels()
     end
 
     local function updateRecruitmentList()
-        local entries = Database:GetAllRecruitment()
+        local entries = Database:GetAllRecruitment() or {}
         local t = {}
 
         local filters = {
@@ -912,22 +939,6 @@ function GuildbookSettingsMixin:PreparePanels()
                     backgroundAlpha = 0.08,
                 })
             end
-
-            -- if filterFunc then
-            --     if filterFunc(v) then
-            --         table.insert(t, {
-            --             character = v,
-            --             backgroundRGB = (k % 2 == 0) and {r=1, g=1, b=1} or {r=0, b=0, g=0},
-            --             backgroundAlpha = 0.08,
-            --         })
-            --     end
-            -- else
-            --     table.insert(t, {
-            --         character = v,
-            --         backgroundRGB = (k % 2 == 0) and {r=1, g=1, b=1} or {r=0, b=0, g=0},
-            --         backgroundAlpha = 0.08,
-            --     })
-            -- end
         end
         self.content.guild.tabContainer.invites.listview.scrollView:SetDataProvider(CreateDataProvider(t))
     end
@@ -947,11 +958,8 @@ function GuildbookSettingsMixin:PreparePanels()
                 text = class,
                 func = function()
 
-                    classFilterID = i;
+                    classFilterID = classID;
                     updateRecruitmentList()
-                    -- updateRecruitmentList(function(character)
-                    --     return character.class:lower() == classString:lower() and true or false;
-                    -- end)
                 end,
             })
         end
@@ -959,6 +967,13 @@ function GuildbookSettingsMixin:PreparePanels()
     self.content.guild.tabContainer.invites.classSelectDropdown:SetMenu(classSelectMenu)
 
     local statusSelectMenu = {}
+    table.insert(statusSelectMenu, {
+        text = "None",
+        func = function()
+            statusFilter = false;
+            updateRecruitmentList()
+        end,
+    })
     for i = 0, #addon.recruitment.statusIDs do
         table.insert(statusSelectMenu, {
             text = addon.recruitment.statusIDs[i],
@@ -971,7 +986,7 @@ function GuildbookSettingsMixin:PreparePanels()
     self.content.guild.tabContainer.invites.statusSelectDropdown:SetMenu(statusSelectMenu)
 
     self.content.guild.tabContainer.invites.deleteAll:SetScript("OnClick", function()
-        Database:DeleteAllRecruit()
+        --Database:DeleteAllRecruit()
         updateRecruitmentList()
     end)
 
@@ -1026,38 +1041,54 @@ function GuildbookSettingsMixin:PreparePanels()
 
     GameTooltip:HookScript("OnTooltipSetItem", function(tt)
 
-        local name, link = tt:GetItem()
+        local itemName, link = tt:GetItem()
+        --print(link)
         if link then
             local itemID = GetItemInfoInstant(link)
             if itemID then
-                local itemInfo = addon.api.getTradeskillItemDataFromID(itemID)
+
+                --print(itemID)
+
+                if addon.itemIDtoSource and addon.itemIDtoSource[itemID] then
+                    tt:AddLine(" ")
+                    GameTooltip_AddColoredLine(tt, addonName, BLUE_FONT_COLOR)
+                    tt:AddDoubleLine(addon.itemIDtoSource[itemID].instance, addon.itemIDtoSource[itemID].encounter)
+                end
+
+
                 if Database.db.config.tradeskillsShowAllRecipeInfoTooltip == true then
-                    if itemInfo then
-                        tt:AddLine(" ")
-                        tt:AddLine(string.format("%s |cffffffff%s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(itemInfo.tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(itemInfo.tradeskillID)))
-                        tt:AddDoubleLine(L.REAGENT, L.COUNT)
-                        for id, count in pairs(itemInfo.reagents) do
-                            local item = Item:CreateFromItemID(id)
-                            if not item:IsItemEmpty() then
-                                item:ContinueOnItemLoad(function()
-                                    tt:AddDoubleLine(item:GetItemLink(), "|cffffffff"..count)
-                                end)
+                    local itemInfo = Tradeskills:GetItemRecipeInfo(itemID, itemName)
+                    if type(itemInfo) == "table" and itemInfo.tradeskillID and itemInfo.reagents then
+                        if itemInfo then
+                            tt:AddLine(" ")
+                            tt:AddLine(string.format("%s |cffffffff%s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(itemInfo.tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(itemInfo.tradeskillID)))
+                            tt:AddDoubleLine(L.REAGENT, L.COUNT)
+                            for id, count in pairs(itemInfo.reagents) do
+                                local item = Item:CreateFromItemID(id)
+                                if not item:IsItemEmpty() then
+                                    item:ContinueOnItemLoad(function()
+                                        tt:AddDoubleLine(item:GetItemLink(), "|cffffffff"..count)
+                                    end)
+                                end
                             end
                         end
                     end
                 else
                     if Database.db.config.tradeskillsShowMyRecipeInfoTooltip == true then
-                        if itemInfo and addon.characters[addon.thisCharacter] then
-                            if (itemInfo.tradeskillID == addon.characters[addon.thisCharacter].data.profession1) or (itemInfo.tradeskillID == addon.characters[addon.thisCharacter].data.profession2) then
-                                tt:AddLine(" ")
-                                tt:AddLine(string.format("%s |cffffffff%s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(itemInfo.tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(itemInfo.tradeskillID)))
-                                tt:AddDoubleLine(L.REAGENT, L.COUNT)
-                                for id, count in pairs(itemInfo.reagents) do
-                                    local item = Item:CreateFromItemID(id)
-                                    if not item:IsItemEmpty() then
-                                        item:ContinueOnItemLoad(function()
-                                            tt:AddDoubleLine(item:GetItemLink(), "|cffffffff"..count)
-                                        end)
+                        local itemInfo = Tradeskills:GetItemRecipeInfo(itemID, itemName)
+                        if type(itemInfo) == "table" and itemInfo.tradeskillID and itemInfo.reagents then
+                            if itemInfo and addon.characters[addon.thisCharacter] then
+                                if (itemInfo.tradeskillID == addon.characters[addon.thisCharacter].data.profession1) or (itemInfo.tradeskillID == addon.characters[addon.thisCharacter].data.profession2) then
+                                    tt:AddLine(" ")
+                                    tt:AddLine(string.format("%s |cffffffff%s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(itemInfo.tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(itemInfo.tradeskillID)))
+                                    tt:AddDoubleLine(L.REAGENT, L.COUNT)
+                                    for id, count in pairs(itemInfo.reagents) do
+                                        local item = Item:CreateFromItemID(id)
+                                        if not item:IsItemEmpty() then
+                                            item:ContinueOnItemLoad(function()
+                                                tt:AddDoubleLine(item:GetItemLink(), "|cffffffff"..count)
+                                            end)
+                                        end
                                     end
                                 end
                             end
@@ -1065,125 +1096,42 @@ function GuildbookSettingsMixin:PreparePanels()
                     end
                 end
 
-                --addon.api.getTradeskillItemSkillColour(itemID, profLevel)
-
                 if Database.db.config.tradeskillsShowAllRecipesUsingTooltip == true then
-                    local recipesUsingItem = addon.api.getTradeskillItemsUsingReagentItemID(itemID)
-                    if next(recipesUsingItem) then
+                    --local recipesUsingItem = addon.api.getTradeskillItemsUsingReagentItemID(itemID)
+                    --print("Looking for recipes for itemID", itemID)
+                    local recipesUsingItem = Tradeskills.GetAllRecipesThatUseItem(itemID)
+                    --DevTools_Dump(recipesUsingItem)
+                    if next(recipesUsingItem) ~= nil then
                         tt:AddLine(" ")
-                        tt:AddLine(USED_IN_TRADESKILL_COLOR:WrapTextInColorCode(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER))
-                    end
-                    for tradeskillID, recipes in pairs(recipesUsingItem) do
-                        tt:AddLine(" ")
-                        tt:AddLine(string.format("%s %s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(tradeskillID)))
-                        for k, v in ipairs(recipes) do
-                            --tt:AddLine(v.itemLink)
-                            if tradeskillID == 333 then
-                                local spell = Spell:CreateFromSpellID(v.spellID)
-                                if not spell:IsSpellEmpty() then
-                                    spell:ContinueOnSpellLoad(function()
-                                        tt:AddLine(spell:GetSpellName())
-                                    end)
+                        tt:AddLine(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER)
+                        for tradeskillID, recipes in pairs(recipesUsingItem) do
+                            if Tradeskills:IsTradeskill(nil, tradeskillID) then
+                                tt:AddLine(" ")
+                                tt:AddLine(string.format("%s %s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(tradeskillID)))
+                                for k, spellID in ipairs(recipes) do
+                                    local spellName = GetSpellInfo(spellID)
+                                    GameTooltip_AddColoredLine(tt, spellName, BLUE_FONT_COLOR)
                                 end
-                            else
-                                if v.itemID then
-                                    local item = Item:CreateFromItemID(v.itemID)
-                                    if not item:IsItemEmpty() then
-                                        item:ContinueOnItemLoad(function()
-                                            tt:AddLine(item:GetItemLink())
-                                        end)
-                                    end
-                                else
-                                    tt:AddLine(v.itemLink)
-                                end 
                             end
                         end
                     end
                 else
                     if Database.db.config.tradeskillsShowMyRecipesUsingTooltip == true and addon.characters[addon.thisCharacter] then
-                        local recipesUsingItem = addon.api.getTradeskillItemsUsingReagentItemID(itemID, addon.characters[addon.thisCharacter].data.profession1, addon.characters[addon.thisCharacter].data.profession2)
-                        
-                        local cookingFirstaidRecipesUsingItem = addon.api.getTradeskillItemsUsingReagentItemID(itemID, 129, 185)
-                        for k, v in pairs(cookingFirstaidRecipesUsingItem) do
-                            recipesUsingItem[k] = v;
-                        end
-                        
-                        if next(recipesUsingItem) then
+                        local recipesUsingItem = Tradeskills.GetAllRecipesThatUseItem(itemID, addon.characters[addon.thisCharacter].data.profession1, addon.characters[addon.thisCharacter].data.profession2)
+                        if next(recipesUsingItem) ~= nil then
                             tt:AddLine(" ")
-                            tt:AddLine(USED_IN_TRADESKILL_COLOR:WrapTextInColorCode(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER))
+                            tt:AddLine(L.SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER)
+                            for tradeskillID, recipes in pairs(recipesUsingItem) do
+                                if Tradeskills:IsTradeskill(nil, tradeskillID) then
+                                    tt:AddLine(" ")
+                                    tt:AddLine(string.format("%s %s", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(tradeskillID)))
+                                    for k, spellID in ipairs(recipes) do
+                                        local spellName = GetSpellInfo(spellID)
+                                        GameTooltip_AddColoredLine(tt, spellName, BLUE_FONT_COLOR)
+                                    end
+                                end
+                            end
                         end                        
-                        for tradeskillID, recipes in pairs(recipesUsingItem) do
-
-                            local profLevel;
-                            local skillColour, nextLevel, skillChanges, skillIndex
-                            if addon.characters[addon.thisCharacter].data.profession1 == tradeskillID then
-                                profLevel = addon.characters[addon.thisCharacter].data.profession1Level
-                            end
-                            if addon.characters[addon.thisCharacter].data.profession2 == tradeskillID then
-                                profLevel = addon.characters[addon.thisCharacter].data.profession2Level
-                            end
-                            if tradeskillID == 129 then --FA
-                                profLevel = addon.characters[addon.thisCharacter].data.firstAidLevel
-                            end
-                            if tradeskillID == 185 then --cooking
-                                profLevel = addon.characters[addon.thisCharacter].data.cookingLevel
-                            end
-
-                            tt:AddLine(" ")
-                            tt:AddLine(string.format("%s %s [%d]", CreateAtlasMarkup(Tradeskills:TradeskillIDToAtlas(tradeskillID), 20, 20), Tradeskills:GetLocaleNameFromID(tradeskillID), profLevel))
-                            
-                            
-                            for k, v in ipairs(recipes) do
-
-                                if profLevel then
-
-                                    --this is awkward coding but just got it working for now
-                                    --will change this into maybe a character object method ?
-                                    skillColour, nextLevel, skillChanges, skillIndex = addon.api.getTradeskillItemSkillColour(v.spellID, profLevel)
-                                end
-
-                                local infoString = "";
-                                if skillIndex == 1 then
-                                    infoString = LIGHTBLUE_FONT_COLOR:WrapTextInColorCode(string.format("Learnable at: %s", skillChanges[skillIndex]))
-                                else
-                                    if not skillChanges[skillIndex+1] then
-                                        infoString = string.format("%s|r", skillColour:WrapTextInColorCode(skillChanges[skillIndex]))
-                                    else
-                                        infoString = string.format("Skill Changes: %s|r |cffffffff>|r %s", skillColour:WrapTextInColorCode(skillChanges[skillIndex]), nextLevel:WrapTextInColorCode(skillChanges[skillIndex+1]))
-                                    end
-                                end
-
-
-                                if tradeskillID == 333 then
-                                    
-                                    local spell = Spell:CreateFromSpellID(v.spellID)
-                                    if not spell:IsSpellEmpty() then
-                                        spell:ContinueOnSpellLoad(function()
-                                            if skillColour then
-                                                tt:AddDoubleLine(spell:GetSpellName(), infoString)
-                                            else
-                                                tt:AddLine(spell:GetSpellName())
-                                            end
-                                        end)
-                                    end
-                                else
-                                    if v.itemID then
-                                        local item = Item:CreateFromItemID(v.itemID)
-                                        if not item:IsItemEmpty() then
-                                            item:ContinueOnItemLoad(function()
-                                                if skillColour then
-                                                    tt:AddDoubleLine(item:GetItemLink(), infoString)
-                                                else
-                                                    tt:AddLine(item:GetItemLink())
-                                                end
-                                            end)
-                                        end
-                                    else
-                                        tt:AddLine(v.itemLink)
-                                    end 
-                                end
-                            end
-                        end
                     end
                 end
 
@@ -1213,33 +1161,20 @@ end
 
 function GuildbookSettingsMixin:GuildBankPanel_OnShow()
 
-    --this remains in OnShow as bank characters can be added/removed during gameplay
-
-    self.content.guildBank.bankCharacters = {}
-
-    self.content.guildBank.autoShareItems:SetChecked(Database.db.config.guildbankAutoShareItems)
-
+    --this remains in OnShow as bank characters can eb added/removed during gameplay
+    self.content.guildBank.listview.DataProvider:Flush()
+    local t = {}
     if addon.characters then
         for k, character in pairs(addon.characters) do
             if character.data.publicNote:lower() == "guildbank" then
-                if (character.data.guild == addon.thisGuild) then
-                    table.insert(self.content.guildBank.bankCharacters, {
-                        character = character
-                    })
-                end
+                table.insert(t, {
+                    character = character,
+                })
             end
         end
     end
 
-    self.content.guildBank.syncRules:SetScript("OnClick", function()
-        for k, v in ipairs(self.content.guildBank.bankCharacters) do
-            local rules = addon.guilds[addon.thisGuild].bankRules[v.character.data.name];
-            Comms:GuildBank_TransmitRules(addon.thisGuild, v.character.data.name, rules)
-        end
-    end)
-
-    local dp = CreateDataProvider(self.content.guildBank.bankCharacters)
-    self.content.guildBank.listview.scrollView:SetDataProvider(dp)
+    self.content.guildBank.listview.DataProvider:InsertTable(t)
 end
 
 

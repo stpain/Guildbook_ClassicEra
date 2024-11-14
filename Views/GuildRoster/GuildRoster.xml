@@ -3,47 +3,81 @@
         <Layers>
             <Layer level="BACKGROUND">
                 <!-- <Texture parentKey="background" atlas="loottab-background"> -->
-                <Texture parentKey="background" atlas="ClassHall_StoneFrame-BackgroundTile" horizTile="true" vertTile="true">
+                <!-- <Texture parentKey="background" atlas="ClassHall_StoneFrame-BackgroundTile" horizTile="true" vertTile="true">
                 
+                </Texture> -->
+                <Texture>
+                    <Color r="0.085" g="0.091" b="0.075" a="0.88"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
                 </Texture>
             </Layer>
         </Layers>
         <Frames>
-            <Button parentKey="classFilter" inherits = "GuildbookClassicEraWidgetsDropDownTemplate">
+            <Button parentKey="classFilter" inherits = "TBDDropDownTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="0"/>
                 </Anchors>
                 <Size x="120" y="32"/>
             </Button>
-            <Slider name="GuildbookGuildRosterMinLevelSlider" parentKey="minLevel" inherits = "GuildbookClassicEraSlider">
+            <Slider name="GuildbookGuildRosterMinLevelSlider" parentKey="minLevel" inherits = "GuildbookWrathEraSlider">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.classFilter" relativePoint="RIGHT" x="70" y="0"/>
                 </Anchors>
                 <Size x="80" y="16"/>
             </Slider>
-            <Slider name="GuildbookGuildRosterMaxLevelSlider" parentKey="maxLevel" inherits = "GuildbookClassicEraSlider">
+            <Slider name="GuildbookGuildRosterMaxLevelSlider" parentKey="maxLevel" inherits = "GuildbookWrathEraSlider">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.minLevel" relativePoint="RIGHT" x="90" y="0"/>
                 </Anchors>
                 <Size x="80" y="16"/>
             </Slider>
-            <CheckButton parentKey="showOfflineCheckbox" inherits = "GuildbookClassicEraWidgetsCheckButton">
+            <CheckButton parentKey="showOfflineCheckbox" inherits = "GuildbookWrathEraWidgetsCheckButton">
                 <Anchors>
-                    <Anchor point="TOPRIGHT" x="-120" y="-8"/>
+                    <Anchor point="TOPRIGHT" x="-120" y="-4"/>
                 </Anchors>
             </CheckButton>
-            <Frame parentKey="rosterListview" inherits = "GuildbookClassicEraWidgetsListviewTemplate">
+            <CheckButton parentKey="showMyCharactersCheckbox" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-250" y="-4"/>
+                </Anchors>
+            </CheckButton>
+            <Frame parentKey="rosterListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="-32"/>
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
                 <KeyValues>
                     <KeyValue key="frameType" value="FRAME" type="string"/>
-                    <KeyValue key="itemTemplate" value="GuildbookClassicEraRosterListviewItem" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookWrathEraRosterListviewItem" type="string"/>
                     <KeyValue key="elementHeight" value="26" type="number"/>
                 </KeyValues>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <!-- <Texture parentKey="background" atlas="loottab-background"> -->
+                        <Texture parentKey="background">
+                            <Color r="0.085" g="0.08" b="0.075" a="0.88"/>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <!-- <Frames>
+                    <Button parentKey="name" parentArray="sortButtons" inherits="UIPanelButtonTemplate" text="NAME">
+                        <Size x="140" y="22"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="0" y="2"/>
+                        </Anchors>
+                    </Button>
+                    <Button parentKey="spec" parentArray="sortButtons" inherits="UIPanelButtonTemplate" text="Spec">
+                        <Size x="140" y="22"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeKey="$parent.name" relativePoint="RIGHT" x="2" y="0"/>
+                        </Anchors>
+                    </Button>
+                </Frames> -->
             </Frame>
-            <Frame parentKey="rosterHelptip" frameLevel="7" inherits = "GuildbookClassicEraHelpTipTemplate_RightArrow">
+            <Frame parentKey="rosterHelptip" frameLevel="7" inherits = "GuildbookWrathEraHelpTipTemplate_RightArrow">
                 <Size x="200" y="100"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.rosterListview" relativePoint="LEFT" x="-20" y="60"/>

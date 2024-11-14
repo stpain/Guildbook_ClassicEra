@@ -46,7 +46,6 @@ local classData = {
     },
 }
 
-
 local raceFileStringToId = {
     Human = 1,
     Orc = 2,
@@ -92,11 +91,15 @@ function Character:SetName(name)
     self.data.name = name;
 end
 
-function Character:GetName(colourized)
+function Character:GetName(colourized, ambiguate)
     if colourized then
         if type(self.data.class) == "number" then
             local _, class = GetClassInfo(self.data.class);
-            return RAID_CLASS_COLORS[class]:WrapTextInColorCode(self.data.name);
+            if ambiguate then
+                return RAID_CLASS_COLORS[class]:WrapTextInColorCode(Ambiguate(self.data.name, ambiguate));
+            else
+                return RAID_CLASS_COLORS[class]:WrapTextInColorCode(self.data.name);
+            end
         end
     end
     return self.data.name;
@@ -146,6 +149,9 @@ function Character:GetRace()
     return raceInfo;
 end
 
+function Character:GetFaction()
+    return C_CreatureInfo.GetFactionInfo(self.data.race)
+end
 
 function Character:SetClass(class)
     self.data.class = class;
@@ -190,11 +196,10 @@ end
 function Character:SetContainers(containers, broadcast)
     self.data.containers = containers;
     addon:TriggerEvent("Character_OnDataChanged", self)
-    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "containers", self.data.name))
-
     if broadcast then
-        addon:TriggerEvent("Character_OnContainersChanged", self)
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetContainers", "containers")
     end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "containers", self.data.name))
 end
 
 function Character:GetContainers()
@@ -598,6 +603,42 @@ end
 --     end
 -- end
 
+function Character:GetItemLevel(set)
+
+    if not set then
+        set = "current"
+    end
+
+    local numItems, totalItemlevel = 0, 0;
+
+    if self.data.inventory[set] then
+        for slot, link in pairs(self.data.inventory[set]) do
+            if slot ~= "TABARDSLOT" then
+                if type(link) == "string" then
+                    --print(link)
+                    --local n, l, q, ilvl = GetItemInfo(link)
+                    local actualItemLevel, previewLevel, sparseItemLevel = C_Item.GetDetailedItemLevelInfo(link)
+                    --print(actualItemLevel, previewLevel, sparseItemLevel, link)
+                    --print(ilvl)
+                    if type(actualItemLevel) == "number" then
+                        numItems = numItems + 1;
+                        totalItemlevel = totalItemlevel + actualItemLevel;
+
+                    end
+                end
+            end
+        end
+
+        if numItems > 0 then
+            return (totalItemlevel/numItems)
+        else
+            return 1;
+        end
+    else
+        return 1;
+    end
+end
+
 function Character:SetEquipmentSets(sets, broadcast)
     for name, itemIDs in pairs(sets) do
         self.data.inventory[name] = itemIDs;
@@ -662,105 +703,50 @@ function Character:GetPaperdollStats(set)
     end
 end
 
-function Character:GetGuildName()
-    return self.data.guild or "unknown";
+function Character:GetAlts()
+    return self.data.alts or {}
 end
 
+--sets the object called from as the main character for the alts passed in
+function Character:UpdateAlts(alts, broadcast)
+    self.data.alts = alts;
+    if addon.thisGuild then
+        Database:SetMainCharacterForAlts(addon.thisGuild, self.data.name, alts)
+    end
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "UpdateAlts", "alts")
+    end
+    addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "alts", self.data.name))
+end
 
 function Character:SetMainCharacter(main, broadcast)
     self.data.mainCharacter = main;
-
-    local alts = {}
-
-    --print(main)
-
-    --this should only apply when setting your own characters data
-    if addon.api.characterIsMine(main) then
-        for name, val in pairs(Database.db.myCharacters) do
-            val = false;
-
-            --print(name)
-
-            --check if this character exists in this guild before updated their main character
-            if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].members then
-                if addon.guilds[addon.thisGuild].members[name] then
-
-                    --print(name)
-
-                    --do not call this func in here just set the data directly
-                    --addon.characters will be a table of this guild only
-                    if addon.characters and addon.characters[name] then
-                        addon.characters[name].data.mainCharacter = self.data.mainCharacter
-
-                        --print(string.format("set %s main char as %s", name, self.data.mainCharacter))
-
-                        --if name ~= main then
-                            table.insert(alts, name)
-                        --end
-                    end
-
-                end
-            end
-
-        end
-        self:SetAlts(alts, broadcast)
-        Database.db.myCharacters[self.data.name] = true;
-    end
-
 
     addon:TriggerEvent("Character_OnDataChanged", self)
     if broadcast then
         addon:TriggerEvent("Character_BroadcastChange", self, "SetMainCharacter", "mainCharacter")
     end
     addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "main character", self.data.name))
+
 end
 
 function Character:GetMainCharacter()
     return self.data.mainCharacter;
 end
 
-function Character:SetAlts(alts, broadcast)
-    self.data.alts = alts;
-
-    --don't use the api here it'll cuase a cirle of sending data
-    for k, name in ipairs(alts) do
-        if addon.characters and addon.characters[name] then
-            addon.characters[name].data.alts = alts
-        end
-    end
-    addon:TriggerEvent("Character_OnDataChanged", self)
-    if broadcast then
-        addon:TriggerEvent("Character_BroadcastChange", self, "SetAlts", "alts")
-    end
-    addon:TriggerEvent("StatusText_OnChanged", string.format(" set alts for %s", self.data.name))
-end
-
-function Character:GetAlts()
-    return self.data.alts;
-end
-
-
-function Character:AddNewAlt(guid)
-    table.insert(self.data.alts, guid)
-end
-
-function Character:RemoveAlt(guid)
-    local i;
-    for k, _guid in ipairs(self.data.alts) do
-        if _guid == guid then
-            i = k;
-        end
-    end
-    if type(i) == "number" then
-        table.remove(self.data.alts, i)
-    end
-end
 
 function Character:GetTradeskillIcon(slot)
     if type(self.data["profession"..slot]) == "number" then
         return Tradeskills:TradeskillIDToAtlas(self.data["profession"..slot])
     end
     return "questlegendaryturnin";
+end
+
+function Character:GetTradeskillName(slot)
+    if type(self.data["profession"..slot]) == "number" then
+        return Tradeskills:GetLocaleNameFromID(self.data["profession"..slot])
+    end
+    return "-";
 end
 
 function Character:GetProfileAvatar()
@@ -947,10 +933,27 @@ function Character:GetLockouts()
     return self.data.lockouts or {};
 end
 
+function Character:SetDateJoined(timestamp)
+    self.data.joined = timestamp
+end
+
+function Character:GetDateJoined()
+    return self.data.joined or time()
+end
+
+
+function Character:SetAchievementPoints(points, broadcast)
+    self.data.achievementPoints = points;
+    addon:TriggerEvent("Character_OnDataChanged", self)
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetAchievementPoints", "achievementPoints")
+    end
+end
+
 
 
 function Character:CreateFromData(data)
-    if (data.race == false) or (data.gender == false) then
+    --if (data.race == false) or (data.gender == false) then
         self.ticker = C_Timer.NewTicker(1, function()
             local _, _, _, englishRace, sex = GetPlayerInfoByGUID(data.guid)
             if englishRace and sex then
@@ -961,8 +964,7 @@ function Character:CreateFromData(data)
                 end
             end
         end)
-    end
-
+    --end
     return Mixin({data = data}, self)
 end
 
@@ -1017,6 +1019,8 @@ function Character:CreateEmpty()
         },
         containers = {},
         lockouts = {},
+        tradeskillCooldowns = {},
+        achievementPoints = 0,
     }
     return character;
 end
@@ -1061,32 +1065,10 @@ function Character:ResetData()
     }
     self.data.containers = {}
     self.data.lockouts = {}
+    self.data.tradeskillCooldowns = {}
+    self.data.achievementPoints = 0
     addon:TriggerEvent("Character_OnDataChanged", self)
 end
-
-
-
-
-
---[[
-    SoD
-]]
-
-function Character:SetSodRunes(runes, broadcast)
-    self.data.runes = runes
-    addon:TriggerEvent("Character_OnDataChanged", self)
-    if broadcast then
-        addon:TriggerEvent("Character_BroadcastChange", self, "SetSodRunes", "runes")
-    end
-    addon:TriggerEvent("StatusText_OnChanged", string.format(" set runes for %s", self.data.name))
-end
-
-function Character:GetSodRunes()
-    return self.data.runes or {};
-end
-
-
-
 
 
 addon.Character = Character;

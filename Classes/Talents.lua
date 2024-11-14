@@ -1604,6 +1604,8 @@ end
 
 function Talents:GetTalentSpellId(fileName, row, col, rank)
 
+    --print(fileName)
+
     local tabID;
     for k, v in ipairs(talentTabCSV) do
         if v[3] == fileName then

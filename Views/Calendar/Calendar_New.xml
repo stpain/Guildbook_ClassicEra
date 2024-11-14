@@ -1,0 +1,179 @@
+<Ui>
+    <Frame name="GuildbookCalendarDayTile" mixin="GuildbookCalendarDayTileMixin" enableMouse="true" virtual="true">
+        <Animations>
+            <AnimationGroup parentKey="anim" looping="REPEAT">
+                <Alpha childKey="flash" duration="0.3" fromAlpha="0" toAlpha="1"/>
+                <Alpha startDelay="0.3" childKey="flash" duration="0.3" fromAlpha="1" toAlpha="0"/>
+            </AnimationGroup>
+        </Animations>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="background" setAllPoints="true">
+                
+                </Texture>
+            </Layer>
+            <Layer level="HIGHLIGHT">
+                <Texture parentKey="highlight" setAllPoints="true" alpha="0.6">
+                
+                </Texture>
+            </Layer>
+            <Layer level="BORDER">
+                <Texture parentKey="flash" setAllPoints="true" alpha="0.0">
+                
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="dateLabel" inherits="GameFontNormal" text="23">
+                    <Color r="1" g="1" b="1" a="1"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="4" y="-8"/>
+                    </Anchors>
+                </FontString>
+                <Texture parentKey="otherMonthOverlay" setAllPoints="true" hidden="true">
+                    <Color r="0.6" g="0.6" b="0.6" a="0.65"/>
+                </Texture>
+                <Texture parentKey="eventTexture" setAllPoints="true" hidden="true">
+                </Texture>
+                <Texture parentKey="currentDayTexture" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="-15" y="15"/>
+                        <Anchor point="BOTTOMRIGHT" x="16" y="-10"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+            
+            </Layer>
+        </Layers>
+        <!-- <Frames>
+            <Button parentKey="event1" >
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" x="2" y="2"/>
+                    <Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+                </Anchors>
+                <HighlightTexture atlas="auctionhouse-nav-button-secondary-select"/>
+            </Button>
+            <Button parentKey="event2" >
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" relativeKey="$parent.event1" x="0" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" relativeKey="$parent.event1" x="0" y="0"/>
+                </Anchors>
+                <HighlightTexture atlas="auctionhouse-nav-button-secondary-select"/>
+            </Button>
+            <Button parentKey="event3" >
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" relativeKey="$parent.event2" x="0" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" relativeKey="$parent.event2" x="0" y="0"/>
+                </Anchors>
+                <HighlightTexture atlas="auctionhouse-nav-button-secondary-select"/>
+            </Button>
+        </Frames> -->
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+
+    <Frame name="GuildbookCalendar" mixin="GuildbookCalendarMixin">
+        <Size x="810" y="400"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture setAllPoints="true">
+                    <Color r="0" g="0" b="0" a="0.5"/>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+            
+            </Layer>
+            <Layer level="ARTWORK">
+            
+            </Layer>
+        </Layers>
+
+        <Frames>
+            <Frame parentKey="monthView">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                    <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                </Anchors>
+            </Frame>
+            <Frame name="$parentSidePanel" parentKey="sidePanel">
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.monthView" relativePoint="RIGHT" x="0" y="0"/>
+                    <Anchor point="TOPRIGHT" x="0" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Frames>
+                    <Button parentKey="previousMonth">
+                        <Size x="30" y="30"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="0"/>
+                        </Anchors>
+                    </Button>
+                    <Button parentKey="nextMonth">
+                        <Size x="30" y="30"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="0" y="0"/>
+                        </Anchors>
+                    </Button>
+                    <Button name="$parentTab1" id="1" parentKey="tab1" inherits="MinimalTabTemplate">
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="4" y="-60"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="tabText" value="Lockouts" type="string"/>
+                            <KeyValue key="tabPanelkey" value="lockouts" type="string"/>
+                        </KeyValues>
+                    </Button>
+                    <Button name="$parentTab2" id="2" parentKey="tab2" inherits="MinimalTabTemplate">
+                        <Anchors>
+                            <Anchor point="LEFT" relativeKey="$parent.tab1" relativePoint="RIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="tabText" value="Events" type="string"/>
+                            <KeyValue key="tabPanelkey" value="events" type="string"/>
+                        </KeyValues>
+                    </Button>
+                    <Frame parentKey="lockouts" inherits="GuildbookWrathEraWidgetsListviewTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="-60"/>
+                            <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture parentKey="background" alpha="0.5">
+                                    <!-- <Color r="0.11" g="0.095" b="0.105" a="0.85"/> -->
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                        <KeyValues>
+                            <KeyValue key="frameType" value="FRAME" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookWrathEraSimpleIconLabelFrame" type="string"/>
+                            <KeyValue key="elementHeight" value="36" type="number"/>
+                        </KeyValues>
+                    </Frame>
+                </Frames>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString parentKey="monthName" inherits="GameFontWhite">
+                            <Anchors>
+                                <Anchor point="TOP" x="0" y="-10"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+        </Frames>
+
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnShow method="OnShow"/>
+        </Scripts>
+    </Frame>
+</Ui>

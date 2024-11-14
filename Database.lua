@@ -1,4 +1,4 @@
-local name, addon = ...;
+local addonName, addon = ...;
 
 local json = LibStub('JsonLua-1.0');
 
@@ -17,13 +17,12 @@ local configUpdates = {
     --settings
     chatGuildHistoryLimit = 30,
     chatWhisperHistoryLimit = 30,
-
-    guildbankAutoShareItems = false,
+    showMainCharacterInChat = true,
+    showMainCharacterSpecInChat = true,
+    wholeNineYards = false,
+    enhancedPaperDoll = true,
 
     modBlizzRoster = false,
-    blizzRosterShowOffline = false,
-
-    enableItemLists = true,
 }
 
 local dbUpdates = {
@@ -36,34 +35,24 @@ local dbUpdates = {
     },
     chats = { --some errors about this causing a bug, maybe old version not getting update in the past
         guild = {},
-        guildOfficer = {},
     },
     --agenda = {},
-    news = {},
-
     itemLists = {},
-
-    --can also use a string for sub keys
-    --added to fix errors where a key exists but not a new sub key
-    ["chats.guildOfficer"] = {},
-
 
     recruitment = {},
 }
 local dbToRemove = {
     "worldEvents",
-    "calendar.birthdays"
+    "calendar.birthdays",
+    "news",
 }
 
 function Database:Init()
 
-    local version = tonumber(C_AddOns.GetAddOnMetadata(name, "Version"));
-    if not version then
-        version = 0.1
-    end
+    local version = tonumber(GetAddOnMetadata(addonName, "Version"));
 
-    if not GUILDBOOK_GLOBAL then
-        GUILDBOOK_GLOBAL = {
+    if not GUILDBOOK_GLOBAL_TEST then
+        GUILDBOOK_GLOBAL_TEST = {
             config = {
                 chatGuildHistoryLimit = 50,
                 chatWhisperHistoryLimit = 50,
@@ -75,7 +64,6 @@ function Database:Init()
             characterDirectory = {},
             chats = {
                 guild = {},
-                guildOfficer = {},
             },
             debug = false,
             version = version,
@@ -89,29 +77,15 @@ function Database:Init()
         }
     end
 
-    --potential bug with users who have older saved variable
-    if not GUILDBOOK_GLOBAL.version then
-        GUILDBOOK_GLOBAL.version = version;
-    end
-
-    self.db = GUILDBOOK_GLOBAL;
+    self.db = GUILDBOOK_GLOBAL_TEST;
 
     for k, v in pairs(dbUpdates) do
-        if k:find(".", nil, true) then
-            local k1, k2 = strsplit(".", k)
-            if k1 and k2 then
-                if self.db[k1] then
-                    self.db[k1][k2] = v
-                end
-            end
-        else
-            if not self.db[k] then
-                self.db[k] = v;
-            end
+        if not self.db[k] then
+            self.db[k] = v;
         end
     end
     for k, v in ipairs(dbToRemove) do
-        if v:find(".") then
+        if v:find(".", nil, true) then --if k:find(".", nil, true) then
             local k1, k2 = strsplit(".", v)
             if k1 and k2 then
                 if self.db[k1] and self.db[k1][k2] then
@@ -126,22 +100,22 @@ function Database:Init()
     end
 
     for k, v in pairs(configUpdates) do
-        if not self.db.config[k] then
+        if self.db.config[k] == nil then
             self.db.config[k] = v;
         end
     end
 
     --there might be old data so clear it out
-    if type(GUILDBOOK_CHARACTER) == "table" then
-        if not GUILDBOOK_CHARACTER.syncData then
-            GUILDBOOK_CHARACTER = nil;
+    if type(GUILDBOOK_CHARACTER_TEST) == "table" then
+        if not GUILDBOOK_CHARACTER_TEST.syncData then
+            GUILDBOOK_CHARACTER_TEST = nil;
         end
     end
 
 
     --per character settings
-    if not GUILDBOOK_CHARACTER then
-        GUILDBOOK_CHARACTER = {
+    if not GUILDBOOK_CHARACTER_TEST then
+        GUILDBOOK_CHARACTER_TEST = {
             syncData = {
                 mainCharacter = 0,
                 publicNote = 0,
@@ -175,77 +149,39 @@ function Database:Init()
         }
     end
 
-    self.charDb = GUILDBOOK_CHARACTER;
+    self.charDb = GUILDBOOK_CHARACTER_TEST;
+
+    self:TidyUpGuildTables()
+
+
+    --update myCharacters to tables
+    for nameRealm, x in pairs(self.db.myCharacters) do
+        if type(x) ~= "table" then
+            self.db.myCharacters[nameRealm] = {
+                reputations = {},
+                currencies = {},
+                containers = {},
+            }
+        end
+    end
 
 
     addon:TriggerEvent("StatusText_OnChanged", "[Database_OnInitialised]")
     addon:TriggerEvent("Database_OnInitialised")
 end
 
-function Database:CleanGuilds()
+function Database:TidyUpGuildTables()
     if self.db then
         for guildName, guild in pairs(self.db.guilds) do
             guild.info = nil
-            guild.logs = {}
-            guild.calendar = {}
-        end
-    end
-end
+            guild.calendar = nil
+            guild.banks = nil
+            guild.bankRules = nil
 
-function Database:DeleteList(list)
-    if self.db and self.db.itemLists and self.db.itemLists[list] then
-        self.db.itemLists[list] = nil;
-    end
-end
 
-function Database:AddItemToList(list, item)
-    if self.db and self.db.itemLists then
-        if not self.db.itemLists[list] then
-            self.db.itemLists[list] = {}
-        end
-        table.insert(self.db.itemLists[list], item)
-    end
-end
-
-function Database:GetItemLists()
-    if self.db and self.db.itemLists then
-        return self.db.itemLists
-    end
-    return {};
-end
-
-function Database:GetItemListItems(list)
-    if self.db and self.db.itemLists then
-        return self.db.itemLists[list] or {};
-    end
-end
-
-function Database:UpdateGuildbankRules(guild, bank, rules)
-    if self.db and self.db.guilds[guild] then
-        self.db.guilds[guild].bankRules[bank] = rules
-        addon:TriggerEvent("StatusText_OnChanged", string.format("[UpdateGuildbankRules] set rules for %s", bank))
-
-        --remove data as per rule changes
-        if addon.thisCharacter and (bank ~= addon.thisCharacter) then
-            if addon.characters and addon.characters[bank] then
-                if rules.shareBags == false then
-                    addon.characters[bank].data.containers.bags = {
-                        items = {
-                        },
-                        slotsFree = 0,
-                        slotsUsed = 0,
-                    }
-                    addon:TriggerEvent("StatusText_OnChanged", string.format("[UpdateGuildbankRules] removed bags data %s", bank))
-                end
-                if rules.shareBanks == false then
-                    addon.characters[bank].data.containers.bank = {
-                        items = {
-                        },
-                        slotsFree = 0,
-                        slotsUsed = 0,
-                    }
-                    addon:TriggerEvent("StatusText_OnChanged", string.format("[UpdateGuildbankRules] removed banks data %s", bank))
-                end
+            --update the recruitment while here
+            if not guild.recruitment then
+                guild.recruitment = {}
             end
         end
     end
@@ -253,7 +189,7 @@ end
 
 function Database:Reset()
 
-    GUILDBOOK_GLOBAL = nil;
+    GUILDBOOK_GLOBAL_TEST = nil;
 
     addon.guilds = {}
     addon.characters = {}
@@ -261,10 +197,9 @@ function Database:Reset()
     self:Init()
 end
 
-function Database:InsertNewsEvent(event)
+function Database:InsertNewsEevnt(event)
     if self.db and self.db.news then
-        event.timestamp = time()
-        table.insert(self.db.news, 1, event)
+        table.insert(self.db.news, event)
         addon:TriggerEvent("Database_OnNewsEventAdded", event)
     end
 end
@@ -284,13 +219,6 @@ function Database:ImportData(data)
     end
 end
 
-function Database:ExportData(key)
-    if key and self.db[key] then
-        local export = json.encode(self.db[key])
-        return export
-    end
-end
-
 function Database:InsertCharacter(character)
     if self.db then
         self.db.characterDirectory[character.name] = character;
@@ -300,14 +228,33 @@ end
 
 function Database:DeleteCharacter(nameRealm)
     if self.db then
-         if self.db.characterDirectory[nameRealm] then
+        if self.db.myCharacters[nameRealm] then
+            self.db.myCharacters[nameRealm] = nil
+        end
+        if self.db.characterDirectory[nameRealm] then
             self.db.characterDirectory[nameRealm] = nil;
-                if addon.characters[nameRealm] then
-                    addon.characters[nameRealm] = nil;
-                end
-            addon:TriggerEvent("Database_OnCharacterRemoved", nameRealm)
-         end
+        end
+        if addon.characters[nameRealm] then
+            addon.characters[nameRealm] = nil;
+        end
+        addon:TriggerEvent("Database_OnCharacterRemoved", nameRealm)
     end
+end
+
+function Database:GetMainForGuild(guild)
+    if self.db and addon.characters then
+        if self.db.guilds[guild] and self.db.guilds[guild].members then
+            for nameRealm, _ in pairs(self.db.guilds[guild].members) do
+                if self.db.myCharacters[nameRealm] and addon.characters[nameRealm] then
+                    local main = addon.characters[nameRealm]:GetMainCharacter()
+                    if type(main) == "string" then
+                        return main
+                    end
+                end
+            end
+        end
+    end
+    return false;
 end
 
 function Database:GetCharacter(nameRealm)
@@ -324,21 +271,6 @@ function Database:GetCharacterNameFromGUID(guid)
             end
         end
     end
-end
-
-
---failed approach
-function Database:GetCharacterGuild(nameRealm)
-    if self.db then
-        for guildName, info in pairs(self.db.guilds) do
-            for name, _ in pairs(info.members) do
-                if name == nameRealm then
-                    return guildName
-                end
-            end
-        end
-    end
-    return "unknown";
 end
 
 function Database:InsertCalendarEvent(event)
@@ -415,6 +347,19 @@ function Database:GetConfig(conf)
     return false;
 end
 
+function Database:DeleteDailyQuest(questID)
+    if self.db and self.db.dailies and self.db.dailies.quests[questID] then
+        self.db.dailies.quests[questID] = nil
+
+        if self.db and self.db.dailies and self.db.dailies.characters then
+            for nameRealm, quests in pairs(self.db.dailies.characters) do
+                quests[questID] = nil
+            end
+        end
+        addon:TriggerEvent("Database_OnDailyQuestDeleted", questID)
+    end
+end
+
 function Database:GetDailyQuestInfo(questID)
     if self.db and self.db.dailies and self.db.dailies.quests[questID] then
         return self.db.dailies.quests[questID]
@@ -473,9 +418,81 @@ function Database:GetCharacterSyncData(key)
     return 0;
 end
 
+function Database:SetMainCharacterForAlts(guild, main, alts)
+    if addon.characters and addon.guilds and addon.guilds[guild] and addon.guilds[guild].members then
+        for k, nameRealm in ipairs(alts) do
+            if addon.characters[nameRealm] and addon.guilds[guild].members[main] then
+                addon.characters[nameRealm]:SetMainCharacter(main)
+
+                --helpful to just add this here, don't use the method just set the data
+                addon.characters[nameRealm].data.alts = alts;
+            end
+        end
+    end
+end
 
 
+function Database:GetMyCharactersForGuild(guildName)
+    local alts = {}
+    if Database.db.myCharacters and addon.guilds and addon.guilds[guildName] and addon.guilds[guildName].members then
+        for name, info in pairs(Database.db.myCharacters) do
+            if addon.guilds[guildName].members[name] then
+                if addon.characters and addon.characters[name] then
+                    table.insert(alts, name)
+                end
+            end
+        end
+    end
+    return alts;
+end
 
+function Database:GetCharacterAlts(mainCharacter)
+
+    local alts = {}
+
+    if type(mainCharacter) == "string" then
+        if self.db then
+            for nameRealm, info in pairs(self.db.characterDirectory) do
+                if info.mainCharacter == mainCharacter then
+                    table.insert(alts, nameRealm)
+                end
+            end
+        end        
+    end
+
+    return alts;
+end
+
+function Database:AddGuildRecruitmentMessage(guild, msg)
+    if self.db and self.db.guilds and self.db.guilds[guild] and self.db.guilds[guild].recruitment then
+        table.insert(self.db.guilds[guild].recruitment, msg)
+        addon:TriggerEvent("Database_OnGuildRecruitmentLogChanged")
+    end
+end
+
+function Database:RemovePlayerFromRecruitment(guild, name)
+    local keys = {}
+    if self.db and self.db.guilds and self.db.guilds[guild] and self.db.guilds[guild].recruitment then
+        for k, v in ipairs(self.db.guilds[guild].recruitment) do
+            local _name = strsplit(":", v)
+            if _name == name then
+                table.insert(keys, k)
+            end
+        end
+
+        if #keys > 0 then
+            for i = #keys, 1, -1 do
+                table.remove(self.db.guilds[guild].recruitment, keys[i])
+            end
+        end
+    end
+end
+
+function Database:GetGuildRecruitmentHistory(guild)
+    if self.db and self.db.guilds and self.db.guilds[guild] and self.db.guilds[guild].recruitment then
+        return self.db.guilds[guild].recruitment;
+    end
+end
 
 function Database:InsertRecruitmentCSV(csv)
     if self.db and self.db.recruitment then
@@ -513,7 +530,5 @@ function Database:CleanUpRecruitment()
         end
     end
 end
-
-
 
 addon.Database = Database;

@@ -17,11 +17,13 @@ local addonName, addon = ...
 ]]
 local L = {
 
+	ENTER_YOUR_MESSAGE_HERE = "Enter your message here.",
+
 	--====================================================================================
 	--ribbon
 	--====================================================================================
 	RIBBON_VIEW_HISTORY_BACK_TT = "Go back",
-	GUIDE = "Guide (Instances)",
+	ITEM_LISTS = "Item Lists",
 
 	--====================================================================================
 	--profile (member details not guild treeview)
@@ -39,10 +41,24 @@ local L = {
 	TRADESKILLS_RECIPES_SHOW_ITEMID_CB = "Show ItemID",
 
 	--====================================================================================
+	--item lists
+	--====================================================================================
+	ITEM_LISTS_SOURCE_HELPTIP = "Select the items source from the dropdowns.\n\nFaction and Item Sets data will persist after the initial load.\n\nInstance data will load on demand as per any filters.",
+	ITEM_LISTS_LISTS_HELPTIP = "Create, select and delete lists here.\n\nWhen you have a list you can simply drag and drop items into it.",
+
+
+	--====================================================================================
 	--guild bank
 	--====================================================================================
 	BANK_CHARACTER_LISTVIEW_HT = "Guild bank characters are listed here, select a character to view the bank items.\n\nYour own characters also show here so you can view personal bank/alt items.",
 	BANK_CHARACTER_REFRESH_HT = "Click here to refresh the Guild bank data.\n\nThere will be a delay as each bank character's data gets requested. Guildbook will use the latest data available from players online.",
+
+	--====================================================================================
+	--guild management
+	--====================================================================================
+
+	EDIT_CHARACTER_HEADER = "Edit guild members data, this feature is available to all guild members above the lowest 2 ranks. Changes will be shared to all online guild members using the addon.",
+	INVITES_HEADER = "Search using the in game /who, select a class you are looking for to see characters not currently in a guild. (/who restrictions apply)",
 
 	--====================================================================================
 	--settings
@@ -75,18 +91,19 @@ local L = {
 	--guild bank
 	GUILDBANK = "Guild Bank",
 	SETTINGS_GUILDBANK_GENERAL = "",
-	SETTINGS_GUILDBANK_HT = "You can set rules for your own bank characters.\n\nClick the rank button to cycle through guild ranks.\n\nSelect which containers to share.\n\nClick 'Sync' to update settings with online players.",
 
 	--chat
 	CHAT = "Chat",
+	SETTINGS_CHAT_SHOW_MAIN = "Show main character in guild chat",
+	SETTINGS_CHAT_SHOW_MAIN_SPEC = "Add main character spec icon in guild chat",
 	SETTINGS_CHAT_GENERAL = "Set the limits for your message history. Larger limits may cause issues on busy accounts.",
-
-	SETTINGS_ITEM_LISTS_CB = "Enable item lists",
 
 	--addon
 	ADDON = "Addon",
 	SETTINGS_ADDON_GENERAL = "Addon config options, if something goes wrong you can enable debug or reset the addon completely.",
 	SETTINGS_ADDON_DEBUG_LABEL = "Debug",
+	SETTINGS_ADDON_ENHANCE_PAPERDOLL_LABEL = "Enhanced Character Panel.",
+	SETTINGS_ADDON_WNY_LABEL = "Go big, load all data when you log in.\n\nWarning!\nThis will maybe cause some frame rate issues and potentially trigger a super massive black hole. But you do you.",
 
 
 	--\n|cffF52323Warning!
@@ -504,14 +521,6 @@ if locale == "deDE" then
     L['RaidRoster'] = 'Raid Roster |cffffffff(Rechtsklick auf einen Spieler für mehr Optionen.)|r'
     L['Cancel'] = 'Abbrechen'
     L['GuildBank'] = 'Gildenbank'
-    L['SETTINGS_TRADESKILLS_TT_REAGENT_FOR_HEADER'] = 'Reagenz für die folgenden Rezepte'
-    L['TRADESKILLS'] = 'Fertigkeiten'
-    L['REAGENT'] = 'Reagenz'
-    L['SETTINGS_TRADESKILLS_GENERAL'] = 'Zeige Tooltip-Informationen für Fertigkeitsgegenstände und Reagenzien.'
-    L['SETTINGS_TRADESKILLS_TT_RECIPE_INFO_ALL'] = 'Zeige Rezeptinformationen im Tooltip (für alle Fertigkeiten).'
-    L['SETTINGS_TRADESKILLS_TT_RECIPE_INFO_MY'] = 'Zeige Rezeptinformationen im Tooltip (nur meine Fertigkeiten).'
-    L['SETTINGS_TRADESKILLS_TT_REAGENT_FOR_ALL'] = 'Zeige alle Rezepte im Tooltip, die ein Item verwenden können.'
-    L['SETTINGS_TRADESKILLS_TT_REAGENT_FOR_MY'] = 'Zeige nur meine Rezepte im Tooltip, die ein Item verwenden können.'
 
     --professions
     L['Alchemy'] = "Alchimie"

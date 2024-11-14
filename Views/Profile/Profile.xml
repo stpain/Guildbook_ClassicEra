@@ -29,11 +29,18 @@
                                 <Anchor point="TOPRIGHT" x="0" y="-5"/>
                             </Anchors>
                         </FontString>
-                        <FontString parentKey="mainCharacter" inherits="GameFontNormal" text="">
-                            <Size y="16"/>
+                        <FontString parentKey="achievementPoints" inherits="GameFontWhite" text="">
+                            <Size y="1"/>
                             <Anchors>
                                 <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.name" x="0" y="-10"/>
                                 <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" relativeKey="$parent.name" x="0" y="-10"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString parentKey="mainCharacter" inherits="GameFontNormal" text="">
+                            <Size y="16"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.achievementPoints" x="0" y="-10"/>
+                                <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" relativeKey="$parent.achievementPoints" x="0" y="-10"/>
                             </Anchors>
                         </FontString>
                         <FontString parentKey="mainSpec" inherits="GameFontNormalLarge" text="-">
@@ -47,18 +54,18 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="listview" inherits = "GuildbookClassicEraWidgetsListviewTemplate">
+                    <Frame parentKey="listview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
                         <Anchors>
                             <Anchor point="TOP" relativeKey="$parent.mainSpec" relativePoint="BOTTOM" x="0" y="-15"/>
                             <Anchor point="BOTTOMLEFT" x="0" y="0"/>
                             <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                         </Anchors>
                         <KeyValues>
-                            <KeyValue key="itemTemplate" value="GuildbookClassicEraSimpleIconLabelFrame" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookWrathEraSimpleIconLabelFrame" type="string"/>
                             <KeyValue key="elementHeight" value="32" type="number"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="helptip" frameLevel="7" inherits = "GuildbookClassicEraHelpTipTemplate_RightArrow">
+                    <Frame parentKey="helptip" frameLevel="7" inherits = "GuildbookWrathEraHelpTipTemplate_RightArrow">
                         <Size x="200" y="210"/>
                         <Anchors>
                             <Anchor point="RIGHT" relativeKey="$parent.listview" relativePoint="LEFT" x="-20" y="60"/>
@@ -76,24 +83,24 @@
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
                 <Frames>
-                    <ScrollFrame parentKey="resistanceGridview" inherits = "GuildbookClassicEraWidgetsGridviewTemplate">
+                    <ScrollFrame parentKey="resistanceGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" x="0" y="0"/>
                         </Anchors>
                     </ScrollFrame>
-                    <Frame parentKey="equipmentHelptip" frameLevel="7" inherits = "GuildbookClassicEraHelpTipTemplate_RightArrow">
+                    <Frame parentKey="equipmentHelptip" frameLevel="7" inherits = "GuildbookWrathEraHelpTipTemplate_RightArrow">
                         <Size x="360" y="140"/>
                         <Anchors>
                             <Anchor point="RIGHT" relativeKey="$parent.resistanceGridview" relativePoint="LEFT" x="-10" y="-80"/>
                         </Anchors>
                     </Frame>
-                    <ScrollFrame parentKey="auraGridview" inherits = "GuildbookClassicEraWidgetsGridviewTemplate">
+                    <ScrollFrame parentKey="auraGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeKey="$parent.resistanceGridview" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
                             <Anchor point="TOPLEFT" relativeKey="$parent.resistanceGridview" relativePoint="BOTTOMLEFT" x="0" y="0"/>
                         </Anchors>
                     </ScrollFrame>
-                    <Frame parentKey="statsListview" inherits = "GuildbookClassicEraWidgetsListviewTemplate">
+                    <Frame parentKey="statsListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeKey="$parent.auraGridview" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
                             <Anchor point="TOPLEFT" relativeKey="$parent.auraGridview" relativePoint="BOTTOMLEFT" x="0" y="0"/>
@@ -107,11 +114,11 @@
                         </Layers>
                         <KeyValues>
                             <KeyValue key="frameType" value="FRAME" type="string"/>
-                            <KeyValue key="itemTemplate" value="GuildbookClassicEraStatsGroup" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookWrathEraStatsGroup" type="string"/>
                             <KeyValue key="elementHeight" value="26" type="number"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="equipmentListview" inherits = "GuildbookClassicEraWidgetsListviewTemplate">
+                    <Frame parentKey="equipmentListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="0" y="-32"/>
                             <Anchor point="BOTTOMLEFT" x="0" y="0"/>
@@ -129,17 +136,17 @@
                         </Layers>
                         <KeyValues>
                             <KeyValue key="frameType" value="FRAME" type="string"/>
-                            <KeyValue key="itemTemplate" value="GuildbookClassicEraSimpleIconLabelFrame" type="string"/>
+                            <KeyValue key="itemTemplate" value="TBDSimpleIconLabelFrame" type="string"/>
                             <KeyValue key="elementHeight" value="32" type="number"/>
                         </KeyValues>                        
                     </Frame>
-                    <Button parentKey="equipmentMenu" inherits="GuildbookClassicEraWidgetsDropDownTemplate">
+                    <Button parentKey="equipmentMenu" inherits="TBDDropDownTemplate">
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" relativeKey="$parent.equipmentListview" relativePoint="TOPLEFT" x="0" y="0"/>
                         </Anchors>
                         <Size x="120" y="32"/>
                     </Button>
-                    <Button parentKey="exportButton" inherits="GuildbookClassicEraSmallHighlightButton">
+                    <Button parentKey="exportButton" inherits="GuildbookWrathEraSmallHighlightButton">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeKey="$parent.resistanceGridview" relativePoint="TOPLEFT" x="0" y="0"/>
                         </Anchors>
@@ -183,50 +190,71 @@
                     <Anchor point="TOPLEFT" relativeKey="$parent.sidePane" relativePoint="TOPRIGHT" x="0" y="0"/>
                     <Anchor point="TOPRIGHT" x="0" y="0"/>
                 </Anchors>
-                <Size y="50"/>
+                <Size y="90"/>
                 <Layers>
                     <Layer level="BACKGROUND">
                         
                     </Layer>
                     <Layer level="OVERLAY">
-                        <FontString parentKey="major1" inherits="GameFontNormal">
+                        <FontString parentKey="prime1" inherits="GameFontNormal">
                             <Color r="1" g="1" b="1"/>
-                            <Size y="25"/>
+                            <Size y="30"/>
                             <Anchors>
                                 <Anchor point="TOPLEFT" x="0" y="0"/>
                             </Anchors>
                         </FontString>
+                        <FontString parentKey="prime2" inherits="GameFontNormal">
+                            <Color r="1" g="1" b="1"/>
+                            <Size y="30"/>
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.prime1" relativePoint="RIGHT" x="0" y="0"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString parentKey="prime3" inherits="GameFontNormal">
+                            <Color r="1" g="1" b="1"/>
+                            <Size y="30"/>
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.prime2" relativePoint="RIGHT" x="0" y="0"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString parentKey="major1" inherits="GameFontNormal">
+                            <Color r="1" g="1" b="1"/>
+                            <Size y="30"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="0" y="-30"/>
+                            </Anchors>
+                        </FontString>
                         <FontString parentKey="major2" inherits="GameFontNormal">
                             <Color r="1" g="1" b="1"/>
-                            <Size y="25"/>
+                            <Size y="30"/>
                             <Anchors>
                                 <Anchor point="LEFT" relativeKey="$parent.major1" relativePoint="RIGHT" x="0" y="0"/>
                             </Anchors>
                         </FontString>
                         <FontString parentKey="major3" inherits="GameFontNormal">
                             <Color r="1" g="1" b="1"/>
-                            <Size y="25"/>
+                            <Size y="30"/>
                             <Anchors>
                                 <Anchor point="LEFT" relativeKey="$parent.major2" relativePoint="RIGHT" x="0" y="0"/>
                             </Anchors>
                         </FontString>
                         <FontString parentKey="minor1" inherits="GameFontNormal">
                             <Color r="1" g="1" b="1"/>
-                            <Size y="25"/>
+                            <Size y="30"/>
                             <Anchors>
                                 <Anchor point="BOTTOMLEFT" x="0" y="0"/>
                             </Anchors>
                         </FontString>
                         <FontString parentKey="minor2" inherits="GameFontNormal">
                             <Color r="1" g="1" b="1"/>
-                            <Size y="25"/>
+                            <Size y="30"/>
                             <Anchors>
                                 <Anchor point="LEFT" relativeKey="$parent.minor1" relativePoint="RIGHT" x="0" y="0"/>
                             </Anchors>
                         </FontString>
                         <FontString parentKey="minor3" inherits="GameFontNormal">
                             <Color r="1" g="1" b="1"/>
-                            <Size y="25"/>
+                            <Size y="30"/>
                             <Anchors>
                                 <Anchor point="LEFT" relativeKey="$parent.minor2" relativePoint="RIGHT" x="0" y="0"/>
                             </Anchors>
@@ -237,12 +265,12 @@
 
             <Frame parentKey="talents" parentArray="contentViews" hidden="true">
                 <Anchors>
-                    <Anchor point="TOPLEFT" relativeKey="$parent.sidePane" relativePoint="TOPRIGHT" x="0" y="0"/>
-                    <Anchor point="TOPRIGHT" x="0" y="0"/>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.glyphs" relativePoint="BOTTOMLEFT" x="0" y="0"/>
+                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.sidePane" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
                 <Frames>
-                    <Button parentKey="primarySpec" hidden="true">
+                    <Button parentKey="primarySpec">
                         <Size x="70" y="70"/>
                         <Anchors>
                             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="2" y="-30"/>
@@ -262,7 +290,7 @@
                             </Layer>
                         </Layers>
                     </Button>
-                    <Button parentKey="secondarySpec" hidden="true">
+                    <Button parentKey="secondarySpec">
                         <Size x="70" y="70"/>
                         <Anchors>
                             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="2" y="-90"/>
@@ -295,7 +323,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookClassicEraWidgetsGridviewTemplate">
+                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="0"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
@@ -316,7 +344,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookClassicEraWidgetsGridviewTemplate">
+                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="0"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
@@ -338,7 +366,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookClassicEraWidgetsGridviewTemplate">
+                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="0"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>

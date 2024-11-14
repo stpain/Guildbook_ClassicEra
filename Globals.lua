@@ -1,45 +1,11 @@
 local addonName, addon = ...;
 
+local libGlow = LibStub("LibCustomGlow-1.0")
+
 local Database = addon.Database;
 local Character = addon.Character;
 local Talents = addon.Talents;
 local Tradeskills = addon.Tradeskills;
-
-local classData = {
-    DEATHKNIGHT = { 
-        specializations={'Blood','Frost','Unholy'} 
-    },
-    ["DEATH KNIGHT"] = { 
-        specializations={'Blood','Frost','Unholy'} 
-    },
-    DRUID = { 
-        specializations={'Balance', 'Cat' ,'Bear', 'Restoration',}
-    },
-    HUNTER = { 
-        specializations={'Beast Master', 'Marksmanship','Survival',} 
-    },
-    MAGE = { 
-        specializations={'Arcane', 'Fire','Frost',} 
-    },
-    PALADIN = { 
-        specializations={'Holy','Protection','Retribution',} 
-    },
-    PRIEST = { 
-        specializations={'Discipline','Holy','Shadow',} 
-    },
-    ROGUE = { 
-        specializations={'Assassination','Combat','Subtlety',} -- outlaw = combat
-    },
-    SHAMAN = { 
-        specializations={'Elemental', 'Enhancement', 'Restoration'} 
-    },
-    WARLOCK = {  
-        specializations={'Affliction','Demonology','Destruction',} 
-    },
-    WARRIOR = { 
-        specializations={'Arms','Fury','Protection',} 
-    },
-}
 
 addon.characterDefaults = {
     guid = "",
@@ -88,11 +54,7 @@ addon.characterDefaults = {
     auras = {
         current = {},
     },
-    containers = {
-        bags = {},
-        copper = 0,
-        banks = {},
-    },
+    containers = {},
     lockouts = {},
 }
 
@@ -120,8 +82,7 @@ addon.contextMenuSeparator = {
         tSizeX = 0,
         tSizeY = 8,
         tFitDropDownSizeX = true
-    }
-}
+    }}
 
 --create these at addon level
 addon.thisCharacter = "";
@@ -142,9 +103,44 @@ addon.recruitment = {
 
 addon.api = {
     classic = {},
-    sod = {},
     wrath = {},
+    cata = {},
 }
+
+
+function addon.api.easyMenu(parent, menu)
+    if MenuUtil then
+        MenuUtil.CreateContextMenu(parent, function(parent, rootDescription)
+
+            for _, element in ipairs(menu) do
+                if element.isTitle then
+                    rootDescription:CreateTitle(element.text)
+    
+                elseif element.isSeparater then
+                    rootDescription:CreateSpacer()
+    
+                elseif element.isDivider then
+                    rootDescription:CreateDivider()
+    
+                else
+                    rootDescription:CreateButton(element.text, element.func)
+                end
+            end
+        end)
+    end
+end
+
+--[[
+
+EasyMenu was used in many places, for now  just hack it back into the global space and pass through to the new Menu stuff
+
+old signature
+
+EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 0.6)
+]]
+function EasyMenu(menuTable, menuFrame)
+    addon.api.easyMenu(menuFrame, menuTable)
+end
 
 local debugTypeIcons = {
     warning = "services-icon-warning",
@@ -153,12 +149,467 @@ local debugTypeIcons = {
     comms_in = "voicechat-channellist-icon-headphone-on",
     comms_out = "voicechat-icon-textchat-silenced",
     bank = "ShipMissionIcon-Treasure-Mission",
+    tradeskills = "Mobile-Alchemy",
 }
 
+local debugTypeIDs = {
+    warning = 1,
+    info = 2,
+    comms = 3,
+    comms_in = 4,
+    comms_out = 5,
+    bank = 6,
+    tradeskills = 7,
+    character = 8,
+}
+
+addon.paperDollSlotNames = {    
+    ["CharacterHeadSlot"] = { allignment = "right", slotID = 1, },
+    ["CharacterNeckSlot"] = { allignment = "right", slotID = 2, },
+    ["CharacterShoulderSlot"] = { allignment = "right", slotID = 3, },
+    ["CharacterBackSlot"] = { allignment = "right", slotID = 15, },
+    ["CharacterChestSlot"] = { allignment = "right", slotID = 5, },
+    --["CharacterShirtSlot"] = { allignment = "right", slotID = 4, },
+    --["CharacterTabardSlot"] = { allignment = "right", slotID = 19, },
+    ["CharacterWristSlot"] = { allignment = "right", slotID = 9, },
+
+    ["CharacterHandsSlot"] = { allignment = "left", slotID = 10, },
+    ["CharacterWaistSlot"] = { allignment = "left", slotID = 6, },
+    ["CharacterLegsSlot"] = { allignment = "left", slotID = 7, },
+    ["CharacterFeetSlot"] = { allignment = "left", slotID = 8, },
+    ["CharacterFinger0Slot"] = { allignment = "left", slotID = 11, },
+    ["CharacterFinger1Slot"] = { allignment = "left", slotID = 12, },
+    ["CharacterTrinket0Slot"] = { allignment = "left", slotID = 13, },
+    ["CharacterTrinket1Slot"] = { allignment = "left", slotID = 14, },
+
+    ["CharacterMainHandSlot"] = { allignment = "top", slotID = 16, },
+    ["CharacterSecondaryHandSlot"] = { allignment = "top", slotID = 17, },
+    ["CharacterRangedSlot"] = { allignment = "top", slotID = 18, },
+}
+
+local ignoreEnchantSlotIDs = {
+    [true] = {
+        [2] = true,
+        [6] = true,
+        [13] = true,
+        [14] = true,
+    },
+    [false] = {
+        [2] = true,
+        [6] = true,
+        [11] = true,
+        [12] = true,
+        [13] = true,
+        [14] = true,
+    },
+}
+
+addon.itemQualityAtlas_Overlay = {
+    [2] = "bags-glow-green",
+    [3] = "bags-glow-blue",
+    [4] = "bags-glow-purple",
+    [5] = "bags-glow-orange",
+
+    -- [2] = "loottab-set-itemborder-green",
+    -- [3] = "loottab-set-itemborder-blue",
+    -- [4] = "loottab-set-itemborder-purple",
+    -- [5] = "loottab-set-itemborder-orange",
+}
+
+addon.itemQualityAtlas_Borders = {
+    [2] = "loottab-set-itemborder-green",
+    [3] = "loottab-set-itemborder-blue",
+    [4] = "loottab-set-itemborder-purple",
+    [5] = "loottab-set-itemborder-orange",
+
+    ["ff1eff00"] = "loottoast-itemborder-green",
+    ["ff0070dd"] = "loottoast-itemborder-blue",
+    ["ffa335ee"] = "loottoast-itemborder-purple",
+    ["ffff8000"] = "loottoast-itemborder-orange",
+}
+
+local breakLink = function(link)
+    return string.match(link, [[|H([^:]*):([^|]*)|h(.*)|h]])
+end
+
+--local socketAtlas = "auctionhouse-icon-socket";
+local socketFileIDs = {
+    EMPTY_SOCKET_BLUE = 136256,
+    EMPTY_SOCKET_META = 136257,
+    EMPTY_SOCKET_RED = 136258,
+    EMPTY_SOCKET_YELLOW = 136259,
+    EMPTY_SOCKET_PRISMATIC = 458977,
+}
+local socketOrder = {
+    [1] = "EMPTY_SOCKET_META",
+    [2] = "EMPTY_SOCKET_RED",
+    [3] = "EMPTY_SOCKET_YELLOW",
+    [4] = "EMPTY_SOCKET_BLUE",
+    [5] = "EMPTY_SOCKET_PRISMATIC",
+}
+local socketIconSize = 14;
+local paperdollOverlays = {}
+
+local function ScanTooltip(link, unit, slot)
+
+    local t = {}
+
+    GuildbookScanningTooltip:ClearLines()
+
+    if link then
+        GuildbookScanningTooltip:SetHyperlink(link)
+        
+    elseif unit and slot then
+        GuildbookScanningTooltip:SetInventoryItem(unit, slot)
+    end
+
+    local regions = {GuildbookScanningTooltip:GetRegions()}
+    for k, region in ipairs(regions) do
+        if region and region:GetObjectType() == "FontString" then
+            local text = region:GetText()
+            if type(text) == "string" then
+                table.insert(t, text)
+                -- local number = tonumber(text:match("%-?%d+"))
+                -- if number then
+                --     table.insert(t, {
+                --         attribute = text:gsub("%-?%d+", "%%d"),
+                --         value = number,
+                --         displayText = text,
+                --     })
+                -- else
+                --     for k, socket in ipairs(sockets) do
+                --         if text == _G[socket] then
+                --             table.insert(t, {
+                --                 attribute = text:gsub("%-?%d+", "%%d"),
+                --                 value = number or 1,
+                --                 displayText = text,
+                --             })
+                --         end
+                --     end
+                -- end
+            end
+        end
+    end
+    return t;
+end
+
+local function GetItemSocketInfo(link)
+    
+    local x, payload = breakLink(link)
+
+    local itemID, enchantID, gem1, gem2, gem3 = strsplit(":", payload)
+
+    if itemID == "57268" then
+
+        -- DevTools_Dump({strsplit(":", payload)})
+
+        -- local stats = GetItemStats(link)
+        -- for k, v in pairs(stats) do
+        --     print(k, v)
+        -- end
+
+        -- local name, id = C_Item.GetItemSpell(link)
+        -- print(name, id)
+
+        -- local lines = ScanTooltip(link)
+        -- DevTools_Dump(lines)
+    end
+
+    enchantID = tonumber(enchantID)
+    gem1 = tonumber(gem1)
+    gem2 = tonumber(gem2)
+    gem3 = tonumber(gem3)
+
+    local gems = { gem1, gem2, gem3, }
+
+    local ret = {
+        numSockets = 0,
+        numEmptySockets = 0,
+        actualSocketString = "",
+        missingSocketsString = "",
+    }
+
+    local sockets = {}
+    local itemSocketsOrderd = {}
+
+    local stats = GetItemStats(link)
+    for k, v in pairs(stats) do
+        if k:find("SOCKET", nil, true) then
+            if not sockets[k] then
+                sockets[k] = 1;
+            else
+                sockets[k] = sockets[k] + 1;
+            end
+            ret.numSockets = ret.numSockets + 1;
+        end
+    end
+
+    if ret.numSockets > 0 then
+
+        for k, socketType in ipairs(socketOrder) do
+            if type(sockets[socketType]) == "number" and (sockets[socketType] > 0) then
+                for i = 1, sockets[socketType] do
+                    table.insert(itemSocketsOrderd, socketFileIDs[socketType])
+                end
+            end
+        end
+
+        -- print(link)
+        -- DevTools_Dump(sockets)
+        -- DevTools_Dump(itemSocketsOrderd)
+        
+        for i = 1, 3 do
+
+            if type(gems[i]) == "number" then
+                
+                ret.actualSocketString = string.format("%s %s", ret.actualSocketString, CreateSimpleTextureMarkup(select(5, GetItemInfoInstant(gems[i])), socketIconSize, socketIconSize, 0, 0))
+            
+            elseif type(itemSocketsOrderd[i]) == "number" then
+                
+                ret.actualSocketString = string.format("%s %s", ret.actualSocketString, CreateSimpleTextureMarkup(itemSocketsOrderd[i], socketIconSize+2, socketIconSize+2, 0, 0))
+                ret.missingSocketsString = string.format("%s %s", ret.missingSocketsString, CreateSimpleTextureMarkup(itemSocketsOrderd[i], socketIconSize+2, socketIconSize+2, 0, 0))
+                
+                ret.numEmptySockets = ret.numEmptySockets + 1;
+            
+            end
+        end
+    end
+
+    return ret;
+end
+
+
+function addon.api.updatePaperdollOverlays()
+
+    if Database:GetConfig("enhancedPaperDoll") == false then
+        addon.api.hidePaperdollOverlays()
+        return
+    end
+
+    local minItemLevel, maxItemLevel = 0, 0;
+    local prof1Id, prof2Id;
+    local prof1, prof2 = GetProfessions()
+    if prof1 then
+        prof1Id = select(7, GetProfessionInfo(prof1))
+    end
+    if prof2 then
+        prof2Id = select(7, GetProfessionInfo(prof2))
+    end
+
+    local isEnchanter = (prof1Id == 333 or prof2Id == 333) and true or false;
+
+    --print(isEnchanter)
+
+    for frame, info in pairs(addon.paperDollSlotNames) do
+        if not paperdollOverlays[frame] then
+
+            local qualityOverlay = _G[frame]:CreateTexture(nil, "BORDER", nil, 6)
+            qualityOverlay:SetAllPoints()
+            qualityOverlay:SetAlpha(0.7)
+
+            -- local enchantBorder = _G[frame]:CreateTexture(nil, "BORDER", nil, 7)
+            -- enchantBorder:SetAtlas("Forge-ColorSwatchSelection")
+            -- --enchantBorder:SetTexture(130744)
+            -- enchantBorder:SetPoint("TOPLEFT", -2, 1)
+            -- enchantBorder:SetPoint("BOTTOMRIGHT", 1, -2)
+            -- enchantBorder:SetAlpha(0.9)
+            -- _G[frame].enchantBorder = enchantBorder;
+
+            -- local enchantedAnimation = _G[frame]:CreateAnimationGroup()
+            -- enchantedAnimation:SetLooping("BOUNCE")
+            -- local fadeIn = enchantedAnimation:CreateAnimation("Alpha")
+            -- fadeIn:SetChildKey("enchantBorder")
+            -- fadeIn:SetDuration(0.5)
+            -- fadeIn:SetFromAlpha(0)
+            -- fadeIn:SetToAlpha(1)
+
+            local itemLevelLabel = _G[frame]:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+            local empySocketLabel = _G[frame]:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+            if info.allignment == "right" then
+                --itemLevelLabel:SetPoint("TOPLEFT", _G[frame], "TOPRIGHT", 10, -8)
+                itemLevelLabel:SetPoint("BOTTOMRIGHT", -3, 3)
+                empySocketLabel:SetPoint("BOTTOMLEFT", _G[frame], "BOTTOMRIGHT", 8, 2)
+            elseif info.allignment == "left" then
+                --itemLevelLabel:SetPoint("TOPRIGHT", _G[frame], "TOPLEFT", -10, -8)
+                itemLevelLabel:SetPoint("BOTTOMLEFT", 3, 3)
+                empySocketLabel:SetPoint("BOTTOMRIGHT", _G[frame], "BOTTOMLEFT", -12, 2)
+            else
+                --itemLevelLabel:SetPoint("BOTTOM", _G[frame], "TOP", 0, 22)
+                itemLevelLabel:SetPoint("BOTTOM", 0, 3)
+                empySocketLabel:SetPoint("BOTTOM", _G[frame], "TOP", 0, 6)
+            end
+
+            paperdollOverlays[frame] = {
+                qualityOverlay = qualityOverlay,
+                itemLevelLabel = itemLevelLabel,
+                empySocketLabel = empySocketLabel,
+                --enchantBorder = enchantBorder,
+                --borderAnimation = enchantedAnimation,
+            }
+
+        end
+
+        local link = GetInventoryItemLink("player", info.slotID)
+        if link then
+
+            local x, payload = breakLink(link)
+
+            local itemID, enchantID, gem1, gem2, gem3 = strsplit(":", payload)
+
+            local shouldHaveEnchant
+
+            if ignoreEnchantSlotIDs[isEnchanter][info.slotID] then
+                --print("ignore slot")
+                shouldHaveEnchant = false
+            else
+                enchantID = tonumber(enchantID)
+                shouldHaveEnchant = true
+                --print("converted to number")
+            end
+
+            if info.slotID == 18 then
+                local _, _, classID = UnitClass("player")
+                if (classID == 2) or (classID == 5) or (classID == 7) or (classID == 8) or (classID == 9) or (classID == 11) then
+                    shouldHaveEnchant = false;
+                end
+            end
+
+
+            --print(info.slotID, type(enchantID))
+
+            local socketInfo = GetItemSocketInfo(link)
+
+            local _, _, quality, itemLevel = GetItemInfo(link)
+
+            if minItemLevel == 0 then
+                minItemLevel = itemLevel
+            else
+                if itemLevel < minItemLevel then
+                    minItemLevel = itemLevel
+                end
+            end
+            if maxItemLevel == 0 then
+                maxItemLevel = itemLevel
+            else
+                if itemLevel > maxItemLevel then
+                    maxItemLevel = itemLevel
+                end
+            end
+
+            paperdollOverlays[frame].itemLevel = itemLevel;
+            paperdollOverlays[frame].itemQuality = quality;
+            paperdollOverlays[frame].socketString = socketInfo and socketInfo.missingSocketsString or "";
+            if type(enchantID) == "number" then
+                paperdollOverlays[frame].enchanted = true
+            else
+                if shouldHaveEnchant then
+                    paperdollOverlays[frame].enchanted = false
+                end
+            end
+
+        else
+            paperdollOverlays[frame].itemLevel = false;
+            paperdollOverlays[frame].itemQuality = false;
+            paperdollOverlays[frame].socketString = false;
+            paperdollOverlays[frame].enchanted = false;
+        end
+    end
+
+    local itemLevelGap = maxItemLevel - minItemLevel;
+
+    for f, info in pairs(paperdollOverlays) do
+
+        info.itemLevelLabel:Hide()
+        info.qualityOverlay:Hide()
+        info.empySocketLabel:Hide()
+        -- info.enchantBorder:Hide()
+        -- info.borderAnimation:Stop()
+        libGlow.PixelGlow_Stop(_G[f])
+
+        if (type(info.itemLevel) == "number") and (info.enchanted == false) then
+        --     info.enchantBorder:Show()
+        --     info.borderAnimation:Play()
+
+        libGlow.PixelGlow_Start(_G[f])
+        --libGlow.AutoCastGlow_Start(_G[f])
+        --libGlow.ButtonGlow_Start(_G[f])
+        end
+
+        if type(info.socketString) == "string" then
+            info.empySocketLabel:SetText(info.socketString)
+            info.empySocketLabel:Show()
+        end
+
+        if type(info.itemLevel) == "number" then
+            local r, g, b = addon.api.getcolourGradientFromPercent(((info.itemLevel - minItemLevel) / itemLevelGap) * 100)
+            info.itemLevelLabel:SetText(info.itemLevel)
+            info.itemLevelLabel:SetTextColor(r,g,b,1)
+            info.itemLevelLabel:Show()
+        end
+
+        if type(info.itemQuality) == "number" and info.itemQuality > 1 then
+            info.qualityOverlay:SetAtlas(addon.itemQualityAtlas_Overlay[info.itemQuality])
+            info.qualityOverlay:Show()
+        end
+    end
+
+end
+
+function addon.api.hidePaperdollOverlays()
+    for f, info in pairs(paperdollOverlays) do
+        info.itemLevelLabel:Hide()
+        info.qualityOverlay:Hide()
+        info.empySocketLabel:Hide()
+        -- info.enchantBorder:Hide()
+        -- info.borderAnimation:Stop()
+
+        libGlow.PixelGlow_Stop(_G[f])
+        --libGlow.AutoCastGlow_Stop(_G[f])
+        --libGlow.ButtonGlow_Stop(_G[f])
+    end
+end
+
+function addon.api.getNineSliceTooltipBorder(borderOffset)
+    return {
+        ["TopRightCorner"] = { atlas = "Tooltip-NineSlice-CornerTopRight", x = borderOffset, y = borderOffset },
+        ["TopLeftCorner"] = { atlas = "Tooltip-NineSlice-CornerTopLeft", x = -borderOffset, y = borderOffset },
+        ["BottomLeftCorner"] = { atlas = "Tooltip-NineSlice-CornerBottomLeft", x = -borderOffset, y = -borderOffset },
+        ["BottomRightCorner"] = { atlas = "Tooltip-NineSlice-CornerBottomRight", x = borderOffset, y = -borderOffset },
+        ["TopEdge"] = { atlas = "_Tooltip-NineSlice-EdgeTop" },
+        ["BottomEdge"] = { atlas = "_Tooltip-NineSlice-EdgeBottom" },
+        ["LeftEdge"] = { atlas = "!Tooltip-NineSlice-EdgeLeft" },
+        ["RightEdge"] = { atlas = "!Tooltip-NineSlice-EdgeRight" },
+        ["Center"] = { layer = "BACKGROUND", atlas = "Tooltip-Glues-NineSlice-Center", x = -4, y = 4, x1 = 4, y1 = -4 },
+    }
+end
+
+function addon.api.getcolourGradientFromPercent(percent, reverse)
+
+    if reverse then
+        local g = (percent > 50 and 1 - 2 * (percent - 50) / 100.0 or 1.0);
+        local r = (percent > 50 and 1.0 or 2 * percent / 100.0);
+        local b = 0.0;
+    
+        return r, g, b;
+    else
+        local r = (percent > 50 and 1 - 2 * (percent - 50) / 100.0 or 1.0);
+        local g = (percent > 50 and 1.0 or 2 * percent / 100.0);
+        local b = 0.0;
+    
+        return r, g, b;
+    end
+end
+
 function addon.LogDebugMessage(debugType, debugMessage, debugTooltip)
+
+    if not addon.debugMessages then
+        addon.debugMessages = {}
+    end
+
     if GuildbookUI and Database.db.debug then
         if debugTooltip then
-            GuildbookUI.debug.messageLogListview.DataProvider:Insert({
+            table.insert(addon.debugMessages, {
+                debugTypeID = debugTypeIDs[debugType] or 1,
                 label = string.format("[%s] %s", date("%T"), debugMessage),
                 atlas = debugTypeIcons[debugType],
                 onMouseEnter = function()
@@ -185,51 +636,16 @@ function addon.LogDebugMessage(debugType, debugMessage, debugTooltip)
                 end,
             })
         else
-            GuildbookUI.debug.messageLogListview.DataProvider:Insert({
+            table.insert(addon.debugMessages, {
+                debugTypeID = debugTypeIDs[debugType] or 1,
                 label = string.format("[%s] %s", date("%T"), debugMessage),
                 atlas = debugTypeIcons[debugType],
             })
         end
-        GuildbookUI.debug.messageLogListview.scrollBox:ScrollToEnd()
+
+        addon:TriggerEvent("LogDebugMessage")
     end
 end
-
-function addon.api.getClassSpecialization(class)
-    return classData[class:upper()].specializations or {}
-end
-
-function addon.api.getTradeskillItemSkillChanges(itemID)
-    if addon.tradeskillLevels[itemID] then
-        return addon.tradeskillLevels[itemID].colors;
-    end
-    return false;
- end
-
-function addon.api.getTradeskillItemSkillColour(itemID, profLevel)
-
-    local colours = {
-        [1] = RED_FONT_COLOR,
-        [2] = ORANGE_FONT_COLOR,
-        [3] = YELLOW_FONT_COLOR,
-        [4] = GREEN_FONT_COLOR,
-        [5] = GRAY_FONT_COLOR,
-    }
-
-    if addon.tradeskillLevels[itemID] and addon.tradeskillLevels[itemID].colors then
-        for i = #addon.tradeskillLevels[itemID].colors, 1, -1 do
-            if profLevel > addon.tradeskillLevels[itemID].colors[i] then
-                if colours[i+1] and colours[i+2] then
-                    return colours[i+1], colours[i+2], addon.tradeskillLevels[itemID].colors, i
-                elseif colours[i+1] then
-                    return colours[i+1], colours[i+1], addon.tradeskillLevels[itemID].colors, i
-                else
-                    return colours[5], colours[5], addon.tradeskillLevels[itemID].colors, i
-                end
-            end
-        end
-    end
-    return colours[1], colours[2], addon.tradeskillLevels[itemID].colors, 1
- end
 
 function addon.api.getTradeskillItemDataFromID(itemID)
     for k, v in ipairs(addon.itemData) do
@@ -322,24 +738,24 @@ function addon.api.trimNumber(num)
 end
 
 function addon.api.characterIsMine(name)
-    if Database.db.myCharacters[name] == true or Database.db.myCharacters[name] == false then
+    if Database.db.myCharacters[name] ~= nil then
         return true;
     end
     return false;
 end
 
-function addon.api.getGuildRosterIndex(nameOrGUID)
-    if IsInGuild() and GetGuildInfo("player") then
-        GuildRoster()
-        local totalMembers, onlineMember, _ = GetNumGuildMembers()
-        for i = 1, totalMembers do
-            local name, rankName, rankIndex, level, _, zone, publicNote, officerNote, isOnline, status, class, _, _, _, _, _, guid = GetGuildRosterInfo(i)
-            if nameOrGUID == name or nameOrGUID == guid then
-                return i
-            end
-        end
+function addon.api.getGuildRanks()
+    local ranks = {}
+    for i = 1, GuildControlGetNumRanks() do
+        local rankName = GuildControlGetRankName(i)
+        table.insert(ranks, {
+            rankName = rankName,
+            rankIndex = i-1,
+        })
     end
+    return ranks
 end
+
 
 function addon.api.scanForTradeskillSpec()
     local t = {}
@@ -347,7 +763,7 @@ function addon.api.scanForTradeskillSpec()
         local offset, numSlots = select(3, GetSpellTabInfo(i))
         for j = offset+1, offset+numSlots do
             --local start, duration, enabled, modRate = GetSpellCooldown(j, BOOKTYPE_SPELL)
-            --local spellLink = GetSpellLink(j, BOOKTYPE_SPELL)
+            --local spellLink, _ = GetSpellLink(j, BOOKTYPE_SPELL)
             local _, spellID = GetSpellBookItemInfo(j, BOOKTYPE_SPELL)
            
             if Tradeskills.SpecializationSpellsIDs[spellID] then
@@ -360,74 +776,6 @@ function addon.api.scanForTradeskillSpec()
         end
     end
     return t;
-end
-
-function addon.api.sod.scanForRunes()
-    local exclusiveFilter = C_Engraving.GetExclusiveCategoryFilter();
-    C_Engraving.ClearExclusiveCategoryFilter();
-    C_Engraving.EnableEquippedFilter(true);
-    local t = {}
-    local categories = C_Engraving.GetRuneCategories(false, true);
-    for _, category in ipairs(categories) do
-        local runes = C_Engraving.GetRunesForCategory(category, true);
-		for _, rune in ipairs(runes) do
-            table.insert(t, rune)
-        end
-    end
-    if exclusiveFilter then
-        C_Engraving.AddExclusiveCategoryFilter(exclusiveFilter);
-    end
-    C_Engraving.EnableEquippedFilter(false);
-    return t;
-end
-
-function addon.api.sod.scanSpellbookForRunes()
-    local t = {}
-    for i = 1, GetNumSpellTabs() do
-        local offset, numSlots = select(3, GetSpellTabInfo(i))
-        for j = offset+1, offset+numSlots do
-            local spellLink = GetSpellLink(j, BOOKTYPE_SPELL)
-            local _, spellID = GetSpellBookItemInfo(j, BOOKTYPE_SPELL)
-
-            if i == 5 then
-                local name, rank, icon = GetSpellInfo(spellID)
-                print(spellLink, spellID, name, icon)
-            end
-
-        end
-    end
-    return t;
-end
-
-function addon.api.wrath.scanSpellbook()
-    local t = {}
-    for i = 1, GetNumSpellTabs() do
-        local offset, numSlots = select(3, GetSpellTabInfo(i))
-        for j = offset+1, offset+numSlots do
-            local start, duration, enabled, modRate = GetSpellCooldown(j, BOOKTYPE_SPELL)
-            local spellLink = GetSpellLink(j, BOOKTYPE_SPELL)
-            print(spellLink, start, duration)
-            
-            --longer than an hour
-            if duration > 3600 then
-                local name, rank, icon, castTime, minRange, maxRange, spellID, originalIcon = GetSpellInfo(j, BOOKTYPE_SPELL)
-
-                --get finish time in utc
-                local now = GetTime()
-                local ends = (start + duration)
-                local finishesIn = (ends - now)
-
-                local utcFinish = time() + finishesIn
-
-                table.insert(t, {
-                    spellLink = spellLink,
-                    spellID = spellID,
-                    finishes = utcFinish,
-                })
-            end
-        end
-    end
-    --DevTools_Dump(t)
 end
 
 
@@ -462,7 +810,7 @@ function addon.api.wrath.getPlayerEquipment()
     return equipment;
 end
 
-function addon.api.wrath.getPlayerEquipmentCurrent()
+function addon.api.getPlayerEquipmentCurrent()
     local t = {}
     for k, v in ipairs(addon.data.inventorySlots) do
         local link = GetInventoryItemLink('player', GetInventorySlotInfo(v.slot)) or false
@@ -507,8 +855,42 @@ function addon.api.getPlayerSkillLevels()
     return skills;
 end
 
+function addon.api.cata.getProfessions()
+    local t = {}
+    for k, prof in pairs({GetProfessions()}) do
+        if type(prof) == "number" then
+            local name, icon, skillLevel, maxSkillLevel, numAbilities, spelloffset, skillLine = GetProfessionInfo(prof)
+            if Tradeskills:IsTradeskill(nil, skillLine) then
+                t[skillLine] = skillLevel;
+            end
+        end
+    end
+    --addon.LogDebugMessage("tradeskills", "function [addon.api.cata.getProfessions]", {version = -1, payload = t})
+    return t;
+end
+
+function addon.api.isInGuild()
+    if IsInGuild() and GetGuildInfo("player") then
+        return true
+    end
+    return false
+end
+
+function addon.api.getGuildRosterIndex(nameOrGUID)
+    if IsInGuild() and GetGuildInfo("player") then
+        GuildRoster()
+        local totalMembers, onlineMember, _ = GetNumGuildMembers()
+        for i = 1, totalMembers do
+            local name, rankName, rankIndex, level, _, zone, publicNote, officerNote, isOnline, status, class, _, _, _, _, _, guid = GetGuildRosterInfo(i)
+            if nameOrGUID == name or nameOrGUID == guid then
+                return i
+            end
+        end
+    end
+end
+
 function addon.api.getPlayerAlts(main)
-    if type(main) == "string" then
+    if type(main) == "string" and main ~= "" then
         local alts = {}
         if addon.characters and addon.characters then
             for name, character in pairs(addon.characters) do
@@ -603,7 +985,7 @@ function addon.api.scanPlayerContainers(includeBanks)
             end
 
             if (type(itemID) == "number") and (type(stackCount) == "number") then
-                table.insert(containers.bank.items, {
+                table.insert(containers.bags.items, {
                     id = itemID,
                     count = stackCount,
                 })
@@ -637,7 +1019,7 @@ function addon.api.scanPlayerContainers(includeBanks)
                 end
     
                 if (type(itemID) == "number") and (type(stackCount) == "number") then
-                    table.insert(containers.bank.items, {
+                    table.insert(containers.bags.items, {
                         id = itemID,
                         count = stackCount,
                     })
@@ -657,7 +1039,8 @@ function addon.api.classic.getPlayerTalents()
     local talents = {}
     local tabs = {}
     for tabIndex = 1, GetNumTalentTabs() do
-        local spec, texture, pointsSpent, fileName = GetTalentTabInfo(tabIndex)
+        --local spec, texture, pointsSpent, fileName = GetTalentTabInfo(tabIndex)
+        local id, name, description, icon, pointsSpent, fileName, previewPointsSpent, isUnlocked  = GetTalentTabInfo(tabIndex)
         local engSpec = Talents.TalentBackgroundToSpec[fileName]
         table.insert(tabs, {
             fileName = fileName,
@@ -680,7 +1063,11 @@ function addon.api.classic.getPlayerTalents()
     table.sort(tabs, function(a, b)
         return a.pointsSpent > b.pointsSpent;
     end)
-    return "current", tabs, talents;
+    -- return {
+    --     tabs = tabs,
+    --     talents = talents,
+    -- }
+    return 1, tabs, talents, {};
 end
 
 local glyphsPopped = {}
@@ -776,6 +1163,97 @@ function addon.api.wrath.getPlayerTalents(...)
 
 end
 
+
+--[[
+    ---Create a talent data string using the wowhead hyphen format
+function ModernTalentsMixin:SaveTalentPreviewLoadout()
+
+    local trees = {
+        [1] = "",
+        [2] = "",
+        [3] = "",
+    }
+    local treeIndex = 0
+    self:IterTalentTreesOrdered(function(f)
+        if f.rowId == 1 and f.colId == 1 then
+            treeIndex = treeIndex + 1
+        end
+        if f.talentIndex then
+            trees[treeIndex] = string.format("%s%s", trees[treeIndex], f.previewRank or 0)
+        end
+    end)
+    local s = string.format("%s-%s-%s", trees[1], trees[2], trees[3])
+
+    StaticPopup_Show("ModernTalentsSaveLoadoutDialog", "Name", nil, {
+        callback = function(name)
+            local _, _, class = UnitClass("player")
+            table.insert(self.db.account.talentLoadouts, {
+                name = name,
+                class = class,
+                loadout = s,
+            })
+            self:InitializeTalentTabDropdown()
+        end
+    })
+
+end
+]]
+
+function addon.api.cata.getPlayerTalents(...)
+    local newSpec, previousSpec = ...;
+
+	if type(newSpec) ~= "number" then
+		newSpec = GetActiveTalentGroup()
+	end
+	if type(newSpec) ~= "number" then
+		newSpec = 1
+	end
+
+    local tabs, talents = {}, {}
+    for tabIndex = 1, GetNumTalentTabs() do
+        local id, name, description, icon, pointsSpent, fileName, previewPointsSpent, isUnlocked = GetTalentTabInfo(tabIndex)
+        local role1, role2 = GetTalentTreeRoles(tabIndex, false, false); --inspect, pet
+
+        --print(id, name, fileName)
+        local engSpec = Talents.TalentBackgroundToSpec[fileName]
+        table.insert(tabs, {
+            fileName = fileName,
+            pointsSpent = pointsSpent,
+        })
+        for talentIndex = 1, GetNumTalents(tabIndex) do
+            local _name, iconTexture, row, column, rank, maxRank, isExceptional, available, unKnown, isActive, y, talentID = GetTalentInfo(tabIndex, talentIndex)
+            local spellId = Talents:GetTalentSpellId(fileName, row, column, rank, id)
+            table.insert(talents, {
+                tabID = tabIndex,
+                row = row,
+                col = column,
+                rank = rank,
+                maxRank = maxRank,
+                spellId = spellId,
+            })
+        end
+    end
+
+    -- local inGroup = IsInGroup()
+    -- local inInstance, instanceType = IsInInstance()
+
+    local glyphs = {}
+    for i = 1, 9 do
+        local enabled, glyphType, glyphIndex, glyphSpellID, icon = GetGlyphSocketInfo(i);
+        if enabled and glyphSpellID then
+            
+            table.insert(glyphs, {
+                spellID = glyphSpellID,
+                glyphType = glyphType,
+                glyphIndex = glyphIndex,
+            })
+        end
+    end
+
+    return newSpec, tabs, talents, glyphs;
+
+end
+
 function addon.api.getPlayerAuras()
     local buffs = {}
     for i = 1, 40 do
@@ -802,6 +1280,14 @@ local resistanceIDs = {
 }
 function addon.api.getPlayerResistances(level)
     local res = {}
+    -- res.physical = addon.api.trimNumber(ResistancePercent(0,level))
+    -- res.holy = addon.api.trimNumber(ResistancePercent(1,level))
+    -- res.fire = addon.api.trimNumber(ResistancePercent(2,level))
+    -- res.nature = addon.api.trimNumber(ResistancePercent(3,level))
+    -- res.frost = addon.api.trimNumber(ResistancePercent(4,level))
+    -- res.shadow = addon.api.trimNumber(ResistancePercent(5,level))
+    -- res.arcane = addon.api.trimNumber(ResistancePercent(6,level))
+
     for i = 0, 6 do
         local base, total, bonus, minus = UnitResistance("player", i)
         res[resistanceIDs[i]] = {
@@ -811,6 +1297,7 @@ function addon.api.getPlayerResistances(level)
             minus = minus,
         }
     end
+
     return res;
 end
 
@@ -1156,31 +1643,7 @@ function addon.api.getLockouts()
 end
 
 
-function addon.api.generateExportMenu(character, isClassic)
-
-    if isClassic then
-        local menu  = {
-            {
-                text = character:GetName(true),
-                isTitle = true,
-                notCheckable = true,
-            }
-        }
-        table.insert(menu, addon.contextMenuSeparator)
-        table.insert(menu, {
-            text = "Export",
-            isTitle = true,
-            notCheckable = true,
-        })
-        table.insert(menu, {
-            text = "Current",
-            notCheckable = true,
-            func = function()
-                addon:TriggerEvent("Character_ExportEquipment", character, "current", "current")
-            end,
-        })
-        return menu;
-    end
+function addon.api.generateExportMenu(character)
 
     local menu = {
         {
@@ -1273,6 +1736,10 @@ addon.data.inventorySlots = {
         icon = 136526,
     },
     {
+        slot = "BACKSLOT",
+        icon = 136521,
+    },
+    {
         slot = "SHIRTSLOT",
         icon = 136525,
     },
@@ -1317,10 +1784,6 @@ addon.data.inventorySlots = {
         icon = 136528,
     },
     {
-        slot = "BACKSLOT",
-        icon = 136521,
-    },
-    {
         slot = "MAINHANDSLOT",
         icon = 136518,
     },
@@ -1354,3 +1817,113 @@ addon.data.inventorySlots = {
 
 -- addon:RegisterCallback("Database_OnInitialised", Guildbook.SetEnabled, Guildbook)
 
+function addon.api.getCurrentCurrencies()
+    local currencies = {};
+    local preHeader;
+    for i = 1, GetCurrencyListSize() do
+        local name, isHeader, isExpanded, isUnused, isWatched, count, icon, maximum, hasWeeklyLimit, currentWeeklyAmount, unknown, itemID = GetCurrencyListInfo(i)
+        --local link = C_CurrencyInfo.GetCurrencyListLink(i)
+        --local currencyID = C_CurrencyInfo.GetCurrencyIDFromLink(link)
+
+        if isHeader then
+            preHeader = name;
+        end
+
+        if not currencies[preHeader] then
+            currencies[preHeader] = {}
+        end
+
+        local currencyStrinig = string.format("%d:%d", itemID, count)
+
+        table.insert(currencies[preHeader], currencyStrinig)
+    end
+
+    return currencies;
+end
+
+function addon.api.getCurrentReputations()
+    local reputations = {};
+
+    local numFactions = GetNumFactions()
+    local factionIndex = 1
+    local preHeader;
+    while (factionIndex <= numFactions) do
+        local name, description, standingId, bottomValue, topValue, earnedValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex)
+        
+        if isHeader then
+
+            if name and (not reputations[name]) then
+                reputations[name] = {}
+            end
+
+            preHeader = name
+            if isCollapsed then
+                ExpandFactionHeader(factionIndex)
+                numFactions = GetNumFactions()
+            end
+        end
+        if name and (hasRep or not isHeader) then
+
+            -- if preHeader == GUILD then
+            --     name = GUILD
+            -- end
+
+            --print(name, bottomValue, topValue, earnedValue, (earnedValue - bottomValue), earnedValue - topValue)
+
+            local currentValue = (earnedValue-bottomValue)
+            local barMaxValue = (topValue-bottomValue)
+
+            local repData = string.format("%d:%d:%d:%d", factionID, standingId, currentValue, barMaxValue)
+
+            table.insert(reputations[preHeader], repData)
+
+        end
+        factionIndex = factionIndex + 1
+    end
+
+    return reputations;
+end
+
+
+function addon.api.addThisCharacter()
+
+    if not addon.characters then
+        return;
+    end
+    if not addon.Character then
+        return;
+    end
+    if addon.characters[addon.Character] then
+        return;
+    end
+    local characterInDb = Database:GetCharacter(addon.thisCharacter)
+    if characterInDb then
+        return;
+    end
+
+    local character = Character:CreateEmpty()
+    character.guid = UnitGUID("player")
+    character.name = addon.thisCharacter
+    local _, _, classId = UnitClass("player")
+    character.class = classId
+
+    Database:InsertCharacter(character)
+
+    addon.characters[addon.thisCharacter] = Character:CreateFromData(Database:GetCharacter(addon.thisCharacter))
+
+    --DevTools_Dump(addon.characters[addon.Character])
+
+    local equipment = addon.api.getPlayerEquipmentCurrent()
+    local currentStats = addon.api.wrath.getPaperDollStats()
+    local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
+    local auras = addon.api.getPlayerAuras()
+    local talents = addon.api.cata.getPlayerTalents()
+
+    if addon.characters[addon.thisCharacter] then
+        addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
+        addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
+        addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats, true)
+        addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
+        addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
+    end
+end

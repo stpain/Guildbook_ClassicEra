@@ -1,5 +1,0 @@
-<Ui>
-    <Frame name="GuildbookTabFrameTemplate" mixin="GuildbookTabFrameMixin" virtual="true">
-
-    </Frame>
-</Ui>

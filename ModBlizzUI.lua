@@ -131,10 +131,10 @@ function addon:ModBlizzUI()
     GuildFrameButton1:SetPoint('TOPLEFT', GuildFrame, 'TOPLEFT', 8.0, -82.0)
     GuildFrameButton1:SetPoint('TOPRIGHT', GuildFrame, 'TOPRIGHT', -32.0, -82.0)
     GuildFrameButton1:GetHighlightTexture():SetAllPoints(GuildFrameButton1)
-
+    
     GuildFrameButton1Class:SetWidth(80)
     GuildFrameButton1:SetHyperlinksEnabled(true)
-    
+
     local x = IsAddOnLoaded('ElvUI') and 86.0 or 7.0
     for i = 1, 13 do
         -- adjust Name column position
@@ -146,7 +146,7 @@ function addon:ModBlizzUI()
         button:SetJustifyH('LEFT')
         button:SetTextColor(col[1], col[2], col[3], col[4])
     end
-
+    
     local function clearFontStrings(button)
         button.GuildbookColumnRank:SetText(" ")
         button.GuildbookColumnNote:SetText(" ")
@@ -155,7 +155,7 @@ function addon:ModBlizzUI()
         button.GuildbookColumnProfession2:SetText(" ")
         button.GuildbookColumnOnline:SetText(" ")
     end
-    
+
     local anchor = IsAddOnLoaded('ElvUI') and GuildFrameButton1Zone or GuildFrameButton1Class
     --local x = IsAddOnLoaded('ElvUI') and 12.0 or 0
     GuildFrameButton1.GuildbookColumnRank = GuildFrameButton1:CreateFontString('$parentGuildbookRank', 'OVERLAY', 'GameFontNormalSmall')
@@ -261,6 +261,9 @@ function addon:ModBlizzUI()
                     end
                 end
             end
+
+            button.GuildbookColumnOnline:SetText(offline)
+
             -- update font colours
             if isOnline == false then
                 formatGuildFrameButton(button.GuildbookColumnRank, {0.5,0.5,0.5,1})
@@ -270,7 +273,6 @@ function addon:ModBlizzUI()
                 formatGuildFrameButton(button.GuildbookColumnProfession2, {0.5,0.5,0.5,1})
                 formatGuildFrameButton(button.GuildbookColumnOnline, {0.5,0.5,0.5,1})
 
-                button.GuildbookColumnOnline:SetText("")
             else
                 formatGuildFrameButton(button.GuildbookColumnRank, {1,1,1,1})
                 formatGuildFrameButton(button.GuildbookColumnNote, {1,1,1,1})
@@ -279,7 +281,6 @@ function addon:ModBlizzUI()
                 formatGuildFrameButton(button.GuildbookColumnProfession2, {1,1,1,1})
                 formatGuildFrameButton(button.GuildbookColumnOnline, {1,1,1,1})
 
-                button.GuildbookColumnOnline:SetText(offline)
             end                
             --change class text colour
             if class and classDisplayName then
@@ -344,3 +345,190 @@ function addon:ModBlizzUI()
 
     isModified = true;
 end
+
+
+
+
+function addon:AddMailAttachmentButton()
+
+
+    local button = CreateFrame("Button", addonName.."MailAttachmentButton", SendMailFrame, "UIPanelButtonTemplate")
+    button:SetHeight(24)
+    button:SetPoint("BOTTOMRIGHT", SendMailCancelButton, "TOPRIGHT", 0, 3)
+    button:SetPoint("BOTTOMLEFT", SendMailCancelButton, "TOPLEFT", 0, 3)
+    button:SetText("Add")
+
+    button.getNumMailSlotsFree = function()
+        local s = 0
+        for i = 1, ATTACHMENTS_MAX_SEND do
+            local name, itemID, texture, count, quality = GetSendMailItem(i)
+            if name then
+                s = s + 1
+            end
+        end
+        return ATTACHMENTS_MAX_SEND - s
+    end
+
+    button:SetScript("OnClick", function(button, buttonPressed)
+    
+        local preMenu = {}
+        local classIDsAdded, subClassIDsAdded = {}, {}
+
+        local itemIdMap = {}
+        for bag = 0, 4 do
+            for slot = 1, C_Container.GetContainerNumSlots(bag) do
+                
+                local slotInfo = C_Container.GetContainerItemInfo(bag, slot)
+                if slotInfo then
+                    local _, _, _, _, _, classID, subClassID = GetItemInfoInstant(slotInfo.itemID)
+
+                    if classID and subClassID then
+
+                        if not itemIdMap[slotInfo.itemID] then
+                            itemIdMap[slotInfo.itemID] = {}
+                        end
+                        table.insert(itemIdMap[slotInfo.itemID], {
+                            bag = bag,
+                            slot = slot,
+                            link = slotInfo.hyperlink,
+                        })
+
+                        if not classIDsAdded[classID] then
+                            classIDsAdded[classID] = {}
+                        end
+                        table.insert(classIDsAdded[classID], slotInfo.itemID)
+
+                        if not subClassIDsAdded[classID] then
+                            subClassIDsAdded[classID] = {}
+                        end
+                        if not subClassIDsAdded[classID][subClassID] then
+                            subClassIDsAdded[classID][subClassID] = {}
+                        end
+                        --table.insert(subClassIDsAdded[classID][subClassID], slotInfo.itemID)
+                        subClassIDsAdded[classID][subClassID][slotInfo.itemID] = true
+                    end
+
+                end
+            end
+        end
+
+        --DevTools_Dump(subClassIDsAdded)
+        --DisplayTableInspectorWindow(subClassIDsAdded)
+
+        local menu = {}
+        for classID, data in pairs(subClassIDsAdded) do
+
+            local subMenu = {}
+            for subClassID, itemIds in pairs(data) do
+
+                local idMenu = {}
+
+                for itemID, _ in pairs(itemIds) do
+                    if itemIdMap[itemID] then
+                        table.insert(idMenu, {
+                            text = itemIdMap[itemID][1].link,
+                            notCheckable = true,
+                            func = function()
+                                local emptyMailSlots = button.getNumMailSlotsFree()
+                                if emptyMailSlots > 0 then
+                                    local i = 1
+                                    while (emptyMailSlots > 0) and (i < ATTACHMENTS_MAX_SEND) do
+                                        for k, v in ipairs(itemIdMap[itemID]) do
+                                            C_Container.UseContainerItem(v.bag, v.slot)
+                                            i = i + 1;
+                                            emptyMailSlots = button.getNumMailSlotsFree()
+                                        end
+                                    end
+                                end
+                            end,
+                        })
+                    end
+                end
+
+                table.insert(subMenu, {
+                    text = GetItemSubClassInfo(classID, subClassID),
+                    notCheckable = true,
+                    func = function()
+                        local emptyMailSlots = button.getNumMailSlotsFree()
+                        if emptyMailSlots > 0 then
+                            local i = 1
+                            while (emptyMailSlots > 0) and (i < ATTACHMENTS_MAX_SEND) do
+                                for itemID, _ in pairs(itemIds) do
+                                    if itemIdMap[itemID] then
+                                        for k, v in ipairs(itemIdMap[itemID]) do
+                                            C_Container.UseContainerItem(v.bag, v.slot)
+                                            i = i + 1;
+                                            emptyMailSlots = button.getNumMailSlotsFree()
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end,
+                    hasArrow = true,
+                    menuList = idMenu,
+                })
+            end
+
+
+            table.insert(menu, {
+                text = GetItemClassInfo(classID),
+                notCheckable = true,
+                -- func = function()                        
+                --     local emptyMailSlots = button.getNumMailSlotsFree()
+                --     if emptyMailSlots > 0 then
+                --         local i = 1
+                --         while (emptyMailSlots > 0) and (i < ATTACHMENTS_MAX_SEND) do
+                --             local itemID = classIDsAdded[classID][i]
+                --             if itemID and itemIdMap[itemID] then
+                --                 for k, v in ipairs(itemIdMap[itemID]) do
+                --                     C_Container.UseContainerItem(v.bag, v.slot)
+                --                     i = i + 1;
+                --                     emptyMailSlots = button.getNumMailSlotsFree()
+                --                 end
+                --             end
+                --         end
+                --     end
+                -- end,
+                hasArrow = true,
+                menuList = subMenu,
+            })
+        end
+
+        EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 0.6)
+    end)
+end
+
+
+
+
+
+-- CheckTalentMasterDist = function()
+--     return true;
+-- end
+
+-- StaticPopupDialogs["CONFIRM_TALENT_WIPE"] = {
+-- 	text = CONFIRM_TALENT_WIPE,
+-- 	button1 = ACCEPT,
+-- 	button2 = CANCEL,
+-- 	OnAccept = function(self)
+-- 		ConfirmTalentWipe();
+-- 	end,
+-- 	OnUpdate = function(self, elapsed)
+--         CheckTalentMasterDist = function()
+--             return true;
+--         end
+-- 		if ( not CheckTalentMasterDist() ) then
+-- 			self:Hide();
+-- 		end
+-- 	end,
+-- 	OnCancel = function(self)
+-- 		if ( PlayerTalentFrame ) then
+-- 			HideUIPanel(PlayerTalentFrame);
+-- 		end
+-- 	end,
+-- 	hasMoneyFrame = 1,
+-- 	exclusive = 1,
+-- 	timeout = 0,
+-- 	hideOnEscape = 1
+-- };

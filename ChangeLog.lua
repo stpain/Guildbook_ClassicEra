@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.0",
+        notes = "Updated to use the Classic Cata version.\nUpdated and removed Cata data, this version should contain only era data (or fresh if you prefer).",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "3.4",
         notes = "Added SoD items - needs a filter for Era realms.\n\nFixed bug with selecting an alt in the settings panel.\n\nStarted work on addding calendar functions.\n\nStarted work on guild management systems.",
         icon = "ClassHall-QuestIcon-Desaturated",

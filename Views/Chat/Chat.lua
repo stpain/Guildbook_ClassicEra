@@ -14,16 +14,11 @@ function GuildbookChatMixin:OnLoad()
     addon:RegisterCallback("Chat_OnMessageSent", self.Chat_OnMessageSent, self)
     addon:RegisterCallback("Chat_OnChatOpened", self.Chat_OnChatOpened, self)
     addon:RegisterCallback("Chat_OnHistoryDeleted", self.Chat_OnHistoryDeleted, self)
-    --addon:RegisterCallback("Blizzard_OnInitialGuildRosterScan", self.Blizzard_OnInitialGuildRosterScan, self)
 
     self.messageInput.EditBox:SetScript("OnEnterPressed", function(eb)
         if eb:GetText() ~= "" then
             if self.currentChat == "guild" then
                 SendChatMessage(eb:GetText(), "GUILD")
-                eb:SetText("")
-
-            elseif self.currentChat == "guildOfficer" then
-                SendChatMessage(eb:GetText(), "OFFICER")
                 eb:SetText("")
 
             elseif type(self.currentChat) == "string" then
@@ -45,40 +40,12 @@ end
 
 function GuildbookChatMixin:Database_OnInitialised()
     self.chats = Database.db.chats;
-    self:CleanChats()
-    self:Update()
-end
 
-function GuildbookChatMixin:Blizzard_OnInitialGuildRosterScan()
-    self.chats = Database.db.chats;
-    self:CleanChats()
     self:Update()
-end
-
-function GuildbookChatMixin:CleanChats()
-    for k, v in pairs(self.chats) do
-        if k == "guild" or k == "guildOfficer" then
-            if addon.thisGuild then
-                if not v[addon.thisGuild] then
-                    v[addon.thisGuild] = {
-                        history = {},
-                        lastActive = 0,
-                    }
-                end
-            end
-        else
-            if not v.history then
-                v.history = {}
-            end
-        end
-    end
 end
 
 function GuildbookChatMixin:Chat_OnHistoryDeleted(name)
-    if name == GUILD then
-        return;
-    end
-    if name == OFFICER then
+    if name == "Guild" then
         return;
     end
     if self.chats and self.chats[name] then
@@ -112,35 +79,17 @@ function GuildbookChatMixin:Chat_OnMessageSent(data)
         local now = time()
 
         if data.target == "guild" then
-            if addon.thisGuild then
-                if not self.chats.guild[addon.thisGuild] then
-                    self.chats.guild[addon.thisGuild] = {
-                        lastActive = now,
-                        history = {},
-                    }
-                end
-                table.insert(self.chats.guild[addon.thisGuild].history, {
-                    sender = addon.thisCharacter,
-                    message = data.message,
-                    timestamp = now,
-                })
+            if not self.chats.guild[addon.thisGuild] then
+                self.chats.guild[addon.thisGuild] = {
+                    lastActive = now,
+                    history = {},
+                }
             end
-
-        elseif data.target == "guildOfficer" then
-            if addon.thisGuild then
-                if not self.chats.guildOfficer[addon.thisGuild] then
-                    self.chats.guildOfficer[addon.thisGuild] = {
-                        lastActive = now,
-                        history = {},
-                    }
-                end
-                table.insert(self.chats.guildOfficer[addon.thisGuild].history, {
-                    sender = addon.thisCharacter,
-                    message = data.message,
-                    timestamp = now,
-                })
-            end
-
+            table.insert(self.chats.guild[addon.thisGuild].history, {
+                sender = addon.thisCharacter,
+                message = data.message,
+                timestamp = now,
+            })
         else
             if not self.chats[data.target] then
                 self.chats[data.target] = {
@@ -174,24 +123,9 @@ function GuildbookChatMixin:Update()
             label = GUILD,
             atlas = "GarrMission_MissionIcon-Logistics",
             showMask = false,
+
             func = function()
-                if self.chats.guild[addon.thisGuild] then
-                    self:SetChatHistory(self.chats.guild[addon.thisGuild].history, GUILD)
-                else
-                    self:SetChatHistory({}, GUILD)
-                end
-            end,
-        },
-        {
-            label = OFFICER,
-            atlas = "GarrMission_MissionIcon-Logistics",
-            showMask = false,
-            func = function()
-                if self.chats.guildOfficer[addon.thisGuild] then
-                    self:SetChatHistory(self.chats.guildOfficer[addon.thisGuild].history, OFFICER)
-                else
-                    self:SetChatHistory({}, OFFICER)
-                end
+                self:SetChatHistory(self.chats.guild[addon.thisGuild].history, GUILD)
             end,
         },
     }
@@ -220,24 +154,6 @@ function GuildbookChatMixin:Update()
                     self.chats.guild[addon.thisGuild].history = history
                 end
             end
-
-        elseif name == "guildOfficer" then
-            if addon.thisGuild and self.chats.guildOfficer[addon.thisGuild] and (#self.chats.guildOfficer[addon.thisGuild].history > Database.db.config.chatGuildHistoryLimit) then
-
-                addon.LogDebugMessage("warning", string.format("chat history to long removing %d messages", (#self.chats.guildOfficer[addon.thisGuild].history - Database.db.config.chatWhisperHistoryLimit)))
-
-
-                --normal operation, the limit was exceeded by 1 so remove
-                if #self.chats.guildOfficer[addon.thisGuild].history - Database.db.config.chatGuildHistoryLimit == 1 then
-                    table.remove(self.chats.guildOfficer[addon.thisGuild].history, 1)
-                else
-
-                    --likely the config was changed so we need to remove more than 1 entry
-                    local history = addon.api.trimTable(self.chats.guildOfficer[addon.thisGuild].history, Database.db.config.chatGuildHistoryLimit, true)
-                    self.chats.guildOfficer[addon.thisGuild].history = history
-                end
-            end
-
         else
             table.insert(t, {
                 name = name,
@@ -317,13 +233,7 @@ function GuildbookChatMixin:SetChatHistory(history, player)
     local dp = CreateDataProvider(history)
     self.chatHistory.scrollView:SetDataProvider(dp)
     self.chatHistory.scrollBox:ScrollToEnd()
-    self.currentChat = player
-    if player == GUILD then
-        self.currentChat = "guild"
-    end
-    if player == OFFICER then
-        self.currentChat = "guildOfficer"
-    end
+    self.currentChat = (player == GUILD) and "guild" or player;
     self.chatInfo:SetText(player)
 end
 
@@ -338,35 +248,17 @@ function GuildbookChatMixin:Chat_OnMessageReceived(data)
         local now = time();
 
         if data.channel == "guild" then
-            if addon.thisGuild then
-                if not self.chats.guild[addon.thisGuild] then
-                    self.chats.guild[addon.thisGuild] = {
-                        lastActive = now,
-                        history = {},
-                    }
-                end
-                table.insert(self.chats.guild[addon.thisGuild].history, {
-                    sender = data.sender,
-                    message = data.message,
-                    timestamp = now,
-                })
+            if not self.chats.guild[addon.thisGuild] then
+                self.chats.guild[addon.thisGuild] = {
+                    lastActive = now,
+                    history = {},
+                }
             end
-
-        elseif data.channel == "guildOfficer" then
-            if addon.thisGuild then
-                if not self.chats.guildOfficer[addon.thisGuild] then
-                    self.chats.guildOfficer[addon.thisGuild] = {
-                        lastActive = now,
-                        history = {},
-                    }
-                end
-                table.insert(self.chats.guildOfficer[addon.thisGuild].history, {
-                    sender = data.sender,
-                    message = data.message,
-                    timestamp = now,
-                })
-            end
-
+            table.insert(self.chats.guild[addon.thisGuild].history, {
+                sender = data.sender,
+                message = data.message,
+                timestamp = now,
+            })
         else
             if not self.chats[data.sender] then
                 self.chats[data.sender] = {

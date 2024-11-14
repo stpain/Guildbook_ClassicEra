@@ -32,6 +32,7 @@ local gmotdNineSliceLayout =
 GuildbookHomeMixin = {
     name = "Home",
     censusShowOffline = false,
+    censusShowMaxLevelOnly = false,
 }
 
 function GuildbookHomeMixin:OnLoad()
@@ -50,7 +51,15 @@ function GuildbookHomeMixin:OnLoad()
         self:UpdateCensus()
     end)
 
-    NineSliceUtil.ApplyLayout(self.news, agendaNineSliceLayout)
+    self.census.maxLevel:SetChecked(self.censusShowOffline)
+    self.census.maxLevel.label:SetText("Max level only.")
+    self.census.maxLevel:SetScript("OnClick", function(cb)
+        self.censusShowMaxLevelOnly = not self.censusShowMaxLevelOnly;
+        cb:SetChecked(self.censusShowMaxLevelOnly)
+        self:UpdateCensus()
+    end)
+
+    NineSliceUtil.ApplyLayout(self.challenges, agendaNineSliceLayout)
     NineSliceUtil.ApplyLayout(self.agenda, agendaNineSliceLayout)
     NineSliceUtil.ApplyLayout(self.census, agendaNineSliceLayout)
     NineSliceUtil.ApplyLayout(self.gmotd, gmotdNineSliceLayout)
@@ -89,14 +98,14 @@ function GuildbookHomeMixin:UpdateLayout()
 end
 
 function GuildbookHomeMixin:UpdateCensus()
-    if addon.characters then
+    if addon.characters and addon.thisGuild then
         local classes = {
             [1] = 0,
             [2] = 0,
             [3] = 0,
             [4] = 0,
             [5] = 0,
-            --[6] = 0,
+            [6] = 0,
             [7] = 0,
             [8] = 0,
             [9] = 0,
@@ -104,23 +113,53 @@ function GuildbookHomeMixin:UpdateCensus()
             [11] = 0,
             --[12] = 0,
         }
-        local guildName, guildRankName, guildRankIndex, realm = GetGuildInfo("player")
+        local classMeta = {
+            [1] = {},
+            [2] = {},
+            [3] = {},
+            [4] = {},
+            [5] = {},
+            [6] = {},
+            [7] = {},
+            [8] = {},
+            [9] = {},
+            --[10] = {},
+            [11] = {},
+            --[12] = {},
+        }
         local numTotalGuildMembers, numOnlineGuildMembers, numOnlineAndMobileMembers = GetNumGuildMembers()
-        self.census.info:SetText(string.format("%d total (%d online)", numTotalGuildMembers, numOnlineGuildMembers))
-        for _, info in pairs(addon.characters) do
-            if Database.db.guilds and Database.db.guilds[guildName] and Database.db.guilds[guildName].members and Database.db.guilds[guildName].members[info.data.name] then
-                if self.censusShowOffline then
-                    if not classes[info.data.class] then
-                        classes[info.data.class] = 1
+--        self.census.info:SetText(string.format("%d total (%d online)", numTotalGuildMembers, numOnlineGuildMembers))
+        local numFiltered = 0
+        for nameRealm, info in pairs(addon.characters) do
+            if addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].members[nameRealm] then
+                local useCharacter = true
+                if self.censusShowMaxLevelOnly then
+                    if (info.data.level == 85) then
+                        useCharacter = true
                     else
-                        classes[info.data.class] = classes[info.data.class] + 1
+                        useCharacter = false
                     end
-                else
-                    if info.data.onlineStatus.isOnline then
+                end
+                if useCharacter then
+                    if self.censusShowOffline then
                         if not classes[info.data.class] then
                             classes[info.data.class] = 1
+                            table.insert(classMeta[info.data.class], info.data.name)
                         else
                             classes[info.data.class] = classes[info.data.class] + 1
+                            table.insert(classMeta[info.data.class], info.data.name)
+                        end
+                        numFiltered = numFiltered + 1
+                    else
+                        if info.data.onlineStatus.isOnline then
+                            if not classes[info.data.class] then
+                                classes[info.data.class] = 1
+                                table.insert(classMeta[info.data.class], info.data.name)
+                            else
+                                classes[info.data.class] = classes[info.data.class] + 1
+                                table.insert(classMeta[info.data.class], info.data.name)
+                            end
+                            numFiltered = numFiltered + 1
                         end
                     end
                 end
@@ -180,22 +219,36 @@ function GuildbookHomeMixin:UpdateCensus()
                 self.census.bars[k]:SetMinMaxValues(0, maxCount)
                 self.census.bars[k]:SetValue(class.count)
                 --self.census.bars[k]:SetSize((censusWidth - 22) - barHeight, barHeight - 1)
-                self.census.bars[k]:SetSize(barWidth - 1, censusHeight - barWidth - 43)
+                self.census.bars[k]:SetSize(barWidth - 1, censusHeight - barWidth - 69)
                 --self.census.bars[k]:SetPoint("BOTTOMLEFT", self.census, "BOTTOMLEFT", 11 + barHeight, ((k-1) * barHeight) + 11)
-                self.census.bars[k]:SetPoint("BOTTOMLEFT", self.census, "BOTTOMLEFT", ((k-1) * barWidth) + 11, 32 + barWidth)
+                self.census.bars[k]:SetPoint("BOTTOMLEFT", self.census, "BOTTOMLEFT", ((k-1) * barWidth) + 11, 58 + barWidth)
                 --self.census.bars[k].icon:SetWidth(barHeight)
                 self.census.bars[k].icon:SetHeight(barWidth)
                 self.census.bars[k].icon:SetAtlas(string.format("classicon-%s", engClass):lower())
                 self.census.bars[k].label:SetText(class.count)
 
-                self.census.bars[k]:SetScript("onMouseDown", function()
+                self.census.bars[k]:SetScript("OnMouseDown", function()
                     addon:TriggerEvent("Roster_OnSelectionChanged", class.classID)
                     GuildbookUI:SelectView("GuildRoster")
+                end)
+
+                self.census.bars[k]:SetScript("OnLeave", function(sb)
+                    GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+                end)
+                self.census.bars[k]:SetScript("OnEnter", function(sb)
+                    GameTooltip:SetOwner(sb, "ANCHOR_TOPRIGHT")
+                    GameTooltip:AddLine("Players")
+                    for k, v in ipairs(classMeta[class.classID]) do
+                        GameTooltip:AddLine(Ambiguate(v, "short"), 1,1,1)
+                    end
+                    GameTooltip:Show()
                 end)
                 self.census.bars[k]:Show()
             end
 
         end
+
+        self.census.info:SetText(string.format("%d total (%d selected)", numTotalGuildMembers, numFiltered))
     end
 end
 
@@ -211,7 +264,7 @@ function GuildbookHomeMixin:LoadData()
 
     self:LoadAgenda()
 
-    self:LoadNews()
+    self:LoadChallenges()
 
 end
 
@@ -286,6 +339,13 @@ function GuildbookHomeMixin:LoadAgenda()
                         timestamp = info.finishes,
                         displayText = string.format("%s|cff98DD1F%s\n|cffffffff%s\n%s", CreateAtlasMarkup("auctionhouse-icon-clock", 12, 12), date("%Y-%m-%d %H:%M:%S", info.finishes), info.name, character:GetName(true)),
                         --fontObject = GameFontNormalSmall,
+                        onUpdate = function(f)
+                            local remaining = SecondsToClock(info.finishes - time())
+                            --print(remaining)
+                            local displayText = string.format("%s|cff98DD1F%s |cffffffff- %s\n%s\n%s", CreateAtlasMarkup("auctionhouse-icon-clock", 12, 12), date("%Y-%m-%d %H:%M:%S", info.finishes), remaining, info.name, character:GetName(true))
+                            --print(displayText)
+                            f.label:SetText(displayText)
+                        end,
                     })
                 else
                     table.insert(agenda, {
@@ -339,22 +399,33 @@ function GuildbookHomeMixin:LoadAgenda()
                 onMouseDown = item.onMouseDown,
                 backgroundRGB ={r = 0.25, g = 0.25, b = 0.25}, --"transmog-set-iconrow-background", --Options_List_Hover
                 backgroundAlpha = 0.15,
+                onUpdate = item.onUpdate,
             })
         end
     end
 end
 
 function GuildbookHomeMixin:Character_OnNewsEvent(news)
-    Database:InsertNewsEvent(news)
-    self.news.listview.DataProvider:InsertAtIndex(news, 1)
+    --DevTools_Dump(news)
+    --Database:InsertNewsEevnt(news)
 end
 
-function GuildbookHomeMixin:LoadNews()
+function GuildbookHomeMixin:LoadChallenges()
+    
+    RequestGuildChallengeInfo()
 
-    self.news.listview.DataProvider:Flush()
+    local dp = CreateDataProvider()
 
-    for k, v in ipairs(Database.db.news) do
-        self.news.listview.DataProvider:Insert(v)
+    for i = 1, GetNumGuildChallenges() do
+        
+        local index, numComplete, totalComplete, x, gold = GetGuildChallengeInfo(i)
+        local text = _G["GUILD_CHALLENGE_TYPE"..i]
+
+        dp:Insert({
+            label = text,
+            labelRight = string.format("%d / %d  ", numComplete, totalComplete)
+        })
     end
 
+    self.challenges.listview.scrollView:SetDataProvider(dp)
 end

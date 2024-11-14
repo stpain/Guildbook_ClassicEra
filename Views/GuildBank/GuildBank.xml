@@ -11,7 +11,7 @@
                 </Texture>
             </Layer>
             <Layer level="OVERLAY">
-                <FontString parentKey="charactersHeader" inherits="GameFontNormalLarge" text="Banks">
+                <FontString parentKey="charactersHeader" inherits="GameFontNormalLarge" text="Characters">
                     <Size x="200" y="26"/>
                     <Color r="1" g="1" b="1"/>
                     <Anchors>
@@ -30,14 +30,14 @@
         </Layers>
 
         <Frames>
-            <Frame parentKey="bankCharactersHelptip" inherits="GuildbookClassicEraHelpTipTemplate_RightArrow">
+            <Frame parentKey="bankCharactersHelptip" inherits = "GuildbookWrathEraHelpTipTemplate_RightArrow">
                 <Size x="140" y="180"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativePoint="LEFT" x="-10" y="0"/>
                 </Anchors>
             </Frame>
 
-            <Frame parentKey="refresh" inherits="GuildbookClassicEraSmallHighlightButton" hidden="false">
+            <Frame parentKey="refresh" inherits = "GuildbookWrathEraSmallHighlightButton" hidden="false">
                 <Size x="30" y="30"/>
                 <Anchors>
                     <Anchor point="TOPRIGHT" x="0" y="0"/>
@@ -53,13 +53,13 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="refreshHelptip" inherits="GuildbookClassicEraHelpTipTemplate_RightArrow">
+            <Frame parentKey="refreshHelptip" inherits = "GuildbookWrathEraHelpTipTemplate_RightArrow">
                 <Size x="200" y="120"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.refresh" relativePoint="LEFT" x="-20" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="charactersListview" inherits="GuildbookClassicEraWidgetsListviewTemplate">
+            <Frame parentKey="charactersListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
                 <Size x="200"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="-30"/>
@@ -67,7 +67,7 @@
                 </Anchors>
                 <KeyValues>
                     <KeyValue key="frameType" value="FRAME" type="string"/>
-                    <KeyValue key="itemTemplate" value="GuildbookClassicEraGuildbankCharacterListviewItem" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookWrathEraGuildbankCharacterListviewItem" type="string"/>
                     <KeyValue key="elementHeight" value="40" type="number"/>
                 </KeyValues>
             </Frame>
@@ -92,14 +92,14 @@
                 </Layers>
 
                 <Frames>
-                    <Frame parentKey="itemsListview" inherits="GuildbookClassicEraWidgetsListviewTemplate">
+                    <Frame parentKey="itemsListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeKey="$parent.characterInfo" relativePoint="BOTTOMLEFT" x="0" y="0"/>
                             <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                         </Anchors>
                         <KeyValues>
                             <KeyValue key="frameType" value="FRAME" type="string"/>
-                            <KeyValue key="itemTemplate" value="GuildbookClassicEraSimpleIconLabelFrame" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookWrathEraSimpleIconLabelFrame" type="string"/>
                             <KeyValue key="elementHeight" value="24" type="number"/>
                         </KeyValues>
                     </Frame>

@@ -8,7 +8,21 @@
                 </Anchors>
                 <NormalTexture atlas="auctionhouse-icon-favorite-off"/>
             </Button>
-            <CheckButton parentKey="completed" inherits="GuildbookClassicEraWidgetsCheckButton" hidden="true" enableMouse="false">
+            <Button parentKey="favoriteHeaderAll" hidden="true">
+                <Size x="22" y="22"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-23" y="0"/>
+                </Anchors>
+                <NormalTexture atlas="auctionhouse-icon-favorite"/>
+            </Button>
+            <Button parentKey="deleteHeaderAll" hidden="true">
+                <Size x="22" y="22"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="0" y="0"/>
+                </Anchors>
+                <NormalTexture atlas="common-icon-redx"/>
+            </Button>
+            <CheckButton parentKey="completed" inherits="GuildbookWrathEraWidgetsCheckButton" hidden="true" enableMouse="false">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.favorite" relativePoint="RIGHT" x="4" y="0"/>
                 </Anchors>
@@ -56,7 +70,7 @@
 
     <Frame name="GuildbookDailies" mixin="GuildbookWrathDailiesMixin">
         <Frames>
-            <Frame parentKey="charactersListview" inherits="GuildbookClassicEraWidgetsListviewTemplate">
+            <Frame parentKey="charactersListview" inherits="GuildbookWrathEraWidgetsListviewTemplate">
                 <Size x="160"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="0"/>
@@ -74,7 +88,7 @@
                     </Layer>
                 </Layers>
                 <KeyValues>
-                    <KeyValue key="itemTemplate" value="GuildbookClassicEraSimpleIconLabelFrame" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookWrathEraSimpleIconLabelFrame" type="string"/>
                     <KeyValue key="elementHeight" value="32" type="number"/>
                     <KeyValue key="enableSelection" value="true" type="boolean"/>
                 </KeyValues>
@@ -86,7 +100,7 @@
                 </Anchors>
                 <NormalTexture atlas="auctionhouse-icon-favorite-off"/>
             </Button>
-            <Frame parentKey="questsListview" inherits="GuildbookClassicEraWidgetsListviewTemplate">
+            <Frame parentKey="questsListview" inherits="GuildbookWrathEraWidgetsListviewTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.charactersListview" relativePoint="TOPRIGHT" x="0" y="-30"/>
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>

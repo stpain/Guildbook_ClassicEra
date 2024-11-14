@@ -22,6 +22,65 @@ Tradeskills.TradeskillNames = {
 	["First Aid"] = 129,
 	["Fishing"] = 356,
 }
+
+
+Tradeskills.PrimaryTradeskills = {
+	["Alchemy"] = 171,
+    ["Blacksmithing"] = 164,
+    ["Enchanting"] = 333,
+    ["Engineering"] = 202,
+    --["Inscription"] = 773,
+    --["Jewelcrafting"] = 755,
+    ["Leatherworking"] = 165,
+    ["Tailoring"] = 197,
+    ["Mining"] = 186,
+    ["Cooking"] = 185,
+}
+
+-- function Tradeskills:CreateDropdownMenu(includeAll)
+	
+-- 	if not includeAll then
+-- 		local menu = {}
+-- 		for name, id in pairs(self.PrimaryTradeskills) do
+-- 			table.insert(menu, {
+-- 				text = Tradeskills:GetLocaleNameFromID(id),
+-- 				func = function()
+-- 					local recipes = Tradeskills:BuildTradeskillData(id)
+-- 					self.selectedTradeskillID = id
+-- 					local dataProvider = self:SetOrCreateDataProvider(id)
+-- 					if dataProvider then
+-- 						self:LoadTradeskillRecipes(id, recipes, dataProvider)
+-- 					end
+-- 				end,
+-- 			})
+-- 		end
+-- 		table.sort(menu, function(a, b)
+-- 			return a.text < b.text
+-- 		end)
+-- 		return menu;
+
+-- 	else
+-- 		local menu = {}
+-- 		for name, id in pairs(self.TradeskillNames) do
+-- 			table.insert(menu, {
+-- 				text = Tradeskills:GetLocaleNameFromID(id),
+-- 				func = function()
+-- 					local recipes = Tradeskills:BuildTradeskillData(id)
+-- 					self.selectedTradeskillID = id
+-- 					local dataProvider = self:SetOrCreateDataProvider(id)
+-- 					if dataProvider then
+-- 						self:LoadTradeskillRecipes(id, recipes, dataProvider)
+-- 					end
+-- 				end,
+-- 			})
+-- 		end
+-- 		table.sort(menu, function(a, b)
+-- 			return a.text < b.text
+-- 		end)
+-- 		return menu;
+-- 	end
+-- end
+
 Tradeskills.SpecializationSpellsIDs = {
     --Alchemy:
     [28672] = 171,
@@ -47,13 +106,32 @@ Tradeskills.SpecializationSpellsIDs = {
 }
 function Tradeskills:TradeskillIDToAtlas(id)
 
-	if id == 202 then
-		return "Mobile-Enginnering";
-	elseif id == 129 then
-		return "Mobile-FirstAid";
+	if type(id) == "number" then
+		if id == 202 then
+			return "Mobile-Enginnering";
+		elseif id == 129 then
+			return "Mobile-FirstAid";
+		elseif self.TradeskillIDsToLocaleName.enUS[id] then
+			return string.format("Mobile-%s", self.TradeskillIDsToLocaleName.enUS[id])
+		else
+			return "services-icon-warning";
+		end
 	else
-		return string.format("Mobile-%s", self.TradeskillIDsToLocaleName.enUS[id])
+		return "services-icon-warning";
 	end
+end
+
+function Tradeskills:IsGathering(tradeskillID)
+	if tradeskillID == 393 then
+		return true
+	end
+	if tradeskillID == 356 then
+		return true
+	end
+	if tradeskillID == 182 then
+		return true
+	end
+	return false;
 end
 
 Tradeskills.TradeskillIDsToLocaleName = {
@@ -76,8 +154,8 @@ Tradeskills.TradeskillIDsToLocaleName = {
 	deDE = {
 		[164] = "Schmiedekunst",
 		[165] = "Lederverarbeitung",
-		--[171] = "Alchemie",
-		[171] = "Alchimie",
+		[171] = "Alchemie",
+		--[171] = "Alchimie",
 		[182] = "Kräuterkunde",
 		[185] = "Kochkunst",
 		[186] = "Bergbau",
@@ -281,29 +359,184 @@ function Tradeskills:GetEnglishNameFromTradeskillName(tradeskillName)
 end
 
 
-function Tradeskills:GenerateEnchantingData()
 
-	for k, v in ipairs(addon.itemData) do
+function Tradeskills:GetTradeskillSpellIDs(tradeskillID)
+    local t = {}
+    for spellId, tradeskillId in pairs(addon.tradeskillData.spellIdToTradeskillId) do
+        if tradeskillId == tradeskillID then
+            table.insert(t, spellId)
+        end
+    end
+    return t
+end
 
-		if v.tradeskillID == 333 then
+function Tradeskills:GetReagentData(spellID)
+    local t = {}
+    if addon.tradeskillData.spellIdToReagents[spellID] then
+        for i = 1, 7 do
+            if addon.tradeskillData.spellIdToReagents[spellID][i] > 0 then
+                t[addon.tradeskillData.spellIdToReagents[spellID][i]] = addon.tradeskillData.spellIdToReagents[spellID][i+8]
+            end
+        end
+    end
+    return t;
+end
 
-			local spell = Spell:CreateFromSpellID(v.spellID)
-			if not spell:IsSpellEmpty() then
+Tradeskills.enchanterSpellNameToSpellID = {}
+function Tradeskills.BuildEnchanterNameToSpellID()
+    local spells = Tradeskills:GetTradeskillSpellIDs(333)
+    for k, spellID in ipairs(spells) do
+        local spell = Spell:CreateFromSpellID(spellID)
+        if not spell:IsSpellEmpty() then
+            spell:ContinueOnSpellLoad(function()
+                Tradeskills.enchanterSpellNameToSpellID[spell:GetSpellName()] = spellID
+				--print(spell:GetSpellName())
+            end)
+        end
+    end
+end
 
-				spell:ContinueOnSpellLoad(function()
-				
-					local name = spell:GetSpellName()
-					if name and v.name then
-						--print(string.format("updating name data for <%s> [%d] to <%s>", v.name, v.spellID, name))
-						v.name = name
+
+--[[
+	to do:
+		update this to handle items like dreamcloth with different crafting methods
+]]
+function Tradeskills:GetRecipeSpellIDFromItemID(itemID)
+    for spellID, _itemID in pairs(addon.tradeskillData.spellIdToItemCreated) do
+        if itemID == _itemID then
+            return spellID
+        end
+    end
+end
+
+function Tradeskills.GetAllRecipesThatUseItem(itemID, prof1, prof2)
+
+	local t = {}
+
+	--print(itemID)
+
+	for spellID, reagentInfo in pairs(addon.tradeskillData.spellIdToReagents) do
+		for i = 1, 7 do
+			if reagentInfo[i] == itemID then
+				--print(spellID)
+				local tradeskillID = addon.tradeskillData.spellIdToTradeskillId[spellID]
+				--print(tradeskillID)
+				if tradeskillID then
+					if not prof1 and not prof2 then
+						if not t[tradeskillID] then
+							t[tradeskillID] = {}
+						end
+						table.insert(t[tradeskillID], spellID)
 					end
-				end)
-
+					if prof1 == tradeskillID then
+						if not t[tradeskillID] then
+							t[tradeskillID] = {}
+						end
+						table.insert(t[tradeskillID], spellID)
+					end
+					if prof2 == tradeskillID then
+						if not t[tradeskillID] then
+							t[tradeskillID] = {}
+						end
+						table.insert(t[tradeskillID], spellID)
+					end
+				end
 			end
-
 		end
+	end
 
+	return t;
+end
+
+function Tradeskills:GetItemRecipeInfo(itemID, itemName)
+
+
+	local spellID = self:GetRecipeSpellIDFromItemID(itemID)
+	if spellID then
+		local reagents = self:GetReagentData(spellID)
+		local tradeskillID = addon.tradeskillData.spellIdToTradeskillId[spellID]
+		return {
+			itemID = itemID,
+			spellID = spellID,
+			reagents = reagents,
+			tradeskillID = tradeskillID,
+		}
+	else
+		if Tradeskills.enchanterSpellNameToSpellID then
+			local spellID = self:GetRecipeSpellIDFromItemID(Tradeskills.enchanterSpellNameToSpellID)
+			if spellID then
+				local reagents = self:GetReagentData(spellID)
+				local tradeskillID = addon.tradeskillData.spellIdToTradeskillId[spellID]
+				return {
+					itemID = itemID,
+					spellID = spellID,
+					reagents = reagents,
+					tradeskillID = tradeskillID,
+				}
+			end
+		end
 	end
 end
+
+function Tradeskills:BuildTradeskillData(tradeskillID, recipes)
+
+	
+    local tradeskillSpellIDs;
+	if not recipes then
+		tradeskillSpellIDs = self:GetTradeskillSpellIDs(tradeskillID)
+	else
+		tradeskillSpellIDs = recipes;
+	end
+
+    local t = {}
+    for k, spellId in ipairs(tradeskillSpellIDs) do
+        if addon.tradeskillData.spellIdToItemCreated[spellId] and addon.tradeskillData.spellIdToReagents[spellId] then
+            local reagents = self:GetReagentData(spellId)
+            local itemID = addon.tradeskillData.spellIdToItemCreated[spellId]
+            local itemID, itemType, itemSubType, itemEquipLoc, icon, classID, subClassID = GetItemInfoInstant(itemID)
+            local recipe = {
+                spellID = spellId,
+                itemID = itemID,
+                classID = classID,
+                subClassID = subClassID,
+                icon = icon,
+                reagents = reagents,
+            }
+            table.insert(t, recipe)
+        
+        elseif addon.tradeskillData.spellIdToReagents[spellId] then
+            local reagents = self:GetReagentData(spellId)
+            local recipe = {
+                spellID = spellId,
+                reagents = reagents,
+                classID = -1,
+                subClassID = -1,
+            }
+            table.insert(t, recipe)
+        end
+    end
+
+    return t;
+end
+
+
+
+
+function Tradeskills:BuildTradeskillDataFromRecipes(recipes)
+	return self:BuildTradeskillData(nil, recipes)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 addon.Tradeskills = Tradeskills;

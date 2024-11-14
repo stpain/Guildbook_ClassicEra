@@ -2,6 +2,7 @@ local name, addon = ...;
 
 local L = addon.Locales
 local Talents = addon.Talents;
+local Database = addon.Database;
 local Tradeskills = addon.Tradeskills;
 local Character = addon.Character;
 local Comms = addon.Comms;
@@ -104,7 +105,7 @@ GuildbookProfileMixin = {
 
 function GuildbookProfileMixin:OnLoad()
 
-    self.inventory.resistanceGridview:InitFramePool("FRAME", "GuildbookClassicEraResistanceFrame")
+    self.inventory.resistanceGridview:InitFramePool("FRAME", "GuildbookWrathEraResistanceFrame")
     self.inventory.resistanceGridview:SetFixedColumnCount(5)
     self.inventory.resistanceGridview.ScrollBar:Hide()
 
@@ -117,7 +118,7 @@ function GuildbookProfileMixin:OnLoad()
         })
     end
 
-    self.inventory.auraGridview:InitFramePool("FRAME", "GuildbookClassicEraResistanceFrame")
+    self.inventory.auraGridview:InitFramePool("FRAME", "GuildbookWrathEraResistanceFrame")
     self.inventory.auraGridview:SetFixedColumnCount(8)
     self.inventory.auraGridview.ScrollBar:Hide()
 
@@ -132,7 +133,7 @@ function GuildbookProfileMixin:OnLoad()
 	end)
 
     for i = 1, 3 do
-        self.talents["tree"..i].talentsGridview:InitFramePool("FRAME", "GuildbookClassicEraTalentIconFrame")
+        self.talents["tree"..i].talentsGridview:InitFramePool("FRAME", "GuildbookWrathEraTalentIconFrame")
         self.talents["tree"..i].talentsGridview:SetFixedColumnCount(4)
 
         C_Timer.After(0.1, function()
@@ -164,8 +165,8 @@ function GuildbookProfileMixin:OnLoad()
 		-- end
 		-- addon:TriggerEvent("Character_ExportEquipment", self.character, self.currentEquipmentSet, spec)
 
-		local menu = addon.api.generateExportMenu(self.character, true)
-		EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 1)
+		local menu = addon.api.generateExportMenu(self.character)
+		EasyMenu(menu, addon.contextMenu, "cursor", 0, 0, "MENU", 0.2)
 	end)
 
 	table.insert(self.helptips, self.sidePane.helptip)
@@ -194,12 +195,18 @@ function GuildbookProfileMixin:LoadCharacter(character)
 	self:LoadTalentsAndGlyphs()
 
 	--request an update, this uses WHISPER channel comms and only if the player is online
-	Comms:RequestCharacterData(character.data.name, "inventory")
+	Comms:RequestCharacterData(character.data.name, "mainSpec")
 
+	-- C_Timer.After(0.5, function()
+	-- 	Comms:RequestCharacterData(character.data.name, "mainCharacter")
+	-- end)
+	C_Timer.After(1.0, function()
+		Comms:RequestCharacterData(character.data.name, "inventory")
+	end)
 	C_Timer.After(2.0, function()
 		Comms:RequestCharacterData(character.data.name, "talents")
 	end)
-	C_Timer.After(4.0, function()
+	C_Timer.After(3.0, function()
 		Comms:RequestCharacterData(character.data.name, "glyphs")
 	end)
 end
@@ -244,6 +251,7 @@ function GuildbookProfileMixin:UpdateLayout()
         self.talents["tree"..i]:SetWidth((x-sidePaneWidth) / 3)
         self.talents["tree"..i].talentsGridview:SetSize((x-sidePaneWidth) / 3, y)
 
+		self.glyphs["prime"..i]:SetWidth((x-sidePaneWidth) / 3)
 		self.glyphs["major"..i]:SetWidth((x-sidePaneWidth) / 3)
 		self.glyphs["minor"..i]:SetWidth((x-sidePaneWidth) / 3)
     end
@@ -273,6 +281,7 @@ function GuildbookProfileMixin:UpdateLayout()
             self.talents["tree"..i]:SetWidth((x-1) / 3)
             self.talents["tree"..i].talentsGridview:SetSize((x-1) / 3, y)
 
+			self.glyphs["prime"..i]:SetWidth((x-1) / 3)
 			self.glyphs["major"..i]:SetWidth((x-1) / 3)
 			self.glyphs["minor"..i]:SetWidth((x-1) / 3)
         end
@@ -371,6 +380,14 @@ function GuildbookProfileMixin:Update()
 		self.sidePane.mainCharacter:SetHeight(1)
 	end
 
+	if self.character.data.achievementPoints then
+		self.sidePane.achievementPoints:SetHeight(16)
+		self.sidePane.achievementPoints:SetText(self.character.data.achievementPoints)
+	else
+		self.sidePane.achievementPoints:SetHeight(1)
+		self.sidePane.achievementPoints:SetText("")
+	end
+
 
 	local localeSpec, engSpec, id = self.character:GetSpec("primary")
 	local atlas = self.character:GetClassSpecAtlasName("primary")
@@ -460,7 +477,7 @@ function GuildbookProfileMixin:Update()
         end,
     })
 
-	local alts = self.character:GetAlts()
+	local alts = Database:GetCharacterAlts(self.character.data.mainCharacter)
 	--DevTools_Dump(alts)
 	if alts and #alts > 0 then
 		for k, name in ipairs(alts) do
@@ -485,33 +502,33 @@ function GuildbookProfileMixin:Update()
     self.inventory.statsListview.background:SetAtlas(string.format("UI-Character-Info-%s-BG", class:lower()))
 
 	if not self.ignoreCharacterUpdates then
-		self:UpdateEquipmentListview("current")
-		-- self.inventory.equipmentListview.DataProvider:Flush()
+		self.inventory.equipmentListview.DataProvider:Flush()
 
-		-- local t = {}
-		-- for k, v in ipairs(addon.data.inventorySlots) do
-		-- 	local slotID = GetInventorySlotInfo(v.slot)
-		-- 	if self.character.data.inventory.current and self.character.data.inventory.current[v.slot] then
-		-- 		self.inventory.equipmentListview.DataProvider:Insert({
-		-- 			label = self.character.data.inventory.current[v.slot],
-		-- 			icon = v.icon,
-		-- 			link = self.character.data.inventory.current[v.slot],
+		local t = {}
+		for k, v in ipairs(addon.data.inventorySlots) do
+			if self.character.data.inventory.current and self.character.data.inventory.current[v.slot] then
+				self.inventory.equipmentListview.DataProvider:Insert({
+					label = self.character.data.inventory.current[v.slot],
+					icon = v.icon,
+					link = self.character.data.inventory.current[v.slot],
 
-		-- 			onMouseDown = function()
-		-- 				if IsControlKeyDown() then
-		-- 					DressUpItemLink(self.character.data.inventory.current[v.slot])
-		-- 				elseif IsShiftKeyDown() then
-		-- 					HandleModifiedItemClick(self.character.data.inventory.current[v.slot])
-		-- 				end
-		-- 			end,
-		-- 		})
-		-- 	else
-		-- 		self.inventory.equipmentListview.DataProvider:Insert({
-		-- 			label = "-",
-		-- 			icon = v.icon,
-		-- 		})
-		-- 	end
-		-- end
+					labelRight = C_Item.GetDetailedItemLevelInfo(self.character.data.inventory.current[v.slot]),
+
+					onMouseDown = function()
+						if IsControlKeyDown() then
+							DressUpItemLink(self.character.data.inventory.current[v.slot])
+						elseif IsShiftKeyDown() then
+							HandleModifiedItemClick(self.character.data.inventory.current[v.slot])
+						end
+					end,
+				})
+			else
+				self.inventory.equipmentListview.DataProvider:Insert({
+					label = "-",
+					icon = v.icon,
+				})
+			end
+		end
 	end
 
 	self:LoadEquipmentSetInfo("current")
@@ -534,32 +551,32 @@ function GuildbookProfileMixin:Update()
 						self:UpdateItemLevel()
 
 						self:LoadEquipmentSetInfo(name)
-						self:UpdateEquipmentListview(name)
 
-						-- self.inventory.equipmentListview.DataProvider:Flush() --getItemInfoFromID
+						self.inventory.equipmentListview.DataProvider:Flush() --getItemInfoFromID
 
-						-- for k, v in ipairs(addon.data.inventorySlots) do
-						-- 	if self.character.data.inventory[name] and self.character.data.inventory[name][v.slot] then
-						-- 		self.inventory.equipmentListview.DataProvider:Insert({
-						-- 			label = self.character.data.inventory[name][v.slot],
-						-- 			icon = v.icon,
-						-- 			link = self.character.data.inventory[name][v.slot],
-						-- 			--backgroundAlpha = 0.6,
-						-- 			onMouseDown = function()
-						-- 				if IsControlKeyDown() then
-						-- 					DressUpItemLink(self.character.data.inventory[name][v.slot])
-						-- 				elseif IsShiftKeyDown() then
-						-- 					HandleModifiedItemClick(self.character.data.inventory[name][v.slot])
-						-- 				end
-						-- 			end,
-						-- 		})
-						-- 	else
-						-- 		self.inventory.equipmentListview.DataProvider:Insert({
-						-- 			label = "-",
-						-- 			icon = v.icon,
-						-- 		})
-						-- 	end
-						-- end
+						for k, v in ipairs(addon.data.inventorySlots) do
+							if self.character.data.inventory[name] and self.character.data.inventory[name][v.slot] then
+								self.inventory.equipmentListview.DataProvider:Insert({
+									label = self.character.data.inventory[name][v.slot],
+									icon = v.icon,
+									link = self.character.data.inventory[name][v.slot],
+									labelRight = C_Item.GetDetailedItemLevelInfo(self.character.data.inventory[name][v.slot]),
+									--backgroundAlpha = 0.6,
+									onMouseDown = function()
+										if IsControlKeyDown() then
+											DressUpItemLink(self.character.data.inventory[name][v.slot])
+										elseif IsShiftKeyDown() then
+											HandleModifiedItemClick(self.character.data.inventory[name][v.slot])
+										end
+									end,
+								})
+							else
+								self.inventory.equipmentListview.DataProvider:Insert({
+									label = "-",
+									icon = v.icon,
+								})
+							end
+						end
 
 						--[[
 							with a change to wrath including the gear manager the initial method here was to just grab itemIDs via Bliz api
@@ -651,58 +668,6 @@ function GuildbookProfileMixin:Update()
 	self:UpdateLayout()
 end
 
-function GuildbookProfileMixin:UpdateEquipmentListview(setName)
-
-	--runes should only be 1 per slot as we only share 'equipped' runes
-	local runes = {}
-	if self.character.data.runes then
-		for k, rune in ipairs(self.character.data.runes) do
-			runes[rune.equipmentSlot] = rune
-		end
-	end
-
-	local t = {}
-	for k, v in ipairs(addon.data.inventorySlots) do
-		local slotID = GetInventorySlotInfo(v.slot)
-		local icon = v.icon
-		if runes[slotID] then
-			icon = runes[slotID].iconTexture
-		end
-		if self.character.data.inventory[setName] and self.character.data.inventory[setName][v.slot] then
-			table.insert(t, {
-				label = self.character.data.inventory[setName][v.slot],
-				icon = icon,
-				link = self.character.data.inventory[setName][v.slot],
-
-				onMouseEnter = function()
-					GameTooltip:SetOwner(self.inventory.equipmentListview, "ANCHOR_CURSOR")
-					GameTooltip:SetHyperlink(self.character.data.inventory[setName][v.slot])
-					if runes[slotID] then
-						GameTooltip:AddLine(" ")
-						GameTooltip:AddLine("Guildbook", 1,1,1)
-						GameTooltip:AddLine(runes[slotID].name, 0, 1, 0)
-					end
-					GameTooltip:Show()
-				end,
-
-				onMouseDown = function()
-					if IsControlKeyDown() then
-						DressUpItemLink(self.character.data.inventory[setName][v.slot])
-					elseif IsShiftKeyDown() then
-						HandleModifiedItemClick(self.character.data.inventory[setName][v.slot])
-					end
-				end,
-			})
-		else
-			table.insert(t, {
-				label = "-",
-				icon = v.icon,
-			})
-		end
-	end
-	self.inventory.equipmentListview.scrollView:SetDataProvider(CreateDataProvider(t))
-end
-
 function GuildbookProfileMixin:LoadTalentsAndGlyphs()
 
 	-- local mainSpec = self.character:GetClassSpecAtlasName("primary")
@@ -718,32 +683,31 @@ function GuildbookProfileMixin:LoadTalentsAndGlyphs()
 	--sometimes the player might have leveled with a dps spec and set secondary as a tank/healer role btu intend to use that as a main
 	--this can result in the spec being reversed
 	--this should resolve the issue by using talent points spent to calculate spec (for wrath anyways)
-	-- if self.character then
-	-- 	local specInfo = self.character:GetSpecInfo()
+	if self.character then
+		local specInfo = self.character:GetSpecInfo()
 
-	-- 	if specInfo then
+		if specInfo then
 
-	-- 		local primarySpec, secondarySpec = specInfo.primary[1].id, specInfo.secondary[1].id
+			local primarySpec, secondarySpec = specInfo.primary[1].id, specInfo.secondary[1].id
 
-	-- 		if primarySpec then
-	-- 			self.talents.primarySpec.icon:SetAtlas(self.character:GetClassSpecAtlasName(primarySpec))
-	-- 		end
+			if primarySpec then
+				self.talents.primarySpec.icon:SetAtlas(self.character:GetClassSpecAtlasName(primarySpec))
+			end
 
-	-- 		if secondarySpec then
-	-- 			self.talents.secondarySpec.icon:SetAtlas(self.character:GetClassSpecAtlasName(secondarySpec))
-	-- 		end
+			if secondarySpec then
+				self.talents.secondarySpec.icon:SetAtlas(self.character:GetClassSpecAtlasName(secondarySpec))
+			end
 
-	-- 	end
+		end
 
-	-- end
+	end
 
-	local spec = "current";
-	-- if self.selectedTalentSpec == 1 then
-	-- 	spec = "primary"
-	-- else
-	-- 	spec = "secondary"
-	-- end
-
+	local spec;
+	if self.selectedTalentSpec == 1 then
+		spec = "primary"
+	else
+		spec = "secondary"
+	end
 
 
 	--talents
@@ -763,6 +727,7 @@ function GuildbookProfileMixin:LoadTalentsAndGlyphs()
 		for k, frame in ipairs(self.talents["tree"..i].talentsGridview:GetFrames()) do
 			frame:ClearTalent()
 		end
+		self.glyphs["prime"..i]:SetText("-")
 		self.glyphs["major"..i]:SetText("-")
 		self.glyphs["minor"..i]:SetText("-")
 	end
@@ -783,42 +748,69 @@ function GuildbookProfileMixin:LoadTalentsAndGlyphs()
 
 			for i = 1, 3 do
 				for k, frame in ipairs(self.talents["tree"..i].talentsGridview:GetFrames()) do
-					if talentTress[i] and talentTress[i][frame.rowId] and talentTress[i][frame.rowId][frame.colId] then
+					if talentTress[i][frame.rowId][frame.colId] then
 						frame:SetTalent(talentTress[i][frame.rowId][frame.colId])
 					else
-						--print(string.format("missing data in loop > iter=%d rowID=%d colID=%d", i, frame.rowId, frame.colId))
 						frame:ClearTalent()
 					end
 				end
 			end
+
+
+			--new cata talents strings
+		elseif type(self.character.data.talents[spec]) == "string" then
+
+			local tabs = {strsplit("-", self.character.data.talents[spec])}
+
+			local pointsSpent = {
+				{ id = 1, points = 0 },
+				{ id = 2, points = 0 },
+				{ id = 3, points = 0 },
+			}
+		
+			--loop the data and add the points spent per tree
+			--then apply a simple sort allowing us to access the tree in the correct order
+			for k, tab in ipairs(tabs) do
+				if tab and (#tab > 0) then
+					local tbl = {string.byte(tab, 1, #tab)}
+					for i = 1, #tbl do
+						local c = tonumber(string.char(tbl[i]))
+						if c then
+							pointsSpent[k].points = pointsSpent[k].points + c
+						end
+					end
+				end
+			end
+		
+			
+
 		end
 	end
 
-	-- if self.character.data.glyphs and (type(self.character.data.glyphs[spec]) == "table") then
+	if self.character.data.glyphs and (type(self.character.data.glyphs[spec]) == "table") then
 		
-	-- 	local major, minor = 1, 1;
-	-- 	for k, v in ipairs(self.character.data.glyphs[spec]) do
-	-- 		if v.glyphType == 2 then
-	-- 			local item = Item:CreateFromItemID(v.itemID)
-	-- 			if not item:IsItemEmpty() then
-	-- 				item:ContinueOnItemLoad(function()
-	-- 					self.glyphs["major"..major]:SetText(item:GetItemLink())
-	-- 					major = major + 1;
-	-- 				end)
-	-- 			end
+		--local major, minor, prime = 1, 1, 1;
+		for k, v in ipairs(self.character.data.glyphs[spec]) do
 
-	-- 		elseif v.glyphType == 1 then
-	-- 			local item = Item:CreateFromItemID(v.itemID)
-	-- 			if not item:IsItemEmpty() then
-	-- 				item:ContinueOnItemLoad(function()
-	-- 					self.glyphs["minor"..minor]:SetText(item:GetItemLink())
-	-- 					minor = minor + 1;
-	-- 				end)
-	-- 			end
+			if v.spellID and v.glyphIndex and v.glyphType then
+				local glyph = GetSpellInfo(v.spellID)
 
-	-- 		end
-	-- 	end
-	-- end
+				if v.glyphType == 3 then
+					self.glyphs["prime"..v.glyphIndex+1]:SetText(glyph)
+					--prime = prime + 1;
+	
+				elseif v.glyphType == 2 then
+					self.glyphs["major"..v.glyphIndex+1]:SetText(glyph)
+					--major = major + 1;
+	
+				elseif v.glyphType == 1 then
+					self.glyphs["minor"..v.glyphIndex+1]:SetText(glyph)
+					--minor = minor + 1;
+	
+				end
+			end
+		end
+	end
 
 end
 

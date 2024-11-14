@@ -26,7 +26,7 @@
 
         <Frames>
 
-            <Frame parentKey="charactersListview" inherits = "GuildbookClassicEraWidgetsListviewTemplate">
+            <Frame parentKey="charactersListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
                 <Size x="200"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="-30"/>
@@ -34,19 +34,19 @@
                 </Anchors>
                 <KeyValues>
                     <KeyValue key="frameType" value="FRAME" type="string"/>
-                    <KeyValue key="itemTemplate" value="GuildbookClassicEraChatCharacterListviewItem" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookWrathEraChatCharacterListviewItem" type="string"/>
                     <KeyValue key="elementHeight" value="40" type="number"/>
                 </KeyValues>
             </Frame>
 
-            <Frame parentKey="chatHistory" inherits = "GuildbookClassicEraWidgetsListviewTemplate, InsetFrameTemplate3">
+            <Frame parentKey="chatHistory" inherits = "GuildbookWrathEraWidgetsListviewTemplate, InsetFrameTemplate3">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.charactersListview" relativePoint="TOPRIGHT" x="6" y="0"/>
                     <Anchor point="BOTTOMRIGHT" x="-6" y="65"/>
                 </Anchors>
                 <KeyValues>
                     <KeyValue key="frameType" value="FRAME" type="string"/>
-                    <KeyValue key="itemTemplate" value="GuildbookClassicEraChatBubble" type="string"/>
+                    <KeyValue key="itemTemplate" value="GuildbookWrathEraChatBubble" type="string"/>
                     <KeyValue key="elementHeight" value="50" type="number"/>
                 </KeyValues>
             </Frame>

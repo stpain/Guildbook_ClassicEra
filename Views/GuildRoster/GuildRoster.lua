@@ -1,39 +1,43 @@
 local name, addon = ...;
 local L = addon.Locales;
 
-local Database = addon.Database;
-
 GuildbookGuildRosterMixin = {
     name = "GuildRoster",
     showOffline = false,
+    showMyCharacters = false,
     selectedClass = false,
     selectedMinLevel = 1,
-    selectedMaxLevel = 80,
+    selectedMaxLevel = 85,
     helptips = {},
 }
 
 function GuildbookGuildRosterMixin:OnLoad()
 
     addon:RegisterCallback("Blizzard_OnGuildRosterUpdate", self.Blizzard_OnGuildRosterUpdate, self)
+    addon:RegisterCallback("Roster_OnSelectionChanged", self.Update, self)
 
     self.rosterHelptip:SetText(L.ROSTER_LISTVIEW_HT)
     table.insert(self.helptips, self.rosterHelptip)
 
     local classMenu = {}
     for i = 1, GetNumClasses() do
-        if i ~= 10 then
+        --if i ~= 10 then
             local locale, eng, id = GetClassInfo(i)
             table.insert(classMenu, {
-                text = locale,
+                text = RAID_CLASS_COLORS[eng]:WrapTextInColorCode(locale),
+                sortID = locale,
                 icon = nil,
                 func = function()
                     self.selectedClass = id
                     self:Update()
                 end,
             })
-        end
+        --end
     end
-    table.insert(classMenu, {
+    table.sort(classMenu, function (a, b)
+        return a.sortID < b.sortID;
+    end)
+    table.insert(classMenu, 1, {
         text = ALL,
         icon = nil,
         func = function()
@@ -83,50 +87,54 @@ function GuildbookGuildRosterMixin:OnLoad()
         self:Update()
     end)
 
+    self.showMyCharactersCheckbox.label:SetText("My Characters")
+    self.showMyCharactersCheckbox:SetScript("OnClick", function()
+        self.showMyCharacters = not self.showMyCharacters;
+        self:Update()
+    end)
+
     addon.AddView(self)
 end
 
-function GuildbookGuildRosterMixin:Update()
+function GuildbookGuildRosterMixin:Update(classID, minLevel, maxLevel)
 
-    --these filters seemed to cause lag on the UI so just checking data directly instead
-
-    -- local function generateClassFilter()
+    -- local function filterRoster(key, val)
     --     return function(character)
-    --         if self.selectedClass then
-    --             if character.data.class == self.selectedClass then
-    --                 return true
+    --         if character.data[key] then
+    --             if character.data[key] == val then
+    --                 return true;
     --             end
-    --         else
-    --             return true
-    --         end
-    --     end
-    -- end
-    -- local function generateLevelFilter()
-    --     return function(character)
-    --         if (character.data.level >= self.selectedMinLevel) and (character.data.level <= self.selectedMaxLevel) then
-    --             return true
     --         end
     --     end
     -- end
 
-    -- local filters = {
-    --     generateClassFilter(),
-    --     generateLevelFilter(),
-    -- }
-
-    local guildName, guildRankName, guildRankIndex, realm = GetGuildInfo("player")
+    if classID then
+        self.selectedClass = classID
+    end
+    if minLevel then
+        self.selectedMinLevel = minLevel
+    end
+    if maxLevel then
+        self.selectedMaxLevel = maxLevel
+    end
 
     local t = {}
     for nameRealm, character in pairs(addon.characters) do
 
-        if Database and guildName and Database.db.guilds and Database.db.guilds[guildName] and Database.db.guilds[guildName].members and Database.db.guilds[guildName].members[character.data.name] then
+        --if Database.db.guilds[addon.thisGuild].members[nameRealm] then
 
-            local match = false;
-            -- for k, filter in ipairs(filters) do
-            --     if not filter(character) then
-            --         match = false;
-            --     end
-            -- end
+        local match = false;
+        -- for k, filter in ipairs(filters) do
+        --     if not filter(character) then
+        --         match = false;
+        --     end
+        -- end
+
+        if self.showMyCharacters then
+            if addon.api.characterIsMine(character.data.name) then
+                match = true;
+            end
+        else
             if (character.data.level >= self.selectedMinLevel) and (character.data.level <= self.selectedMaxLevel) then
                 if self.selectedClass and (character.data.class == self.selectedClass) then
                     if self.showOffline == false then
@@ -142,28 +150,38 @@ function GuildbookGuildRosterMixin:Update()
                     end
                 end
             end
+        end
 
-            if match then
-                table.insert(t, character)
-            end
+        if match then
+            table.insert(t, character)
         end
     end
 
     table.sort(t, function(a, b)
         if a.data.level == b.data.level then
-            if a.data.class == b.data.class then
-                return a.data.name < b.data.name
-            else
+            if a.data.onlineStatus.zone == b.data.onlineStatus.zone then
                 return a.data.class < b.data.class
+            else
+                return a.data.onlineStatus.zone < b.data.onlineStatus.zone
             end
         else
             return a.data.level > b.data.level
         end
     end)
 
+    local i = 0;
+    for k, v in ipairs(t) do
+        if (i % 2 == 0) then
+            v.showBackground = true
+        else
+            v.showBackground = false
+        end
+        i = i + 1;
+    end
     
     local dp = CreateDataProvider(t)
     self.rosterListview.scrollView:SetDataProvider(dp)
+
 end
 
 function GuildbookGuildRosterMixin:Blizzard_OnGuildRosterUpdate()
@@ -172,6 +190,4 @@ end
 
 function GuildbookGuildRosterMixin:OnShow()
     GuildRoster() --this will trigger a callback to self:Update
-
-    --self:Update()
 end

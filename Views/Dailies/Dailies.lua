@@ -18,6 +18,7 @@ function GuildbookWrathDailiesMixin:OnLoad()
     addon:RegisterCallback("Quest_OnTurnIn", self.Quest_OnTurnIn, self)
     addon:RegisterCallback("Quest_OnAccepted", self.Quest_OnAccepted, self)
     addon:RegisterCallback("Database_OnDailyQuestCompleted", self.UpdateHeaderInfo, self)
+    addon:RegisterCallback("Database_OnDailyQuestDeleted", self.LoadQuests, self)
 
     self.filterFavorites:SetScript("OnClick", function()
         self.filterFavoriteQuests = not self.filterFavoriteQuests
@@ -90,45 +91,41 @@ function GuildbookWrathDailiesMixin:ScanQuestLog()
 
     currentQuestLog = {}
 
+    ExpandQuestHeader(0)
+
     local header;
-    local i = 1
-    repeat
+    for i = 1, GetNumQuestLogEntries() do
 
         local title, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questId = GetQuestLogTitle(i)
 
-        if title ~= nil then
-            if not isHeader then
-                currentQuestLog[questId] = true;
-            end
-
-            -- if title:find("Die!") then
-            --     print(frequency)
-            -- end
-
-            if isHeader then
-                header = title;
-            end
-            if frequency == 2 or frequency == 3 then
-                --local questDescription, questObjectives = GetQuestLogQuestText(i)
-                local questLink = GetQuestLink(questId)
-                local questData = {
-                    link = questLink,
-                    title = title,
-                    header = header,
-                    questId = questId,
-                    -- description = questDescription,
-                    -- objectives = questObjectives,
-                    level = level,
-                    frequency = frequency,
-                }
-
-                Database.db.dailies.quests[questId] = questData
-            end
-            i = i + 1
+        if not isHeader then
+            currentQuestLog[questId] = true;
         end
 
-    until (title == nil)
+        -- if title:find("Die!") then
+        --     print(frequency)
+        -- end
 
+        if isHeader then
+            header = title;
+        end
+        if frequency == 2 or frequency == 3 then
+            --local questDescription, questObjectives = GetQuestLogQuestText(i)
+            local questLink = GetQuestLink(questId)
+            local questData = {
+                link = questLink,
+                title = title,
+                header = header,
+                questId = questId,
+                level = level,
+                frequency = frequency,
+            }
+
+            Database.db.dailies.quests[questId] = questData
+        end
+    end
+
+    CollapseQuestHeader(0)    
 end
 
 function GuildbookWrathDailiesMixin:Quest_OnAccepted()
@@ -153,7 +150,7 @@ function GuildbookWrathDailiesMixin:LoadCharacters()
 
     local t = {}
 
-    for name, isMain in pairs(Database.db.myCharacters) do
+    for name, info in pairs(Database.db.myCharacters) do
 
         if addon.characters[name] then
             table.insert(t, addon.characters[name])
@@ -277,13 +274,58 @@ function GuildbookWrathDailiesListviewItemMixin:SetDataBinding(binding, height)
 
     self:SetHeight(height)
 
+    self:SetScript("OnMouseDown", function(f, button)
+        if button == "RightButton" then
+            if self.daily and self.daily.quest and self.daily.quest.questId then
+                StaticPopup_Show("GuildbookDeleteGeneric", self.daily.quest.title, nil, {
+                    callback = function()
+                        Database:DeleteDailyQuest(self.daily.quest.questId)
+                    end,
+                })
+            end
+        end
+    end)
+
+
     self:SetScript("OnLeave", function()
         GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
     end)
 
     --if this is a header line just set text
     if self.daily.isHeader then
-        self:EnableMouse(false)
+
+        self.favoriteHeaderAll:Show()
+        self.favoriteHeaderAll:SetScript("OnClick", function()
+            --Database.db.dailies.characters[selectedCharacter]
+            for questID, info in pairs(Database.db.dailies.quests) do
+                if info.header and (info.header == self.daily.header) then
+                    Database.db.dailies.characters[selectedCharacter][questID].isFavorite = not Database.db.dailies.characters[selectedCharacter][questID].isFavorite
+                end
+            end
+            addon:TriggerEvent("Database_OnDailyQuestDeleted")
+        end)
+
+        --self:EnableMouse(false)
+        self.deleteHeaderAll:Show()
+        self.deleteHeaderAll:SetScript("OnClick", function()
+            if self.daily.isHeader then
+                StaticPopup_Show("GuildbookDeleteGeneric", string.format("%s %s", ALL, self.daily.header), nil, {
+                    callback = function()
+                        local questIDsToDelete = {}
+                        for questID, info in pairs(Database.db.dailies.quests) do
+                            if info.header and (info.header == self.daily.header) then
+                                table.insert(questIDsToDelete, questID)
+                            end
+                        end
+                        for k, questID in ipairs(questIDsToDelete) do
+                            Database.db.dailies.quests[questID] = nil
+                        end
+                        addon:TriggerEvent("Database_OnDailyQuestDeleted")
+                    end,
+                })
+            end
+        end)
+
         self.completed:Hide()
         self.header:Show()
         self.header:SetText(self.daily.header)
@@ -292,6 +334,8 @@ function GuildbookWrathDailiesListviewItemMixin:SetDataBinding(binding, height)
 
     --if this is a quest do fancy stuff
     else
+        self.favoriteHeaderAll:Hide()
+        self.deleteHeaderAll:Hide()
 
         if type(self.daily.characterQuestInfo) == "table" then
             local atlas = self.daily.characterQuestInfo.isFavorite == true and "auctionhouse-icon-favorite" or "auctionhouse-icon-favorite-off";
@@ -348,9 +392,11 @@ function GuildbookWrathDailiesListviewItemMixin:Database_OnDailyQuestCompleted(q
 end
 
 function GuildbookWrathDailiesListviewItemMixin:OnEnter()
-    GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-    GameTooltip:SetHyperlink(self.daily.quest.link)
-    GameTooltip:Show()
+    if self.daily and self.daily.quest and self.daily.quest.link then
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        GameTooltip:SetHyperlink(self.daily.quest.link)
+        GameTooltip:Show()
+    end
 end
 
 function GuildbookWrathDailiesListviewItemMixin:ResetDataBinding()

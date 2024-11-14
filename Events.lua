@@ -7,38 +7,57 @@ local Talents = addon.Talents;
 local Tradeskills = addon.Tradeskills;
 local Comms = addon.Comms;
 
+local clientName;
+do
+    if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+        clientName = "classic"
+    end
+    if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+        clientName = "classic"
+    end
+    if WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
+        clientName = "wrath"
+    end
+end
+
 local e = CreateFrame("FRAME");
 e:RegisterEvent('GUILD_ROSTER_UPDATE')
 e:RegisterEvent('GUILD_RANKS_UPDATE')
 e:RegisterEvent('ADDON_LOADED')
 e:RegisterEvent('PLAYER_ENTERING_WORLD')
-e:RegisterEvent('PLAYER_LEVEL_UP')
+e:RegisterEvent('PLAYER_MONEY')
+--e:RegisterEvent('PLAYER_LEVEL_UP')
 e:RegisterEvent('TRADE_SKILL_UPDATE')
 e:RegisterEvent('TRADE_SKILL_SHOW')
-e:RegisterEvent('CRAFT_UPDATE')
+--e:RegisterEvent('CRAFT_UPDATE')
 e:RegisterEvent('RAID_ROSTER_UPDATE')
 e:RegisterEvent('BANKFRAME_OPENED')
 e:RegisterEvent('BANKFRAME_CLOSED')
 --e:RegisterEvent('BAG_UPDATE')
 e:RegisterEvent('BAG_UPDATE_DELAYED')
+e:RegisterEvent('CHAT_MSG_LOOT')
 e:RegisterEvent('CHAT_MSG_GUILD')
-e:RegisterEvent('CHAT_MSG_OFFICER')
 e:RegisterEvent('CHAT_MSG_WHISPER')
 e:RegisterEvent('CHAT_MSG_WHISPER_INFORM')
 e:RegisterEvent('CHAT_MSG_SYSTEM')
 e:RegisterEvent('CHAT_MSG_BN_WHISPER_INFORM')
 e:RegisterEvent('CHAT_MSG_BN_WHISPER')
---e:RegisterEvent('UPDATE_MOUSEOVER_UNIT')
-e:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
+e:RegisterEvent('UPDATE_MOUSEOVER_UNIT')
 e:RegisterEvent('ZONE_CHANGED_NEW_AREA')
 e:RegisterEvent('CHARACTER_POINTS_CHANGED')
+e:RegisterEvent('UNIT_AURA')
 e:RegisterEvent("PLAYER_REGEN_DISABLED")
 e:RegisterEvent("PLAYER_REGEN_ENABLED")
 e:RegisterEvent("SKILL_LINES_CHANGED")
+--e:RegisterEvent("EQUIPMENT_SWAP_FINISHED")
+--e:RegisterEvent("EQUIPMENT_SETS_CHANGED")
+e:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 e:RegisterEvent("QUEST_TURNED_IN")
 e:RegisterEvent("QUEST_ACCEPTED")
 e:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-e:RegisterEvent("PLAYER_LOGOUT")
+e:RegisterEvent("LOOT_ITEM_AVAILABLE")
+e:RegisterEvent("CHAT_MSG_CURRENCY")
+e:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE")
 
 e:SetScript("OnEvent", function(self, event, ...)
     if self[event] then
@@ -46,8 +65,40 @@ e:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 
-function e:PLAYER_LOGOUT()
-    Database:CleanUpRecruitment()
+function e:CHAT_MSG_COMBAT_FACTION_CHANGE(...)
+    if Database and Database.db and addon.thisCharacter and Database.db.myCharacters[addon.thisCharacter] then
+        local reps = addon.api.getCurrentReputations()
+        Database.db.myCharacters[addon.thisCharacter].reputations = reps;
+    end
+end
+
+function e:CHAT_MSG_CURRENCY(...)
+    if Database and Database.db and addon.thisCharacter and Database.db.myCharacters[addon.thisCharacter] then
+        local curr = addon.api.getCurrentCurrencies()
+        Database.db.myCharacters[addon.thisCharacter].currencies = curr;
+    end
+end
+
+function e:LOOT_ITEM_AVAILABLE(...)
+    local item, handle = ...;
+    addon:TriggerEvent("Loot_OnItemAvailable")
+end
+
+function e:PLAYER_MONEY()
+    local money = GetMoney()
+    if addon.characters and addon.characters[addon.thisCharacter] then
+
+        --probs dont need to get full bags update
+        --local bags = addon.api.scanPlayerContainers()
+
+        --as this is only for the player to know just update the field directly
+        addon.characters[addon.thisCharacter].data.containers.copper = money;
+    end
+end
+
+function e:CHAT_MSG_LOOT(...)
+    local msg = ...;
+    addon:TriggerEvent("Loot_OnItemAvailable", msg)
 end
 
 function e:PLAYER_LEVEL_UP(...)
@@ -55,9 +106,11 @@ function e:PLAYER_LEVEL_UP(...)
     if addon.thisCharacter and addon.thisGuild then
         local newLevel = ...;
 
-        --make this use the SimpleTemplate to make it easier to display
         local news = {
-            label = string.format("%s reached level %d", addon.characters[addon.thisCharacter]:GetName(true), newLevel)
+            character = addon.thisCharacter,
+            event = "levelup",
+            newLevel = newLevel,
+            guild = addon.thisGuild
         }
         Comms:Character_BroadcastNewsEvent(news)
     end
@@ -125,17 +178,6 @@ function e:CHAT_MSG_GUILD(...)
         message = msg,
         guid = guid,
         channel = "guild",
-    })
-end
-
-function e:CHAT_MSG_OFFICER(...)
-    local msg, sender = ...;
-    local guid = select(12, ...)
-    addon:TriggerEvent("Chat_OnMessageReceived", {
-        sender = sender,
-        message = msg,
-        guid = guid,
-        channel = "guildOfficer",
     })
 end
 
@@ -247,19 +289,10 @@ ERR_GUILD_WITHDRAW_LIMIT = "You cannot withdraw that much from the guild bank.";
 ]]
 
 function e:ADDON_LOADED(...)
-    
-    --hooks
-    -- GuildFramePromoteButton:HookScript("OnClick", function()
-    
-    -- end)
-    -- GuildFrameDemoteButton:HookScript("OnClick", function()
-    
-    -- end)
 
-    -- local addonLoaded = ...
-    -- if addonName == addonLoaded then
-    --     print("it works")
-    -- end
+    if ... == "Guildbook_TSDB" then
+        addon.dataStoreEnabled = true
+    end
 
 end
 
@@ -281,7 +314,8 @@ function e:CHAT_MSG_SYSTEM(...)
 end
 
 function e:GUILD_RANKS_UPDATE()
-    
+    QueryGuildEventLog()
+    addon:TriggerEvent("Blizzard_OnGuildRankUpdate")
 end
 
 --[[
@@ -295,20 +329,26 @@ function e:BANKFRAME_CLOSED()
         if addon.characters[addon.thisCharacter] then
             local bags = addon.api.scanPlayerContainers(true)
     
-            if addon.guilds[addon.thisGuild] then
-                addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
-    
-                if not addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] then
-                    addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] = {
-                        shareBags = false,
-                        shareBank = false,
-                        shareCopper = false,
-                        shareRank = 0,
-                    }
-                    print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
-                end
 
-            end
+            --[[
+                redundant feature as of cata
+            ]]
+            -- if addon.guilds[addon.thisGuild] then
+            --     addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
+    
+            --     if not addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] then
+            --         addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] = {
+            --             shareBags = false,
+            --             shareBank = false,
+            --             shareCopper = false,
+            --             shareRank = 0,
+            --         }
+            --         print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
+            --     end
+
+            -- end
+
+
             addon.characters[addon.thisCharacter]:SetContainers(bags)
         end
         bankScanned = true;
@@ -317,22 +357,28 @@ end
 function e:BANKFRAME_OPENED()
     if addon.characters[addon.thisCharacter] then
         local bags = addon.api.scanPlayerContainers(true)
+
+            --[[
+                redundant feature as of cata
+            ]]
         --DevTools_Dump(bags)
-        if addon.guilds[addon.thisGuild] then
-            addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
+        -- if addon.guilds[addon.thisGuild] then
+        --     addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
 
-            if not addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] then
-                addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] = {
-                    shareBags = false,
-                    shareBank = false,
-                    shareCopper = false,
-                    shareRank = 0,
-                }
-                print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
-            end
+        --     if not addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] then
+        --         addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] = {
+        --             shareBags = false,
+        --             shareBank = false,
+        --             shareCopper = false,
+        --             shareRank = 0,
+        --         }
+        --         print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
+        --     end
 
-            --addon.characters[addon.thisCharacter]:SetContainers(bags)
-        end
+        --     --addon.characters[addon.thisCharacter]:SetContainers(bags)
+        -- end
+
+
         addon.characters[addon.thisCharacter]:SetContainers(bags)
     end
     bankScanned = false;
@@ -343,15 +389,97 @@ function e:BAG_UPDATE_DELAYED()
     if addon.characters and addon.characters[addon.thisCharacter] then
         local bags = addon.api.scanPlayerContainers()
         addon.characters[addon.thisCharacter]:SetContainers(bags)
-        if addon.guilds[addon.thisGuild] then
-            addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
+    end
+    addon:TriggerEvent("Character_Bags_Updated")
+end
+
+
+--dont need to send aura info everytime they change
+function e:UNIT_AURA()
+    -- local auras = addon.api.getPlayerAuras()
+    -- if addon.characters[addon.thisCharacter] then
+    --     addon.characters[addon.thisCharacter]:SetAuras("current", auras)
+    -- end
+    --addon.api.wrath.scanSpellbook()
+end
+
+function e:EQUIPMENT_SETS_CHANGED()
+    C_Timer.After(1.0, function()
+
+        if addon.characters and addon.characters[addon.thisCharacter] then
+    
+            local sets = C_EquipmentSet.GetEquipmentSetIDs();
+            for k, v in ipairs(sets) do
+                local name, iconFileID, _setID, isEquipped, numItems, numEquipped, numInInventory, numLost, numIgnored = C_EquipmentSet.GetEquipmentSetInfo(v)
+                if isEquipped then
+                    
+                    local equipment = addon.api.getPlayerEquipmentCurrent()
+                    local stats = addon.api.getPaperDollStats()
+                    local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
+                    local auras = addon.api.getPlayerAuras()
+
+                    addon.characters[addon.thisCharacter]:SetPaperdollStats(name, stats, true)
+                    addon.characters[addon.thisCharacter]:SetResistances(name, resistances, true)
+                    addon.characters[addon.thisCharacter]:SetAuras(name, auras, true)
+                    addon.characters[addon.thisCharacter]:SetInventory(name, equipment, true)
+
+                end
+            end
+
+        end
+
+    end)
+end
+
+function e:EQUIPMENT_SWAP_FINISHED(...)
+
+    if addon.characters and addon.characters[addon.thisCharacter] then
+        local res, setID = ...;
+
+        if res then
+            C_Timer.After(1.0, function()
+
+                local equipmentSetName = "";
+                local sets = C_EquipmentSet.GetEquipmentSetIDs();
+                for k, v in ipairs(sets) do
+                    local name, iconFileID, _setID, isEquipped, numItems, numEquipped, numInInventory, numLost, numIgnored = C_EquipmentSet.GetEquipmentSetInfo(v)
+                    if _setID == setID then
+                        equipmentSetName = name;
+                    end
+                end
+
+                local equipment = addon.api.wrath.getPlayerEquipmentCurrent()
+
+                local stats = addon.api.wrath.getPaperDollStats()
+                local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
+                local auras = addon.api.getPlayerAuras()
+
+                if equipmentSetName == "" then
+                    addon.characters[addon.thisCharacter]:SetPaperdollStats("current", stats, true)
+                    addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
+                    addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
+                    addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
+
+                else
+                    addon.characters[addon.thisCharacter]:SetPaperdollStats(equipmentSetName, stats, true)
+                    addon.characters[addon.thisCharacter]:SetResistances(equipmentSetName, resistances, true)
+                    addon.characters[addon.thisCharacter]:SetAuras(equipmentSetName, auras, true)
+                    addon.characters[addon.thisCharacter]:SetInventory(equipmentSetName, equipment, true)
+
+                end
+
+            end)
         end
     end
 end
 
-
-
 function e:PLAYER_EQUIPMENT_CHANGED()
+
+    addon.api.updatePaperdollOverlays()
+
+    --[[
+        Classic Era:
+    ]]
 
     --when equipment changes it can change stats, resistances so grab those as well
     local equipment = addon.api.classic.getPlayerEquipment()
@@ -366,7 +494,36 @@ function e:PLAYER_EQUIPMENT_CHANGED()
         addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
     end
 
+    
 
+
+    --Wrath
+
+    --[[
+    if addon.characters[addon.thisCharacter] then
+        local equipmentSets = addon.api.wrath.getPlayerEquipment()
+        local currentStats = addon.api.wrath.getPaperDollStats()
+        local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
+        local auras = addon.api.getPlayerAuras()
+
+        local setName = "current"
+        local sets = C_EquipmentSet.GetEquipmentSetIDs();
+        for k, v in ipairs(sets) do
+            local name, iconFileID, _setID, isEquipped, numItems, numEquipped, numInInventory, numLost, numIgnored = C_EquipmentSet.GetEquipmentSetInfo(v)
+            if isEquipped then
+                setName = name;
+            end
+        end
+        if setName == "current" then
+            addon.characters[addon.thisCharacter]:SetInventory(setName, equipmentSets.current, true) 
+        else
+            addon.characters[addon.thisCharacter]:SetInventory(setName, equipmentSets.sets[setName], true)
+        end
+        addon.characters[addon.thisCharacter]:SetPaperdollStats(setName, currentStats, true)
+        addon.characters[addon.thisCharacter]:SetResistances(setName, resistances, true)
+        addon.characters[addon.thisCharacter]:SetAuras(setName, auras, true)
+    end
+    ]]
 
 end
 
@@ -395,7 +552,7 @@ function e:PLAYER_ENTERING_WORLD()
 
     -- Talents:GetPlayerTalentInfo()
 
-    local version = tonumber(GetAddOnMetadata(addonName, "Version"));
+    --local version = tonumber(GetAddOnMetadata(addonName, "Version"));
 
     Database:Init()
 end
@@ -447,16 +604,16 @@ function e:GUILD_ROSTER_UPDATE()
         if not Database.db.guilds[guildName] then
             Database.db.guilds[guildName] = {
                 members = {},
-                calendar = {
-                    activeEvents = {},
-                    deletedEvents = {},
-                },
-                banks = {},
-                bankRules = {},
+                -- calendar = {
+                --     activeEvents = {},
+                --     deletedEvents = {},
+                -- },
+                -- banks = {},
+                -- bankRules = {},
                 logs = {
                     general = {},
-                    members = {}, --use this for people joining/leaving the guild
-                    promotions = {}, --use this for members being promoted/demoted
+                    --members = {}, --use this for people joining/leaving the guild
+                    --promotions = {}, --use this for members being promoted/demoted
                     --guildbank = {}, --use this for guild bank withdraw etc
                 },
                 info = {},
@@ -473,26 +630,30 @@ function e:GUILD_ROSTER_UPDATE()
         for i = 1, totalMembers do
             --local name, rankName, rankIndex, level, classDisplayName, zone, publicNote, officerNote, isOnline, status, class, achievementPoints, achievementRank, isMobile, canSoR, repStanding, guid = GetGuildRosterInfo(i)
             local name, rankName, rankIndex, level, _, zone, publicNote, officerNote, isOnline, status, class, _, _, _, _, _, guid = GetGuildRosterInfo(i)
-        
-            if publicNote:lower():find("guildbank") then
+       
+            --[[
+                there is no need to keep this data running 
+            ]]
+            -- if publicNote:lower():find("guildbank") then
 
-                --add the bank character if not exists
-                if not addon.guilds[guildName].banks[name] then
-                    addon.guilds[guildName].banks[name] = 0;
-                    addon.guilds[guildName].bankRules[name] = {
-                        shareBank = false,
-                        shareBags = false,
-                        shareRank = 0,
-                        shareCopper = false,
-                    }
-                end
-            else
+            --     --add the bank character if not exists
+            --     if not addon.guilds[guildName].banks[name] then
+            --         addon.guilds[guildName].banks[name] = 0;
+            --         addon.guilds[guildName].bankRules[name] = {
+            --             shareBanks = false,
+            --             shareBags = false,
+            --             shareRank = 0,
+            --             shareCopper = false,
+            --         }
+            --     end
+            -- else
 
-                --remove bank if no longer set
-                if Database.db.guilds[guildName].banks[name] then
-                    Database.db.guilds[guildName].banks[name] = nil
-                end
-            end
+            --     --remove bank if no longer set
+            --     if Database.db.guilds[guildName].banks[name] then
+            --         Database.db.guilds[guildName].banks[name] = nil
+            --     end
+            -- end
+
             members[name] = true;
 
             --the easiest way to do this is just access the saved variables rather than add calls just to be fancy
@@ -547,6 +708,7 @@ function e:GUILD_ROSTER_UPDATE()
                     containers = {},
                     lockouts = {},
                     tradeskillCooldowns = {},
+                    achievementPoints = 0,
                 }
                 Database:InsertCharacter(character)
                 
@@ -563,7 +725,6 @@ function e:GUILD_ROSTER_UPDATE()
             addon.characters[name].data.level = level
             addon.characters[name].data.rank = rankIndex
             addon.characters[name].data.publicNote = publicNote
-            addon.characters[name].data.guild = guildName
             
             if i == totalMembers then
 
@@ -656,7 +817,7 @@ local function processSkillLines(skills)
                 end
 
                 if missingTradeskillId and knownProfSlot then
-                    --print(missingTradeskillId, knownProfSlot)
+                    print(missingTradeskillId, knownProfSlot)
                     if knownProfSlot == 1 then
                         addon.characters[addon.thisCharacter]:SetTradeskill(2, tradeskillId, true);
                         addon.characters[addon.thisCharacter]:SetTradeskillLevel(2, level, true)
@@ -671,12 +832,17 @@ local function processSkillLines(skills)
     end
 end
 
-local function setCharacterTradeskill(prof, recipes, tradeskillCooldowns)
+local function setCharacterTradeskill(prof, recipes, tradeskillCooldowns, onlyCooldowns)
 
     if addon.characters and addon.characters[addon.thisCharacter] then
 
         if tradeskillCooldowns then
-            addon.characters[addon.thisCharacter]:UpdateTradeskillCooldowns(tradeskillCooldowns)
+            if onlyCooldowns then
+                addon.characters[addon.thisCharacter]:UpdateTradeskillCooldowns(tradeskillCooldowns, true)
+                --return
+            else
+                addon.characters[addon.thisCharacter]:UpdateTradeskillCooldowns(tradeskillCooldowns)
+            end
         end
         
         if prof == 185 then
@@ -696,10 +862,12 @@ local function setCharacterTradeskill(prof, recipes, tradeskillCooldowns)
 
         if prof == nil then
             --print("no prof value to set")
+            addon.LogDebugMessage("warning", "[setCharacterTradeskill] no prof [ID] value")
             return
         end
         if type(recipes) ~= "table" then
             --print("no recipe table to set")
+            addon.LogDebugMessage("warning", "[setCharacterTradeskill] recipes value not a table")
             return
         end
         --print("setting prof data", prof)
@@ -756,87 +924,127 @@ local function scanTradeskills()
         prof = Tradeskills:GetTradeskillIDFromLocale(tradeskillTitle)
     end
 
-    local cooldownsAdded = {}
+    if type(prof) == "number" then
+        addon.LogDebugMessage("tradeskills", string.format("function [scanTradeskills] prof = %s", prof))
+        addon.LogDebugMessage("tradeskills", string.format("function [scanTradeskills] numTradeskills [%d]", numTradeskills))
 
-    for i = 1, numTradeskills do
-        local name, _type, _, _, _ = GetTradeSkillInfo(i)
-        if name and (_type == "optimal" or _type == "medium" or _type == "easy" or _type == "trivial") then
-            
-            local itemLink = GetTradeSkillItemLink(i)
-            --print(i, name, itemLink)
+            local cooldownsAdded = {}
 
-            local cooldown = GetTradeSkillCooldown(i)
-
-            if cooldown then
-
-                if name:find(":") then
-                    local skillPrefix, skill = strsplit(":", name)
-                    if not cooldownsAdded[skillPrefix] then
-                        cooldownsAdded[skillPrefix] = true
-                        table.insert(tradeskillCooldowns, {
-                            name = skillPrefix,
-                            finishes = time() + math.floor(cooldown),
-                            tradeskillID = prof,
-                        })
-                    end
-                else
-                    table.insert(tradeskillCooldowns, {
-                        name = name,
-                        finishes = time() + math.floor(cooldown),
-                        tradeskillID = prof,
-                    })
-                end
-
-            end
-            if itemLink then
-                --print("got link")
-                local id = GetItemInfoFromHyperlink(itemLink)
-                if id then
-                    for k, v in ipairs(addon.itemData) do
-                        if v.itemID == id then
-                            table.insert(recipes, v.spellID)
-
+            for i = 1, numTradeskills do
+                local name, _type, _, _, _ = GetTradeSkillInfo(i)
+                --if name and (_type == "optimal" or _type == "medium" or _type == "easy" or _type == "trivial") then
+                    local itemLink = GetTradeSkillItemLink(i)
+        
+                    local cooldown = GetTradeSkillCooldown(i)
+                    if cooldown then
+        
+                        if name:find(":") then
+                            local skillPrefix, skill = strsplit(":", name)
+                            if not cooldownsAdded[skillPrefix] then
+                                cooldownsAdded[skillPrefix] = true
+                                table.insert(tradeskillCooldowns, {
+                                    name = skillPrefix,
+                                    finishes = time() + math.floor(cooldown),
+                                    tradeskillID = prof,
+                                })
+                            end
+                        else
+                            table.insert(tradeskillCooldowns, {
+                                name = name,
+                                finishes = time() + math.floor(cooldown),
+                                tradeskillID = prof,
+                            })
                         end
+        
                     end
+                    if itemLink then
+                        local id = GetItemInfoFromHyperlink(itemLink)
+                        --print(itemLink)
+                        if id then
+                            --print(id)
 
-                    if prof == 186 then --mining doesn't make enchanted bars
-                        
+                            if id == 75248 then
+                                --print("found deathsilt belt")
+                            end
+        
+                            --old wrath system
+                            -- for k, v in ipairs(addon.itemData) do
+                            --     if v.itemID == id then
+                            --         table.insert(recipes, v.spellID)
+        
+                            --     end
+                            -- end
+        
+                            --addon.LogDebugMessage("tradeskills", string.format("Found itemID [%d] for %s", id, itemLink))
+        
+                            --cata
+                            local recipeSpellID = Tradeskills:GetRecipeSpellIDFromItemID(id)
+                            if recipeSpellID then
+                                table.insert(recipes, recipeSpellID)
+                                --addon.LogDebugMessage("tradeskills", string.format("Added recipeSpellID [%d] for %s", recipeSpellID, itemLink))
+                            end
+        
+                            if prof == 186 then --mining doesn't make enchanted bars
+                                
+                            else
+                                if id == 12655 then --enchanted thorium bar causes an issue
+                                    prof = 333
+                                end
+                            end
+        
+                        end
+        
                     else
-                        if id == 12655 then --enchanted thorium bar causes an issue
-                            prof = 333
+        
+        
+                        --wrath
+                        --[[
+                        --print("no link", name)
+                        for k, v in ipairs(addon.itemData) do
+                            if v.name == name then
+                                --print("found match", name, v.tradeskillID)
+                                table.insert(recipes, v.spellID)
+                                --prof = v.tradeskillID;
+                            end
+                        end
+        
+                        ]]
+
+                       -- print(name)
+
+        
+                        --cata
+                        if Tradeskills.enchanterSpellNameToSpellID and Tradeskills.enchanterSpellNameToSpellID[name] then
+                            table.insert(recipes, Tradeskills.enchanterSpellNameToSpellID[name])
                         end
                     end
-
-                end
-
-            else
-                --print("no link", name)
-                for k, v in ipairs(addon.itemData) do
-                    if v.name == name then
-                        --print("found match", name, v.tradeskillID)
-                        table.insert(recipes, v.spellID)
-                        --prof = v.tradeskillID;
-                    end
-                end
+                --end
             end
-        end
+        
+            addon.LogDebugMessage("tradeskills", string.format("recipes found for %s", prof), { version = -1, payload = recipes})
+            addon.LogDebugMessage("tradeskills", string.format("cooldowns found for %s", prof), { version = -1, payload = tradeskillCooldowns})
+            return prof, recipes, tradeskillCooldowns
+
+    else
+        addon.LogDebugMessage("tradeskills", string.format("function [scanTradeskills] prof = %s", "unknown or not number"))
     end
 
-    return prof, recipes, tradeskillCooldowns
 end
 
 function e:UNIT_SPELLCAST_SUCCEEDED(...)
     if TradeSkillFrame and TradeSkillFrame:IsVisible() then
         C_Timer.After(0.1, function()
             local prof, recipes, tradeskillCooldowns = scanTradeskills()
-            setCharacterTradeskill(prof, recipes, tradeskillCooldowns)
+            if prof and recipes and tradeskillCooldowns then
+                setCharacterTradeskill(prof, recipes, tradeskillCooldowns, true)
+            end
         end)
     end
 end
 
 function e:SKILL_LINES_CHANGED()
-    local skills = addon.api.getPlayerSkillLevels()
-    processSkillLines(skills)
+    -- local skills = addon.api.getPlayerSkillLevels()
+    -- processSkillLines(skills)
 end
 
 local tradeskillIsPlayer = true;
@@ -844,6 +1052,8 @@ function e:TRADE_SKILL_SHOW()
 
     if tradeskillIsPlayer == true then
         local skills = addon.api.getPlayerSkillLevels()
+
+        --local skills = addon.api.cata.getProfessions()
         processSkillLines(skills)
 
         local specializations = addon.api.scanForTradeskillSpec()
@@ -853,9 +1063,12 @@ function e:TRADE_SKILL_SHOW()
             end
         end
 
+
         C_Timer.After(1.0, function()
             local prof, recipes, tradeskillCooldowns = scanTradeskills()
-            setCharacterTradeskill(prof, recipes, tradeskillCooldowns)
+            if prof and recipes and tradeskillCooldowns then
+                setCharacterTradeskill(prof, recipes, tradeskillCooldowns, true)
+            end
         end)
 
     else
@@ -874,30 +1087,21 @@ function e:CRAFT_UPDATE()
     local prof;
     local numTradeskills = GetNumCrafts()
 
-    local tradeskillTitle = CraftFrameTitleText:GetText()
-    if tradeskillTitle then
-        prof = Tradeskills:GetTradeskillIDFromLocale(tradeskillTitle)
-    end
-    --print(prof)
-
     for i = 1, numTradeskills do
         local name, craftSubSpellName, _type, numAvailable, isExpanded, trainingPointCost, requiredLevel = GetCraftInfo(i)
         if name and (_type == "optimal" or _type == "medium" or _type == "easy" or _type == "trivial") then
-            --print(name)
             local _, _, _, _, _, _, spellID = GetSpellInfo(name)
-            --print(spellID)
             if spellID then
                 for k, v in ipairs(addon.itemData) do
                     if v.spellID == spellID then
-                        --print("got match")
                         table.insert(recipes, v.spellID)
+                        prof = v.tradeskillID;
                     end
                 end
             end
         end
     end
 
-    --print(prof)
     setCharacterTradeskill(prof, recipes)
     --addon:TriggerEvent("Blizzard_OnTradeskillUpdate", prof, recipes)
 end
@@ -913,13 +1117,30 @@ end
 
 local function setPlayerTalentsAndGlyphs(...)
 
-    local spec, tabs, talents = addon.api.classic.getPlayerTalents()
+    local spec, tabs, talents, glyphs = addon.api.classic.getPlayerTalents(...)
+    --local spec, tabs, talents, glyphs = addon.api.cata.getPlayerTalents(...)
+
+    -- DevTools_Dump(tabs)
+    -- print(spec)
+
+    --convert the keys to named keys to use as a lookup
+    if spec == 1 then
+        spec = "primary";
+    elseif spec == 2 then
+        spec = "secondary"
+    else
+        spec = "primary"
+    end
 
     if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
+        addon.characters[addon.thisCharacter]:SetTalents(spec, talents, true)
+        addon.characters[addon.thisCharacter]:SetGlyphs(spec, glyphs, true)
     end
 end
 
+function e:ACTIVE_TALENT_GROUP_CHANGED(...)
+	setPlayerTalentsAndGlyphs(...)
+end
 
 function e:CHARACTER_POINTS_CHANGED()
     setPlayerTalentsAndGlyphs({})
@@ -929,81 +1150,140 @@ function e:CHARACTER_POINTS_CHANGED()
     end
 end
 
+local function setPlayerEquipmentSets()
+
+    local equipSets = addon.api.wrath.getPlayerEquipment()
+
+    if addon.thisCharacter and addon.characters[addon.thisCharacter] then
+        addon.characters[addon.thisCharacter]:SetEquipmentSets(equipSets.sets, true)
+    end
+
+end
+--SetGlyphs(spec, glyphs, broadcast)
+
+
 
 
 
 
 function e:Database_OnInitialised()
-    
+
     GuildRoster()
+    self:GUILD_ROSTER_UPDATE()
+
+    local reps = addon.api.getCurrentReputations()
+    local curr = addon.api.getCurrentCurrencies()
 
     if not Database.db.myCharacters[addon.thisCharacter] then
-        Database.db.myCharacters[addon.thisCharacter] = false;
+        Database.db.myCharacters[addon.thisCharacter] = {
+            reputations = {},
+            currencies = {},
+            containers = {},
+        };
     end
 
+    Database.db.myCharacters[addon.thisCharacter].reputations = reps;
+    Database.db.myCharacters[addon.thisCharacter].currencies = curr;
+
     UIParentLoadAddOn("Blizzard_DebugTools");
-    UIParentLoadAddOn("Blizzard_EngravingUI");
 
-
-    -- if not PlayerTalentFrame then
-    --     UIParentLoadAddOn("Blizzard_TalentUI")
+    if not PlayerTalentFrame then
+        UIParentLoadAddOn("Blizzard_TalentUI")
+    end
+    -- if not AchievementFrame then
+    --     UIParentLoadAddOn("Blizzard_AchievementUI")
     -- end
+    if not CommunitiesFrame then
+        UIParentLoadAddOn("Blizzard_Communities")
+    end
 
-    -- PlayerTalentFrame:HookScript("OnHide", function()
-    --     setPlayerTalentsAndGlyphs({})
-	-- end)
+    PlayerTalentFrame:HookScript("OnHide", function()
+        setPlayerTalentsAndGlyphs({})
+	end)
 	-- SkillFrame:HookScript("OnShow", function()
 	-- 	--self:ScanSkills()
 	-- end)
-    CharacterFrame:HookScript("OnShow", function()
-        -- local runes = addon.api.sod.scanForRunes()
-        -- if runes and (next(runes) ~= nil) then
-        --     if addon.characters and addon.characters[addon.thisCharacter] then
-        --         addon.characters[addon.thisCharacter]:SetSodRunes(runes)
-        --     end
+    -- CharacterFrame:HookScript("OnShow", function()
+    --     --self:GetCharacterStats()
+    -- end)
+    PaperDollFrame:HookScript("OnShow", function()
+        --self:GetCharacterStats()
+        addon.api.updatePaperdollOverlays()
+
+        -- if not InCombatLockdown() then
+        --     CharacterFrameExpandButton:Click()
         -- end
     end)
+    -- SpellBookFrame:HookScript("OnShow", function()
+    --     addon.api.wrath.scanSpellbook()
+    -- end)
+
+	-- hooksecurefunc(C_EquipmentSet, "CreateEquipmentSet", function()
+	-- 	setPlayerEquipmentSets()
+	-- end)
+	-- hooksecurefunc(C_EquipmentSet, "DeleteEquipmentSet", function()
+	-- 	setPlayerEquipmentSets()
+	-- end)
+
+    -- AchievementFrame:HookScript("OnHide", function()
+    --     local pointsText = AchievementFrameHeaderPoints:GetText()
+    --     if pointsText then
+    --         local points = tonumber(pointsText)
+    --         if points then
+    --             if addon.characters and addon.characters[addon.thisCharacter] then
+    --                 addon.characters[addon.thisCharacter]:SetAchievementPoints(points)
+    --             end
+    --         end
+    --     end
+    -- end)
+
+
+    -- hooksecurefunc("GroupLootFrame_OnShow", function(f)
+    --     local texture, name, count, quality, bindOnPickUp, canNeed, canGreed, canDisenchant, reasonNeed, reasonGreed, reasonDisenchant, deSkillRequired, canTransmog = GetLootRollItemInfo(f.rollID);
+    --     print(name)
+    -- end)
 
 
     -- this will set the name on enchanting recipes to the client locale, the name is then used when scannign the enchant UI
-    Tradeskills:GenerateEnchantingData()
+    --Tradeskills:GenerateEnchantingData()
 
 
     --somewhat experimental at the moment
     --when you click a tradeskill link ask the other player for their data via direct request using WHISPER channel
-	-- hooksecurefunc("SetItemRef", function(link, text)
-	-- 	local linkType, linkData = LinkUtil.SplitLinkData(link);
-    --     if linkType == "trade" then
+	hooksecurefunc("SetItemRef", function(link, text)
+		local linkType, linkData = LinkUtil.SplitLinkData(link);
+
+        if linkType == "trade" then
           
-    --         local guid, spellID, tradeskillID = strsplit(":", linkData)
+            local guid, spellID, tradeskillID = strsplit(":", linkData)
 
-    --         if guid:find("Player-") then
+            if guid:find("Player-") then
 
-    --             local name = Database:GetCharacterNameFromGUID(guid)
-    --             tradeskillIsPlayer = false;
-    --             if name and addon.characters[name] then
+                local name = Database:GetCharacterNameFromGUID(guid)
+                tradeskillIsPlayer = false;
+                if name and addon.characters[name] then
 
-    --                 Comms:RequestCharacterData(name, "profession1")
-    --                 C_Timer.After(1.0, function()
-    --                     Comms:RequestCharacterData(name, "profession1Recipes")
-    --                 end)
-    --                 C_Timer.After(2.0, function()
-    --                     Comms:RequestCharacterData(name, "profession1Level")
-    --                 end)
-    --                 C_Timer.After(3.0, function()
-    --                     Comms:RequestCharacterData(name, "profession2")
-    --                 end)
-    --                 C_Timer.After(4.0, function()
-    --                     Comms:RequestCharacterData(name, "profession2Recipes")
-    --                 end)
-    --                 C_Timer.After(5.0, function()
-    --                     Comms:RequestCharacterData(name, "profession2Level")
-    --                 end)
-    --             end
-    --         end
+                    Comms:RequestCharacterData(name, "profession1")
+                    C_Timer.After(1.0, function()
+                        Comms:RequestCharacterData(name, "profession1Recipes")
+                    end)
+                    C_Timer.After(2.0, function()
+                        Comms:RequestCharacterData(name, "profession1Level")
+                    end)
+                    C_Timer.After(3.0, function()
+                        Comms:RequestCharacterData(name, "profession2")
+                    end)
+                    C_Timer.After(4.0, function()
+                        Comms:RequestCharacterData(name, "profession2Recipes")
+                    end)
+                    C_Timer.After(5.0, function()
+                        Comms:RequestCharacterData(name, "profession2Level")
+                    end)
+                end
+            end
 
-    --     end
-	-- end)
+        end
+	end)
 
 
 end

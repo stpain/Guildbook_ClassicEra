@@ -1,10 +1,12 @@
-## Interface: 11500
+## Interface: 11530
 ## Author: TheBoringDad
-## Version: 3.4
-## Title: Guildbook Era
+## Version: 4.0
+## Title: Guildbook
 ## Notes: An addon for guilds
-## SavedVariables: GUILDBOOK_GLOBAL
-## SavedVariablesPerCharacter: GUILDBOOK_CHARACTER
+## SavedVariables: GUILDBOOK_GLOBAL_TEST
+## SavedVariablesPerCharacter: GUILDBOOK_CHARACTER_TEST
+## Dependencies: TbdWidgets, Blizzard_UIPanels_Game
+
 
 
 Libs\LibStub\LibStub.lua
@@ -16,31 +18,20 @@ Libs\json.lua
 Libs\LibDeflate\LibDeflate.lua
 Libs\AceComm-3.0\AceComm-3.0.xml
 Libs\LibSerialize\lib.xml
-Libs\LibCraftInfo-1.0\LibCraftInfo-1.0.xml
-Libs\HereBeDragons\HereBeDragons-2.0.lua
-Libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
+#Libs\LibCraftInfo-1.0\LibCraftInfo-1.0.xml
+#Libs\HereBeDragons\HereBeDragons-2.0.lua
+#Libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
+Libs\LibCustomGlow-1.0\LibCustomGlow-1.0.xml
 
-Widgets\Listview.lua
-Widgets\Listview.xml
-Widgets\Gridview.lua
-Widgets\Gridview.xml
-Widgets\Dropdown.lua
-Widgets\Dropdown.xml
-Widgets\Checkbox.xml
-Widgets\ScrollFrame.lua
-Widgets\ScrollFrame.xml
-Widgets\Slider.xml
-Widgets\Helptips.lua
-Widgets\Helptips.xml
-Widgets\TabFrame.lua
-Widgets\TabFrame.xml
 
 ChangeLog.lua
 
 Locales.lua
-ItemData.lua
-#SpellData.lua
+#InstanceData.lua
+#ItemSetData.lua
+#FactionData.lua
 CalendarData.lua
+TradeskillData.lua
 Database.lua
 
 Classes\Tradeskills.lua
@@ -69,8 +60,11 @@ Views\Tradeskills\Tradeskills.xml
 Views\GuildRoster\GuildRoster.lua
 Views\GuildRoster\GuildRoster.xml
 
-Views\GuildBank\GuildBank.lua
-Views\GuildBank\GuildBank.xml
+Views\GuildManagement\GuildManagement.lua
+Views\GuildManagement\GuildManagement.xml
+
+#Views\Instances\Instances.lua
+#Views\Instances\Instances.xml
 
 Views\Profile\Profile.lua
 Views\Profile\Profile.xml
@@ -80,6 +74,9 @@ Views\Chat\Chat.xml
 
 Views\GuildTree\GuildTree.lua
 Views\GuildTree\GuildTree.xml
+
+Views\GuildBank\GuildBank.lua
+Views\GuildBank\GuildBank.xml
 
 Views\Settings\Settings.lua
 Views\Settings\Settings.xml

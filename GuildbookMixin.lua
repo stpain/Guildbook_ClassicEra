@@ -153,6 +153,7 @@ Guildbook.ContextMenu_Separator_Wide = "|TInterface/COMMON/UI-TooltipDivider:8:2
 local Database = addon.Database;
 local L = addon.Locales;
 local Character = addon.Character;
+local Tradeskills = addon.Tradeskills;
 local Talents = addon.Talents;
 local json = LibStub('JsonLua-1.0');
 
@@ -177,7 +178,7 @@ end
 function GuildbookMixin:OnLoad()
     
     self:RegisterForDrag("LeftButton")
-    self.resize:Init(self, 600, 525, 1100, 650)
+    self.resize:Init(self, 850, 550, 1100, 700)
 
     self.resize:HookScript("OnMouseDown", function()
         self.isRefreshEnabled = true;
@@ -197,16 +198,12 @@ function GuildbookMixin:OnLoad()
         end
     end)
 
-    -- EventRegistry:RegisterCallback("EQUIPMATE_ON_OUTFIT_CREATED", function(...)
-    --     DevTools_Dump({...})
-    --     print("from guildbook")
-    -- end)
-
     addon:RegisterCallback("Database_OnInitialised", self.Database_OnInitialised, self)
     addon:RegisterCallback("StatusText_OnChanged", self.SetStatausText, self)
     addon:RegisterCallback("Player_Regen_Enabled", self.Player_Regen_Enabled, self)
     addon:RegisterCallback("Player_Regen_Disabled", self.Player_Regen_Disabled, self)
     addon:RegisterCallback("Blizzard_OnInitialGuildRosterScan", self.Blizzard_OnInitialGuildRosterScan, self)
+    addon:RegisterCallback("LogDebugMessage", self.LogDebugMessage, self)
 
     self.ribbon.searchBox:SetScript("OnEnterPressed", function(searchBox)
         self:SelectView("Search")
@@ -235,6 +232,95 @@ function GuildbookMixin:OnLoad()
     self.help:SetScript("OnMouseDown", function()
         self:ToggleHelptips()
     end)
+
+    self:SetupDebugWindow()
+end
+
+function GuildbookMixin:LogDebugMessage()
+
+    local t = {}
+
+    if type(self.debug.debugTypeFilter) == "number" then
+        for k, v in ipairs(addon.debugMessages) do
+            if v.debugTypeID == self.debug.debugTypeFilter then
+                table.insert(t, v)
+            end
+        end
+        self.debug.messageLogListview.scrollView:SetDataProvider(CreateDataProvider(t))
+    else
+
+        self.debug.messageLogListview.scrollView:SetDataProvider(CreateDataProvider(addon.debugMessages))
+    end
+    
+end
+
+function GuildbookMixin:SetupDebugWindow()
+    self.debug.clearLog:SetScript("OnClick", function()
+        addon.debugMessages = {}
+    end)
+
+    self.debug.debugTypeFilter = false
+    self.debug.debugTypeDropdown:SetMenu({
+        {
+            text = "All",
+            func = function()
+                self.debug.debugTypeFilter = false;
+                self:LogDebugMessage()
+            end,
+        },
+        {
+            text = "Comms",
+            func = function()
+                self.debug.debugTypeFilter = 3;
+                self:LogDebugMessage()
+            end,
+        },
+        {
+            text = "Comms In",
+            func = function()
+                self.debug.debugTypeFilter = 4;
+                self:LogDebugMessage()
+            end,
+        },
+        {
+            text = "Comms Out",
+            func = function()
+                self.debug.debugTypeFilter = 5;
+                self:LogDebugMessage()
+            end,
+        },
+        {
+            text = "Info",
+            func = function()
+                self.debug.debugTypeFilter = 2;
+                self:LogDebugMessage()
+            end,
+        },
+        {
+            text = "Warnings",
+            func = function()
+                self.debug.debugTypeFilter = 1;
+                self:LogDebugMessage()
+            end,
+        },
+        {
+            text = "Tradeskills",
+            func = function()
+                self.debug.debugTypeFilter = 7;
+                self:LogDebugMessage()
+            end,
+        },
+        {
+            text = "Character",
+            func = function()
+                self.debug.debugTypeFilter = 8;
+                self:LogDebugMessage()
+            end,
+        },
+    })
+
+
+
 
 end
 
@@ -321,6 +407,11 @@ function GuildbookMixin:AddView(view)
     self.views[view.name] = view;
     view:SetParent(self.content)
     view:SetAllPoints()
+
+    if view.UpdateLayout then
+        view:UpdateLayout()
+    end
+
     view:Hide()
 
     if view.helptips then
@@ -335,6 +426,11 @@ function GuildbookMixin:AddView(view)
             self:SelectView(view.name)
         end)
     end
+
+    --make home visible
+    if view.name == "Home" then
+        self:SelectView(view.name)
+    end
 end
 function addon.AddView(view)
     GuildbookUI:AddView(view)
@@ -344,6 +440,88 @@ function GuildbookMixin:Blizzard_OnInitialGuildRosterScan(guildName)
 
     --So the addon should now have the guild and characters tables set, but lets hold it 1 second
     C_Timer.After(1, function()
+
+        --get latest data and transmit to guild
+        if addon.characters[addon.thisCharacter] then
+
+            local clientName;
+
+            if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+                clientName = "classic"
+            end
+            if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+                clientName = "classic"
+            end
+            if WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
+                clientName = "wrath"
+            end
+
+            local equipment = addon.api.getPlayerEquipmentCurrent()
+            local currentStats = addon.api[clientName].getPaperDollStats()
+            local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
+            local auras = addon.api.getPlayerAuras()
+            local talents = addon.api[clientName].getPlayerTalents()
+
+            addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
+            addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
+            addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats, true)
+            addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
+            addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
+
+            local lockouts = addon.api.getLockouts()
+            addon.characters[addon.thisCharacter]:SetLockouts(lockouts)
+
+            --if there is no main character data then set this character as main
+            if addon.characters[addon.thisCharacter].data.mainCharacter == false then
+
+                --first check if another of the players alts exists with the main character data set
+                local mainCharacterNameOrFalse = Database:GetMainForGuild(addon.thisGuild)
+
+                --if the return is a strign it will be the name of the main, otherwise false
+                if type(mainCharacterNameOrFalse) == "string" then
+                    addon.characters[addon.thisCharacter]:SetMainCharacter(mainCharacterNameOrFalse)
+                else
+                    addon.characters[addon.thisCharacter]:SetMainCharacter(addon.characters[addon.thisCharacter].data.name)
+                end
+
+                --fetch your characters for the guild
+                local alts = Database:GetMyCharactersForGuild(addon.thisGuild)
+                addon.characters[addon.thisCharacter]:UpdateAlts(alts, true)
+            else
+
+                --if a main character has been set we need to call UpdateAlts on that character object for the correct name
+                local mainCharacter = addon.characters[addon.thisCharacter]:GetMainCharacter()
+                if type(mainCharacter) == "string" then
+                    if addon.characters[mainCharacter] then
+                        local alts = Database:GetMyCharactersForGuild(addon.thisGuild)
+                        addon.characters[mainCharacter]:UpdateAlts(alts, true)
+                    end
+                end
+            end
+        end
+    end)
+
+
+    -- C_Timer.After(5.0, function()
+        
+    --     if addon.characters[addon.thisCharacter] then
+    --         if not addon.characters[addon.thisCharacter].data.mainSpec then
+    --             StaticPopup_Show("GuildbookReminder", "Guildbook\n\nYou have no main spec set, go to Guildbook > Settings > Character.", nil, { character = addon.characters[addon.thisCharacter], })            end
+    --     end
+    -- end)
+end
+
+
+function GuildbookMixin:Database_OnInitialised()
+    self:CreateMinimapButtons()
+    self:CreateSlashCommands()
+
+    self:Hide()
+
+    Tradeskills.BuildEnchanterNameToSpellID()
+
+    C_Timer.After(5, function()
+        addon:AddMailAttachmentButton()
 
         --load all player characters and alts
         for nameRealm, _ in pairs(Database.db.myCharacters) do
@@ -358,98 +536,13 @@ function GuildbookMixin:Blizzard_OnInitialGuildRosterScan(guildName)
             end 
         end
 
-        --get latest data and transmit to guild
-        if addon.characters[addon.thisCharacter] then
-
-            local equipment = addon.api.classic.getPlayerEquipment()
-            local currentStats = addon.api.classic.getPaperDollStats()
-            local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
-            local auras = addon.api.getPlayerAuras()
-            local spec, tabs, talents = addon.api.classic.getPlayerTalents()
-
-            addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
-            addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
-            addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats, true)
-            addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
-            addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
-
-            if addon.characters[addon.thisCharacter] then
-                local lockouts = addon.api.getLockouts()
-                addon.characters[addon.thisCharacter]:SetLockouts(lockouts)
-            end
-        end
+        --this will return out if the current character exists otherwise it'll add this to the db
+        addon.api.addThisCharacter()
     end)
-
-
-    C_Timer.After(5.0, function()
-        
-        if addon.characters[addon.thisCharacter] then
-            if not addon.characters[addon.thisCharacter].data.mainSpec then
-                StaticPopup_Show("GuildbookReminder", "Guildbook\n\nYou have no main spec set, go to Guildbook > Settings > Character.")
-            end
-        end
-    end)
-end
-
-function GuildbookMixin:Database_OnInitialised()
-    self:CreateMinimapButtons()
-    self:CreateSlashCommands()
-    self:LoadMyCharacters()
-end
-
-function GuildbookMixin:LoadMyCharacters()
-    if Database.db.myCharacters and Database.db.characterDirectory then
-        for nameRealm, _ in pairs(Database.db.myCharacters) do
-            if Database.db.characterDirectory[nameRealm] then
-                if not addon.characters[nameRealm] then
-                    addon.characters[nameRealm] = Character:CreateFromData(Database.db.characterDirectory[nameRealm])
-                end
-            end
-        end
-    end
 end
 
 function GuildbookMixin:AddCharacter()
-
-    if not addon.characters then
-        return;
-    end
-    if not addon.Character then
-        return;
-    end
-    if addon.characters[addon.Character] then
-        return;
-    end
-    local characterInDb = Database:GetCharacter(addon.thisCharacter)
-    if characterInDb then
-        return;
-    end
-
-    local character = Character:CreateEmpty()
-    character.guid = UnitGUID("player")
-    character.name = addon.thisCharacter
-    local _, _, classId = UnitClass("player")
-    character.class = classId
-
-    Database:InsertCharacter(character)
-
-    addon.characters[addon.thisCharacter] = Character:CreateFromData(Database:GetCharacter(addon.thisCharacter)) --Råvèn-PyrewoodVillage
-
-    --DevTools_Dump(addon.characters[addon.Character])
-
-    local equipment = addon.api.classic.getPlayerEquipmentCurrent()
-    local currentStats = addon.api.classic.getPaperDollStats()
-    local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
-    local auras = addon.api.getPlayerAuras()
-    local spec, tabs, talents = addon.api.classic.getPlayerTalents()
-
-    if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
-        addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
-        addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats, true)
-        addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
-        addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
-    end
+    addon.api.addThisCharacter()
 end
 
 function GuildbookMixin:CreateSlashCommands()
@@ -462,6 +555,7 @@ function GuildbookMixin:CreateSlashCommands()
 
         elseif msg == "addcharacter" then
             self:AddCharacter()
+
         end
     end
 end
@@ -699,13 +793,13 @@ end
 GuildbookUpdatesMixin = {}
 
 function GuildbookUpdatesMixin:OnLoad()
-    addon:RegisterCallback("Database_OnInitialised", self.SayHello, self)
+    addon:RegisterCallback("Blizzard_OnInitialGuildRosterScan", self.SayHello, self)
 end
 
 
 function GuildbookUpdatesMixin:SayHello()
     
-    local version = tonumber(C_AddOns.GetAddOnMetadata(name, "Version"));
+    local version = tonumber(GetAddOnMetadata(name, "Version"));
 
     if version > Database.db.version then
 
@@ -774,77 +868,3 @@ end
 -- function GuildbookMailMixin:OnLoad()
     
 -- end
-
-
-
-
-
---ItemRefTooltip ItemRefCloseButton GameTooltip
-
-GuildbookTooltipExtensionMixin = {}
-function GuildbookTooltipExtensionMixin:CreateAndShowAddListItemMenu(anchorFrame, itemID)
-
-    local listItem = {
-        itemID = itemID,
-        character = addon.thisCharacter,
-    }
-
-    local menu = {
-        {
-            isTitle = true,
-            text = "Select list",
-            notCheckable = true,
-        },
-        {
-            text = "New list",
-            notCheckable = true,
-            func = function()
-                StaticPopup_Show("GuildbookNewItemlist", string.format("New list name."), nil, listItem)
-            end,
-        }
-    }
-    local sort = {}
-    local itemLists = Database:GetItemLists()
-    for listName, itemIDs in pairs(itemLists) do
-        table.insert(sort, {
-            name = listName,
-        })
-    end
-    table.sort(sort, function(a, b)
-        return a.name < b.name;
-    end)
-    for _, list in ipairs(sort) do
-        table.insert(menu, {
-            text = list.name,
-            notCheckable = true,
-            func = function()
-                Database:AddItemToList(list.name, listItem)
-            end
-        })
-    end
-
-    EasyMenu(menu, addon.contextMenu, anchorFrame, anchorFrame:GetWidth(), 10, "MENU", 1.5)
-end
-
-function GuildbookTooltipExtensionMixin:OnLoad()    
-    hooksecurefunc("SetItemRef", function(link)
-        if Database:GetConfig("enableItemLists") then
-            local linkType, linkData = LinkUtil.SplitLinkData(link);
-            if linkType == "item" then
-                local itemID = strsplit(":", linkData)
-                itemID = tonumber(itemID)                
-                if itemID and type(itemID) == "number" then
-                    ItemRefTooltip:AddLine(string.format("|cff71d5ff|Haddon:%s:%s:%d|h[%s]|h|r", name, "itemList", itemID, "Guildbook - Add item to list"))
-                    ItemRefTooltip:SetHyperlinksEnabled(true)
-                    ItemRefTooltip:HookScript("OnHyperlinkClick", function(_, _link)
-                        local type, _name, linkType = strsplit(":", _link)
-                        if type == "addon" and _name == name and linkType == "itemList" then
-                            self:CreateAndShowAddListItemMenu(ItemRefTooltip, itemID)
-                        end
-                    end)
-                    ItemRefTooltip:Show()
-                end
-            end
-        end
-    end)
-end

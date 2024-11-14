@@ -92,11 +92,15 @@ StaticPopupDialogs['GuildbookReminder'] = {
     text = '%s',
     button1 = "OK",
     button2 = "Ignore",
+    button3 = "Default",
     OnAccept = function()
         GuildbookUI:SelectView("Settings")
     end,
-    OnCancel = function()
+    OnCancel = function(self, data)
 
+    end,
+    OnAlt = function(self, data)
+        data.character:SetMainSpec("primary", 1)
     end,
     timeout = 0,
     whileDead = true,
@@ -139,35 +143,7 @@ StaticPopupDialogs['GuildbookCalendarAddEvent'] = {
                 text = str,
                 timestamp = data.timestamp
             }
-
-            if data.calendarTypeEnum == 3 then
-                event.attendees = {}
-            end
-
             Database:InsertCalendarEvent(event)
-        end
-    end,
-    OnCancel = function(self)
-
-    end,
-    timeout = 0,
-    hasEditBox = true,
-    whileDead = true,
-    hideOnEscape = false,
-    preferredIndex = 3,
-    showAlert = 1,
-}
-
-
-StaticPopupDialogs['GuildbookNewItemlist'] = {
-    text = "%s",
-    button1 = YES,
-    button2 = NO,
-    OnAccept = function(self, data)
-        local str = self.editBox:GetText()
-        if str and (#str > 0) and (str ~= " ") then
-            local list = str;
-            Database:AddItemToList(list, data)
         end
     end,
     OnCancel = function(self)
