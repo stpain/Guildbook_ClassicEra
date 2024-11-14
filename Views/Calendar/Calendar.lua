@@ -222,7 +222,6 @@ function GuildbookCalendarMixin:UpdateCalendarEvents()
     --DevTools_Dump(events)
 
     for k, v in ipairs(events) do
-        local eventDate = date("*t", v.timestamp)
         if type(v) == "table" then
             local label = string.format("|cffE5AC00%s|r\n%s", date("%Y-%m-%d %H:%M:%S", v.timestamp), v.text)
             local contextMenu = {
@@ -242,18 +241,6 @@ function GuildbookCalendarMixin:UpdateCalendarEvents()
                 onMouseDown = function(f, button)
                     if button == "RightButton" then
                         EasyMenu(contextMenu, addon.contextMenu, "cursor", 0, 0, "MENU", 0.2)
-                    end
-                end,
-                onMouseEnter = function()
-                    for i, day in ipairs(self.monthView.dayTiles) do
-                        if day.date and (day.date.month == eventDate.month) and (day.date.day == eventDate.day) then
-                            day.anim:Play()
-                        end
-                    end
-                end,
-                onMouseLeave = function()
-                    for i, day in ipairs(self.monthView.dayTiles) do
-                        day.anim:Stop()
                     end
                 end
             })
@@ -388,7 +375,7 @@ function GuildbookCalendarMixin:OnTabSelected(tab, index)
 end
 
 function GuildbookCalendarMixin:Blizzard_OnInitialGuildRosterScan()
-    --self.sidePanel.lockouts.background:SetAtlas("QuestLogBackground")
+    self.sidePanel.lockouts.background:SetAtlas("QuestLogBackground")
     --self.sidePanel.lockouts.background:SetAtlas(string.format("transmog-background-race-%s", addon.characters[addon.thisCharacter]:GetRace().clientFileString:lower()))
 end
 
@@ -515,9 +502,7 @@ end
 function GuildbookCalendarMixin:MonthChanged()
 
     --this appears to also update the default calendar, which is fine, the main thing is it means we can make use of calendar api using month offset
-    if addon.Calendar then
-        addon.Calendar.SetAbsMonth(self.date.month, self.date.year)
-    end
+    C_Calendar.SetAbsMonth(self.date.month, self.date.year)
 
     self.sidePanel.monthName:SetText(date("%B %Y", time(self.date)))
     local monthStart = self:GetMonthStart(self.date.month, self.date.year)
@@ -577,23 +562,21 @@ function GuildbookCalendarMixin:MonthChanged()
 
             --grab the events for the day and loop in reverse order, do this as it seems larger events (events spanning weeks not just a day) are indexed lower
             --so going reverse we add the small single day events first and use a low number for the subLayer
-            if addon.Calendar then
-                for i = addon.Calendar.GetNumDayEvents(0, thisMonthDay), 1, -1 do
-                    local event = addon.Calendar.GetHolidayInfo(0, thisMonthDay, i)
-                    local subLayer = 1
-                    if event then
-                        if not day.holidayTextures[i] then
-                            day.holidayTextures[i] = day:CreateTexture(nil, "BORDER")
-                            day.holidayTextures[i]:SetAllPoints()
-                            day.holidayTextures[i]:SetTexCoord(0.0, 0.71, 0.0, 0.71)
-                        end
-                        day.holidayTextures[i]:SetDrawLayer("BORDER", subLayer)
-                        day.holidayTextures[i]:SetTexture(event.texture)
-
-                        table.insert(day.events, event)
+            for i = C_Calendar.GetNumDayEvents(0, thisMonthDay), 1, -1 do
+                local event = C_Calendar.GetHolidayInfo(0, thisMonthDay, i)
+                local subLayer = 1
+                if event then
+                    if not day.holidayTextures[i] then
+                        day.holidayTextures[i] = day:CreateTexture(nil, "BORDER")
+                        day.holidayTextures[i]:SetAllPoints()
+                        day.holidayTextures[i]:SetTexCoord(0.0, 0.71, 0.0, 0.71)
                     end
-                    subLayer = subLayer + 1;
+                    day.holidayTextures[i]:SetDrawLayer("BORDER", subLayer)
+                    day.holidayTextures[i]:SetTexture(event.texture)
+
+                    table.insert(day.events, event)
                 end
+                subLayer = subLayer + 1;
             end
             
 --[[
@@ -610,21 +593,6 @@ function GuildbookCalendarMixin:MonthChanged()
                     notCheckable = true,
                     func = function()
         
-                    end,
-                },
-                {
-                    text = "Add Event",
-                    notCheckable = true,
-                    func = function()
-                        StaticPopup_Show(
-                            "GuildbookCalendarAddEvent", --popup name
-                            string.format("Create event for %s", date("%d %B %Y", time(day.date))),
-                            nil, --arg2 for %s
-                            {
-                                timestamp = time(day.date), --data
-                                calendarTypeEnum = 3,
-                            }
-                        )
                     end,
                 },
                 {

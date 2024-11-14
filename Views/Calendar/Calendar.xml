@@ -136,14 +136,14 @@
                             <KeyValue key="tabPanelkey" value="events" type="string"/>
                         </KeyValues>
                     </Button>
-                    <Frame parentKey="lockouts" inherits="GuildbookClassicEraWidgetsListviewTemplate">
+                    <Frame parentKey="lockouts" inherits="GuildbookWrathEraWidgetsListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="0" y="-60"/>
                             <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="BACKGROUND">
-                                <Texture parentKey="background" atlas="QuestLogBackground" alpha="0.5">
+                                <Texture parentKey="background" alpha="0.5">
                                     <!-- <Color r="0.11" g="0.095" b="0.105" a="0.85"/> -->
                                     <Anchors>
                                         <Anchor point="TOPLEFT" x="0" y="0"/>
@@ -154,7 +154,7 @@
                         </Layers>
                         <KeyValues>
                             <KeyValue key="frameType" value="FRAME" type="string"/>
-                            <KeyValue key="itemTemplate" value="GuildbookClassicEraSimpleIconLabelFrame" type="string"/>
+                            <KeyValue key="itemTemplate" value="GuildbookWrathEraSimpleIconLabelFrame" type="string"/>
                             <KeyValue key="elementHeight" value="36" type="number"/>
                         </KeyValues>
                     </Frame>
