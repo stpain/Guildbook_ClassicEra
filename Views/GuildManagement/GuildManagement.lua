@@ -1214,7 +1214,7 @@ end
 
 function GuildbookGuildManagementMixin:OnGuildRecruitmentLogChanged()
     
-    local log = Database:GetGuildRecruitmentHistory(addon.thisGuild)
+    local log = Database:GetGuildRecruitmentHistory(addon.thisGuild) or {}
 
     self.recruitmentDataProvider = CreateTreeDataProvider()
     self.tabContainer.invites.recruitmentHistory.scrollView:SetDataProvider(self.recruitmentDataProvider)

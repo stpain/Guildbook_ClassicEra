@@ -90,7 +90,7 @@ function Comms:Init()
     AceComm:Embed(self);
     self:RegisterComm(self.prefix);
 
-    self.version = tonumber(GetAddOnMetadata(name, "Version"));
+    self.version = tonumber(C_AddOns.GetAddOnMetadata(name, "Version"));
 
     self.dispatcher:SetScript("OnUpdate", Comms.DispatcherOnUpdate)
 

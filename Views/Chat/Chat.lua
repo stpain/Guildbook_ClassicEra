@@ -29,6 +29,9 @@ function GuildbookChatMixin:OnLoad()
         end
     end)
 
+    self.messageInput.EditBox:SetAutoFocus(false)
+    self.messageInput.EditBox:SetMultiLine(true)
+
     addon.AddView(self)
 end
 

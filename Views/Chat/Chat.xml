@@ -51,7 +51,7 @@
                 </KeyValues>
             </Frame>
 
-            <ScrollFrame parentKey="messageInput" inherits="InputScrollFrameTemplate" autoFocus="false" multiline="true">
+            <ScrollFrame parentKey="messageInput" inherits="InputScrollFrameTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.chatHistory" relativePoint="BOTTOMLEFT" x="5" y="-8"/>
                     <Anchor point="BOTTOMRIGHT" x="-11" y="12"/>

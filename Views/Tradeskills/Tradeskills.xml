@@ -10,7 +10,7 @@
                     </Anchors>
                 </Texture>
             </Layer>
-            <Layer levl="OVERLAY">
+            <Layer level="OVERLAY">
                 <FontString parentKey="text" inherits="GameFontHighlightLarge">
                     <Anchors>
                         <Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
@@ -32,7 +32,7 @@
                     </Anchors>
                 </Texture>
             </Layer>
-            <Layer levl="OVERLAY">
+            <Layer level="OVERLAY">
                 <FontString parentKey="welcomeText" inherits="GameFontNormalSmall" justifyH="CENTER" justifyV="MIDDLE" text="When viewing your own professions, Guildbook will open and scan recipe indexes. This is used by the game API to create items.">
                     <Size y="40"/>
                     <Anchors>
@@ -482,7 +482,7 @@
                                     </Anchors>
                                     <TexCoords left="0.14599609375" right="0.27294921875" top="0.5087890625" bottom="0.60546875"/>
                                 </Texture>
-                                <Texture file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\Professions.png" verTile="true">
+                                <Texture file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\Professions.png" >
                                     <Anchors>
                                         <Anchor point="TOPLEFT" relativeKey="$parent.bgTop" relativePoint="BOTTOMLEFT"/>
                                         <Anchor point="TOPRIGHT" relativeKey="$parent.bgTop" relativePoint="BOTTOMRIGHT"/>
@@ -530,7 +530,7 @@
                                     </Anchors>
                                     <TexCoords left="0.14599609375" right="0.27294921875" top="0.5087890625" bottom="0.60546875"/>
                                 </Texture>
-                                <Texture file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\Professions.png" verTile="true">
+                                <Texture file="Interface\AddOns\Guildbook_ClassicEra\Media\Tradeskills\Professions.png" >
                                     <Anchors>
                                         <Anchor point="TOPLEFT" relativeKey="$parent.bgTop" relativePoint="BOTTOMLEFT"/>
                                         <Anchor point="TOPRIGHT" relativeKey="$parent.bgTop" relativePoint="BOTTOMRIGHT"/>

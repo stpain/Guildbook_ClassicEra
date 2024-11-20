@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.11",
+        notes = "Minor fixes for patch 1.15.5",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "4.1",
         notes = "Minor fixes where some variables changed between current classic (Cata) and Classic Era/Fresh.",
         icon = "ClassHall-QuestIcon-Desaturated",
