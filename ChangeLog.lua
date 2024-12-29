@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.21",
+        notes = "Removed print statements",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "4.2",
         notes = "Fixed issue with enchanter spells for tradeskills.\n\nBug fix for chat history\n\nFixed issue with Attune tooltip not showing on roster view",
         icon = "ClassHall-QuestIcon-Desaturated",

@@ -834,8 +834,8 @@ end
 
 local function setCharacterTradeskill(prof, recipes, tradeskillCooldowns, onlyCooldowns)
 
-    print(prof)
-    DevTools_Dump(recipes)
+    --print(prof)
+    --DevTools_Dump(recipes)
 
     if addon.characters and addon.characters[addon.thisCharacter] then
 
