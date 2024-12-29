@@ -307,15 +307,18 @@ function Comms:OnCommReceived(prefix, message, distribution, sender)
     end
 
     --print(sender, data.version)
+    if data.version and tonumber(data.version) then
 
-    if data.version and (data.version >= self.version) then
-        if Comms.events[data.event] then
-            addon:TriggerEvent("StatusText_OnChanged", string.format("received [|cffE7B007%s|r] from %s", data.event, sender))
-            Comms.events[data.event](Comms, sender, data)
-            --addon.LogDebugMessage("comms_in", string.format("[|cffE7B007%s|r] data incoming from %s", data.event, sender), data)
+        if (tonumber(data.version) >= self.version) then
+            if Comms.events[data.event] then
+                addon:TriggerEvent("StatusText_OnChanged", string.format("received [|cffE7B007%s|r] from %s", data.event, sender))
+                Comms.events[data.event](Comms, sender, data)
+                --addon.LogDebugMessage("comms_in", string.format("[|cffE7B007%s|r] data incoming from %s", data.event, sender), data)
+            end
+        else
+            --DevTools_Dump(data)
         end
-    else
-        --DevTools_Dump(data)
+
     end
 end
 

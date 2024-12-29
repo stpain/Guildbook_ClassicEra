@@ -134,7 +134,8 @@
         "ChatFrame_RemoveMessageEventFilter",
         "ITEM_QUALITY_COLORS",
         "COPPER_PER_SILVER",
-        "SILVER_PER_GOLD"
+        "SILVER_PER_GOLD",
+        "Menu"
     ],
     "Lua.runtime.version": "Lua 5.1",
     "Lua.runtime.builtin": {
@@ -149,6 +150,6 @@
         "utf8": "disable"
     },
     "Lua.workspace.library": [
-        "~\\.vscode\\extensions\\ketho.wow-api-0.17.6\\Annotations"
+        "~\\.vscode\\extensions\\ketho.wow-api-0.18.1\\Annotations"
     ]
 }

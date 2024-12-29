@@ -29,7 +29,7 @@ e:RegisterEvent('PLAYER_MONEY')
 --e:RegisterEvent('PLAYER_LEVEL_UP')
 e:RegisterEvent('TRADE_SKILL_UPDATE')
 e:RegisterEvent('TRADE_SKILL_SHOW')
---e:RegisterEvent('CRAFT_UPDATE')
+e:RegisterEvent('CRAFT_UPDATE')
 e:RegisterEvent('RAID_ROSTER_UPDATE')
 e:RegisterEvent('BANKFRAME_OPENED')
 e:RegisterEvent('BANKFRAME_CLOSED')
@@ -834,6 +834,9 @@ end
 
 local function setCharacterTradeskill(prof, recipes, tradeskillCooldowns, onlyCooldowns)
 
+    print(prof)
+    DevTools_Dump(recipes)
+
     if addon.characters and addon.characters[addon.thisCharacter] then
 
         if tradeskillCooldowns then
@@ -1090,15 +1093,19 @@ function e:CRAFT_UPDATE()
     for i = 1, numTradeskills do
         local name, craftSubSpellName, _type, numAvailable, isExpanded, trainingPointCost, requiredLevel = GetCraftInfo(i)
         if name and (_type == "optimal" or _type == "medium" or _type == "easy" or _type == "trivial") then
-            local _, _, _, _, _, _, spellID = GetSpellInfo(name)
-            if spellID then
-                for k, v in ipairs(addon.itemData) do
-                    if v.spellID == spellID then
-                        table.insert(recipes, v.spellID)
-                        prof = v.tradeskillID;
-                    end
-                end
+            --local spellInfo = C_Spell.GetSpellInfo(name)
+            if Tradeskills.enchanterSpellNameToSpellID[name] then
+                prof = 333;
+                table.insert(recipes, Tradeskills.enchanterSpellNameToSpellID[name])
             end
+            -- if spellID then
+            --     for k, v in ipairs(addon.itemData) do
+            --         if v.spellID == spellID then
+            --             table.insert(recipes, v.spellID)
+            --             prof = v.tradeskillID;
+            --         end
+            --     end
+            -- end
         end
     end
 

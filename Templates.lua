@@ -1252,20 +1252,22 @@ function GuildbookRosterListviewItemMixin:OnEnter()
         -- i contacted the author of attune to check it was ok to add their addon data 
         if Attune_DB and Attune_DB.toons[self.character.data.name] then
 
-            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
             GameTooltip:AddLine(" ")
             GameTooltip:AddLine(L["attunements"])
     
-            local db = Attune_DB.toons[character.Name.."-"..GetRealmName()]
+            local db = Attune_DB.toons[self.character.data.name]
     
-            for _, instance in ipairs(Attune_Data.attunes) do
-                if db.attuned[instance.ID] and (instance.FACTION == "Both" or instance.FACTION == character.Faction) then
-                    local formatPercent = db.attuned[instance.ID] < 100 and "|cffff0000"..db.attuned[instance.ID].."%" or "|cff00ff00"..db.attuned[instance.ID].."%"
-                    GameTooltip:AddDoubleLine("|cffffffff"..instance.NAME, formatPercent)
+            if db then
+                for _, instance in ipairs(Attune_Data.attunes) do
+                    if db.attuned[instance.ID] and (instance.FACTION == "Both" or instance.FACTION == self.character.data.faction) then
+                        local formatPercent = db.attuned[instance.ID] < 100 and "|cffff0000"..db.attuned[instance.ID].."%" or "|cff00ff00"..db.attuned[instance.ID].."%"
+                        GameTooltip:AddDoubleLine("|cffffffff"..instance.NAME, formatPercent)
+                    end
                 end
-            end
 
-            GameTooltip:Show()
+                GameTooltip:Show()
+            end
         end
 
 

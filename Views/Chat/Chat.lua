@@ -162,6 +162,18 @@ function GuildbookChatMixin:Update()
                 name = name,
                 lastActive = chat.lastActive
             })
+            if not self.chats[name] then
+                self.chats[name] = {
+                    lastActive = time(),
+                    history = {},
+                }
+            end
+            if not self.chats[name].history then
+                self.chats[name] = {
+                    lastActive = time(),
+                    history = {},
+                }
+            end
             if self.chats[name] and (#self.chats[name].history > Database.db.config.chatWhisperHistoryLimit) then
 
                 addon.LogDebugMessage("warning", string.format("chat history to long removing %d messages", (#self.chats[name].history - Database.db.config.chatWhisperHistoryLimit)))
