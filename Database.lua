@@ -187,6 +187,26 @@ function Database:TidyUpGuildTables()
     end
 end
 
+function Database:GetGuildList()
+    local t = {}
+    if self.db and self.db.guilds then
+        for guildName, data in pairs(self.db.guilds) do
+            table.insert(t, guildName)
+        end
+    end
+    return t;
+end
+
+function Database:RemoveGuild(guildName)
+    StaticPopup_Show("GuildbookDeleteGeneric", DELETE.." "..guildName, nil, {
+        callback = function()
+            if self.db and self.db.guilds then
+                self.db.guilds[guildName] = nil;
+            end
+        end,
+    })
+end
+
 function Database:Reset()
 
     GUILDBOOK_GLOBAL = nil;

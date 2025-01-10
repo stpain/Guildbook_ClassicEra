@@ -1060,7 +1060,8 @@ function GuildbookRosterListviewItemMixin:Update()
 
     if specInfo then
 
-        local primarySpec, secondarySpec = specInfo.primary[1].id, specInfo.secondary[1].id
+        --local primarySpec, secondarySpec = specInfo.primary[1].id, specInfo.secondary[1].id
+        local primarySpec, secondarySpec = self.character.data.mainSpec, self.character.data.offSpec
 
         local exportEquipMenu1 = {{
             text = "Select Gear",

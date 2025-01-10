@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.3",
+        notes = "Updated for Anniversary servers.\n\nAdded dual spec system.\n\nAdded ability to remove old guild data (in settings).\n\nFixed bug with context menus.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "4.21",
         notes = "Removed print statements",
         icon = "ClassHall-QuestIcon-Desaturated",

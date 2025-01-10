@@ -113,18 +113,29 @@ function addon.api.easyMenu(parent, menu)
         MenuUtil.CreateContextMenu(parent, function(parent, rootDescription)
 
             for _, element in ipairs(menu) do
+
+                local menuButton;
+
                 if element.isTitle then
-                    rootDescription:CreateTitle(element.text)
+                    menuButton = rootDescription:CreateTitle(element.text)
     
                 elseif element.isSeparater then
-                    rootDescription:CreateSpacer()
+                    menuButton = rootDescription:CreateSpacer()
     
                 elseif element.isDivider then
-                    rootDescription:CreateDivider()
+                    menuButton = rootDescription:CreateDivider()
     
                 else
-                    rootDescription:CreateButton(element.text, element.func)
+                    menuButton = rootDescription:CreateButton(element.text, function() if element.func then element.func() end end)
                 end
+
+                if element.menuList then
+                    for _, subElement in ipairs(element.menuList) do
+                        menuButton:CreateButton(subElement.text, function() if subElement.func then subElement.func() end end)
+                    end
+                end
+
+
             end
         end)
     end
@@ -1199,6 +1210,44 @@ function ModernTalentsMixin:SaveTalentPreviewLoadout()
 end
 ]]
 
+function addon.api.classic.getAnniversaryTalents(...)
+    local newSpec, previousSpec = ...;
+
+	if type(newSpec) ~= "number" then
+		newSpec = GetActiveTalentGroup()
+	end
+	if type(newSpec) ~= "number" then
+		newSpec = 1
+	end
+
+    local tabs, talents = {}, {}
+    for tabIndex = 1, GetNumTalentTabs() do
+        local id, name, description, icon, pointsSpent, fileName, previewPointsSpent, isUnlocked = GetTalentTabInfo(tabIndex)
+        local role1, role2 = GetTalentTreeRoles(tabIndex, false, false); --inspect, pet
+
+        --print(id, name, fileName)
+        local engSpec = Talents.TalentBackgroundToSpec[fileName]
+        table.insert(tabs, {
+            fileName = fileName,
+            pointsSpent = pointsSpent,
+        })
+        for talentIndex = 1, GetNumTalents(tabIndex) do
+            local _name, iconTexture, row, column, rank, maxRank, isExceptional, available, unKnown, isActive, y, talentID = GetTalentInfo(tabIndex, talentIndex)
+            local spellId = Talents:GetTalentSpellId(fileName, row, column, rank, id)
+            table.insert(talents, {
+                tabID = tabIndex,
+                row = row,
+                col = column,
+                rank = rank,
+                maxRank = maxRank,
+                spellId = spellId,
+            })
+        end
+    end
+    
+    return newSpec, tabs, talents, {};
+end
+
 function addon.api.cata.getPlayerTalents(...)
     local newSpec, previousSpec = ...;
 
@@ -1663,7 +1712,8 @@ function addon.api.generateExportMenu(character)
 
     if specInfo then
 
-        local primarySpec, secondarySpec = specInfo.primary[1].id, specInfo.secondary[1].id
+        --local primarySpec, secondarySpec = specInfo.primary[1].id, specInfo.secondary[1].id
+        local primarySpec, secondarySpec = character.data.mainSpec, character.data.offSpec
 
         local exportEquipMenu1 = {{
             text = "Select Gear",

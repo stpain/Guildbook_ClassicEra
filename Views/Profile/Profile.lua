@@ -670,37 +670,37 @@ end
 
 function GuildbookProfileMixin:LoadTalentsAndGlyphs()
 
-	-- local mainSpec = self.character:GetClassSpecAtlasName("primary")
-	-- if mainSpec then
-	-- 	self.talents.primarySpec.icon:SetAtlas(mainSpec)
-	-- end
-	-- local offSpec = self.character:GetClassSpecAtlasName("secondary")
-	-- if offSpec then
-	-- 	self.talents.secondarySpec.icon:SetAtlas(offSpec)
-	-- end
+	local mainSpec = self.character:GetClassSpecAtlasName("primary")
+	if mainSpec then
+		self.talents.primarySpec.icon:SetAtlas(mainSpec)
+	end
+	local offSpec = self.character:GetClassSpecAtlasName("secondary")
+	if offSpec then
+		self.talents.secondarySpec.icon:SetAtlas(offSpec)
+	end
 
 
 	--sometimes the player might have leveled with a dps spec and set secondary as a tank/healer role btu intend to use that as a main
 	--this can result in the spec being reversed
 	--this should resolve the issue by using talent points spent to calculate spec (for wrath anyways)
-	if self.character then
-		local specInfo = self.character:GetSpecInfo()
+	-- if self.character then
+	-- 	local specInfo = self.character:GetSpecInfo()
 
-		if specInfo then
+	-- 	if specInfo then
 
-			local primarySpec, secondarySpec = specInfo.primary[1].id, specInfo.secondary[1].id
+	-- 		local primarySpec, secondarySpec = specInfo.primary[1].id, specInfo.secondary[1].id
 
-			if primarySpec then
-				self.talents.primarySpec.icon:SetAtlas(self.character:GetClassSpecAtlasName(primarySpec))
-			end
+	-- 		if primarySpec then
+	-- 			self.talents.primarySpec.icon:SetAtlas(self.character:GetClassSpecAtlasName(primarySpec))
+	-- 		end
 
-			if secondarySpec then
-				self.talents.secondarySpec.icon:SetAtlas(self.character:GetClassSpecAtlasName(secondarySpec))
-			end
+	-- 		if secondarySpec then
+	-- 			self.talents.secondarySpec.icon:SetAtlas(self.character:GetClassSpecAtlasName(secondarySpec))
+	-- 		end
 
-		end
+	-- 	end
 
-	end
+	-- end
 
 	local spec;
 	if self.selectedTalentSpec == 1 then

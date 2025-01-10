@@ -268,103 +268,18 @@
                                     <Anchor point="TOPLEFT" x="16" y="-32"/>
                                 </Anchors>
                             </CheckButton>
-                            <Frame parentKey="tabContainer" inherits="TBDTabFrameTemplate">
+
+                            <Frame parentKey="guildListview" inherits="TBDListviewTemplate,InsetFrameTemplate">
+                                <Size x="260"/>
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" x="4" y="-100"/>
-                                    <Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
+                                    <Anchor point="TOPLEFT" x="4" y="-120"/>
+                                    <Anchor point="BOTTOMLEFT" x="4" y="6"/>
                                 </Anchors>
-                                <Frames>
-                                    <Frame parentKey="invites" setAllPoints="true" hidden="false">
-                                        <Frames>
-                                            <Button parentKey="deleteAll" inherits="UIPanelButtonTemplate" text="Delete All">
-                                                <Anchors>
-                                                    <Anchor point="TOPRIGHT" x="-4" y="-4"/>
-                                                </Anchors>
-                                                <Size x="100" y="22"/>
-                                            </Button>
-                                            <Button parentKey="classSelectDropdown" inherits="TBDDropDownTemplate">
-                                                <Anchors>
-                                                    <Anchor point="TOPLEFT" x="146" y="-50"/>
-                                                </Anchors>
-                                                <Size x="90" y="28"/>
-                                            </Button>
-                                            <Button parentKey="statusSelectDropdown" inherits="TBDDropDownTemplate">
-                                                <Anchors>
-                                                    <Anchor point="TOPLEFT" x="472" y="-50"/>
-                                                </Anchors>
-                                                <Size x="90" y="28"/>
-                                            </Button>
-                                            <Frame parentKey="listview" inherits = "TBDListviewTemplate">
-                                                <Anchors>
-                                                    <Anchor point="TOPLEFT" x="4" y="-80"/>
-                                                    <Anchor point="BOTTOMRIGHT" x="-4" y="4"/>
-                                                </Anchors>
-                                                <KeyValues>
-                                                    <KeyValue key="frameType" value="FRAME" type="string"/>
-                                                    <KeyValue key="itemTemplate" value="GuildbookClassicEraRecruitmentTemplate" type="string"/>
-                                                    <KeyValue key="elementHeight" value="20" type="number"/>
-                                                </KeyValues>
-                                            </Frame>
-                                        </Frames>
-                                    </Frame>
-                                    <Frame parentKey="csvInput" setAllPoints="true" hidden="true">
-                                        <Frames>
-                                            <ScrollFrame parentKey="pasteBin" inherits="InputScrollFrameTemplate">
-                                                <Anchors>
-                                                    <Anchor point="TOPLEFT" x="20" y="-30"/>
-                                                    <Anchor point="BOTTOMRIGHT" x="-320" y="20"/>
-                                                </Anchors>
-                                                <Layers>
-                                                    <Layer level="OVERLAY">
-                                                        <FontString inherits="GameFontNormal" text="Enter csv text.">
-                                                            <Anchors>
-                                                                <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="0" y="7"/>
-                                                            </Anchors>
-                                                        </FontString>
-                                                    </Layer>
-                                                </Layers>
-                                            </ScrollFrame>
-                                            <Slider name="GuildbookSettingsCsvColumnSlider" parentKey="csvColumnCount" inherits="TBDSliderLeftLabel">
-                                                <Anchors>
-                                                    <Anchor point="TOPLEFT" relativeKey="$parent.pasteBin" relativePoint="TOPRIGHT" x="104" y="-4"/>
-                                                </Anchors>
-                                                <Size x="180" y="16"/>
-                                            </Slider>
-
-                                            <Frame parentKey="columnDataContainer">
-                                                <Anchors>
-                                                    <Anchor point="TOPLEFT" relativeKey="$parent.pasteBin" relativePoint="TOPRIGHT" x="24" y="-34"/>
-                                                </Anchors>
-                                                <Size x="280" y="32"/>
-
-                                            </Frame>
-
-                                            <Button parentKey="import" inherits="UIPanelButtonTemplate" text="Import">
-                                                <Anchors>
-                                                    <Anchor point="TOPLEFT" relativeKey="$parent.columnDataContainer" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
-                                                </Anchors>
-                                                <Size x="120" y="22"/>
-                                            </Button>
-
-                                        </Frames>
-
-                                        <Layers>
-                                            <Layer level="OVERLAY">
-                                                <FontString inherits="GameFontWhite" justifyH="LEFT" text="Preview">
-                                                    <Anchors>
-                                                        <Anchor point="TOPLEFT" relativeKey="$parent.import" relativePoint="BOTTOMLEFT" x="4" y="-14"/>
-                                                    </Anchors>
-                                                </FontString>
-                                                <FontString parentKey="preview" inherits="GameFontNormalSmall" justifyH="LEFT" justifyV="TOP">
-                                                    <Anchors>
-                                                        <Anchor point="TOPLEFT" relativeKey="$parent.import" relativePoint="BOTTOMLEFT" x="4" y="-34"/>
-                                                        <Anchor point="BOTTOMRIGHT" x="-14" y="14"/>
-                                                    </Anchors>
-                                                </FontString>
-                                            </Layer>
-                                        </Layers>
-                                    </Frame>
-                                </Frames>
+                                <KeyValues>
+                                    <KeyValue key="itemTemplate" value="TBDSimpleIconLabelFrame" type="string"/>
+                                    <KeyValue key="elementHeight" value="24" type="number"/>
+                                    <KeyValue key="enableSelection" value="true" type="boolean"/>
+                                </KeyValues>
                             </Frame>
                         </Frames> 
                     </Frame>

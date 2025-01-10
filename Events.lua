@@ -58,6 +58,7 @@ e:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 e:RegisterEvent("LOOT_ITEM_AVAILABLE")
 e:RegisterEvent("CHAT_MSG_CURRENCY")
 e:RegisterEvent("CHAT_MSG_COMBAT_FACTION_CHANGE")
+e:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 
 e:SetScript("OnEvent", function(self, event, ...)
     if self[event] then
@@ -1124,10 +1125,17 @@ end
 
 local function setPlayerTalentsAndGlyphs(...)
 
-    local spec, tabs, talents, glyphs = addon.api.classic.getPlayerTalents(...)
+    local spec, tabs, talents, glyphs;
+    if C_Seasons and (C_Seasons.GetActiveSeason() == 11) then
+        spec, tabs, talents, glyphs = addon.api.classic.getAnniversaryTalents(...)
+    else
+        spec, tabs, talents, glyphs = addon.api.classic.getPlayerTalents(...)
+    end
+
+    --local spec, tabs, talents, glyphs = addon.api.classic.getPlayerTalents(...)
     --local spec, tabs, talents, glyphs = addon.api.cata.getPlayerTalents(...)
 
-    -- DevTools_Dump(tabs)
+    -- DevTools_Dump(tabs) GetActiveTalentGroup
     -- print(spec)
 
     --convert the keys to named keys to use as a lookup
@@ -1146,11 +1154,12 @@ local function setPlayerTalentsAndGlyphs(...)
 end
 
 function e:ACTIVE_TALENT_GROUP_CHANGED(...)
-	setPlayerTalentsAndGlyphs(...)
+    local new, old = ...
+	setPlayerTalentsAndGlyphs(new)
 end
 
 function e:CHARACTER_POINTS_CHANGED()
-    setPlayerTalentsAndGlyphs({})
+    --setPlayerTalentsAndGlyphs({})
 
     if addon.characters[addon.thisCharacter] then
         addon.characters[addon.thisCharacter]:SetLevel(UnitLevel("player"))
@@ -1205,7 +1214,11 @@ function e:Database_OnInitialised()
     end
 
     PlayerTalentFrame:HookScript("OnHide", function()
-        setPlayerTalentsAndGlyphs({})
+        if GetActiveTalentGroup then
+            setPlayerTalentsAndGlyphs(GetActiveTalentGroup())
+        else
+            setPlayerTalentsAndGlyphs(1)
+        end
 	end)
 	-- SkillFrame:HookScript("OnShow", function()
 	-- 	--self:ScanSkills()

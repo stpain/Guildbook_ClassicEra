@@ -190,7 +190,7 @@
                     <Anchor point="TOPLEFT" relativeKey="$parent.sidePane" relativePoint="TOPRIGHT" x="0" y="0"/>
                     <Anchor point="TOPRIGHT" x="0" y="0"/>
                 </Anchors>
-                <Size y="90"/>
+                <Size y="60"/>
                 <Layers>
                     <Layer level="BACKGROUND">
                         

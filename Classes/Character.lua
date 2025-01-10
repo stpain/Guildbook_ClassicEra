@@ -766,8 +766,22 @@ end
 --unlike the character profile which can be any spec as main as per the players choice
 --use this when getign character data specific to a spec
 --use the .data.mainSpec for display only
-function Character:GetSpecInfo()
+function Character:GetSpecInfo(useCharacterData)
 
+    if useCharacterData then
+        return {
+            primary = {
+                [1] = { id = self.data.mainSpec},
+            },
+            secondary = {
+                [1] = { id =self.data.offSpec},
+            },
+        }
+    end
+
+
+    --construct a table based on talent point spend
+    --t[spec][1].id = tabIndex
     local t = {
         primary = {
             [1] = { id = 1, points = 0 },
@@ -859,6 +873,8 @@ function Character:GetClassSpecAtlasName(spec)
             if s == "Combat" then
                 s = "Outlaw";
             end
+
+            --print(s, spec)
 
             if s then
                 return string.format("GarrMission_ClassIcon-%s-%s", class, s), s;
