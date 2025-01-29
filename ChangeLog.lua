@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.41",
+        notes = "Due to the copy/pasta from cata code the guild bank feature had been disabled.\n\nThis is now enabled and should be working, please report any issues with it (its been a while)",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "4.3",
         notes = "Updated for Anniversary servers.\n\nAdded dual spec system.\n\nAdded ability to remove old guild data (in settings).\n\nFixed bug with context menus.",
         icon = "ClassHall-QuestIcon-Desaturated",
