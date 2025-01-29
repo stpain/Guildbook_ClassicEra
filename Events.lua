@@ -289,11 +289,26 @@ ERR_GUILD_WITHDRAW_LIMIT = "You cannot withdraw that much from the guild bank.";
 
 ]]
 
+local dfui, ranker = false, false
 function e:ADDON_LOADED(...)
 
-    if ... == "Guildbook_TSDB" then
-        addon.dataStoreEnabled = true
-    end
+    -- if ... == "Guildbook_TSDB" then
+    --     addon.dataStoreEnabled = true
+    -- end
+
+    -- if ... == "DragonflightUI" then
+    --     dfui = true
+    -- end
+
+    -- if ... == "Ranker" then
+    --     ranker = true
+    -- end
+
+    -- if dfui and ranker then
+    --     HonorFrame:HookScript("OnShow", function()
+    --         RankerMainFrame:SetPoint("LEFT", HonorFrame, "RIGHT", 20, 30.5)
+    --     end)
+    -- end
 
 end
 
@@ -322,7 +337,7 @@ end
 --[[
     GUILD BANK EVENTS
 
-    the job here is to scan the players bags and bank if they have the guildbank keyword in their public not
+    the job here is to scan the players bags and bank if they have the guildbank keyword in their public note
 ]]
 local bankScanned = false
 function e:BANKFRAME_CLOSED()
@@ -334,20 +349,22 @@ function e:BANKFRAME_CLOSED()
             --[[
                 redundant feature as of cata
             ]]
-            -- if addon.guilds[addon.thisGuild] then
-            --     addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
-    
-            --     if not addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] then
-            --         addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] = {
-            --             shareBags = false,
-            --             shareBank = false,
-            --             shareCopper = false,
-            --             shareRank = 0,
-            --         }
-            --         print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
-            --     end
+            if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+                if addon.guilds[addon.thisGuild] then
+                    addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
+        
+                    if not addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] then
+                        addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] = {
+                            shareBags = false,
+                            shareBank = false,
+                            shareCopper = false,
+                            shareRank = 0,
+                        }
+                        print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
+                    end
 
-            -- end
+                end
+            end
 
 
             addon.characters[addon.thisCharacter]:SetContainers(bags)
@@ -363,22 +380,23 @@ function e:BANKFRAME_OPENED()
                 redundant feature as of cata
             ]]
         --DevTools_Dump(bags)
-        -- if addon.guilds[addon.thisGuild] then
-        --     addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
+        if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+            if addon.guilds[addon.thisGuild] then
+                addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
 
-        --     if not addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] then
-        --         addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] = {
-        --             shareBags = false,
-        --             shareBank = false,
-        --             shareCopper = false,
-        --             shareRank = 0,
-        --         }
-        --         print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
-        --     end
+                if not addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] then
+                    addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] = {
+                        shareBags = false,
+                        shareBank = false,
+                        shareCopper = false,
+                        shareRank = 0,
+                    }
+                    print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
+                end
 
-        --     --addon.characters[addon.thisCharacter]:SetContainers(bags)
-        -- end
-
+                --addon.characters[addon.thisCharacter]:SetContainers(bags)
+            end
+        end
 
         addon.characters[addon.thisCharacter]:SetContainers(bags)
     end
@@ -390,6 +408,24 @@ function e:BAG_UPDATE_DELAYED()
     if addon.characters and addon.characters[addon.thisCharacter] then
         local bags = addon.api.scanPlayerContainers()
         addon.characters[addon.thisCharacter]:SetContainers(bags)
+
+        --update the guild bank data 
+        if (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC) and (addon.characters[addon.thisCharacter].data.publicNote:lower():find("guildbank")) then
+            if addon.guilds[addon.thisGuild] then
+                addon.guilds[addon.thisGuild].banks[addon.thisCharacter] = time();
+
+                if not addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] then
+                    addon.guilds[addon.thisGuild].bankRules[addon.thisCharacter] = {
+                        shareBags = false,
+                        shareBank = false,
+                        shareCopper = false,
+                        shareRank = 0,
+                    }
+                    print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
+                end
+            end
+        end
+
     end
     addon:TriggerEvent("Character_Bags_Updated")
 end

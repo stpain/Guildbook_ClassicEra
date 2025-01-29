@@ -516,6 +516,8 @@ function GuildbookMixin:Database_OnInitialised()
     self:CreateMinimapButtons()
     self:CreateSlashCommands()
 
+    --self:SetupInterface()
+
     self:Hide()
 
     Tradeskills.BuildEnchanterNameToSpellID()
@@ -868,3 +870,71 @@ end
 -- function GuildbookMailMixin:OnLoad()
     
 -- end
+
+
+
+
+
+
+function GuildbookMixin:SetupInterface()
+
+    local  content = CreateFrame("Frame", "GblContentContainer", CommunitiesFrame)
+    content:SetPoint("TOPLEFT", CommunitiesFrame.CommunitiesList, "TOPRIGHT", 31, -46)
+    content:SetPoint("BOTTOMRIGHT", CommunitiesFrame, -26, 28)
+    content.background = content:CreateTexture(nil, "BACKGROUND")
+    content.background:SetAtlas("Tooltip-NineSlice-Center")
+    content.background:SetAllPoints()
+
+    CommunitiesFrameGuildDetailsFrameInfoMOTDScrollFrame:SetHeight(200)
+
+    CommunitiesFrame.GblContentContainer = content;
+    CommunitiesFrame.GuildBenefitsFrame:Hide()
+
+    CommunitiesFrame.GuildBenefitsTab:SetScript("OnShow", function(button)
+        button:Hide()
+    end)
+    CommunitiesFrame.GuildBenefitsTab:Hide()
+
+    COMMUNITIES_FRAME_DISPLAY_MODES.GUILDBOOK = {
+    "GblContentContainer",
+    "CommunitiesList",
+    }
+    COMMUNITIES_FRAME_DISPLAY_MODES.GUILD_BENEFITS = nil
+
+    local function ShowGuildTabs(bool)
+        CommunitiesFrame.ChatTab:SetShown(bool);
+        CommunitiesFrame.RosterTab:SetShown(bool);
+        CommunitiesFrame.GuildBenefitsTab:SetShown(bool);
+        CommunitiesFrame.GuildInfoTab:SetShown(bool);
+    end
+
+    local function UnCheckGuildTabs()
+        CommunitiesFrame.ChatTab:SetChecked(false);
+        CommunitiesFrame.RosterTab:SetChecked(false);
+        CommunitiesFrame.GuildBenefitsTab:SetChecked(false);
+        CommunitiesFrame.GuildInfoTab:SetChecked(false);
+    end
+
+
+    GBL = {}
+    GBL.Name = "GuildbookLight"
+
+    GBL.TabButton = _G["GuildbookLightTabButton"] or CreateFrame("CheckButton", GBL.Name.."TabButton", CommunitiesFrame, "CommunitiesFrameTabTemplate")
+    GBL.TabButton.displayMode = "GUILDBOOK";
+    GBL.TabButton:SetPoint("TOPLEFT", CommunitiesFrame.GuildInfoTab, "BOTTOMLEFT", 0, -20)
+    GBL.TabButton.Icon:SetAtlas("Mobile-Blacksmithing")
+
+    hooksecurefunc(CommunitiesFrame, "SetDisplayMode", function()
+        
+    end)
+
+
+    hooksecurefunc(CommunitiesFrame, "UpdateCommunitiesTabs", function()
+        if GuildBenefitsTab then
+            GuildBenefitsTab:Hide()
+        end
+        ShowGuildTabs(true)
+        GBL.TabButton:SetChecked(CommunitiesFrame.displayMode == "GUILDBOOK")
+    end)
+
+end

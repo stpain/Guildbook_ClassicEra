@@ -48,7 +48,7 @@ function GuildbookGuildBankMixin:RequestTimestamps()
             addon.LogDebugMessage("bank", string.format("requesting timestamps for bank [%s]", v.characterName))
             addon:TriggerEvent("Guildbank_StatusInfo", {
                 characterName = v.characterName,
-                status = "requesting timestamps"
+                status = LIGHTBLUE_FONT_COLOR:WrapTextInColorCode("requesting timestamps") --GREEN_FONT_COLOR:WrapTextInColorCode
             })
         end)
     end
@@ -61,12 +61,12 @@ function GuildbookGuildBankMixin:RequestTimestamps()
                 addon.LogDebugMessage("bank", string.format("requesting data for bank [%s]", v.characterName))
                 addon:TriggerEvent("Guildbank_StatusInfo", {
                     characterName = v.characterName,
-                    status = string.format("requesting data from %s", v.source)
+                    status = BLUE_FONT_COLOR:WrapTextInColorCode(string.format("requesting data from %s", v.source))
                 })
             else
                 addon:TriggerEvent("Guildbank_StatusInfo", {
                     characterName = v.characterName,
-                    status = "unable to locate data"
+                    status = DULL_RED_FONT_COLOR:WrapTextInColorCode("unable to locate data")
                 }) 
             end
         end
@@ -86,6 +86,9 @@ function GuildbookGuildBankMixin:Guildbank_OnTimestampsReceived(sender, message)
 
                 --set this banks update time
                 if addon.guilds[addon.thisGuild] then
+                    if not addon.guilds[addon.thisGuild].banks then
+                        addon.guilds[addon.thisGuild].banks = {}
+                    end
                     if not addon.guilds[addon.thisGuild].banks[v.characterName] then
                         addon.guilds[addon.thisGuild].banks[v.characterName] = 0;
                     end
@@ -94,7 +97,7 @@ function GuildbookGuildBankMixin:Guildbank_OnTimestampsReceived(sender, message)
 
                 addon:TriggerEvent("Guildbank_StatusInfo", {
                     characterName = v.characterName,
-                    status = string.format("timestamp from %s", sender)
+                    status = NECROLORD_GREEN_COLOR:WrapTextInColorCode(string.format("timestamp from %s", sender))
                 })
             end
         end
@@ -112,6 +115,10 @@ function GuildbookGuildBankMixin:OnShow()
             if character.data.publicNote:lower():find("guildbank") then
 
                 if addon.guilds[addon.thisGuild] then
+
+                    if not addon.guilds[addon.thisGuild].banks then
+                        addon.guilds[addon.thisGuild].banks = {}
+                    end
 
                     --set a default timestamp
                     if not addon.guilds[addon.thisGuild].banks[character.data.name] then
@@ -184,7 +191,7 @@ function GuildbookGuildBankMixin:Guildbank_OnDataReceived(sender, message)
     addon.LogDebugMessage("bank", string.format("received bank data from [%s]", sender))
     addon:TriggerEvent("Guildbank_StatusInfo", {
         characterName = message.payload.bank,
-        status = string.format("received data from %s", sender)
+        status = EPIC_PURPLE_COLOR:WrapTextInColorCode(string.format("received data from %s", sender))
     })
 
     --DevTools_Dump(message.payload)

@@ -707,6 +707,14 @@ function Character:GetAlts()
     return self.data.alts or {}
 end
 
+function Character:SetAlts(alts, broadcast)
+    self.data.alts = alts;
+    addon:TriggerEvent("Character_OnDataChanged", self)
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetAlts", "alts")
+    end
+end
+
 --sets the object called from as the main character for the alts passed in
 function Character:UpdateAlts(alts, broadcast)
     self.data.alts = alts;

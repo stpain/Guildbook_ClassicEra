@@ -135,7 +135,12 @@
         "ITEM_QUALITY_COLORS",
         "COPPER_PER_SILVER",
         "SILVER_PER_GOLD",
-        "Menu"
+        "Menu",
+        "HonorFrame",
+        "COMMUNITIES_FRAME_DISPLAY_MODES",
+        "CommunitiesFrameGuildDetailsFrame",
+        "CommunitiesFrameGuildDetailsFrameInfo",
+        "CommunitiesFrameGuildDetailsFrameInfoMOTDScrollFrame"
     ],
     "Lua.runtime.version": "Lua 5.1",
     "Lua.runtime.builtin": {

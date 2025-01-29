@@ -344,12 +344,15 @@ function Comms:Character_OnDataReceived(sender, message)
     ]]
 
     if not addon.characters[message.payload.nameRealm] then
+        addon.LogDebugMessage("comms_in", "no character found > creatign character table")
         if Database.db.characterDirectory[message.payload.nameRealm] then
             addon.characters[message.payload.nameRealm] = Character:CreateFromData(Database.db.characterDirectory[message.payload.nameRealm])
+            addon.LogDebugMessage("comms_in", "character created")
         end
     end
 
     if type(addon.characters[message.payload.nameRealm]) ~= "table" then
+        addon.LogDebugMessage("comms_in", "no character found > comms exited")
         return
     end
 
@@ -365,11 +368,14 @@ function Comms:Character_OnDataReceived(sender, message)
     if message.payload.key then
         if character and character[message.payload.method] then
             --print("calling method", message.payload.method)
+            addon.LogDebugMessage("comms_in", string.format("payload.method = %s", message.payload.method))
             if message.payload.subKey then
+                addon.LogDebugMessage("comms_in", string.format("using payload.subKey = %s", message.payload.subKey))
                 -- print("using subKey value", message.payload.key, message.payload.subKey)
                 -- DevTools_Dump({message.payload.data})
                 character.data[message.payload.key][message.payload.subKey] = message.payload.data
             else
+                addon.LogDebugMessage("comms_in", string.format("using payload.key = %s", message.payload.key))
                 -- print("using key value", message.payload.key)
                 -- DevTools_Dump({message.payload.data})
                 character.data[message.payload.key] = message.payload.data

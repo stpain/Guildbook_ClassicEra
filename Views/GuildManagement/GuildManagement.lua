@@ -241,12 +241,12 @@ function GuildbookGuildManagementMixin:SetupEditCharacterTab()
 
         widget:SetText(character:GetTradeskillName(slot))
 
-        if character:GetTradeskill(slot) ~= "-" then
-            widget:Disable()
-        end
+        -- if character:GetTradeskill(slot) ~= "-" then
+        --     widget:Disable()
+        -- end
 
         local menu = {}
-        for name, id in pairs(Tradeskills.PrimaryTradeskills) do
+        for name, id in pairs(Tradeskills.PlayerTradeskills) do
             table.insert(menu, {
                 text = Tradeskills:GetLocaleNameFromID(id),
                 func = function()
@@ -314,8 +314,12 @@ function GuildbookGuildManagementMixin:SetupEditCharacterTab()
                             text = name,
                             func = function()
                                 widget:SetText(name)
+                                character:SetClass(i)
                             end
                         })
+                    end
+                    if character.data.class == i then
+                        widget:SetText(name)
                     end
                 end
                 widget:SetMenu(classMenu)
@@ -352,7 +356,26 @@ function GuildbookGuildManagementMixin:SetupEditCharacterTab()
                     table.insert(menu, {
                         text = name,
                         func = function()
+
+                            --first make sure the main character has the main character set
+                            if addon.characters[name] then
+                                addon.characters[name].data.mainCharacter = name;
+                            end
+
+                            --then set the main character for this alt
                             character:SetMainCharacter(name, true)
+
+                            --then run an alt update
+                            local dbAlts = Database:GetCharacterAlts(character.data.mainCharacter)
+                            -- for _, v in ipairs(dbAlts) do
+                            --     if addon.characters[v] then
+                            --         addon.characters[v]:SetAlts(dbAlts)
+                            --     end
+                            -- end
+
+                            --this will use the main character object to trigger the alt update
+                            addon.characters[name]:UpdateAlts(dbAlts, true)
+
                         end,
                     })
                 end
@@ -492,7 +515,26 @@ function GuildbookGuildManagementMixin:SetupEditCharacterTab()
     self.editCharacterControls["alts"].init = function(widget, character)
 
         local alts = {}
-        for k, nameRealm in ipairs(character:GetAlts()) do
+
+
+        --first ask the database for characters with matchign mainCharacter
+        -- local dbAlts = Database:GetCharacterAlts(character.data.mainCharacter)
+
+        -- for k, nameRealm in ipairs(dbAlts) do
+
+        --     if Database.db.characterDirectory[nameRealm] then
+        --         if not addon.characters[nameRealm] then
+        --             addon.characters[nameRealm] = Character:CreateFromData(Database.db.characterDirectory[nameRealm])
+        --         end
+
+        --         table.insert(alts, {
+        --             label = addon.characters[nameRealm]:GetName(true, "short"),
+        --         })
+
+        --     end
+        -- end
+
+        for k, nameRealm in ipairs(Database:GetCharacterAlts(character.data.mainCharacter)) do
 
             if Database.db.characterDirectory[nameRealm] then
                 if not addon.characters[nameRealm] then
@@ -501,6 +543,10 @@ function GuildbookGuildManagementMixin:SetupEditCharacterTab()
 
                 table.insert(alts, {
                     label = addon.characters[nameRealm]:GetName(true, "short"),
+
+                    onMouseDown = function()
+                        self:SetCharacterToEdit(addon.characters[nameRealm])
+                    end,
                 })
 
             end
@@ -1017,13 +1063,13 @@ function GuildbookGuildManagementMixin:GetCurrentChatChannels()
             disabled = disabled,
             editbox = self.tabContainer.invites.recruitmentMessageInput.EditBox,
 
-            onClick = function()
-                self:UpdateRecruitmentMacro()
-            end,
+            -- onClick = function()
+            --     self:UpdateRecruitmentMacro()
+            -- end,
         })
 
         --ListChannelByName(channelID)
-        local name, header, collapsed, channelNumber, count, active, category, voiceEnabled, voiceActive = GetChannelDisplayInfo(id)
+        --local name, header, collapsed, channelNumber, count, active, category, voiceEnabled, voiceActive = GetChannelDisplayInfo(id)
         --print(name, channelNumber, count)
     end
 
@@ -1048,14 +1094,15 @@ function GuildbookGuildManagementMixin:SetupInvitesUI()
         self:OnGuildRecruitmentLogChanged()
     end)
 
-    self.tabContainer.invites.sendRecruitmentMessage:SetScript("OnClick", function()
-        self:UpdateRecruitmentMacro()
-    end)
+    -- self.tabContainer.invites.sendRecruitmentMessage:SetScript("OnClick", function()
+    --     self:UpdateRecruitmentMacro()
+    -- end)
 
     self.tabContainer.invites.header:SetText(L.INVITES_HEADER)
 
     for _, editbox in pairs({"inviteMessageInput", "recruitmentMessageInput"}) do
         self.tabContainer.invites[editbox].EditBox:SetFontObject("GameFontWhite")
+        self.tabContainer.invites[editbox].EditBox:SetText(L.ENTER_YOUR_MESSAGE_HERE)
         self.tabContainer.invites[editbox].EditBox:SetMaxLetters(255)
         self.tabContainer.invites[editbox].CharCount:SetShown(true);
         self.tabContainer.invites[editbox].EditBox:ClearAllPoints()
@@ -1066,8 +1113,11 @@ function GuildbookGuildManagementMixin:SetupInvitesUI()
         self.tabContainer.invites[editbox].ScrollBar:SetPoint("BOTTOMRIGHT", self.tabContainer.invites[editbox], "BOTTOMRIGHT", 0, -4) 
     end
 
-    self.tabContainer.invites.inviteMessageInput.EditBox:SetText(L.ENTER_YOUR_MESSAGE_HERE)
-    self.tabContainer.invites.recruitmentMessageInput.EditBox:SetText(L.ENTER_YOUR_MESSAGE_HERE)
+    --self.tabContainer.invites.inviteMessageInput.EditBox:SetText(L.ENTER_YOUR_MESSAGE_HERE)
+    self.tabContainer.invites.recruitmentMessageInput.EditBox:SetScript("OnTextChanged", function (eb)
+        Database:SetGuildrecruitmentMessage(addon.thisGuild, eb:GetText())
+    end)
+    self.tabContainer.invites.recruitmentMessageInput.EditBox:SetText(Database:GetGuildrecruitmentMessage(addon.thisGuild))
     
     local rowIndex = 0;
     local t = {}
@@ -1200,7 +1250,7 @@ function GuildbookGuildManagementMixin:UpdateRecruitmentMacro()
         end)
     end
     --self.tabContainer.invites.sendRecruitmentMessage:SetAttribute("macrotext1", macro)
-    print(macro)
+    --print(macro)
 end
 
 function GuildbookGuildManagementMixin:SendWhoRequest(who)

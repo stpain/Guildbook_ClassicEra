@@ -68,14 +68,14 @@ function GuildbookSettingsMixin:OnLoad()
                 self:SelectCategory("chat")
             end,
         },
-        -- {
-        --     label = "Guild Bank",
-        --     --atlas = "ShipMissionIcon-Treasure-Mission",
-        --     backgroundAlpha = 0.15,
-        --     onMouseDown = function ()
-        --         self:SelectCategory("guildBank")
-        --     end,
-        -- },
+        {
+            label = "Guild Bank",
+            --atlas = "ShipMissionIcon-Treasure-Mission",
+            backgroundAlpha = 0.15,
+            onMouseDown = function ()
+                self:SelectCategory("guildBank")
+            end,
+        },
         {
             label = "Addon",
             --atlas = "GarrMission_MissionIcon-Engineering",

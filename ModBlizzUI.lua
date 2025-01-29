@@ -532,3 +532,34 @@ end
 -- 	timeout = 0,
 -- 	hideOnEscape = 1
 -- };
+
+
+-- function addon:CreateConsumableWindow()
+
+--     local frame = _G.GuildbookConsumableWindow or CreateFrame("Frame", "GuildbookConsumableWindow", UIParent)
+--     frame:SetPoint("TOP", 0, -20)
+--     frame:SetSize(100,100)
+--     NineSliceUtil.ApplyLayout(frame, addon.api.getNineSliceTooltipBorder(10))
+
+--     --GuildbookMacroButton
+--     local function updateConsumables()
+
+--         local consumables = {}
+
+--         for bag = 0, 4 do
+--             for slot = 1, C_Container.GetContainerNumSlots(bag) do
+    
+--                 local containerInfo = C_Container.GetContainerItemInfo(bag, slot)
+--                 if containerInfo and containerInfo.itemID then
+--                     local _, _, _, _, icon, classID, subClassID = C_Item.GetItemInfoInstant(containerInfo.itemID)
+--                     if classID == 0 then
+--                         print(containerInfo.hyperlink, classID, subClassID)
+--                     end
+--                 end
+--             end
+--         end
+--     end
+
+    
+
+-- end

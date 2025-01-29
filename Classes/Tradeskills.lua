@@ -37,6 +37,20 @@ Tradeskills.PrimaryTradeskills = {
     ["Cooking"] = 185,
 }
 
+Tradeskills.PlayerTradeskills = {
+	["Alchemy"] = 171,
+    ["Blacksmithing"] = 164,
+    ["Enchanting"] = 333,
+    ["Engineering"] = 202,
+	["Herbalism"] = 182,
+    --["Inscription"] = 773,
+    --["Jewelcrafting"] = 755,
+    ["Leatherworking"] = 165,
+	["Skinning"] = 393,
+    ["Tailoring"] = 197,
+    ["Mining"] = 186,
+}
+
 -- function Tradeskills:CreateDropdownMenu(includeAll)
 	
 -- 	if not includeAll then

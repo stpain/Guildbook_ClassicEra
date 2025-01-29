@@ -343,7 +343,8 @@ local function GetItemSocketInfo(link)
     local sockets = {}
     local itemSocketsOrderd = {}
 
-    local stats = GetItemStats(link)
+    local stats = GetItemStats(link) or {}
+    --DevTools_Dump(stats)
     for k, v in pairs(stats) do
         if k:find("SOCKET", nil, true) then
             if not sockets[k] then
@@ -492,18 +493,21 @@ function addon.api.updatePaperdollOverlays()
 
             local _, _, quality, itemLevel = GetItemInfo(link)
 
-            if minItemLevel == 0 then
-                minItemLevel = itemLevel
-            else
-                if itemLevel < minItemLevel then
+            if type(itemLevel) == "number" then
+
+                if minItemLevel == 0 then
                     minItemLevel = itemLevel
+                else
+                    if itemLevel < minItemLevel then
+                        minItemLevel = itemLevel
+                    end
                 end
-            end
-            if maxItemLevel == 0 then
-                maxItemLevel = itemLevel
-            else
-                if itemLevel > maxItemLevel then
+                if maxItemLevel == 0 then
                     maxItemLevel = itemLevel
+                else
+                    if itemLevel > maxItemLevel then
+                        maxItemLevel = itemLevel
+                    end
                 end
             end
 

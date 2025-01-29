@@ -276,7 +276,16 @@ end
 function GuildbookGuildbankCharacterListviewItemMixin:SetDataBinding(binding, height)
     self.characterName = binding.label
     self.icon:SetAtlas(binding.atlas)
-    self.text:SetText(Ambiguate(binding.label, "short"))
+
+    local name, realm = strsplit("-", self.characterName)
+    local _, thisRealm = strsplit("-", addon.thisCharacter)
+
+    if realm ~= thisRealm then
+        self.text:SetText(RED_FONT_COLOR:WrapTextInColorCode(binding.label))
+    else
+        self.text:SetText(GREEN_FONT_COLOR:WrapTextInColorCode(Ambiguate(binding.label, "short")))
+    end
+
     self.icon:SetSize(height-2, height-2)
     if binding.showMask then
         self.mask:Show()
@@ -2058,9 +2067,19 @@ function GuildbookBankCharactersListviewItemMixin:ResetDataBinding()
     self.shareCopper:SetChecked(false)
 end
 function GuildbookBankCharactersListviewItemMixin:Update(character)
+    --print("update called")
     if self.character.data.guid == character.data.guid then
+        
+        --print("got character")
+
         self.text:SetText(self.character.data.name)
         self.icon:SetAtlas(self.character:GetProfileAvatar())
+
+        -- if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].bankRules then
+        --     if not addon.guilds[addon.thisGuild].bankRules[self.character.data.name] then
+        --         addon.guilds[addon.thisGuild].bankRules[self.character.data.name] = 
+        --     end
+        -- end
 
         if addon.guilds and addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].bankRules[self.character.data.name] then
             local rules = addon.guilds[addon.thisGuild].bankRules[self.character.data.name];
@@ -2068,12 +2087,16 @@ function GuildbookBankCharactersListviewItemMixin:Update(character)
             self.shareBags:SetChecked(rules.shareBags)
             self.shareCopper:SetChecked(rules.shareCopper)
             self.ranks:SetText((rules.shareRank and GuildControlGetRankName(rules.shareRank + 1)) or "-")
+
+            --DevTools_Dump(rules)
         end
 
         --1 and GuildControlGetNumRanks() GuildControlGetRankName(index)
         --use this here as ranks can change
         local ranks = {}
-        for i = 1, GuildControlGetNumRanks() do
+        local numRanks = GuildControlGetNumRanks()
+        --print(numRanks)
+        for i = 1, numRanks do
             local rankName = GuildControlGetRankName(i)
             table.insert(ranks, {
                 text = string.format("[%d] %s", (i-1), rankName),

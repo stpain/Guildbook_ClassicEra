@@ -514,16 +514,16 @@
                     </MaskedTextures>
                 </MaskTexture>
 				<FontString parentKey="text" inherits="GameFontNormal" justifyH="LEFT">
-                    <Size x="150"/>
+                    <Size x="250"/>
 					<Anchors>
-						<Anchor point="TOPRIGHT" x="-5" y="-5"/>
+						<Anchor point="TOPLEFT" relativeKey="$parent.icon" relativePoint="TOPRIGHT" x="10" y="-5"/>
 					</Anchors>
 					<Color r="1" g="1" b="1"/>
 				</FontString>
 				<FontString parentKey="info" inherits="GameFontNormalSmall" justifyH="LEFT">
-                    <Size x="150"/>
+                    <Size x="250"/>
 					<Anchors>
-						<Anchor point="BOTTOMRIGHT" x="-5" y="5"/>
+						<Anchor point="BOTTOMLEFT" relativeKey="$parent.icon" relativePoint="BOTTOMRIGHT" x="10" y="5"/>
 					</Anchors>
 				</FontString>
             </Layer>

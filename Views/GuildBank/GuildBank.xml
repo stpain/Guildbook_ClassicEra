@@ -60,7 +60,7 @@
                 </Anchors>
             </Frame>
             <Frame parentKey="charactersListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
-                <Size x="200"/>
+                <Size x="300"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="-30"/>
                     <Anchor point="BOTTOMLEFT" x="0" y="0"/>

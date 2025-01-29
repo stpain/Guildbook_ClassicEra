@@ -40,6 +40,7 @@ local dbUpdates = {
     itemLists = {},
 
     recruitment = {},
+    recruitmentMessage = {},
 }
 local dbToRemove = {
     "worldEvents",
@@ -175,8 +176,20 @@ function Database:TidyUpGuildTables()
         for guildName, guild in pairs(self.db.guilds) do
             guild.info = nil
             guild.calendar = nil
-            guild.banks = nil
-            guild.bankRules = nil
+
+
+            --add back the guildBank for era
+            if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+                if guild.bankRules == nil then
+                    guild.bankRules = {}
+                end
+                if guild.banks == nil then
+                    guild.banks = {}
+                end
+            else
+                guild.bankRules = nil
+                guild.banks = nil
+            end
 
 
             --update the recruitment while here
@@ -481,6 +494,19 @@ function Database:GetCharacterAlts(mainCharacter)
     end
 
     return alts;
+end
+
+function Database:SetGuildrecruitmentMessage(guild, message)
+    if self.db and self.db.recruitmentMessage then
+        self.db.recruitmentMessage[guild] = message;
+    end
+end
+
+function Database:GetGuildrecruitmentMessage(guild)
+    if self.db and self.db.recruitmentMessage then
+        return self.db.recruitmentMessage[guild] or "";
+    end
+    return "";
 end
 
 function Database:AddGuildRecruitmentMessage(guild, msg)
