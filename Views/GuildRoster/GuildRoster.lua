@@ -158,14 +158,22 @@ function GuildbookGuildRosterMixin:Update(classID, minLevel, maxLevel)
     end
 
     table.sort(t, function(a, b)
-        if a.data.level == b.data.level then
-            if a.data.onlineStatus.zone == b.data.onlineStatus.zone then
-                return a.data.class < b.data.class
+        if a.data.level and b.data.level then
+            if a.data.level == b.data.level then
+                if a.data.onlineStatus.zone and b.data.onlineStatus.zone then
+                    if (a.data.onlineStatus.zone == b.data.onlineStatus.zone) then
+                        return a.data.class < b.data.class
+                    else
+                        return a.data.onlineStatus.zone < b.data.onlineStatus.zone
+                    end
+                else
+                    return a.data.class < b.data.class
+                end
             else
-                return a.data.onlineStatus.zone < b.data.onlineStatus.zone
+                return a.data.level > b.data.level
             end
         else
-            return a.data.level > b.data.level
+            return a.data.class < b.data.class
         end
     end)
 

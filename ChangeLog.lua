@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.42",
+        notes = "Minor update to the guild bank view, item class categories are now collapsible and items show a tooltip properly.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "4.41",
         notes = "Due to the copy/pasta from cata code the guild bank feature had been disabled.\n\nThis is now enabled and should be working, please report any issues with it (its been a while)",
         icon = "ClassHall-QuestIcon-Desaturated",

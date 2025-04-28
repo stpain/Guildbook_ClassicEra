@@ -345,7 +345,7 @@ function GuildbookGuildBankMixin:LoadCharacterContainers(name, containers)
                 item:ContinueOnItemLoad(function()
                     local name = item:GetItemName()
                     local link = item:GetItemLink()
-                    local _, _, _, _, icon, classID, subClassID = GetItemInfoInstant(link)
+                    local _, _, _, _, icon, classID, subClassID = C_Item.GetItemInfoInstant(link)
 
                     table.insert(self.bankContainerItems, {
                         name = name,
@@ -382,38 +382,50 @@ end
 function GuildbookGuildBankMixin:UpdateConatinerUI()
 
     self.containerInfo.itemsListview.DataProvider:Flush()
-    
-    local t = {}
-    local headersAdded = {}
 
-    table.sort(self.bankContainerItems, function(a, b)
-        if a.classID == b.classID then
-            if a.subClassID == b.subClassID then
-                if a.count == b.count then
-                    return a.name < b.name
-                else
-                    return a.count > b.count
-                end
+    local dp = CreateTreeDataProvider({})
+    self.containerInfo.itemsListview.scrollView:SetDataProvider(dp)
+
+    local sortFunc = function(itemA, itemB)
+        local a, b = itemA:GetData(), itemB:GetData()
+        if a and a.name and a.count and b and b.name and b.count then
+            if a.name == b.name then
+                return a.count < b.count
             else
-                return a.subClassID < b.subClassID
+                return a.name > b.name
             end
         else
-            return a.classID > b.classID
+            return a
         end
-    end)
+    end
     
+    local headersAdded = {}
+   
     for k, v in ipairs(self.bankContainerItems) do
         
-        local classType = GetItemClassInfo(v.classID)
+        local classType = C_Item.GetItemClassInfo(v.classID)
         if not headersAdded[classType] then
-            headersAdded[classType] = true
-            self.containerInfo.itemsListview.DataProvider:Insert({
+            headersAdded[classType] = dp:Insert({
                 label = classType,
                 backgroundAlpha = 0.4,
-                backgroundRGB = { r = 0.1, g = 0.4, b = 0.4 }
+                backgroundRGB = { r = 0.1, g = 0.4, b = 0.4 },
+
+                isParent = true,
             })
         end
-        self.containerInfo.itemsListview.DataProvider:Insert({
+        --headersAdded[classType]:SetSortComparator(sortFunc, true, false)
+        --headersAdded[classType]:ToggleCollapsed()
+
+        headersAdded[classType]:Insert({
+
+            --powers the tooltip
+            link = v.link,
+
+            --sort values
+            count = v.count,
+            name = v.name,
+
+            --ui values
             label = v.link,
             labelRight = v.count,
             icon = v.icon,
@@ -421,4 +433,11 @@ function GuildbookGuildBankMixin:UpdateConatinerUI()
             backgroundRGB = { r = 0.4, g = 0.4, b = 0.4 }
         })
     end
+
+    for k, v in pairs(headersAdded) do
+        v:SetSortComparator(sortFunc, true, false)
+        v:Sort()
+        --v:ToggleCollapsed()
+    end
+
 end

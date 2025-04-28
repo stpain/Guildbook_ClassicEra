@@ -122,6 +122,10 @@ local eightySlotMapping = {
 }
 
 function GuildbookImportExportMixin:Character_ExportEquipment(character, setName, spec)
+
+    if setName == nil then
+        setName = "current"
+    end
     
     if character.data and character.data.inventory[setName] then
         

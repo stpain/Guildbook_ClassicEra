@@ -193,11 +193,14 @@ function Character:GetPublicNote()
     return self.data.publicNote;
 end
 
-function Character:SetContainers(containers, broadcast)
+function Character:SetContainers(containers, broadcast, isGuildBank)
     self.data.containers = containers;
     addon:TriggerEvent("Character_OnDataChanged", self)
     if broadcast then
         addon:TriggerEvent("Character_BroadcastChange", self, "SetContainers", "containers")
+    end
+    if isGuildBank and (self.data.publicNote:lower():find("guildbank", nil, true)) then
+        --addon:TriggerEvent("Character_BroadcastChange", self, "SetContainers", "containers")
     end
     addon:TriggerEvent("StatusText_OnChanged", string.format(" set %s for %s", "containers", self.data.name))
 end

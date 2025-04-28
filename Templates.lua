@@ -1130,7 +1130,7 @@ function GuildbookRosterListviewItemMixin:Update()
     })
     local profMenu = {
         {
-            text = Tradeskills:GetLocaleNameFromID(self.character.data.profession1) or "Proferssion 1",
+            text = Tradeskills:GetLocaleNameFromID(self.character.data.profession1) or "Profession 1",
             notCheckable = true,
             func = function()
                 self.character.data.profession1 = "-"
@@ -1140,7 +1140,7 @@ function GuildbookRosterListviewItemMixin:Update()
             end,
         },
         {
-            text = Tradeskills:GetLocaleNameFromID(self.character.data.profession2) or "Proferssion 2",
+            text = Tradeskills:GetLocaleNameFromID(self.character.data.profession2) or "Profession 2",
             notCheckable = true,
             func = function()
                 self.character.data.profession2 = "-"
@@ -1166,7 +1166,7 @@ function GuildbookRosterListviewItemMixin:Update()
     })
     local profMenu = {
         {
-            text = Tradeskills:GetLocaleNameFromID(self.character.data.profession1) or "Proferssion 1",
+            text = Tradeskills:GetLocaleNameFromID(self.character.data.profession1) or "Profession 1",
             notCheckable = true,
             func = function()
                 Comms:RequestCharacterData(self.character.data.name, "profession1")
@@ -1182,7 +1182,7 @@ function GuildbookRosterListviewItemMixin:Update()
             end,
         },
         {
-            text = Tradeskills:GetLocaleNameFromID(self.character.data.profession2) or "Proferssion 2",
+            text = Tradeskills:GetLocaleNameFromID(self.character.data.profession2) or "Profession 2",
             notCheckable = true,
             func = function()
                 Comms:RequestCharacterData(self.character.data.name, "profession2")

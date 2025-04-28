@@ -394,7 +394,6 @@ function e:BANKFRAME_OPENED()
                     print("No rules exist for this Guild Bank, items scanned but not shared, go to settings to select rules")
                 end
 
-                --addon.characters[addon.thisCharacter]:SetContainers(bags)
             end
         end
 
@@ -406,8 +405,6 @@ end
 --this means you can view your alts items
 function e:BAG_UPDATE_DELAYED()
     if addon.characters and addon.characters[addon.thisCharacter] then
-        local bags = addon.api.scanPlayerContainers()
-        addon.characters[addon.thisCharacter]:SetContainers(bags)
 
         --update the guild bank data 
         if (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC) and (addon.characters[addon.thisCharacter].data.publicNote:lower():find("guildbank")) then
@@ -425,6 +422,9 @@ function e:BAG_UPDATE_DELAYED()
                 end
             end
         end
+
+        local bags = addon.api.scanPlayerContainers()
+        addon.characters[addon.thisCharacter]:SetContainers(bags)
 
     end
     addon:TriggerEvent("Character_Bags_Updated")

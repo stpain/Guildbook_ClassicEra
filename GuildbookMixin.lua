@@ -517,6 +517,7 @@ function GuildbookMixin:Database_OnInitialised()
     self:CreateSlashCommands()
 
     --self:SetupInterface()
+    self:CreateCursorBuddy()
 
     self:Hide()
 
@@ -897,44 +898,80 @@ function GuildbookMixin:SetupInterface()
 
     COMMUNITIES_FRAME_DISPLAY_MODES.GUILDBOOK = {
     "GblContentContainer",
-    "CommunitiesList",
+    --"CommunitiesList",
     }
     COMMUNITIES_FRAME_DISPLAY_MODES.GUILD_BENEFITS = nil
 
     local function ShowGuildTabs(bool)
         CommunitiesFrame.ChatTab:SetShown(bool);
         CommunitiesFrame.RosterTab:SetShown(bool);
-        CommunitiesFrame.GuildBenefitsTab:SetShown(bool);
+        --CommunitiesFrame.GuildBenefitsTab:SetShown(bool);
         CommunitiesFrame.GuildInfoTab:SetShown(bool);
     end
-
-    local function UnCheckGuildTabs()
-        CommunitiesFrame.ChatTab:SetChecked(false);
-        CommunitiesFrame.RosterTab:SetChecked(false);
-        CommunitiesFrame.GuildBenefitsTab:SetChecked(false);
-        CommunitiesFrame.GuildInfoTab:SetChecked(false);
-    end
-
 
     GBL = {}
     GBL.Name = "GuildbookLight"
 
-    GBL.TabButton = _G["GuildbookLightTabButton"] or CreateFrame("CheckButton", GBL.Name.."TabButton", CommunitiesFrame, "CommunitiesFrameTabTemplate")
-    GBL.TabButton.displayMode = "GUILDBOOK";
+    GBL.TabButton = CreateFrame("CheckButton", GBL.Name.."TabButton", CommunitiesFrame, "CommunitiesFrameTabTemplate")
+    GBL.TabButton.displayMode = COMMUNITIES_FRAME_DISPLAY_MODES.GUILDBOOK;
     GBL.TabButton:SetPoint("TOPLEFT", CommunitiesFrame.GuildInfoTab, "BOTTOMLEFT", 0, -20)
     GBL.TabButton.Icon:SetAtlas("Mobile-Blacksmithing")
 
-    hooksecurefunc(CommunitiesFrame, "SetDisplayMode", function()
-        
+    hooksecurefunc(CommunitiesFrame, "UpdateCommunitiesTabs", function()
+        ShowGuildTabs(true)
+        GBL.TabButton:SetChecked(CommunitiesFrame.displayMode == COMMUNITIES_FRAME_DISPLAY_MODES.GUILDBOOK)
     end)
 
 
-    hooksecurefunc(CommunitiesFrame, "UpdateCommunitiesTabs", function()
-        if GuildBenefitsTab then
-            GuildBenefitsTab:Hide()
-        end
-        ShowGuildTabs(true)
-        GBL.TabButton:SetChecked(CommunitiesFrame.displayMode == "GUILDBOOK")
+        -- hooksecurefunc(CommunitiesFrame, "SetDisplayMode", function(CommunitiesFrame)
+    --     DevTools_Dump(CommunitiesFrame.displayMode)
+    --     local subframesToUpdate = {};
+    --     for i, mode in pairs(COMMUNITIES_FRAME_DISPLAY_MODES) do
+    --         for j, subframe in ipairs(mode) do
+    --             subframesToUpdate[subframe] = subframesToUpdate[subframe] or mode == CommunitiesFrame.displayMode;
+    --             --print(i, CommunitiesFrame.displayMode, subframe, subframesToUpdate[subframe])
+    --         end
+    --     end
+    
+    --     if CommunitiesFrame:IsShowingApplicantList() then
+    --         CommunitiesFrame:UpdateSeenApplicants();
+    --     end
+    
+    --     for subframe, shouldShow in pairs(subframesToUpdate) do
+    --         CommunitiesFrame[subframe]:SetShown(shouldShow);
+    --     end
+    -- end)
+end
+
+
+
+
+
+
+
+function GuildbookMixin:CreateCursorBuddy()
+
+    if 1 == 1 then
+        return
+    end
+
+
+    local frame = CreateFrame("Frame")
+    NineSliceUtil.ApplyLayout(frame, addon.api.getNineSliceTooltipBorder(10))
+
+    frame:SetSize(80, 80)
+
+    local function updatePosition()
+        local uiScale, x, y = UIParent:GetEffectiveScale(), GetCursorPosition()
+        --frame:SetPoint("CENTER", nil, "BOTTOMLEFT", x / uiScale, y / uiScale)
+        frame:SetPoint("BOTTOMLEFT", nil, "BOTTOMLEFT", x, y)
+    end
+
+
+
+    frame:SetScript("OnUpdate", function()
+    
+        updatePosition()
     end)
 
 end

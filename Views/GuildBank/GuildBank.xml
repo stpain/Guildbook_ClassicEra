@@ -92,7 +92,7 @@
                 </Layers>
 
                 <Frames>
-                    <Frame parentKey="itemsListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+                    <Frame parentKey="itemsListview" inherits = "TBDTreeviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeKey="$parent.characterInfo" relativePoint="BOTTOMLEFT" x="0" y="0"/>
                             <Anchor point="BOTTOMRIGHT" x="0" y="0"/>

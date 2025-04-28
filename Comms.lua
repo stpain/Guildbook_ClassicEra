@@ -366,22 +366,37 @@ function Comms:Character_OnDataReceived(sender, message)
 
     --the version check should prevent issues but worth checking for this
     if message.payload.key then
-        if character and character[message.payload.method] then
-            --print("calling method", message.payload.method)
-            addon.LogDebugMessage("comms_in", string.format("payload.method = %s", message.payload.method))
-            if message.payload.subKey then
-                addon.LogDebugMessage("comms_in", string.format("using payload.subKey = %s", message.payload.subKey))
-                -- print("using subKey value", message.payload.key, message.payload.subKey)
-                -- DevTools_Dump({message.payload.data})
-                character.data[message.payload.key][message.payload.subKey] = message.payload.data
-            else
-                addon.LogDebugMessage("comms_in", string.format("using payload.key = %s", message.payload.key))
-                -- print("using key value", message.payload.key)
-                -- DevTools_Dump({message.payload.data})
-                character.data[message.payload.key] = message.payload.data
+
+
+
+        --to improve the guild bank sync the container data is now shared on the GUILD channel as its better than looping 999 times and usign a WHISPER 
+        --the goal here is to detect if this player should be able to view the data if not then exit
+
+        if message.payload.key == "containers" then
+
+            --to be setup
+            
+
+        else
+
+            if character and character[message.payload.method] then
+                --print("calling method", message.payload.method)
+                addon.LogDebugMessage("comms_in", string.format("payload.method = %s", message.payload.method))
+                if message.payload.subKey then
+                    addon.LogDebugMessage("comms_in", string.format("using payload.subKey = %s", message.payload.subKey))
+                    -- print("using subKey value", message.payload.key, message.payload.subKey)
+                    -- DevTools_Dump({message.payload.data})
+                    character.data[message.payload.key][message.payload.subKey] = message.payload.data
+                else
+                    addon.LogDebugMessage("comms_in", string.format("using payload.key = %s", message.payload.key))
+                    -- print("using key value", message.payload.key)
+                    -- DevTools_Dump({message.payload.data})
+                    character.data[message.payload.key] = message.payload.data
+                end
+                addon:TriggerEvent("Character_OnDataChanged", character)
             end
-            addon:TriggerEvent("Character_OnDataChanged", character)
         end
+
     end
 end
 
@@ -421,7 +436,6 @@ function Comms:Character_BroadcastChange(character, ...)
             --self:TransmitToGuild(self.characterKeyToEventName[key], data, method, subKey, character.data.name)
             self:TransmitToGuild_New(character.data.name, method, key, subKey, data)
             Database:SetCharacterSyncData(key, time())
-            --print("setting sync time for", key)
             addon.LogDebugMessage("comms", string.format("Character_OnDataChanged > %s has changed, sending to comms queue", key))
         else
             addon.LogDebugMessage("comms", string.format("no data found in character.data[%s]", key))
@@ -494,6 +508,14 @@ function Comms:Guildbank_DataRequest(target, bank)
         }
     }
     self:Transmit_NoQueue(msg, "WHISPER", target)
+end
+
+function Comms:TransmitContainerDataToGuild()
+
+end
+
+function Comms:OnContainerDataReceived()
+
 end
 
 function Comms:Guildbank_OnDataRequested(sender, message)
