@@ -41,6 +41,7 @@ addon:GenerateCallbackEvents({
     "Guildbank_StatusInfo",
 
     "Calendar_OnDayItemAdded",
+    "Calendar_OnMonthChanged",
     
     --"Blizzard_OnTradeskillUpdate",
     "Blizzard_OnGuildRosterUpdate",

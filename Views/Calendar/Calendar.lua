@@ -5,6 +5,8 @@ local Database = addon.Database;
 local LibDeflate = LibStub:GetLibrary("LibDeflate")
 local LibSerialize = LibStub:GetLibrary("LibSerialize")
 
+local C_Calendar = addon.Calendar
+
 local Event = {}
 function Event:New(title, desc, type, starts)
     if addon.thisCharacter then
@@ -145,6 +147,7 @@ end
 function GuildbookCalendarDayTileMixin:ClearHolidayTextures()
     for k, v in ipairs(self.holidayTextures) do
         v:SetTexture(nil)
+        v:Hide()
     end
 end
 
@@ -504,6 +507,8 @@ function GuildbookCalendarMixin:MonthChanged()
     --this appears to also update the default calendar, which is fine, the main thing is it means we can make use of calendar api using month offset
     C_Calendar.SetAbsMonth(self.date.month, self.date.year)
 
+    addon:TriggerEvent("Calendar_OnMonthChanged")
+
     self.sidePanel.monthName:SetText(date("%B %Y", time(self.date)))
     local monthStart = self:GetMonthStart(self.date.month, self.date.year)
     local daysInMonth = self:GetDaysInMonth(self.date.month, self.date.year)
@@ -527,8 +532,8 @@ function GuildbookCalendarMixin:MonthChanged()
         day:ClearHolidayTextures()
 
         day.currentDayTexture:Hide()
-        wipe(day.events)
-        wipe(day.worldEvents)
+        day.events = {}
+        day.worldEvents = {}
 
         day:EnableMouse(false)
         day.dateLabel:SetText(' ')
@@ -573,6 +578,7 @@ function GuildbookCalendarMixin:MonthChanged()
                     end
                     day.holidayTextures[i]:SetDrawLayer("BORDER", subLayer)
                     day.holidayTextures[i]:SetTexture(event.texture)
+                    day.holidayTextures[i]:Show()
 
                     table.insert(day.events, event)
                 end

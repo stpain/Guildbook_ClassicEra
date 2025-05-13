@@ -310,6 +310,11 @@ function e:ADDON_LOADED(...)
     --     end)
     -- end
 
+    if ... == "ViragDevTool" then
+        addon.Calendar:Init()
+        ViragDevTool_AddData(addon.Calendar, "C_Calendar")
+    end
+
 end
 
 

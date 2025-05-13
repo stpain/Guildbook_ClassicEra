@@ -44,7 +44,7 @@ Locales.lua
 #InstanceData.lua
 #ItemSetData.lua
 #FactionData.lua
-#CalendarData.lua
+CalendarData.lua
 TradeskillData.lua
 Database.lua
 

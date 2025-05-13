@@ -4,6 +4,14 @@ local name, addon = ...;
 
 local Database = addon.Database;
 
+local MAX_LEVEL = 60
+if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    MAX_LEVEL = 70
+end
+if WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
+    MAX_LEVEL = 80
+end
+
 local agendaNineSliceLayout =
 {
     TopLeftCorner =	{ atlas = "UI-Frame-DiamondMetal-CornerTopLeft", },
@@ -134,7 +142,7 @@ function GuildbookHomeMixin:UpdateCensus()
             if addon.guilds[addon.thisGuild] and addon.guilds[addon.thisGuild].members[nameRealm] then
                 local useCharacter = true
                 if self.censusShowMaxLevelOnly then
-                    if (info.data.level == 85) then
+                    if (info.data.level == MAX_LEVEL) then
                         useCharacter = true
                     else
                         useCharacter = false
