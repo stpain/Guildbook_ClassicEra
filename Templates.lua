@@ -980,7 +980,7 @@ function GuildbookRosterListviewItemMixin:Update()
 
     self.level:SetText(self.character.data.level)
     self.zone:SetText(self.character.data.onlineStatus.zone)
-    --self.rank:SetText(GuildControlGetRankName(self.character.data.rank + 1))
+    self.rank:SetText(GuildControlGetRankName(self.character.data.rank + 1))
 
     self.prof1.icon:SetAtlas(self.character:GetTradeskillIcon(1))
 

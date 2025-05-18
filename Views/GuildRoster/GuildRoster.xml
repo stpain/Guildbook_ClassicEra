@@ -22,9 +22,15 @@
                 </Anchors>
                 <Size x="120" y="32"/>
             </Button>
+            <Button parentKey="rankFilter" inherits = "TBDDropDownTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="130" y="0"/>
+                </Anchors>
+                <Size x="120" y="32"/>
+            </Button>
             <Slider name="GuildbookGuildRosterMinLevelSlider" parentKey="minLevel" inherits = "GuildbookWrathEraSlider">
                 <Anchors>
-                    <Anchor point="LEFT" relativeKey="$parent.classFilter" relativePoint="RIGHT" x="70" y="0"/>
+                    <Anchor point="LEFT" relativeKey="$parent.rankFilter" relativePoint="RIGHT" x="70" y="0"/>
                 </Anchors>
                 <Size x="80" y="16"/>
             </Slider>

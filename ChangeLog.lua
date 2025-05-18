@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.5",
+        notes = "Working on the Calendar.\n\nAdded rank filter to the guild roster.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "4.42",
         notes = "Minor update to the guild bank view, item class categories are now collapsible and items show a tooltip properly.",
         icon = "ClassHall-QuestIcon-Desaturated",

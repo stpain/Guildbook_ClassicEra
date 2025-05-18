@@ -19,6 +19,8 @@ function GuildbookGuildRosterMixin:OnLoad()
     self.rosterHelptip:SetText(L.ROSTER_LISTVIEW_HT)
     table.insert(self.helptips, self.rosterHelptip)
 
+    self.selectedRank = false
+
     local classMenu = {}
     for i = 1, GetNumClasses() do
         --if i ~= 10 then
@@ -108,6 +110,29 @@ function GuildbookGuildRosterMixin:Update(classID, minLevel, maxLevel)
     --     end
     -- end
 
+    local ranks = {
+        {
+            text = "ALL",
+            func = function()
+                self.selectedRank = false
+                self:Update()
+            end,
+        }
+    }
+    for i = 1, GuildControlGetNumRanks() do
+        local name = GuildControlGetRankName(i)
+        if name then
+            table.insert(ranks, {
+                text = name,
+                func = function()
+                    self.selectedRank = i
+                    self:Update()
+                end,
+            })
+        end
+    end
+    self.rankFilter:SetMenu(ranks);
+
     if classID then
         self.selectedClass = classID
     end
@@ -149,6 +174,14 @@ function GuildbookGuildRosterMixin:Update(classID, minLevel, maxLevel)
                         match = true
                     end
                 end
+            end
+        end
+
+        if self.selectedRank ~= false then
+            if (character.data.rank + 1) == self.selectedRank then
+                match = true;
+            else
+                match = false;
             end
         end
 
