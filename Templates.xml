@@ -613,10 +613,17 @@
 					</Anchors>
 					<Color r="1" g="1" b="1"/>
 				</FontString>
-				<FontString parentArray="fontstrings" parentKey="rank" inherits="GameFontNormal" justifyH="CENTER">
-                    <Size x="60" y="26"/>
+				<FontString parentArray="fontstrings" parentKey="joined" inherits="GameFontNormalSmall" justifyH="LEFT">
+                    <Size x="75" y="26"/>
 					<Anchors>
 						<Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.name" x="5" y="0"/>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+				<FontString parentArray="fontstrings" parentKey="rank" inherits="GameFontNormalSmall" justifyH="LEFT">
+                    <Size x="60" y="26"/>
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.joined" x="5" y="0"/>
 					</Anchors>
 					<Color r="1" g="1" b="1"/>
 				</FontString>
@@ -669,13 +676,6 @@
 					</Anchors>
 					<Color r="1" g="1" b="1"/>
 				</FontString>
-				<!-- <FontString parentArray="fontstrings" parentKey="rank" inherits="GameFontNormal" justifyH="LEFT">
-                    <Size x="110" y="26"/>
-					<Anchors>
-						<Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.zone" x="5" y="0"/>
-					</Anchors>
-					<Color r="1" g="1" b="1"/>
-				</FontString> -->
 				<FontString parentArray="fontstrings" parentKey="publicNote" inherits="GameFontNormalSmall" justifyH="LEFT">
                     <Size x="150" y="26"/>
 					<Anchors>

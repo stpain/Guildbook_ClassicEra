@@ -178,6 +178,10 @@ function Database:TidyUpGuildTables()
             guild.calendar = nil
 
 
+            --add a log table for guild member movements etc
+            guild.log = {}
+
+
             --add back the guildBank for era
             if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
                 if guild.bankRules == nil then
@@ -190,7 +194,6 @@ function Database:TidyUpGuildTables()
                 guild.bankRules = nil
                 guild.banks = nil
             end
-
 
             --update the recruitment while here
             if not guild.recruitment then

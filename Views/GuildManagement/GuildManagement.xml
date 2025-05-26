@@ -87,9 +87,15 @@
                             </Layer>
                         </Layers>
                         <Frames>
+                            <EditBox parentKey="characterSearchInput" inherits="InputBoxTemplate" autoFocus="false">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="10" y="-30"/>
+                                </Anchors>
+                                <Size x="180" y="30"/>
+                            </EditBox>
                             <Frame parentKey="characters" inherits="TBDListviewTemplate">
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" x="0" y="-30"/>
+                                    <Anchor point="TOPLEFT" x="0" y="-60"/>
                                     <Anchor point="BOTTOMLEFT" x="0" y="0"/>
                                 </Anchors>
                                 <Size x="200"/>

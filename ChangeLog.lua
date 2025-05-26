@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.51",
+        notes = "Some minor fixes.\n\nAdded the date joined to the roster view. You can also set a members join date from the 'Guild Management' section, the red button at the bottom will open a popout date picker.\nYou can also now filter for character names in the member list.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "4.5",
         notes = "Working on the Calendar.\n\nAdded rank filter to the guild roster.",
         icon = "ClassHall-QuestIcon-Desaturated",

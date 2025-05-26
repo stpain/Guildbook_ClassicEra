@@ -1022,6 +1022,8 @@ function GuildbookRosterListviewItemMixin:Update()
     self.publicNote:SetText(self.character.data.publicNote)
     self.openProfile.background:SetAtlas(self.character:GetProfileAvatar())
 
+    self.joined:SetText(self.character:GetDateJoined(true))
+
     if self.character.data.onlineStatus.isOnline == true then
         self.name:SetTextColor(1,1,1)
         self.level:SetTextColor(1,1,1)

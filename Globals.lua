@@ -1430,6 +1430,7 @@ function addon.api.classic.getPaperDollStats()
     stats.melee.MeleeHit = 0 --addon.api.trimNumber(GetCombatRatingBonus(CR_HIT_MELEE) + GetHitModifier());
     stats.ranged.RangedHit = 0 -- addon.api.trimNumber(GetCombatRatingBonus(CR_HIT_RANGED));
 
+
     stats.ranged.RangedCrit = addon.api.trimNumber(GetRangedCritChance());
     stats.melee.MeleeCrit = addon.api.trimNumber(GetCritChance());
 

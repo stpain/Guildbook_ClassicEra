@@ -1,0 +1,225 @@
+
+
+local GuildbookName, Guildbook = ...;
+
+if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+    return;
+end
+
+
+
+
+--[[
+
+WIP: This is the start of an Api upgrade, the functions from Globals.lua will migrate here.
+
+Guildbook.Api will become the new namespace, with a file per expansion
+
+]]
+
+
+
+
+
+Guildbook.Api = {}
+
+function Guildbook.Api.GetItemSocketInfo(link)
+    
+    local x, payload = breakLink(link)
+
+    local itemID, enchantID, gem1, gem2, gem3 = strsplit(":", payload)
+
+    -- if itemID == "57268" then
+
+    --     DevTools_Dump({strsplit(":", payload)})
+
+    --     local stats = GetItemStats(link)
+    --     for k, v in pairs(stats) do
+    --         print(k, v)
+    --     end
+
+    --     local name, id = C_Item.GetItemSpell(link)
+    --     print(name, id)
+
+    --     local lines = ScanTooltip(link)
+    --     DevTools_Dump(lines)
+    -- end
+
+    enchantID = tonumber(enchantID)
+    gem1 = tonumber(gem1)
+    gem2 = tonumber(gem2)
+    gem3 = tonumber(gem3)
+
+    local gems = { gem1, gem2, gem3, }
+
+    local ret = {
+        numSockets = 0,
+        numEmptySockets = 0,
+        actualSocketString = "",
+        missingSocketsString = "",
+    }
+
+    local sockets = {}
+    local itemSocketsOrderd = {}
+
+    local stats = GetItemStats(link) or {}
+    --DevTools_Dump(stats)
+    for k, v in pairs(stats) do
+        if k:find("SOCKET", nil, true) then
+            if not sockets[k] then
+                sockets[k] = 1;
+            else
+                sockets[k] = sockets[k] + 1;
+            end
+            ret.numSockets = ret.numSockets + 1;
+        end
+    end
+
+    if ret.numSockets > 0 then
+
+        for k, socketType in ipairs(socketOrder) do
+            if type(sockets[socketType]) == "number" and (sockets[socketType] > 0) then
+                for i = 1, sockets[socketType] do
+                    table.insert(itemSocketsOrderd, socketFileIDs[socketType])
+                end
+            end
+        end
+
+        -- print(link)
+        -- DevTools_Dump(sockets)
+        -- DevTools_Dump(itemSocketsOrderd)
+        
+        for i = 1, 3 do
+
+            if type(gems[i]) == "number" then
+                
+                ret.actualSocketString = string.format("%s %s", ret.actualSocketString, CreateSimpleTextureMarkup(select(5, GetItemInfoInstant(gems[i])), socketIconSize, socketIconSize, 0, 0))
+            
+            elseif type(itemSocketsOrderd[i]) == "number" then
+                
+                ret.actualSocketString = string.format("%s %s", ret.actualSocketString, CreateSimpleTextureMarkup(itemSocketsOrderd[i], socketIconSize+2, socketIconSize+2, 0, 0))
+                ret.missingSocketsString = string.format("%s %s", ret.missingSocketsString, CreateSimpleTextureMarkup(itemSocketsOrderd[i], socketIconSize+2, socketIconSize+2, 0, 0))
+                
+                ret.numEmptySockets = ret.numEmptySockets + 1;
+            
+            end
+        end
+    end
+
+    return ret;
+end
+
+function Guildbook.Api.GetColourGradientFromPercent(percent, reverse)
+
+    if reverse then
+        local g = (percent > 50 and 1 - 2 * (percent - 50) / 100.0 or 1.0);
+        local r = (percent > 50 and 1.0 or 2 * percent / 100.0);
+        local b = 0.0;
+    
+        return r, g, b;
+    else
+        local r = (percent > 50 and 1 - 2 * (percent - 50) / 100.0 or 1.0);
+        local g = (percent > 50 and 1.0 or 2 * percent / 100.0);
+        local b = 0.0;
+    
+        return r, g, b;
+    end
+end
+
+function Guildbook.Api.GetTradeskillItemDataFromID(itemID)
+    for k, v in ipairs(Guildbook.itemData) do
+        if v.itemID == itemID then
+            return v;
+        end
+    end
+    return false;
+end
+
+function Guildbook.Api.GetTradeskillItemsUsingReagentItemID(itemID, prof1, prof2)
+    local t = {}
+    for k, v in ipairs(Guildbook.itemData) do
+        for id, count in pairs(v.reagents) do
+            if id == itemID then
+                if prof1 == nil and prof2 == nil then
+                    if not t[v.tradeskillID] then
+                        t[v.tradeskillID] = {}
+                    end
+                    table.insert(t[v.tradeskillID], v)
+                else
+                    if prof1 and (v.tradeskillID == prof1) then
+                        if not t[v.tradeskillID] then
+                            t[v.tradeskillID] = {}
+                        end
+                        table.insert(t[v.tradeskillID], v)
+                    end
+                    if prof2 and (v.tradeskillID == prof2) then
+                        if not t[v.tradeskillID] then
+                            t[v.tradeskillID] = {}
+                        end
+                        table.insert(t[v.tradeskillID], v)
+                    end
+                end
+            end
+        end
+    end
+    return t;
+end
+
+--taken from blizz to use for classic
+function Guildbook.Api.ExtractLink(text)
+    -- linkType: |H([^:]*): matches everything that's not a colon, up to the first colon.
+    -- linkOptions: ([^|]*)|h matches everything that's not a |, up to the first |h.
+    -- displayText: (.*)|h matches everything up to the second |h.
+    -- Ex: |cffffffff|Htype:a:b:c:d|htext|h|r becomes type, a:b:c:d, text
+    return string.match(text, [[|H([^:]*):([^|]*)|h(.*)|h]]);
+end
+
+function Guildbook.Api.TrimNumber(num)
+    if type(num) == 'number' then
+        local trimmed = string.format("%.1f", num)
+        return tonumber(trimmed)
+    else
+        return 1
+    end
+end
+
+function Guildbook.Api.CharacterIsMine(name)
+    if Database.db.myCharacters[name] ~= nil then
+        return true;
+    end
+    return false;
+end
+
+function Guildbook.Api.GetGuildRanks()
+    local ranks = {}
+    for i = 1, GuildControlGetNumRanks() do
+        local rankName = GuildControlGetRankName(i)
+        table.insert(ranks, {
+            rankName = rankName,
+            rankIndex = i-1,
+        })
+    end
+    return ranks
+end
+
+
+function Guildbook.Api.ScanForTradeskillSpec()
+    local t = {}
+    for i = 1, GetNumSpellTabs() do
+        local offset, numSlots = select(3, GetSpellTabInfo(i))
+        for j = offset+1, offset+numSlots do
+            --local start, duration, enabled, modRate = GetSpellCooldown(j, BOOKTYPE_SPELL)
+            --local spellLink, _ = GetSpellLink(j, BOOKTYPE_SPELL)
+            local _, spellID = GetSpellBookItemInfo(j, BOOKTYPE_SPELL)
+           
+            if Tradeskills.SpecializationSpellsIDs[spellID] then
+                table.insert(t, {
+                    tradeskillID = Tradeskills.SpecializationSpellsIDs[spellID],
+                    spellID = spellID,
+                })
+            end
+
+        end
+    end
+    return t;
+end

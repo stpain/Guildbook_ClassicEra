@@ -22,9 +22,15 @@
                 </Anchors>
                 <Size x="120" y="32"/>
             </Button>
+            <Button parentKey="joinedSort" inherits="UIPanelButtontemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="125" y="-4"/>
+                </Anchors>
+                <Size x="75" y="24"/>
+            </Button>
             <Button parentKey="rankFilter" inherits = "TBDDropDownTemplate">
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="130" y="0"/>
+                    <Anchor point="TOPLEFT" x="205" y="0"/>
                 </Anchors>
                 <Size x="120" y="32"/>
             </Button>

@@ -960,12 +960,20 @@ function Character:GetLockouts()
     return self.data.lockouts or {};
 end
 
-function Character:SetDateJoined(timestamp)
+function Character:SetDateJoined(timestamp, broadcast)
     self.data.joined = timestamp
+    addon:TriggerEvent("Character_OnDataChanged", self)
+    if broadcast then
+        addon:TriggerEvent("Character_BroadcastChange", self, "SetDateJoined", "joined")
+    end
 end
 
-function Character:GetDateJoined()
-    return self.data.joined or time()
+function Character:GetDateJoined(formatted)
+    if formatted then
+        return date("%Y-%m-%d", self.data.joined)
+    else
+        return self.data.joined or 0
+    end
 end
 
 
@@ -992,6 +1000,11 @@ function Character:CreateFromData(data)
             end
         end)
     --end
+
+    if not data.joined then
+        data.joined = 0;
+    end
+
     return Mixin({data = data}, self)
 end
 
@@ -999,6 +1012,7 @@ end
 function Character:CreateEmpty()
     local character = {
         guid = "",
+        joined = 0,
         name = "",
         class = false,
         gender = false,
@@ -1059,6 +1073,7 @@ end
 function Character:ResetData()
 
     self.data.mainSpec = false
+    self.data.joined = 0
     self.data.offSpec = false
     self.data.mainSpecIsPvP = false
     self.data.offSpecIsPvP = false

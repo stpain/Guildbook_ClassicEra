@@ -186,6 +186,11 @@ function GuildbookGuildManagementMixin:OnLoad()
 
     self:SetupInvitesUI()
 
+
+    self.tabContainer.editCharacter.characterSearchInput:SetScript("OnTextChanged", function(eb)
+        self:LoadCharacters(addon.thisGuild, eb:GetText())
+    end)
+
     addon.AddView(self)
 end
 
@@ -199,7 +204,7 @@ function GuildbookGuildManagementMixin:OnShow()
     self.tabContainer:SetPoint("BOTTOMRIGHT", 0, 0)
 
     self.tabContainer.editCharacter.characters:ClearAllPoints()
-    self.tabContainer.editCharacter.characters:SetPoint("TOPLEFT", 0, -30)
+    self.tabContainer.editCharacter.characters:SetPoint("TOPLEFT", 0, -60)
     self.tabContainer.editCharacter.characters:SetPoint("BOTTOMLEFT", 0, 0)
 
     self.tabContainer.log.listview:ClearAllPoints()
@@ -585,7 +590,7 @@ function GuildbookGuildManagementMixin:SetCharacterToEdit(character)
     end
 end
 
-function GuildbookGuildManagementMixin:LoadCharacters(guildName)
+function GuildbookGuildManagementMixin:LoadCharacters(guildName, filterTerm)
 
     local t = {}
     GUILD_MEMBERS = {}
@@ -593,26 +598,43 @@ function GuildbookGuildManagementMixin:LoadCharacters(guildName)
     if addon.characters and Database.db and Database.db.guilds and Database.db.guilds[guildName] and Database.db.guilds[guildName].members then
         
         for nameRealm, _ in pairs(Database.db.guilds[guildName].members) do
-            
+
             if not addon.characters[nameRealm] then
                 if Database.db.characterDirectory[nameRealm] then
                     addon.characters[nameRealm] = Character:CreateFromData(Database.db.characterDirectory[nameRealm])
                 end
             end
 
+
             if addon.characters[nameRealm] then
-                table.insert(t, {
-                    label = addon.characters[nameRealm]:GetName(true, "short"),
 
-                    onMouseDown = function()
-                        self:SetCharacterToEdit(addon.characters[nameRealm])
-                    end,
+                if type(filterTerm) == "string" then
+                    if nameRealm:find(filterTerm, nil, true) then
 
+                        table.insert(t, {
+                            label = addon.characters[nameRealm]:GetName(true, "short"),
+                            onMouseDown = function()
+                                self:SetCharacterToEdit(addon.characters[nameRealm])
+                            end,
+        
+                            --sort
+                            sortName = nameRealm,
+                        })
+                    end
+    
+                else
+                    table.insert(t, {
+                        label = addon.characters[nameRealm]:GetName(true, "short"),
+                        onMouseDown = function()
+                            self:SetCharacterToEdit(addon.characters[nameRealm])
+                        end,
+    
+                        --sort
+                        sortName = nameRealm,
+                    })
+    
+                end
 
-
-                    --sort
-                    sortName = nameRealm,
-                })
 
                 table.insert(GUILD_MEMBERS, nameRealm)
             end
@@ -679,8 +701,6 @@ function GuildbookGuildManagementMixin:LoadLog()
 
     QueryGuildEventLog()
 
-    local realm = GetNormalizedRealmName()
-
     local t = {}
 
     local searchTerm = self.tabContainer.log.searchBox:GetText():lower()
@@ -699,7 +719,7 @@ function GuildbookGuildManagementMixin:LoadLog()
             player2 = UNKNOWN;
         end
 
-        local logEntry = string.format("%d:%d:%d:%d:%s:%s:%s:%s", year, month, day, hour, _type, player1, player2, rank)
+        --local logEntry = string.format("%d:%d:%d:%d:%s:%s:%s:%s", year, month, day, hour, _type, player1, player2, rank)
 
         local difference_in_seconds, past_time = calculate_past_time(year, month, day, hour)
 
@@ -798,6 +818,14 @@ function GuildbookGuildManagementMixin:LoadLog()
             -- if main then
             --     player1 = string.format("%s [%s]", player1, main)
             -- end
+
+            local realm = GetNormalizedRealmName()
+            local nameRealm;
+            if player1:find("-", nil, true) then
+                nameRealm = player1
+            else
+                nameRealm = string.format("%s-%s", player1, realm)
+            end
     
             --taken from blizz
             if ( _type == "invite" ) then
@@ -808,13 +836,6 @@ function GuildbookGuildManagementMixin:LoadLog()
                 msg = format(GUILDEVENT_TYPE_JOIN, player1);
 
                 --this player joined the guild so set their join date
-                local realm = GetNormalizedRealmName()
-                local nameRealm;
-                if player1:find("-", nil, true) then
-                    nameRealm = player1
-                else
-                    nameRealm = string.format("%s-%s", player1, realm)
-                end
                 if addon.characters and addon.characters[nameRealm] then
                     addon.characters[nameRealm]:SetDateJoined(past_time)
                 end
@@ -822,12 +843,16 @@ function GuildbookGuildManagementMixin:LoadLog()
 
             elseif ( _type == "promote" ) then
                 msg = format(GUILDEVENT_TYPE_PROMOTE, player1, player2, rank);
+
             elseif ( _type == "demote" ) then
                 msg = format(GUILDEVENT_TYPE_DEMOTE, player1, player2, rank);
+
             elseif ( _type == "remove" ) then
                 msg = format(GUILDEVENT_TYPE_REMOVE, player1, player2);
+
             elseif ( _type == "quit" ) then
                 msg = format(GUILDEVENT_TYPE_QUIT, player1);
+
             end
     
             --DevTools_Dump({index = i, date = now})

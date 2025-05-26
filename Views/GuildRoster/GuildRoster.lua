@@ -7,7 +7,7 @@ GuildbookGuildRosterMixin = {
     showMyCharacters = false,
     selectedClass = false,
     selectedMinLevel = 1,
-    selectedMaxLevel = 85,
+    selectedMaxLevel = 60,
     helptips = {},
 }
 
@@ -49,6 +49,17 @@ function GuildbookGuildRosterMixin:OnLoad()
     })
     self.classFilter:SetMenu(classMenu);
     self.classFilter:SetText(ALL)
+
+    self.joinedSort.state = 0
+    self.joinedSort:SetScript("OnClick", function ()
+        if self.joinedSort.state == 0 then
+            self:Update(0)
+            self.joinedSort.state = 1
+        else
+            self:Update(1)
+            self.joinedSort.state = 0
+        end
+    end)
 
     local sliders = {
         ["Min level"] = "minLevel",
@@ -98,7 +109,7 @@ function GuildbookGuildRosterMixin:OnLoad()
     addon.AddView(self)
 end
 
-function GuildbookGuildRosterMixin:Update(classID, minLevel, maxLevel)
+function GuildbookGuildRosterMixin:Update(sortJoinedState)
 
     -- local function filterRoster(key, val)
     --     return function(character)
@@ -109,6 +120,7 @@ function GuildbookGuildRosterMixin:Update(classID, minLevel, maxLevel)
     --         end
     --     end
     -- end
+
 
     local ranks = {
         {
@@ -132,16 +144,6 @@ function GuildbookGuildRosterMixin:Update(classID, minLevel, maxLevel)
         end
     end
     self.rankFilter:SetMenu(ranks);
-
-    if classID then
-        self.selectedClass = classID
-    end
-    if minLevel then
-        self.selectedMinLevel = minLevel
-    end
-    if maxLevel then
-        self.selectedMaxLevel = maxLevel
-    end
 
     local t = {}
     for nameRealm, character in pairs(addon.characters) do
@@ -190,25 +192,39 @@ function GuildbookGuildRosterMixin:Update(classID, minLevel, maxLevel)
         end
     end
 
-    table.sort(t, function(a, b)
-        if a.data.level and b.data.level then
-            if a.data.level == b.data.level then
-                if a.data.onlineStatus.zone and b.data.onlineStatus.zone then
-                    if (a.data.onlineStatus.zone == b.data.onlineStatus.zone) then
-                        return a.data.class < b.data.class
+    --[[
+        TODO:
+            improve the sort and filter systems
+    ]]
+    if sortJoinedState then
+        table.sort(t, function(a, b)
+            if sortJoinedState == 0 then
+                return a.data.joined < b.data.joined
+            else
+                return a.data.joined > b.data.joined
+            end
+        end)
+    else
+        table.sort(t, function(a, b)
+            if a.data.level and b.data.level then
+                if a.data.level == b.data.level then
+                    if a.data.onlineStatus.zone and b.data.onlineStatus.zone then
+                        if (a.data.onlineStatus.zone == b.data.onlineStatus.zone) then
+                            return a.data.class < b.data.class
+                        else
+                            return a.data.onlineStatus.zone < b.data.onlineStatus.zone
+                        end
                     else
-                        return a.data.onlineStatus.zone < b.data.onlineStatus.zone
+                        return a.data.class < b.data.class
                     end
                 else
-                    return a.data.class < b.data.class
+                    return a.data.level > b.data.level
                 end
             else
-                return a.data.level > b.data.level
+                return a.data.class < b.data.class
             end
-        else
-            return a.data.class < b.data.class
-        end
-    end)
+        end)
+    end
 
     local i = 0;
     for k, v in ipairs(t) do
