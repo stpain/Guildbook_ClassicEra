@@ -22,7 +22,7 @@
                 </Anchors>
                 <Size x="120" y="32"/>
             </Button>
-            <Button parentKey="joinedSort" inherits="UIPanelButtontemplate">
+            <Button parentKey="joinedSort" inherits="UIPanelButtontemplate" text="Joined">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="125" y="-4"/>
                 </Anchors>
@@ -32,7 +32,7 @@
                 <Anchors>
                     <Anchor point="TOPLEFT" x="205" y="0"/>
                 </Anchors>
-                <Size x="120" y="32"/>
+                <Size x="95" y="32"/>
             </Button>
             <Slider name="GuildbookGuildRosterMinLevelSlider" parentKey="minLevel" inherits = "GuildbookWrathEraSlider">
                 <Anchors>

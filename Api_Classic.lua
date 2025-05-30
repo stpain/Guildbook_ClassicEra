@@ -8,6 +8,27 @@ end
 
 
 
+--[[
+
+    WIP: Any constants can be listed here for now, then moved as a whole into a Constants.lua file
+
+
+]]
+local socketFileIDs = {
+    EMPTY_SOCKET_BLUE = 136256,
+    EMPTY_SOCKET_META = 136257,
+    EMPTY_SOCKET_RED = 136258,
+    EMPTY_SOCKET_YELLOW = 136259,
+    EMPTY_SOCKET_PRISMATIC = 458977,
+}
+local socketOrder = {
+    [1] = "EMPTY_SOCKET_META",
+    [2] = "EMPTY_SOCKET_RED",
+    [3] = "EMPTY_SOCKET_YELLOW",
+    [4] = "EMPTY_SOCKET_BLUE",
+    [5] = "EMPTY_SOCKET_PRISMATIC",
+}
+
 
 --[[
 
@@ -19,15 +40,13 @@ Guildbook.Api will become the new namespace, with a file per expansion
 
 
 
-
-
 Guildbook.Api = {}
 
-function Guildbook.Api.GetItemSocketInfo(link)
-    
-    local x, payload = breakLink(link)
+--Attempt to extract the gem and enchant payload from an item link
+function Guildbook.Api.GetItemGemAndEnchantInfo(link)
+    local s = string.match(link, [[|H([^:]*):([^|]*)|h(.*)|h]])
 
-    local itemID, enchantID, gem1, gem2, gem3 = strsplit(":", payload)
+    local itemID, enchantID, gem1, gem2, gem3 = strsplit(":", s)
 
     -- if itemID == "57268" then
 
@@ -45,12 +64,23 @@ function Guildbook.Api.GetItemSocketInfo(link)
     --     DevTools_Dump(lines)
     -- end
 
-    enchantID = tonumber(enchantID)
-    gem1 = tonumber(gem1)
-    gem2 = tonumber(gem2)
-    gem3 = tonumber(gem3)
 
-    local gems = { gem1, gem2, gem3, }
+    --if itemID and enchantID and gem1 and gem2 and gem3 then
+        return {
+            itemID = tonumber(itemID),
+            enchantID = tonumber(enchantID),
+            gem1 = tonumber(gem1),
+            gem2 = tonumber(gem2),
+            gem3 = tonumber(gem3),
+        }
+    --end
+end
+
+function Guildbook.Api.GetItemSocketInfo(link)
+    
+    local linkData = Guildbook.Api.GetItemGemAndEnchantInfo(link)
+
+    local gems = { linkData.gem1, linkData.gem2, linkData.gem3, }
 
     local ret = {
         numSockets = 0,

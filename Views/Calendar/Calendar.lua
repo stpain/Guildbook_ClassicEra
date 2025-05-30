@@ -129,19 +129,51 @@ function GuildbookCalendarDayTileMixin:OnLoad()
     -- end
 
     self:SetScript("OnEnter", function()
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(date("%d %B %Y", time(self.date)))
+        GameTooltip:AddLine(time(self.date))
+
         if self.events and (#self.events > 0) then
-            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            GameTooltip:AddLine(date("%d %B %Y", time(self.date)))
+            GameTooltip:AddLine(" ")
+            GameTooltip:AddLine("Events")
             for k, v in ipairs(self.events) do
                 GameTooltip:AddLine(v.name, 1,1,1)
             end
-            GameTooltip:Show()
         end
+
+        if #self.charactersJoinedToday > 0 then
+            GameTooltip:AddLine(" ")
+            GameTooltip:AddLine("Members joined")
+            for _, name in ipairs(self.charactersJoinedToday) do
+                GameTooltip:AddLine(name)
+            end
+        end
+
+        GameTooltip:Show()
     end)
     self:SetScript("OnLeave", function()
         GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
     end)
 
+end
+
+local function GetGuildMembersJoinedForDay(dateTable)
+    local ret = {}
+    if addon.characters then
+        for nameRealm, character in pairs(addon.characters) do
+            local joinedDay = date("*t", character.data.joined)
+            if joinedDay.day == dateTable.day and (joinedDay.month == dateTable.month) and (joinedDay.year == dateTable.year) then
+                table.insert(ret, character:GetName(true, "short"))
+            end
+        end
+    end
+    return ret
+end
+
+function GuildbookCalendarDayTileMixin:SetDate(dateTable)
+    self.date = dateTable;
+
+    self.charactersJoinedToday = GetGuildMembersJoinedForDay(self.date)
 end
 
 function GuildbookCalendarDayTileMixin:ClearHolidayTextures()
@@ -558,11 +590,17 @@ function GuildbookCalendarMixin:MonthChanged()
             day.dateLabel:SetTextColor(1,1,1,1)
             day.otherMonthOverlay:Hide()
             day:EnableMouse(true)
-            day.date = {
+            -- day.date = {
+            --     day = thisMonthDay,
+            --     month = self.date.month,
+            --     year = self.date.year,
+            -- }
+
+            day:SetDate({
                 day = thisMonthDay,
                 month = self.date.month,
                 year = self.date.year,
-            }
+            })
 
 
             --grab the events for the day and loop in reverse order, do this as it seems larger events (events spanning weeks not just a day) are indexed lower

@@ -434,6 +434,8 @@ function GuildbookGuildManagementMixin:SetupEditCharacterTab()
             field = "dateJoined",
             init = function(widget, character)
 
+                widget:SetText(character:GetDateJoined(true))
+
                 local function updateTime(datetime)
                     widget:SetText(date("%Y-%m-%d", datetime))
                     character:SetDateJoined(datetime)

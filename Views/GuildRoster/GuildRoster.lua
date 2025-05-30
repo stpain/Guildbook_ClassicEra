@@ -21,19 +21,24 @@ function GuildbookGuildRosterMixin:OnLoad()
 
     self.selectedRank = false
 
+    local classesAdded = {}
     local classMenu = {}
-    for i = 1, GetNumClasses() do
+    for i = 1, 12 do
         --if i ~= 10 then
             local locale, eng, id = GetClassInfo(i)
-            table.insert(classMenu, {
-                text = RAID_CLASS_COLORS[eng]:WrapTextInColorCode(locale),
-                sortID = locale,
-                icon = nil,
-                func = function()
-                    self.selectedClass = id
-                    self:Update()
-                end,
-            })
+            --print(">> class info", i, locale, eng, id)
+            if id and (not classesAdded[eng]) then
+                table.insert(classMenu, {
+                    text = RAID_CLASS_COLORS[eng]:WrapTextInColorCode(locale),
+                    sortID = locale,
+                    icon = nil,
+                    func = function()
+                        self.selectedClass = id
+                        self:Update()
+                    end,
+                })
+                classesAdded[eng] = true
+            end
         --end
     end
     table.sort(classMenu, function (a, b)
@@ -143,6 +148,7 @@ function GuildbookGuildRosterMixin:Update(sortJoinedState)
             })
         end
     end
+    self.rankFilter:SetText(RANK);
     self.rankFilter:SetMenu(ranks);
 
     local t = {}

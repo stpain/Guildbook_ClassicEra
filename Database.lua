@@ -177,10 +177,9 @@ function Database:TidyUpGuildTables()
             guild.info = nil
             guild.calendar = nil
 
-
-            --add a log table for guild member movements etc
-            guild.log = {}
-
+            if guild.log == nil then
+                guild.log = {}
+            end
 
             --add back the guildBank for era
             if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
@@ -309,6 +308,14 @@ function Database:GetCharacterNameFromGUID(guid)
     end
 end
 
+
+
+
+--[[[
+    TODO:
+
+    move this into the C_Calendar table
+]]
 function Database:InsertCalendarEvent(event)
     if self.db and self.db.calendar then
         if not self.db.calendar.events then
@@ -368,6 +375,9 @@ function Database:GetCalendarEventsForPeriod(fromTimestamp, period)
     end
     return t;
 end
+
+
+
 
 function Database:SetConfig(conf, val)
     if self.db and self.db.config then

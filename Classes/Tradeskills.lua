@@ -51,6 +51,18 @@ Tradeskills.PlayerTradeskills = {
     ["Mining"] = 186,
 }
 
+
+if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    Tradeskills.PrimaryTradeskills.Jewelcrafting = 755
+end
+
+if WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
+    Tradeskills.PrimaryTradeskills.Jewelcrafting = 755
+    Tradeskills.PrimaryTradeskills.Inscription = 773
+end
+
+
+
 -- function Tradeskills:CreateDropdownMenu(includeAll)
 	
 -- 	if not includeAll then

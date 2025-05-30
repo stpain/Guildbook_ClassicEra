@@ -178,7 +178,7 @@ end
 function GuildbookMixin:OnLoad()
     
     self:RegisterForDrag("LeftButton")
-    self.resize:Init(self, 1000, 550, 1400, 720)
+    self.resize:Init(self, 1000, 580, 1400, 800)
 
     self.resize:HookScript("OnMouseDown", function()
         self.isRefreshEnabled = true;
@@ -517,7 +517,7 @@ function GuildbookMixin:Database_OnInitialised()
     self:CreateSlashCommands()
 
     --self:SetupInterface()
-    self:CreateCursorBuddy()
+    --self:CreateCursorBuddy()
 
     self:Hide()
 
@@ -574,7 +574,8 @@ function GuildbookMixin:UpdateMinimapTooltip()
         for name, obj in pairs(addon.characters) do
             if (name ~= nil) and (obj.data.class ~= nil) and (obj.data.level ~= nil) and obj.data.onlineStatus.isOnline then
                 table.insert(t, {
-                    name = name,
+                    name = obj.data.name,
+                    displayName = obj:GetName(true, "short"),
                     classID = obj.data.class,
                     level = obj.data.level,
                     zone = obj.data.onlineStatus.zone or "-",
@@ -597,21 +598,16 @@ function GuildbookMixin:UpdateMinimapTooltip()
             end
         end)
 
-        local formatName = function(t, r)
-            local _, class = GetClassInfo(t.classID)
-            local col = RAID_CLASS_COLORS[class].colorStr
-            return string.format("|cffffffff[%d]|r |c%s%s|r", t.level, col, Ambiguate(t.name, "short"))
-        end
-
         GameTooltip:AddLine(" ")
         GameTooltip:AddLine("Members online")
         for i = 1, #t do
             if i < 26 then
-                GameTooltip:AddDoubleLine(formatName(t[i]), "|cffffffff"..t[i].zone)
-            else
-
+                GameTooltip:AddDoubleLine(string.format("|cffffffff[%d]|r %s", t[i].level, t[i].displayName), string.format("|cffffffff%s", t[i].zone))
             end
         end
+
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine("Left click to open", 1,1,1)
     end
 
     GameTooltip:Show()

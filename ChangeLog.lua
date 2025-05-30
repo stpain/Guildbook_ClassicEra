@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.52",
+        notes = "Fixed several minor bugs.\n\nDruid now shown in class list for roster.\nEnchant recipe names shown instead of broken link.\nRecipe URL updated to classic version of wowhead.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "4.51",
         notes = "Some minor fixes.\n\nAdded the date joined to the roster view. You can also set a members join date from the 'Guild Management' section, the red button at the bottom will open a popout date picker.\nYou can also now filter for character names in the member list.",
         icon = "ClassHall-QuestIcon-Desaturated",

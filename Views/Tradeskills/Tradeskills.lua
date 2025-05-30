@@ -383,9 +383,16 @@ function GuildbookTradskillsMixin:FindRecipeIndex(recipeSpellID)
     end
 end
 
+local client = "classic"
+if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    client = "tbc"
+end
+if WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
+    client = "wrath"
+end
 
-local wowheadCataSpellURL = "https://www.wowhead.com/cata/spell=%d"
-local wowheadCataItemURL = "https://www.wowhead.com/cata/item=%d"
+local wowheadCataSpellURL = "https://www.wowhead.com/"..client.."/spell=%d"
+local wowheadCataItemURL = "https://www.wowhead.com/"..client.."/item=%d"
 
 function GuildbookTradskillsMixin:ClearPanels()
     self.welcomePanel:Hide()
@@ -540,7 +547,7 @@ local function makeCoinAtlas(money, textonly)
 end
 
 
-function GuildbookTradskillsMixin:SetRecipe(recipe)
+function GuildbookTradskillsMixin:SetRecipe(recipe, isEnchanting)
 
     self.selectedRecipe = recipe;
 
@@ -591,7 +598,12 @@ function GuildbookTradskillsMixin:SetRecipe(recipe)
     
     end)
     self.details.itemButton.border:SetVertexColor(rgb.r, rgb.g, rgb.b)
-    self.details.itemButton.link:SetText(recipe.link)
+
+    if isEnchanting then
+        self.details.itemButton.link:SetText(recipe.name)
+    else
+        self.details.itemButton.link:SetText(recipe.link)
+    end
     self.details.recipeURL:SetText(wowheadCataSpellURL:format(recipe.spellID))
     if recipe.itemID then
         self.details.itemURL:SetText(wowheadCataItemURL:format(recipe.itemID))
@@ -1079,7 +1091,7 @@ function GuildbookTradskillsMixin:LoadTradeskillRecipes(tradeskillID, tradeskill
                                                 spellID = spellID,
                                                 name = spellName,
                                                 spellDesc = spellDesc,
-                                            })
+                                            }, true)
                                         end,
                                     })
     

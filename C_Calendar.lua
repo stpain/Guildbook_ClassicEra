@@ -285,6 +285,10 @@ function C_Calendar.SetAbsMonth(month, year)
 
 end
 
+
+--this will get called when the calendar month changes
+--this function creates the various day event entries in the C_Calendar.eventsDb table
+--the table is empty on load and is populated as the user navigates.
 function C_Calendar.Calendar_OnMonthChanged()
     
     C_Calendar.GetDarkmoonDataForMonth()

@@ -1,0 +1,4 @@
+
+
+local addonName, Guildbook = ...;
+

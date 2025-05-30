@@ -4,7 +4,7 @@
 
         There is a queue system to prevent the addon spamming chat channels and disrupting other addon communications.
         The queue is simple, messages get added to the queue and are held for n number of seconds, during this time
-        and new data of the same message type will cause the currently queued message to be updated rather than a new
+        any new data of the same message type will cause the currently queued message to be updated rather than a new
         message added to the queue.
         Once a message dispatch time arrives the message will be sent and the remaining queued messages will have their
         dispatch time increased by n seconds. This means the addon will only send a message once every n seconds, and 
@@ -58,7 +58,7 @@ Comms.characterKeyToEventName = {
     mainCharacter = "MAIN_CHARACTER_TRANSMIT",
     -- publicNote = self.data.publicNote,
     mainSpec = "SPEC_TRANSMIT",
-    -- offSpec = self.data.offSpec,
+    offSpec = "SPEC_TRANSMIT",
     -- mainSpecIsPvP = self.data.mainSpecIsPvP,
     -- offSpecIsPvP = self.data.offSpecIsPvP,
     profession1 = "TRADESKILL_TRANSMIT_PROF1",
