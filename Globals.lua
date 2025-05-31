@@ -1214,6 +1214,9 @@ function ModernTalentsMixin:SaveTalentPreviewLoadout()
 end
 ]]
 
+
+--https://www.wowhead.com/classic/talent-calc/paladin/550001-053051331301051-05202
+
 function addon.api.classic.getAnniversaryTalents(...)
     local newSpec, previousSpec = ...;
 
@@ -1939,58 +1942,3 @@ function addon.api.getCurrentReputations()
     return reputations;
 end
 
-
-function addon.api.addThisCharacter()
-
-    if not addon.characters then
-        return;
-    end
-    if not addon.Character then
-        return;
-    end
-    if addon.characters[addon.Character] then
-        return;
-    end
-    local characterInDb = Database:GetCharacter(addon.thisCharacter)
-    if characterInDb then
-        return;
-    end
-
-    local character = Character:CreateEmpty()
-    character.guid = UnitGUID("player")
-    character.name = addon.thisCharacter
-    local _, _, classId = UnitClass("player")
-    character.class = classId
-
-    Database:InsertCharacter(character)
-
-    addon.characters[addon.thisCharacter] = Character:CreateFromData(Database:GetCharacter(addon.thisCharacter))
-
-    --DevTools_Dump(addon.characters[addon.Character])
-
-    local clientName;
-
-    if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
-        clientName = "classic"
-    end
-    if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
-        clientName = "classic"
-    end
-    if WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
-        clientName = "wrath"
-    end
-
-    local equipment = addon.api.getPlayerEquipmentCurrent()
-    local currentStats = addon.api[clientName].getPaperDollStats()
-    local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
-    local auras = addon.api.getPlayerAuras()
-    local talents = addon.api[clientName].getPlayerTalents()
-
-    if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
-        addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
-        addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats, true)
-        addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
-        addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
-    end
-end

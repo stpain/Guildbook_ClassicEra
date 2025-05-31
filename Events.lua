@@ -1166,12 +1166,32 @@ end
 
 local function setPlayerTalentsAndGlyphs(...)
 
-    local spec, tabs, talents, glyphs;
-    if C_Seasons and (C_Seasons.GetActiveSeason() == 11) then
-        spec, tabs, talents, glyphs = addon.api.classic.getAnniversaryTalents(...)
-    else
-        spec, tabs, talents, glyphs = addon.api.classic.getPlayerTalents(...)
+    local talentString = "";
+
+    if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+
+        talentString = Talents:GetPlayerTalentString(...)
+        
+        local spec = ...
+        local specKey = "primary"
+        if spec == 1 then
+            specKey = "primary";
+        elseif spec == 2 then
+            specKey = "secondary"
+        end
+
+        if addon.characters[addon.thisCharacter] then
+            addon.characters[addon.thisCharacter]:SetTalents(specKey, talentString, true)
+        end
     end
+    
+
+    -- local spec, tabs, talents, glyphs;
+    -- if C_Seasons and (C_Seasons.GetActiveSeason() == 11) then
+    --     spec, tabs, talents, glyphs = addon.api.classic.getAnniversaryTalents(...)
+    -- else
+    --     spec, tabs, talents, glyphs = addon.api.classic.getPlayerTalents(...)
+    -- end
 
     --local spec, tabs, talents, glyphs = addon.api.classic.getPlayerTalents(...)
     --local spec, tabs, talents, glyphs = addon.api.cata.getPlayerTalents(...)
@@ -1180,18 +1200,18 @@ local function setPlayerTalentsAndGlyphs(...)
     -- print(spec)
 
     --convert the keys to named keys to use as a lookup
-    if spec == 1 then
-        spec = "primary";
-    elseif spec == 2 then
-        spec = "secondary"
-    else
-        spec = "primary"
-    end
+    -- if spec == 1 then
+    --     spec = "primary";
+    -- elseif spec == 2 then
+    --     spec = "secondary"
+    -- else
+    --     spec = "primary"
+    -- end
 
-    if addon.characters[addon.thisCharacter] then
-        addon.characters[addon.thisCharacter]:SetTalents(spec, talents, true)
-        addon.characters[addon.thisCharacter]:SetGlyphs(spec, glyphs, true)
-    end
+    -- if addon.characters[addon.thisCharacter] then
+    --     addon.characters[addon.thisCharacter]:SetTalents(spec, talents, true)
+    --     addon.characters[addon.thisCharacter]:SetGlyphs(spec, glyphs, true)
+    -- end
 end
 
 function e:ACTIVE_TALENT_GROUP_CHANGED(...)
@@ -1261,6 +1281,17 @@ function e:Database_OnInitialised()
             setPlayerTalentsAndGlyphs(1)
         end
 	end)
+
+    -- C_Timer.After(5, function()    
+    --     if ViragDevTool_AddData then
+    --         local s = Talents:GetPlayerTalentString()
+    --         local t = Talents:DecodeTalentStringForClass(s, select(3, UnitClass("player")))
+    --         ViragDevTool_AddData(t, "Talents")
+    --     end
+    -- end)
+    
+
+
 	-- SkillFrame:HookScript("OnShow", function()
 	-- 	--self:ScanSkills()
 	-- end)

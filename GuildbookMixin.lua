@@ -444,33 +444,6 @@ function GuildbookMixin:Blizzard_OnInitialGuildRosterScan(guildName)
         --get latest data and transmit to guild
         if addon.characters[addon.thisCharacter] then
 
-            local clientName;
-
-            if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
-                clientName = "classic"
-            end
-            if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
-                clientName = "classic"
-            end
-            if WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
-                clientName = "wrath"
-            end
-
-            local equipment = addon.api.getPlayerEquipmentCurrent()
-            local currentStats = addon.api[clientName].getPaperDollStats()
-            local resistances = addon.api.getPlayerResistances(UnitLevel("player"))
-            local auras = addon.api.getPlayerAuras()
-            local talents = addon.api[clientName].getPlayerTalents()
-
-            addon.characters[addon.thisCharacter]:SetTalents("current", talents, true)
-            addon.characters[addon.thisCharacter]:SetInventory("current", equipment, true)
-            addon.characters[addon.thisCharacter]:SetPaperdollStats("current", currentStats, true)
-            addon.characters[addon.thisCharacter]:SetResistances("current", resistances, true)
-            addon.characters[addon.thisCharacter]:SetAuras("current", auras, true)
-
-            local lockouts = addon.api.getLockouts()
-            addon.characters[addon.thisCharacter]:SetLockouts(lockouts)
-
             --if there is no main character data then set this character as main
             if addon.characters[addon.thisCharacter].data.mainCharacter == false then
 
@@ -501,23 +474,37 @@ function GuildbookMixin:Blizzard_OnInitialGuildRosterScan(guildName)
         end
     end)
 
-
-    -- C_Timer.After(5.0, function()
-        
-    --     if addon.characters[addon.thisCharacter] then
-    --         if not addon.characters[addon.thisCharacter].data.mainSpec then
-    --             StaticPopup_Show("GuildbookReminder", "Guildbook\n\nYou have no main spec set, go to Guildbook > Settings > Character.", nil, { character = addon.characters[addon.thisCharacter], })            end
-    --     end
-    -- end)
 end
 
+
+local function UpdateCharacterObjects()
+    print("updating character objects")
+
+    if Database.db.characterDirectory then
+        for _, info in pairs(Database.db.characterDirectory) do
+            if info.talents then
+                if type(info.talents.primary) == "table" then
+                    local talentString = Talents:ConvertTalentTableToString(info.talents.primary)
+                    info.talents.primary = talentString;
+                end
+                if type(info.talents.secondary) == "table" then
+                    local talentString = Talents:ConvertTalentTableToString(info.talents.secondary)
+                    info.talents.secondary = talentString;
+                end
+            end
+        end
+    end
+end
 
 function GuildbookMixin:Database_OnInitialised()
     self:CreateMinimapButtons()
     self:CreateSlashCommands()
 
-    --self:SetupInterface()
-    --self:CreateCursorBuddy()
+    local version = tonumber(C_AddOns.GetAddOnMetadata(name, "Version"));
+    if version == 4.6 then
+        UpdateCharacterObjects()
+    end
+
 
     self:Hide()
 
@@ -539,14 +526,9 @@ function GuildbookMixin:Database_OnInitialised()
             end 
         end
 
-        --this will return out if the current character exists otherwise it'll add this to the db
-        addon.api.addThisCharacter()
     end)
 end
 
-function GuildbookMixin:AddCharacter()
-    addon.api.addThisCharacter()
-end
 
 function GuildbookMixin:CreateSlashCommands()
     SLASH_GUILDBOOK1 = '/guildbook'
@@ -555,10 +537,6 @@ function GuildbookMixin:CreateSlashCommands()
     SlashCmdList['GUILDBOOK'] = function(msg)
         if msg == "" then
             self:Show()
-
-        elseif msg == "addcharacter" then
-            self:AddCharacter()
-
         end
     end
 end

@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.6",
+        notes = "Talent changes! Guildbook now converts talent data into a string (similar to wowhead) this is instead of a large table. The purpose of this was to reduce demand on the comms messages and reduce the size of the saved variables file.",
+        icon = "adventureguide-icon-whatsnew",
+    },
+    {
         version = "4.52",
         notes = "Fixed several minor bugs.\n\nDruid now shown in class list for roster.\nEnchant recipe names shown instead of broken link.\nRecipe URL updated to classic version of wowhead.",
         icon = "ClassHall-QuestIcon-Desaturated",

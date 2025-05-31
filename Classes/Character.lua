@@ -808,8 +808,14 @@ function Character:GetSpecInfo(useCharacterData)
 
     for k, spec in ipairs({"primary", "secondary"}) do
         if self.data.talents[spec] then
-            for k, v in ipairs(self.data.talents[spec]) do
-                t[spec][v.tabID].points = t[spec][v.tabID].points + v.rank
+            local tab1, tab2, tab3 = strsplit("-", self.data.talents[spec])
+            local talentTabStrings = { tab1, tab2, tab3, }
+
+            for tabID, v in ipairs(talentTabStrings) do
+                for j = 1, #v do
+                    local spend = tonumber(string.sub(v, j, j))
+                    t[spec][tabID].points = t[spec][tabID].points + spend
+                end
             end
         end
         table.sort(t[spec], function(a,b)

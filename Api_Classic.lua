@@ -253,3 +253,34 @@ function Guildbook.Api.ScanForTradeskillSpec()
     end
     return t;
 end
+
+function Guildbook.Api.GetLockouts()
+    local t = {}
+    local numSavedInstances = GetNumSavedInstances()
+    if numSavedInstances > 0 then
+        for i = 1, numSavedInstances do
+            --t[i] = {GetSavedInstanceInfo(i)}
+            local name, id, reset, difficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(i)
+
+            reset = (GetServerTime() + reset);
+
+            table.insert(t, {
+                name = name,
+                id = id,
+                reset = reset,
+                difficulty = difficulty,
+                locked = locked,
+                extended = extended,
+                instanceIDMostSig = instanceIDMostSig,
+                isRaid = isRaid,
+                maxPlayers = maxPlayers,
+                difficultyName = difficultyName,
+                numEncounters = numEncounters,
+                encounterProgress = encounterProgress,
+            })
+            --local msg = string.format("name=%s, id=%s, reset=%s, difficulty=%s, locked=%s, numEncounters=%s", tostring(name), tostring(id), tostring(reset), tostring(difficulty), tostring(locked), tostring(numEncounters))
+            --print(msg)
+        end
+    end
+    return t
+end

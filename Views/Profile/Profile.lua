@@ -105,6 +105,14 @@ GuildbookProfileMixin = {
 
 function GuildbookProfileMixin:OnLoad()
 
+    if WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
+        self.glyphs:SetHeight(60)
+        for i = 1, 3 do
+            self.glyphs["major"..i]:SetHeight(30)
+            self.glyphs["minor"..i]:SetHeight(30)
+        end
+    end
+
     self.inventory.resistanceGridview:InitFramePool("FRAME", "GuildbookWrathEraResistanceFrame")
     self.inventory.resistanceGridview:SetFixedColumnCount(5)
     self.inventory.resistanceGridview.ScrollBar:Hide()
@@ -251,7 +259,7 @@ function GuildbookProfileMixin:UpdateLayout()
         self.talents["tree"..i]:SetWidth((x-sidePaneWidth) / 3)
         self.talents["tree"..i].talentsGridview:SetSize((x-sidePaneWidth) / 3, y)
 
-		self.glyphs["prime"..i]:SetWidth((x-sidePaneWidth) / 3)
+		--self.glyphs["prime"..i]:SetWidth((x-sidePaneWidth) / 3)
 		self.glyphs["major"..i]:SetWidth((x-sidePaneWidth) / 3)
 		self.glyphs["minor"..i]:SetWidth((x-sidePaneWidth) / 3)
     end
@@ -281,7 +289,7 @@ function GuildbookProfileMixin:UpdateLayout()
             self.talents["tree"..i]:SetWidth((x-1) / 3)
             self.talents["tree"..i].talentsGridview:SetSize((x-1) / 3, y)
 
-			self.glyphs["prime"..i]:SetWidth((x-1) / 3)
+			--self.glyphs["prime"..i]:SetWidth((x-1) / 3)
 			self.glyphs["major"..i]:SetWidth((x-1) / 3)
 			self.glyphs["minor"..i]:SetWidth((x-1) / 3)
         end
@@ -710,7 +718,7 @@ function GuildbookProfileMixin:LoadTalentsAndGlyphs()
 	end
 
 
-	--talents
+	--set the artwork for the 3 talent tabs
 	local artwork = Talents:GetClassTalentTreeArtwork(self.character.data.class)
 	self.talents.tree1.background:SetTexture(artwork[1])
 	self.talents.tree2.background:SetTexture(artwork[2])
@@ -722,22 +730,31 @@ function GuildbookProfileMixin:LoadTalentsAndGlyphs()
 		[3] = {},
 	}
 
+    --clear the current talents and clear the glyph text
 	for i = 1, 3 do
 		self.talents["tree"..i].talentsGridview.ScrollBar:Hide()
 		for k, frame in ipairs(self.talents["tree"..i].talentsGridview:GetFrames()) do
 			frame:ClearTalent()
 		end
-		self.glyphs["prime"..i]:SetText("-")
+		--self.glyphs["prime"..i]:SetText("-")
 		self.glyphs["major"..i]:SetText("-")
 		self.glyphs["minor"..i]:SetText("-")
 	end
 
+
+    --this should be a string now not a giant table
 	if self.character.data.talents[spec] then
-		if type(self.character.data.talents[spec]) == "table" then
-			for k, v in ipairs(self.character.data.talents[spec]) do
+		if type(self.character.data.talents[spec]) == "string" then
+
+            --this converts the string back into the giant table (string is better for comms and sharing)
+            local talentData = Talents:DecodeTalentStringForClass(self.character.data.talents[spec], self.character.data.class)
+
+            --ViragDevTool_AddData(talentData, "TalentTable")
+
+			for k, v in ipairs(talentData) do
 
 				for i = 1, 3 do
-					if v.tabID == i then
+					if v.tabIndex == i then
 						if not talentTress[i][v.row] then
 							talentTress[i][v.row] = {}
 						end
@@ -748,69 +765,43 @@ function GuildbookProfileMixin:LoadTalentsAndGlyphs()
 
 			for i = 1, 3 do
 				for k, frame in ipairs(self.talents["tree"..i].talentsGridview:GetFrames()) do
-					if talentTress[i][frame.rowId][frame.colId] then
+					if talentTress[i] and talentTress[i][frame.rowId] and talentTress[i][frame.rowId][frame.colId] then
 						frame:SetTalent(talentTress[i][frame.rowId][frame.colId])
 					else
 						frame:ClearTalent()
 					end
 				end
 			end
-
-
-			--new cata talents strings
-		elseif type(self.character.data.talents[spec]) == "string" then
-
-			local tabs = {strsplit("-", self.character.data.talents[spec])}
-
-			local pointsSpent = {
-				{ id = 1, points = 0 },
-				{ id = 2, points = 0 },
-				{ id = 3, points = 0 },
-			}
-		
-			--loop the data and add the points spent per tree
-			--then apply a simple sort allowing us to access the tree in the correct order
-			for k, tab in ipairs(tabs) do
-				if tab and (#tab > 0) then
-					local tbl = {string.byte(tab, 1, #tab)}
-					for i = 1, #tbl do
-						local c = tonumber(string.char(tbl[i]))
-						if c then
-							pointsSpent[k].points = pointsSpent[k].points + c
-						end
-					end
-				end
-			end
-		
-			
-
 		end
 	end
 
-	if self.character.data.glyphs and (type(self.character.data.glyphs[spec]) == "table") then
-		
-		--local major, minor, prime = 1, 1, 1;
-		for k, v in ipairs(self.character.data.glyphs[spec]) do
 
-			if v.spellID and v.glyphIndex and v.glyphType then
-				local glyph = GetSpellInfo(v.spellID)
+    if WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
+        if self.character.data.glyphs and (type(self.character.data.glyphs[spec]) == "table") then
+            
+            --local major, minor, prime = 1, 1, 1;
+            for k, v in ipairs(self.character.data.glyphs[spec]) do
 
-				if v.glyphType == 3 then
-					self.glyphs["prime"..v.glyphIndex+1]:SetText(glyph)
-					--prime = prime + 1;
-	
-				elseif v.glyphType == 2 then
-					self.glyphs["major"..v.glyphIndex+1]:SetText(glyph)
-					--major = major + 1;
-	
-				elseif v.glyphType == 1 then
-					self.glyphs["minor"..v.glyphIndex+1]:SetText(glyph)
-					--minor = minor + 1;
-	
-				end
-			end
-		end
-	end
+                if v.spellID and v.glyphIndex and v.glyphType then
+                    local glyph = GetSpellInfo(v.spellID)
+
+                    if v.glyphType == 3 then
+                        --self.glyphs["prime"..v.glyphIndex+1]:SetText(glyph)
+                        --prime = prime + 1;
+        
+                    elseif v.glyphType == 2 then
+                        self.glyphs["major"..v.glyphIndex+1]:SetText(glyph)
+                        --major = major + 1;
+        
+                    elseif v.glyphType == 1 then
+                        self.glyphs["minor"..v.glyphIndex+1]:SetText(glyph)
+                        --minor = minor + 1;
+        
+                    end
+                end
+            end
+        end
+    end
 
 end
 
