@@ -204,7 +204,10 @@ function GuildbookImportExportMixin:Character_ExportEquipment(character, setName
             end
 
             if character.data.talents[spec] then
-                for k, talent in ipairs(character.data.talents[spec]) do                    
+
+                --for now make use of the decode func
+                local talentData = Talents:DecodeTalentStringForClass(character.data.talents[spec], character.data.class)
+                for k, talent in ipairs(talentData) do
                     if talent.rank > 0 then
                         local talentID = Talents:GetTalentID(talent.spellId)
                         if type(talentID) == "number" then

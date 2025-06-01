@@ -7,9 +7,14 @@
             </AnimationGroup>
         </Animations>
         <Layers>
-            <Layer level="BACKGROUND">
+            <Layer level="BACKGROUND" textureSubLevel="1">
                 <Texture parentKey="background" setAllPoints="true">
                 
+                </Texture>
+            </Layer>
+            <Layer level="BACKGROUND" textureSubLevel="2">
+                <Texture parentKey="backgroundFade" setAllPoints="true">
+                    <Color r="1" g="1" b="1"/>
                 </Texture>
             </Layer>
             <Layer level="HIGHLIGHT">
@@ -45,29 +50,36 @@
             
             </Layer>
         </Layers>
-        <!-- <Frames>
-            <Button parentKey="event1" >
+        <Frames>
+            <Button parentKey="showMore">
+                <Size x="15" y="9"/>
                 <Anchors>
-                    <Anchor point="BOTTOMLEFT" x="2" y="2"/>
-                    <Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+                    <Anchor point="TOPRIGHT" x="-4" y="-4"/>
+                </Anchors>
+                <NormalTexture atlas="transmog-icon-downarrow" useAtlasSize="true"/>
+            </Button>
+            <Button parentKey="event1" inherits="GuildbookCalendarEventButton">
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" x="4" y="1"/>
+                    <Anchor point="BOTTOMRIGHT" x="-4" y="1"/>
                 </Anchors>
                 <HighlightTexture atlas="auctionhouse-nav-button-secondary-select"/>
             </Button>
-            <Button parentKey="event2" >
+            <Button parentKey="event2" inherits="GuildbookCalendarEventButton">
                 <Anchors>
                     <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" relativeKey="$parent.event1" x="0" y="0"/>
                     <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" relativeKey="$parent.event1" x="0" y="0"/>
                 </Anchors>
                 <HighlightTexture atlas="auctionhouse-nav-button-secondary-select"/>
             </Button>
-            <Button parentKey="event3" >
+            <Button parentKey="event3" inherits="GuildbookCalendarEventButton">
                 <Anchors>
                     <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" relativeKey="$parent.event2" x="0" y="0"/>
                     <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" relativeKey="$parent.event2" x="0" y="0"/>
                 </Anchors>
                 <HighlightTexture atlas="auctionhouse-nav-button-secondary-select"/>
             </Button>
-        </Frames> -->
+        </Frames>
         <Scripts>
             <OnLoad method="OnLoad"/>
         </Scripts>

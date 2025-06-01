@@ -142,7 +142,20 @@
         "CommunitiesFrameGuildDetailsFrameInfo",
         "CommunitiesFrameGuildDetailsFrameInfoMOTDScrollFrame",
         "SOUNDKIT",
-        "RANK"
+        "RANK",
+        "MONTH_JANUARY",
+        "MONTH_FEBRUARY",
+        "MONTH_MARCH",
+        "MONTH_APRIL",
+        "MONTH_MAY",
+        "MONTH_JUNE",
+        "MONTH_JULY",
+        "MONTH_AUGUST",
+        "MONTH_SEPTEMBER",
+        "MONTH_OCTOBER",
+        "MONTH_NOVEMBER",
+        "MONTH_DECEMBER",
+        "RESET"
     ],
     "Lua.runtime.version": "Lua 5.1",
     "Lua.runtime.builtin": {

@@ -178,7 +178,7 @@ end
 function GuildbookMixin:OnLoad()
     
     self:RegisterForDrag("LeftButton")
-    self.resize:Init(self, 1000, 580, 1400, 800)
+    self.resize:Init(self, 1000, 620, 1400, 820)
 
     self.resize:HookScript("OnMouseDown", function()
         self.isRefreshEnabled = true;
@@ -477,34 +477,9 @@ function GuildbookMixin:Blizzard_OnInitialGuildRosterScan(guildName)
 end
 
 
-local function UpdateCharacterObjects()
-    print("updating character objects")
-
-    if Database.db.characterDirectory then
-        for _, info in pairs(Database.db.characterDirectory) do
-            if info.talents then
-                if type(info.talents.primary) == "table" then
-                    local talentString = Talents:ConvertTalentTableToString(info.talents.primary)
-                    info.talents.primary = talentString;
-                end
-                if type(info.talents.secondary) == "table" then
-                    local talentString = Talents:ConvertTalentTableToString(info.talents.secondary)
-                    info.talents.secondary = talentString;
-                end
-            end
-        end
-    end
-end
-
 function GuildbookMixin:Database_OnInitialised()
     self:CreateMinimapButtons()
     self:CreateSlashCommands()
-
-    local version = tonumber(C_AddOns.GetAddOnMetadata(name, "Version"));
-    if version == 4.6 then
-        UpdateCharacterObjects()
-    end
-
 
     self:Hide()
 

@@ -310,10 +310,10 @@ function e:ADDON_LOADED(...)
     --     end)
     -- end
 
-    if ... == "ViragDevTool" then
-        addon.Calendar:Init()
-        ViragDevTool_AddData(addon.Calendar, "C_Calendar")
-    end
+    -- if ... == "ViragDevTool" then
+    --     addon.Calendar:Init()
+    --     ViragDevTool_AddData(addon.Calendar, "C_Calendar")
+    -- end
 
 end
 
@@ -1171,7 +1171,7 @@ local function setPlayerTalentsAndGlyphs(...)
     if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 
         talentString = Talents:GetPlayerTalentString(...)
-        
+
         local spec = ...
         local specKey = "primary"
         if spec == 1 then
@@ -1244,6 +1244,8 @@ end
 
 
 function e:Database_OnInitialised()
+
+    addon.Calendar:Init()
 
     GuildRoster()
     self:GUILD_ROSTER_UPDATE()

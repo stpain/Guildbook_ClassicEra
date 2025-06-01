@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.61",
+        notes = "Calendar!\n\nAdded raid reset data to the calendar.\nThis is currently only for EU non-sod servers but I will be adding the remaining data soon.\n\nSome minor bug fixes.",
+        icon = "ClassHall-QuestIcon-Desaturated",
+    },
+    {
         version = "4.6",
         notes = "Talent changes! Guildbook now converts talent data into a string (similar to wowhead) this is instead of a large table. The purpose of this was to reduce demand on the comms messages and reduce the size of the saved variables file.",
         icon = "adventureguide-icon-whatsnew",

@@ -744,6 +744,13 @@ function GuildbookProfileMixin:LoadTalentsAndGlyphs()
 
     --this should be a string now not a giant table
 	if self.character.data.talents[spec] then
+
+        --a final check on the talent conversions, only the ui here cares about this data type so defend it here
+        if type(self.character.data.talents[spec]) == "table" then
+            local talentString = Talents:ConvertTalentTableToString(self.character.data.talents[spec])
+            self.character.data.talents[spec] = talentString;
+        end
+
 		if type(self.character.data.talents[spec]) == "string" then
 
             --this converts the string back into the giant table (string is better for comms and sharing)

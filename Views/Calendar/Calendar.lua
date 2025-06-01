@@ -84,6 +84,7 @@ function WorldEvent:CreateFromData(data)
 
 end
 
+local BACK_FADE_START, BLACK_FADE_END = CreateColor(0,0,0,1), CreateColor(0,0,0,0)
 
 
 GuildbookCalendarDayTileMixin = {
@@ -100,6 +101,8 @@ function GuildbookCalendarDayTileMixin:OnLoad()
 
     self.background:SetTexture(235428)
     self.background:SetTexCoord(texLeft, texRight, texTop, texBottom)
+
+    self.backgroundFade:SetGradient("VERTICAL", BACK_FADE_START, BLACK_FADE_END)
 
     self.highlight:SetTexture(235438)
     self.highlight:SetTexCoord(0.0, 0.35, 0.0, 0.7)
@@ -123,20 +126,27 @@ function GuildbookCalendarDayTileMixin:OnLoad()
     self.guildEvents = {}
     self.events = {}
 
-    -- for i = 1, 3 do
-    --     self["event"..i]:Raise()
-    --     self["event"..i]:SetHeight(16)
-    -- end
+    for i = 1, 3 do
+        self["event"..i]:Raise()
+        self["event"..i]:SetHeight(14)
+        self["event"..i]:Hide()
+    end
 
     self:SetScript("OnEnter", function()
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:AddLine(date("%d %B %Y", time(self.date)))
-        GameTooltip:AddLine(time(self.date))
+        --GameTooltip:AddLine(time(self.date))
 
         if self.events and (#self.events > 0) then
             GameTooltip:AddLine(" ")
-            GameTooltip:AddLine("Events")
+
+            local eventTypeIndex = 0
             for k, v in ipairs(self.events) do
+                if v.eventType ~= eventTypeIndex then
+                    GameTooltip:AddLine(" ")
+                    GameTooltip:AddLine(addon.CalendarEventTypeEnums[v.eventType])
+                    eventTypeIndex = v.eventType
+                end
                 GameTooltip:AddLine(v.name, 1,1,1)
             end
         end
@@ -183,6 +193,14 @@ function GuildbookCalendarDayTileMixin:ClearHolidayTextures()
     end
 end
 
+function GuildbookCalendarDayTileMixin:HideEventButtons()
+    for i = 1, 3 do
+        self["event"..i].topLabel:SetText("")
+        self["event"..i].bottomLabel:SetText("")
+        self["event"..i]:Hide()
+    end
+end
+
 
 
 
@@ -219,6 +237,10 @@ function GuildbookCalendarMixin:UpdateLayout()
             tile:SetSize(self.dayTileWidth, self.dayTileHeight)
             tile:SetPoint("TOPLEFT",  ((day - 1) * self.dayTileWidth), (((week - 1) * self.dayTileHeight) * -1) -18 )
             i = i + 1;
+
+            for j = 1, 3 do
+                tile["event"..j]:SetSize(self.dayTileWidth - 4 ,self.dayTileHeight / 4)
+            end
         end
     end
 
@@ -414,6 +436,21 @@ function GuildbookCalendarMixin:Blizzard_OnInitialGuildRosterScan()
     --self.sidePanel.lockouts.background:SetAtlas(string.format("transmog-background-race-%s", addon.characters[addon.thisCharacter]:GetRace().clientFileString:lower()))
 end
 
+-- local CALENDAR_MONTH_NAMES = {
+-- 	MONTH_JANUARY,
+-- 	MONTH_FEBRUARY,
+-- 	MONTH_MARCH,
+-- 	MONTH_APRIL,
+-- 	MONTH_MAY,
+-- 	MONTH_JUNE,
+-- 	MONTH_JULY,
+-- 	MONTH_AUGUST,
+-- 	MONTH_SEPTEMBER,
+-- 	MONTH_OCTOBER,
+-- 	MONTH_NOVEMBER,
+-- 	MONTH_DECEMBER,
+-- };
+
 function GuildbookCalendarMixin:OnLoad()
 
     addon:RegisterCallback("Blizzard_OnInitialGuildRosterScan", self.Blizzard_OnInitialGuildRosterScan, self)
@@ -562,10 +599,13 @@ function GuildbookCalendarMixin:MonthChanged()
     for i, day in ipairs(self.monthView.dayTiles) do
         day:SetScript("OnMouseDown", nil)
         day:ClearHolidayTextures()
-
+        day:HideEventButtons()
+        day.backgroundFade:Hide()
         day.currentDayTexture:Hide()
         day.events = {}
         day.worldEvents = {}
+
+        day.showMore:Hide()
 
         day:EnableMouse(false)
         day.dateLabel:SetText(' ')
@@ -603,6 +643,24 @@ function GuildbookCalendarMixin:MonthChanged()
             })
 
 
+            --instance resets
+            local instanceResets = C_Calendar.GetInstanceResets(0, thisMonthDay)
+            if #instanceResets > 0 then
+                day.backgroundFade:Show()
+
+                for k, v in ipairs(instanceResets) do
+                    table.insert(day.events, v)
+                end
+
+                for j = 1, 3 do
+                    if instanceResets[j] then
+                        day["event"..j].topLabel:SetText(instanceResets[j].name)
+                        day["event"..j].bottomLabel:SetText(RESET)
+                        day["event"..j]:Show()
+                    end
+                end
+            end
+
             --grab the events for the day and loop in reverse order, do this as it seems larger events (events spanning weeks not just a day) are indexed lower
             --so going reverse we add the small single day events first and use a low number for the subLayer
             for i = C_Calendar.GetNumDayEvents(0, thisMonthDay), 1, -1 do
@@ -614,13 +672,56 @@ function GuildbookCalendarMixin:MonthChanged()
                         day.holidayTextures[i]:SetAllPoints()
                         day.holidayTextures[i]:SetTexCoord(0.0, 0.71, 0.0, 0.71)
                     end
-                    day.holidayTextures[i]:SetDrawLayer("BORDER", subLayer)
+                    --day.holidayTextures[i]:SetDrawLayer("BORDER", subLayer)
+                    day.holidayTextures[i]:SetDrawLayer("BORDER", event.id)
                     day.holidayTextures[i]:SetTexture(event.texture)
                     day.holidayTextures[i]:Show()
 
                     table.insert(day.events, event)
                 end
                 subLayer = subLayer + 1;
+            end
+
+
+            table.sort(day.events, function(a, b)
+                return a.eventType < b.eventType
+            end)
+
+            if #day.events > 3 then
+                day.showMore:Show()
+
+                day.showMore:SetScript("OnClick", function()
+                    MenuUtil.CreateContextMenu(parent, function(parent, rootDescription)
+
+                        for _, event in ipairs(day.events) do
+
+                            local menuButton = rootDescription:CreateButton(event.name, function()
+
+                            end)
+
+                            -- if element.isTitle then
+                            --     menuButton = rootDescription:CreateTitle(element.text)
+                
+                            -- elseif element.isSeparater then
+                            --     menuButton = rootDescription:CreateSpacer()
+                
+                            -- elseif element.isDivider then
+                            --     menuButton = rootDescription:CreateDivider()
+                
+                            -- else
+                            --     menuButton = rootDescription:CreateButton(element.text, function() if element.func then element.func() end end)
+                            -- end
+
+                            -- if element.menuList then
+                            --     for _, subElement in ipairs(element.menuList) do
+                            --         menuButton:CreateButton(subElement.text, function() if subElement.func then subElement.func() end end)
+                            --     end
+                            -- end
+
+
+                        end
+                    end)
+                end)
             end
             
 --[[
