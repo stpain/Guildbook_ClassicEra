@@ -42,6 +42,9 @@ addon:GenerateCallbackEvents({
 
     "Calendar_OnDayItemAdded",
     "Calendar_OnMonthChanged",
+    "Calendar_OnCalendarEventCreated",
+    "Calendar_OnCalendarEventChanged",
+    "Calendar_OnCalendarEventDeleted",
     
     --"Blizzard_OnTradeskillUpdate",
     "Blizzard_OnGuildRosterUpdate",

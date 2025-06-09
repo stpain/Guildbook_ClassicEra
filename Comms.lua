@@ -20,16 +20,17 @@ local LibDeflate = LibStub:GetLibrary("LibDeflate")
 local LibSerialize = LibStub:GetLibrary("LibSerialize")
 local Database = addon.Database;
 local Character = addon.Character;
+local C_Calendar = addon.Calendar;
 
 local Comms = {
     prefix = "Guildbook", --name var was to long
     version = 1,
 
     --delay from transmit request to first dispatch attempt, this prevents spamming if a player opens/closes a panel that triggers a transmit
-    queueWaitingTime = 8.0,
+    queueWaitingTime = 4.0,
 
     --the time added to each message waiting in the queue, this limits how often a message can be dispatched
-    queueExtendTime = 4.0,
+    queueExtendTime = 2.0,
 
      --limiter effect for the dispatcher onUpdate func, limits the onUpdate to once per second
     dispatcherElapsedDelay = 1.0,
@@ -38,6 +39,10 @@ local Comms = {
     dispatcher = CreateFrame("FRAME"),
     dispatcherElapsed = 0,
     paused = false,
+
+    priorityEnums = {
+
+    },
 };
 
 
@@ -79,10 +84,10 @@ Comms.characterKeyToEventName = {
     --CurrentPaperdollStats = self.data.currentPaperdollStats or {},
 
 }
-Comms.messageEventToCharacterKey = {}
-for k, v in pairs(Comms.characterKeyToEventName) do
-    Comms.messageEventToCharacterKey[v] = k
-end
+-- Comms.messageEventToCharacterKey = {}
+-- for k, v in pairs(Comms.characterKeyToEventName) do
+--     Comms.messageEventToCharacterKey[v] = k
+-- end
 
 
 function Comms:Init()
@@ -149,11 +154,13 @@ function Comms.DispatcherOnUpdate(self, elapsed)
                 message.payload.version = Comms.version;
             end
 
+            local priority = message.payload.priority or "NORMAL"
+
             local serialized = LibSerialize:Serialize(message.payload);
             local compressed = LibDeflate:CompressDeflate(serialized);
             local encoded    = LibDeflate:EncodeForWoWAddonChannel(compressed);
 
-            Comms:SendCommMessage(Comms.prefix, encoded, message.channel, message.target, "NORMAL")
+            Comms:SendCommMessage(Comms.prefix, encoded, message.channel, message.target, priority)
             addon.LogDebugMessage("comms_out", string.format("sending message [|cffE7B007%s|r] on channel [%s]", message.event, message.channel))
 
             --set remaining messages to dispatch in 'n' second intervals
@@ -197,29 +204,29 @@ end
 ---if a message with the same type is queued more than once within a period of time (a waiting room if you like)
 ---the data of the message is kept and then sent after a timer.
 ---the timer delay is determined by the previous timer to keep messages spaced out
-function Comms:QueueMessage(event, message, channel, target)
+function Comms:QueueMessage(message, channel, target)
 
     local exists = false;
     for k, v in ipairs(self.queue) do
         --if (v.event == event) and (v.payload.method == message.payload.method) and (v.payload.subKey == message.payload.subKey) then
-        if (v.event == event) then
+        if (v.event == message.event) then
             exists = true;
             v.payload = message
-            addon.LogDebugMessage("comms", string.format("updated message payload for [|cffE7B007%s|r]", event))
+            addon.LogDebugMessage("comms", string.format("updated message payload for [|cffE7B007%s|r]", message.event))
         end
     end
 
-    local dispatchTime = time() + self.queueWaitingTime
     if exists == false then
+        local dispatchTime = time() + self.queueWaitingTime
         table.insert(self.queue, {
-            event = event,
+            event = message.event,
             payload = message,
             channel = channel,
             target = target,
             dispatchTime = dispatchTime;
         })
 
-        addon.LogDebugMessage("comms", string.format("queued [|cffE7B007%s|r] dispatch time %s", event, date("%T", dispatchTime)))
+        addon.LogDebugMessage("comms", string.format("queued [|cffE7B007%s|r] dispatch time %s", message.event, date("%T", dispatchTime)))
     end
 
     if self.dispatcher:GetScript("OnUpdate") == nil then
@@ -228,33 +235,25 @@ function Comms:QueueMessage(event, message, channel, target)
 end
 
 
-function Comms:TransmitToTarget(event, data, method, subKey, target)
+function Comms:TransmitToTarget(event, data, target)
     local msg = {
         event = event,
         version = Comms.version,
-        payload = {
-            method = method, --the character:method
-            subKey = subKey, --a subkey if used
-            data = data, --the value being sent
-        },
+        payload = data,
     }
-    Comms:QueueMessage(msg.event, msg, "WHISPER", target)
+    Comms:QueueMessage(msg, "WHISPER", target)
 end
 
-function Comms:TransmitToGuild(event, data, method, subKey, nameRealm)
+function Comms:TransmitToGuild(event, data)
     local msg = {
         event = event,
         version = Comms.version,
-        payload = {
-            method = method,
-            subKey = subKey,
-            data = data,
-            nameRealm = nameRealm,
-        },
+        payload = data,
     }
-    Comms:QueueMessage(msg.event, msg, "GUILD", nil)
+    Comms:QueueMessage(msg, "GUILD", nil)
 end
-function Comms:TransmitToGuild_New(nameRealm, method, key, subKey, data)
+
+function Comms:TransmitCharacterDataChanged(nameRealm, method, key, subKey, data)
     local msg = {
         event = self.characterKeyToEventName[key],
         version = Comms.version,
@@ -266,7 +265,7 @@ function Comms:TransmitToGuild_New(nameRealm, method, key, subKey, data)
             nameRealm = nameRealm,
         },
     }
-    Comms:QueueMessage(msg.event, msg, "GUILD", nil)
+    Comms:QueueMessage(msg, "GUILD", nil)
 end
 
 function Comms:Character_BroadcastNewsEvent(news)
@@ -306,17 +305,22 @@ function Comms:OnCommReceived(prefix, message, distribution, sender)
         return;
     end
 
-    --print(sender, data.version)
-    if data.version and tonumber(data.version) then
+    local version = tonumber(data.version);
 
-        if (tonumber(data.version) >= self.version) then
+    --print(sender, data.version)
+    if type(version) == "number" then
+
+        if version >= self.version then
+
+            --check the event key of the data
+            --if we have a function for it then call it
             if Comms.events[data.event] then
                 addon:TriggerEvent("StatusText_OnChanged", string.format("received [|cffE7B007%s|r] from %s", data.event, sender))
                 Comms.events[data.event](Comms, sender, data)
-                --addon.LogDebugMessage("comms_in", string.format("[|cffE7B007%s|r] data incoming from %s", data.event, sender), data)
             end
         else
-            --DevTools_Dump(data)
+            
+            --inform user of an update?
         end
 
     end
@@ -327,24 +331,9 @@ function Comms:Character_OnDataReceived(sender, message)
 
     addon.LogDebugMessage("comms_in", string.format("[|cffE7B007%s|r] data incoming from %s for character > %s", message.event, sender, message.payload.nameRealm))
 
-    -- local nameRealm;
-    -- if message.payload.nameRealm and message.payload.nameRealm:find("Player-") then
-    --     nameRealm = message.payload.nameRealm
-    -- else
-    --     if not sender:find("-") then
-    --         local realm = GetNormalizedRealmName()
-    --         sender = string.format("%s-%s", sender, realm)
-    --     end
-    --     nameRealm = sender;
-    -- end
-
-    --[[
-        dont force a character, check if it exists, if nto try to make the object
-        if still nothing then escape
-    ]]
-
+    --check we have a character object for the name realm
     if not addon.characters[message.payload.nameRealm] then
-        addon.LogDebugMessage("comms_in", "no character found > creatign character table")
+        addon.LogDebugMessage("comms_in", "no character found > creating character table")
         if Database.db.characterDirectory[message.payload.nameRealm] then
             addon.characters[message.payload.nameRealm] = Character:CreateFromData(Database.db.characterDirectory[message.payload.nameRealm])
             addon.LogDebugMessage("comms_in", "character created")
@@ -359,15 +348,8 @@ function Comms:Character_OnDataReceived(sender, message)
     local character = addon.characters[message.payload.nameRealm]
 
 
-    -- if message.event == "TRADESKILL_TRANSMIT_PROF1" then
-    --     print("Dumping payload")
-    --     DevTools_Dump({message.payload})
-    -- end
-
     --the version check should prevent issues but worth checking for this
     if message.payload.key then
-
-
 
         --to improve the guild bank sync the container data is now shared on the GUILD channel as its better than looping 999 times and usign a WHISPER 
         --the goal here is to detect if this player should be able to view the data if not then exit
@@ -375,24 +357,35 @@ function Comms:Character_OnDataReceived(sender, message)
         if message.payload.key == "containers" then
 
             --to be setup
-            
 
         else
 
+            --the data will contain the characterObject method, check the function exists
             if character and character[message.payload.method] then
-                --print("calling method", message.payload.method)
+                
                 addon.LogDebugMessage("comms_in", string.format("payload.method = %s", message.payload.method))
+                
+                --if a subKey was sent (talents primary/secondary etc) then check it exists on the characterObject
                 if message.payload.subKey then
+
+                    if character.data[message.payload.key] and character.data[message.payload.key][message.payload.subKey] then
+                        character.data[message.payload.key][message.payload.subKey] = message.payload.data
+                    end
+
                     addon.LogDebugMessage("comms_in", string.format("using payload.subKey = %s", message.payload.subKey))
-                    -- print("using subKey value", message.payload.key, message.payload.subKey)
-                    -- DevTools_Dump({message.payload.data})
-                    character.data[message.payload.key][message.payload.subKey] = message.payload.data
+
                 else
+
+                    if message.payload.key then
+                        character.data[message.payload.key] = message.payload.data
+                    end
+
                     addon.LogDebugMessage("comms_in", string.format("using payload.key = %s", message.payload.key))
-                    -- print("using key value", message.payload.key)
-                    -- DevTools_Dump({message.payload.data})
-                    character.data[message.payload.key] = message.payload.data
                 end
+
+                --because we set the data directly through table keys and not the object methods
+                --the object wont trigger a data change event
+                -- so we need to manually trigger it
                 addon:TriggerEvent("Character_OnDataChanged", character)
             end
         end
@@ -433,8 +426,7 @@ function Comms:Character_BroadcastChange(character, ...)
             if method == "SetTradeskill" then
                 --print("setting tradeskill", key, data)
             end
-            --self:TransmitToGuild(self.characterKeyToEventName[key], data, method, subKey, character.data.name)
-            self:TransmitToGuild_New(character.data.name, method, key, subKey, data)
+            self:TransmitCharacterDataChanged(character.data.name, method, key, subKey, data)
             Database:SetCharacterSyncData(key, time())
             addon.LogDebugMessage("comms", string.format("Character_OnDataChanged > %s has changed, sending to comms queue", key))
         else
@@ -510,13 +502,6 @@ function Comms:Guildbank_DataRequest(target, bank)
     self:Transmit_NoQueue(msg, "WHISPER", target)
 end
 
-function Comms:TransmitContainerDataToGuild()
-
-end
-
-function Comms:OnContainerDataReceived()
-
-end
 
 function Comms:Guildbank_OnDataRequested(sender, message)
 
@@ -666,6 +651,222 @@ end
 --     addon:TriggerEvent("Character_OnNewsEvent", message.payload, sender)
 -- end
 
+
+local function encodeMessage(msg)
+    local serialized = LibSerialize:Serialize(msg);
+    local compressed = LibDeflate:CompressDeflate(serialized);
+    local encoded    = LibDeflate:EncodeForWoWAddonChannel(compressed); 
+    return encoded;
+end
+
+
+
+--[[
+    EVENT CREATED
+]]
+function Comms:TransmitCalendarEvent_Created(calendarEvent)
+    local msg = {
+        event = "CALENDAR_EVENT_CREATED",
+        version = Comms.version,
+        payload = calendarEvent
+    }
+    --the Comms queue system has a slight flaw if we try to use it for calendar events
+    --the queue checks for the message event string and updates the data if another mesage of that event is queued
+    --if this player creates and event, he message is queued, then they make another event, the first message is updated with the new data
+
+    --[[
+        TODO: consider if a new queue needs to be created for calendar events or if they are ok to just send without delay
+        the no delay option does mean potentially better sync for guild members calendars
+    ]]
+    
+    self:SendCommMessage(Comms.prefix, encodeMessage(msg), "GUILD", nil, "NORMAL")
+end
+
+function Comms:OnCalendarEventCreated(sender, message)
+
+    --DevTools_Dump(message)
+
+    if type(message) == "table" then
+
+        --this will just do nothing if the calendar event already exists
+        --the Database will check for this events ID and return out if it exists
+        --print("Comms.OnCalendarEventCreated", message.payload.id)
+        C_Calendar.CalendarEventCreate(message.payload)
+    end
+end
+
+--[[
+    EVENT DELETED
+]]
+function Comms:TransmitCalendarEvent_Deleted(calendarEventID)
+    local msg = {
+        event = "CALENDAR_EVENT_DELETED",
+        version = Comms.version,
+        payload = calendarEventID
+    }
+
+    self:SendCommMessage(Comms.prefix, encodeMessage(msg), "GUILD", nil, "NORMAL")
+end
+
+function Comms:OnCalendarEventDeleted(sender, message)
+
+    --DevTools_Dump(message)
+    
+    if type(message) == "table" then
+
+        --print("Comms.OnCalendarEventDeleted", message.payload)
+        C_Calendar.DeleteCalendarEventID(message.payload)
+    end
+end
+
+--[[
+    ATTENDING CHANGED
+]]
+function Comms:TransmitCalendarEvent_AttendingChanged(eventID, nameRealm, statusInfo)
+    local msg = {
+        event = "CALENDAR_EVENT_ATTENDING_CHANGED",
+        version = Comms.version,
+        payload = {
+            id = eventID,
+            nameRealm = nameRealm,
+            statusInfo = statusInfo, --this is a table with the status info
+        }
+    }
+    self:SendCommMessage(Comms.prefix, encodeMessage(msg), "GUILD", nil, "NORMAL")
+end
+
+function Comms:OnCalendarEventAttendingChange(sender, message)
+
+    --print("Comms.OnCalendarEventAttendingChange", sender)
+
+    if type(message) == "table" then
+        local success = C_Calendar.OnCalendarEventAttendingChanged(message.payload);
+
+        --if we didnt have this event, we couldn't update it so request it
+        if success == false then
+            self:TransmitCalendarEvent_DataRequest(sender, message.payload.id)
+        end
+    end
+end
+
+--[[
+    EVENT CHANGED
+]]
+function Comms:TransmitCalendarEvent_Changed(eventInfo)
+    local msg = {
+        event = "CALENDAR_EVENT_CHANGED",
+        version = Comms.version,
+        payload = eventInfo,
+    }
+    self:SendCommMessage(Comms.prefix, encodeMessage(msg), "GUILD", nil, "NORMAL")
+end
+
+--this is when the event owner changes the title desc or time
+function Comms:OnCalendarEventChanged(sender, message)
+    if type(message) == "table" then
+        local success = C_Calendar.OnCalendarEventChanged(message.payload);
+
+        --if we didnt have this event, we couldn't update it so request it
+        if success == false then
+            self:TransmitCalendarEvent_DataRequest(sender, message.payload.id)
+        end
+    end
+end
+
+
+--[[
+    REQUEST EVENT DATA
+]]
+function Comms:TransmitCalendarEvent_DataRequest(sender, eventID)
+    local msg = {
+        event = "CALENDAR_REQUEST_EVENT_DATA",
+        version = Comms.version,
+        payload = eventID,
+    }
+    if sender == "GUILD" then
+        self:SendCommMessage(Comms.prefix, encodeMessage(msg), "GUILD", nil, "NORMAL")
+    else
+        self:SendCommMessage(Comms.prefix, encodeMessage(msg), "WHISPER", sender, "NORMAL")
+    end
+end
+
+--transmit data using the eventID
+function Comms:OnCalendarEventRequestData(sender, message)
+    --the sender didnt have the event so we need to send it to them
+    if type(message) == "table" then
+        if addon.calendarEvents and addon.calendarEvents[message.payload] then
+            local msg = {
+                event = "CALENDAR_EVENT_DATA_FULL",
+                version = Comms.version,
+                payload = addon.calendarEvents[message.payload]:GetData(), --GetData() return the obj.data which is a full event data table
+            }
+            self:SendCommMessage(Comms.prefix, encodeMessage(msg), "WHISPER", sender, "NORMAL")
+        end
+    end
+end
+
+function Comms:OnCalendarEventDataReceived(sender, message)
+    if type(message) == "table" then
+        C_Calendar.OnCalendarEventDataReceived(sender, message.payload)
+    end
+end
+
+
+--[[
+    REQUEST ALL EVENTS
+]]
+function Comms:RequestCalendarEvents()
+    local msg = {
+        --event = "CALENDAR_VERSION_REQUEST",
+        event = "CALENDAR_DATA_REQUEST",
+        version = Comms.version,
+    }
+    self:QueueMessage(msg, "GUILD")
+end
+
+
+--somebody wants event data so send it to them
+function Comms:OnCalendarEventsRequested(sender, message)
+
+    local calendarEvents = C_Calendar.GetCalendarEvents()
+    if (#calendarEvents > 0) then
+        -- local msg = {
+        --     --event = "CALENDAR_VERSION_DATA",
+        --     event = "CALENDAR_EVENT_DATA",
+        --     version = Comms.version,
+        --     payload = calendarEventVersions,
+        -- }
+        -- self:SendCommMessage(Comms.prefix, encodeMessage(msg), "WHISPER", sender, "NORMAL")
+
+        local index = 1
+        C_Timer.NewTicker(4.0, function()
+
+            --print("sending event data", index, #calendarEvents)
+        
+            if calendarEvents[index] then
+                local msg = {
+                    event = "CALENDAR_EVENT_DATA_FULL", -- this falls through to Comms:OnCalendarEventDataReceived(sender, message)
+                    version = Comms.version,
+                    payload = calendarEvents[index]:GetData(),
+                }
+                self:SendCommMessage(Comms.prefix, encodeMessage(msg), "WHISPER", sender, "NORMAL")
+            end
+
+            index = index + 1;
+        end, #calendarEvents)
+    end
+end
+
+--incoming event version data, send it to the C_Calendar to process
+-- function Comms:OnCalendarVersionsReceived(sender, message)
+--     if type(message) == "table" then
+--         C_Calendar.OnCalendarVersionsReceived(sender, message.payload)
+--     end
+-- end
+
+
+
+
 --when a comms is received check the event type and pass to the relavent function
 Comms.events = {
 
@@ -701,12 +902,16 @@ Comms.events = {
     ALTS_TRANSMIT = Comms.Character_OnDataReceived,
     MAIN_CHARACTER_TRANSMIT = Comms.Character_OnDataReceived,
 
-
-    --[[
-        redundant features as of cata
-    ]]
     --calendar events
-    --CALENDAR_EVENT_TRANSMIT = "",
+    CALENDAR_DATA_REQUEST = Comms.OnCalendarEventsRequested,
+    --CALENDAR_VERSION_DATA = Comms.OnCalendarVersionsReceived,
+    CALENDAR_EVENT_CHANGED = Comms.OnCalendarEventChanged,
+    CALENDAR_EVENT_CREATED = Comms.OnCalendarEventCreated,
+    CALENDAR_EVENT_DATA_FULL = Comms.OnCalendarEventDataReceived,
+    CALENDAR_EVENT_DELETED = Comms.OnCalendarEventDeleted,
+    CALENDAR_EVENT_ATTENDING_CHANGED = Comms.OnCalendarEventAttendingChange,
+    CALENDAR_REQUEST_EVENT_DATA = Comms.OnCalendarEventRequestData,
+ 
 
     --guild bank events
     GUILDBANK_TIMESTAMPS_REQUEST = Comms.Guildbank_OnTimestampsRequested,

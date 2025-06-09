@@ -178,7 +178,7 @@ end
 function GuildbookMixin:OnLoad()
     
     self:RegisterForDrag("LeftButton")
-    self.resize:Init(self, 1000, 620, 1400, 820)
+    self.resize:Init(self, 1000, 640, 1400, 820)
 
     self.resize:HookScript("OnMouseDown", function()
         self.isRefreshEnabled = true;

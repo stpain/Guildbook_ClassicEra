@@ -126,10 +126,12 @@ function e:QUEST_ACCEPTED(...)
 end
 
 function e:PLAYER_REGEN_DISABLED()
+    addon.regenDisabled = true;
     addon:TriggerEvent("Player_Regen_Disabled")
 end
 
 function e:PLAYER_REGEN_ENABLED()
+    addon.regenDisabled = false;
     addon:TriggerEvent("Player_Regen_Enabled")
 end
 
@@ -614,8 +616,88 @@ local classFileNameToClassId = {
     DEMONHUNTER = 12,
     EVOKER = 13,
 }
+
+
+local function ProcessGuildMemberbyIndex(index)
+    local name, rankName, rankIndex, level, _, zone, publicNote, officerNote, isOnline, status, class, _, _, _, _, _, guid = GetGuildRosterInfo(index)
+    if not Database.db.characterDirectory[name] then
+        local character = {
+            guid = guid,
+            name = name,
+            class = classFileNameToClassId[class],
+            gender = false,
+            level = level,
+            race = false,
+            rank = rankIndex,
+            onlineStatus = {
+                isOnline = isOnline,
+                zone = zone,
+            },
+            alts = {},
+            mainCharacter = false,
+            publicNote = publicNote,
+            mainSpec = false,
+            offSpec = false,
+            mainSpecIsPvP = false,
+            offSpecIsPvP = false,
+            profile = {},
+            profession1 = "-",
+            profession1Level = 0,
+            profession1Spec = false,
+            profession1Recipes = {},
+            profession2 = "-",
+            profession2Level = 0,
+            profession2Spec = false,
+            profession2Recipes = {},
+            cookingLevel = 0,
+            cookingRecipes = {},
+            fishingLevel = 0,
+            firstAidLevel = 0,
+            firstAidRecipes = {},
+            talents = {},
+            glyphs = {},
+            inventory = {
+                current = {},
+            },
+            paperDollStats = {
+                current = {},
+            },
+            resistances = {
+                current = {},
+            },
+            auras = {
+                current = {},
+            },
+            containers = {},
+            lockouts = {},
+            tradeskillCooldowns = {},
+            achievementPoints = 0,
+        }
+        Database:InsertCharacter(character)
+        
+    end
+
+    if addon.characters[name] == nil then
+        addon.characters[name] = Character:CreateFromData(Database.db.characterDirectory[name])
+    end
+
+    addon.characters[name].data.onlineStatus = {
+        isOnline = isOnline,
+        zone = zone,
+    }
+    addon.characters[name].data.level = level
+    addon.characters[name].data.rank = rankIndex
+    addon.characters[name].data.publicNote = publicNote
+end
+
+
 addon.initialGuildRosterScanned = false
 function e:GUILD_ROSTER_UPDATE()
+
+    -- just get out if in combat
+    if addon.regenDisabled == true then
+        return
+    end
 
     if not Database then
         return
@@ -642,26 +724,15 @@ function e:GUILD_ROSTER_UPDATE()
             }
         end
 
-        local isNew = false;
         if not Database.db.guilds[guildName] then
             Database.db.guilds[guildName] = {
                 members = {},
-                -- calendar = {
-                --     activeEvents = {},
-                --     deletedEvents = {},
-                -- },
-                -- banks = {},
-                -- bankRules = {},
                 logs = {
                     general = {},
-                    --members = {}, --use this for people joining/leaving the guild
-                    --promotions = {}, --use this for members being promoted/demoted
-                    --guildbank = {}, --use this for guild bank withdraw etc
                 },
                 info = {},
                 achievements = {},
             }
-            isNew = true;
         end
         if not addon.guilds[guildName] then
             addon.guilds[guildName] = Database.db.guilds[guildName]
@@ -672,121 +743,15 @@ function e:GUILD_ROSTER_UPDATE()
         for i = 1, totalMembers do
             --local name, rankName, rankIndex, level, classDisplayName, zone, publicNote, officerNote, isOnline, status, class, achievementPoints, achievementRank, isMobile, canSoR, repStanding, guid = GetGuildRosterInfo(i)
             local name, rankName, rankIndex, level, _, zone, publicNote, officerNote, isOnline, status, class, _, _, _, _, _, guid = GetGuildRosterInfo(i)
-       
-            --[[
-                there is no need to keep this data running 
-            ]]
-            -- if publicNote:lower():find("guildbank") then
-
-            --     --add the bank character if not exists
-            --     if not addon.guilds[guildName].banks[name] then
-            --         addon.guilds[guildName].banks[name] = 0;
-            --         addon.guilds[guildName].bankRules[name] = {
-            --             shareBanks = false,
-            --             shareBags = false,
-            --             shareRank = 0,
-            --             shareCopper = false,
-            --         }
-            --     end
-            -- else
-
-            --     --remove bank if no longer set
-            --     if Database.db.guilds[guildName].banks[name] then
-            --         Database.db.guilds[guildName].banks[name] = nil
-            --     end
-            -- end
+            ProcessGuildMemberbyIndex(i)
 
             members[name] = true;
-
-            --the easiest way to do this is just access the saved variables rather than add calls just to be fancy
-            if not Database.db.characterDirectory[name] then
-                local character = {
-                    guid = guid,
-                    name = name,
-                    class = classFileNameToClassId[class],
-                    gender = false,
-                    level = level,
-                    race = false,
-                    rank = rankIndex,
-                    onlineStatus = {
-                        isOnline = isOnline,
-                        zone = zone,
-                    },
-                    alts = {},
-                    mainCharacter = false,
-                    publicNote = publicNote,
-                    mainSpec = false,
-                    offSpec = false,
-                    mainSpecIsPvP = false,
-                    offSpecIsPvP = false,
-                    profile = {},
-                    profession1 = "-",
-                    profession1Level = 0,
-                    profession1Spec = false,
-                    profession1Recipes = {},
-                    profession2 = "-",
-                    profession2Level = 0,
-                    profession2Spec = false,
-                    profession2Recipes = {},
-                    cookingLevel = 0,
-                    cookingRecipes = {},
-                    fishingLevel = 0,
-                    firstAidLevel = 0,
-                    firstAidRecipes = {},
-                    talents = {},
-                    glyphs = {},
-                    inventory = {
-                        current = {},
-                    },
-                    paperDollStats = {
-                        current = {},
-                    },
-                    resistances = {
-                        current = {},
-                    },
-                    auras = {
-                        current = {},
-                    },
-                    containers = {},
-                    lockouts = {},
-                    tradeskillCooldowns = {},
-                    achievementPoints = 0,
-                }
-                Database:InsertCharacter(character)
-                
-            end
-
-            if not addon.characters[name] then
-                addon.characters[name] = Character:CreateFromData(Database.db.characterDirectory[name])
-            end
-
-            addon.characters[name].data.onlineStatus = {
-                isOnline = isOnline,
-                zone = zone,
-            }
-            addon.characters[name].data.level = level
-            addon.characters[name].data.rank = rankIndex
-            addon.characters[name].data.publicNote = publicNote
-            
+           
             if i == totalMembers then
 
                 addon.guilds[guildName].members = members;
 
-                if isNew == true then
-                    local now = time();
-                    table.insert(addon.guilds[guildName].logs.general, {
-                        timestamp = now,
-                        message = string.format("%s created", guildName)
-                    })
-                    -- for name, _ in pairs(members) do
-                    --     table.insert(addon.guilds[guildName].logs.members, {
-                    --         timestamp = now,
-                    --         message = string.format("%s joined the guild", name)
-                    --     })
-                    -- end
-                end
-
-                --? cannot remember why i did this...
+                -- remove any chracters that have got into the table but are not in this guild
                 local objsRemoved = false;
                 for name, obj in pairs(addon.characters) do
                     if not members[obj.data.name] then

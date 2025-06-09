@@ -85,6 +85,7 @@
         </Scripts>
     </Frame>
 
+
     <Frame name="GuildbookCalendar" mixin="GuildbookCalendarMixin">
         <Size x="810" y="400"/>
         <Anchors>
@@ -186,6 +187,133 @@
         <Scripts>
             <OnLoad method="OnLoad"/>
             <OnShow method="OnShow"/>
+        </Scripts>
+    </Frame>
+
+
+    <Frame name="GuildbookCalendarEventAttendingListItemTemplate" mixin="GuildbookCalendarEventAttendingListItemMixin" virtual="true">
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="name" inherits="GameFontNormalSmall" justifyH="LEFT" text="Player Name">
+                    <Anchors>
+                        <Anchor point="LEFT" x="5" y="0"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="status" inherits="GameFontNormalSmall" justifyH="RIGHT" text="Status">
+                    <Anchors>
+                        <Anchor point="RIGHT" x="-5" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+
+
+    <Frame name="GuildbookCalendarEventFrame" parent="GuildbookCalendar" enableMouse="true" frameStrata="DIALOG" useParentLevel="true" mixin="GuildbookCalendarEventFrameMixin" hidden="true">
+        <Size x="310" y="540"/>
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <Layers>
+
+        </Layers>
+        <Frames>
+            <Button parentKey="close" inherits="UIPanelCloseButton">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="1" y="-3"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        HideUIPanel(self:GetParent())
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <EditBox parentKey="title" inherits="TBDInputBoxTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="25" y="-30"/>
+                </Anchors>
+            </EditBox>
+            <ScrollFrame parentKey="description" inherits="InputScrollFrameTemplate">
+                <Size x="260" y="60"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.title" relativePoint="BOTTOMLEFT" x="0" y="-32"/>
+                </Anchors>
+            </ScrollFrame>
+            <Button parentKey="datePicker" inherits="UIPanelButtonTemplate">
+                <Size x="170" y="22"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.description" relativePoint="BOTTOMLEFT" x="-3" y="-30"/>
+                </Anchors>
+            </Button>
+            <Frame parentKey="attendingList" inherits="TBDListviewTemplate, ">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.datePicker" relativePoint="BOTTOMLEFT" x="-3" y="-130"/>
+                    <Anchor point="BOTTOM" x="0" y="50"/>
+                </Anchors>
+                <Size x="270"/>
+                <KeyValues>
+                    <KeyValue key="itemTemplate" value="GuildbookCalendarEventAttendingListItemTemplate" type="string"/> <!--consider a specific template for this-->
+                    <KeyValue key="elementHeight" value="18" type="number"/>
+                    <KeyValue key="enableSelection" value="false" type="boolean"/>
+                </KeyValues>
+            </Frame>
+            <Button parentKey="statusDropdown" inherits="UIPanelButtonTemplate" text="Status">
+                <Size x="70" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent.attendingList" relativePoint="TOPRIGHT" x="0" y="0"/>
+                </Anchors>
+            </Button>
+            <Button parentKey="createEvent" inherits="UIPanelButtonTemplate" text="Create Event">
+                <Size x="130" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" x="20" y="20"/>
+                </Anchors>
+            </Button>
+            <Button parentKey="deleteEvent" inherits="UIPanelButtonTemplate" text="Delete Event">
+                <Size x="130" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="-20" y="20"/>
+                </Anchors>
+            </Button>
+        </Frames>
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="titleLabel" inherits="GameFontnormalSmall" justifyH="LEFT" text="Title">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.title" relativePoint="TOPLEFT" x="3" y="1"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="descLabel" inherits="GameFontnormalSmall" justifyH="LEFT" text="Description">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.description" relativePoint="TOPLEFT" x="3" y="8"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="dateLabel" inherits="GameFontnormalSmall" justifyH="LEFT" text="Date">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.datePicker" relativePoint="TOPLEFT" x="6" y="2"/>
+                    </Anchors>
+                </FontString>
+                <Texture atlas="ChallengeMode-ThinDivider" useAtlasSize="false">
+                    <Size x="280" y="2"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.datePicker" relativePoint="BOTTOMLEFT" x="-5" y="-16"/>
+                    </Anchors>
+                </Texture>
+                <FontString parentKey="attendingLabel" inherits="GameFontnormalSmall" justifyH="LEFT" text="Attending">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.attendingList" relativePoint="TOPLEFT" x="6" y="2"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="classCounts" inherits="GameFontNormalLarge" justifyH="LEFT" text="Attending">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.attendingLabel" relativePoint="TOPLEFT" x="-2" y="16"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
         </Scripts>
     </Frame>
 </Ui>

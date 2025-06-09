@@ -1,6 +1,49 @@
 local name, addon = ...;
 
 local L = {}
+local Database = addon.Database;
+local CalendarEvent = addon.CalendarEvent;
+local Comms;
+
+--[[[
+    TODO:
+        This file has a lot of random local data, it should have a sort and tidy into a proper C_Calendar namespace
+]]
+
+local worldHolidayTextures = {
+    midsummer = { start = 235474, ongoing = 235473, ends = 235472 },
+    hallowsend = { start = 235462, ongoing = 235461, ends = 235460,},
+}
+
+local worldHolidayDurations = {
+    midsummer = 14,
+    hallowsend = 14,
+}
+
+local worldHolidayEvents = {
+    [2025] = {
+        [1] = {},
+        [2] = {},
+        [3] = {},
+        [4] = {},
+        [5] = {},
+        [6] = {
+            [21] = {
+                { id = "midsummer", name = "MidSummer Fire Festival",}
+            }
+        },
+        [7] = {},
+        [8] = {},
+        [9] = {},
+        [10] = {
+            [17] = {
+                { id = "hallowsend", name = "Hallows End",}
+            }
+        },
+        [11] = {},
+        [12] = {},
+    }
+}
 
 
 local darkmoonFaireTextures = {
@@ -14,6 +57,11 @@ local darkmoonFaireTextures = {
 		['OnGoing'] = 235450,
 		['End'] = 235449,
 	},
+	['TerokkarForest'] = {
+		['Start'] = 235451,
+		['OnGoing'] = 235450,
+		['End'] = 235449,
+	},
 }
 
 local darkmoonFaireSchedule = {
@@ -22,26 +70,29 @@ local darkmoonFaireSchedule = {
     [3] = "Terokkar Forest",
 }
 
-local worldEventStartDates = {
-    MidSummerFireFestival = {21,6},
-    HallowsEnd = {25, 10}
-}
-
 local battlegroundSchedule = {
     [1] = "Alterac Valley",
     [2] = "Warsong Gulch",
     [3] = "Arathi Basin",
 }
+
+if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    battlegroundSchedule[4] = "Eye of the Storm" --name check this
+end
+
+--this is used to get the name of the event
+--the pvp battlegrounds use their schedule index values
 local worldEventIDs = {
     [0] = "Darkmoon Faire",
     [1] = "Alterac Valley",
     [2] = "Warsong Gulch",
     [3] = "Arathi Basin",
+    [4] = "Eye of the Storm",
     [5] = "Fishing Extravaganza"
 }
 
 
-local raidInstanceData = {
+local raidKeyToName = {
     moltencore = { name = "Molten Core", },
     blackwinglair = { name = "Blackwing lair", },
     onyxia = { name = "Onyxia", },
@@ -83,10 +134,27 @@ local raidResetDurations = {
 local raidResetFixedDates = {
     era = {
         na = {
-            
+            --[[
+                these are the weekly reset raids (dst=false)
+
+                i used 09:30 for NA as its a large place and tbh its only really the days that matter?
+            ]]
+            moltencore = 1748943000, --june 3rd 09:30
+            blackwinglair = 1748943000, --june 3rd 09:30
+            --onyxia = 1748419200, --may 28th 2025 8am
+            templeofahnqiraj = 1748943000, --june 3rd 09:30
+            naxxramas = 1748943000, --june 3rd 09:30
+
+            --5 days
+            onyxia = 1748856600, --june 2rd 09:30
+
+            --[[
+                these are the 3 day reset raids
+            ]]
+            zulgurub = 1749029400, --june 4rd 09:30
+            ruinsofahnqiraj = 1749029400, --june 4rd 09:30
         },
         eu = {
-
             --[[
                 these are the weekly reset raids (dst=false)
             ]]
@@ -96,7 +164,8 @@ local raidResetFixedDates = {
             templeofahnqiraj = 1748419200, --may 28th 2025 8am
             naxxramas = 1748419200, --may 28th 2025 8am
 
-            onyxia = 1748332800, --may 27th 2025 8am
+            --5 days
+            onyxia = 1748332800, --may 27th 2025 8am (5 day reset)
 
             --[[
                 these are the 3 day reset raids
@@ -109,6 +178,7 @@ local raidResetFixedDates = {
         na = {
 
         },
+
         eu = {
 
         },
@@ -145,6 +215,19 @@ local eventDayIDs = {
     worldevent = 3,
     dmf = 2,
     fishing = 4,
+    midsummer = 5,
+}
+
+local drawLayers = {
+    battleground = 1,
+    worldevent = 2,
+    dmf = 7,
+    fishing = 6,
+    midsummer = 3,
+    lunar = 3,
+    winterveil = 3,
+    brewfest = 3,
+    hallowsend = 3,
 }
 
 local function GetActualRegion()
@@ -157,14 +240,302 @@ local function IsDaylightSaving(_time)
     return d.isdst
 end
 
-local function CreateTimeForDate(year, month, day, hour, min)
-    local d = date("*t", time())
-    d.year = year
-    d.month = month
-    d.hour = hour or 0
-    d.min = min or 0
-    return time(d)
+local function CreateTimeForDate(year, month, day, hour, min, sec)
+    return time({year = year, month = month, day = day, hour = hour, min = min, sec = sec})
 end
+
+
+
+
+
+
+
+--[[
+=====================================
+Calendar Events
+
+Calendar events, some goals for this
+1. provide guilds with an in game calendar
+2. ensure the sync between guild members is as best as possible
+3. make sure in game addon chat comms are kept minimal
+
+
+2025-06-8:
+The current strategy is to create the following,
+-player logs in to game world
+-> sends a request for event versions
+-> when versions are received, check the following
+--> event exists but version is newer > request data from sender
+--> event exists but version is older > send data to sender
+--> event does not exist > request data from sender
+
+when an event is created it is sent to online guild members
+when an event attending update occurs, it is sent to online guild members
+when an event info is changed, it is sent to online guild members
+
+-a short delay will be set upon which the logged in player will loop events and request attending data
+-> this will involve a stagger effect so comms are not loaded
+-> on receiving data, update events attending as per statusInfo versions
+
+
+=======================================
+]]
+function C_Calendar.GetCalendarEventsBetween(startTime, duration)
+
+    local t = {}
+    local from = time(startTime)
+    local to = from + (duration * 24 * 60 * 60) -1 --minus 1 sec so its only 23:59:59
+    if addon.calendarEvents then
+        for k, event in pairs(addon.calendarEvents) do
+            if (event.data.scheduledTime >= from) and (event.data.scheduledTime <= to) then
+                table.insert(t, event)
+            end
+        end
+    end
+    return t;
+end
+
+function C_Calendar.DeleteCalendarEventID(eventID)
+
+    addon.calendarEvents[eventID] = nil;
+
+    --clear it from the saved variables as well - this also removes the version check
+    Database:DeleteCalendarEventID(eventID);
+    addon:TriggerEvent("Calendar_OnCalendarEventDeleted")
+
+    if Comms then
+        Comms:TransmitCalendarEvent_Deleted(eventID)
+    end
+
+end
+
+--incoming comms, causes a loop in comms if passed to the above function
+function C_Calendar.OnDeleteCalendarEventID(eventID)
+    addon.calendarEvents[eventID] = nil;
+    Database:DeleteCalendarEventID(eventID);
+    addon:TriggerEvent("Calendar_OnCalendarEventDeleted")
+end
+
+--this is called when the owner of the event changes the info
+--send the update to online guild members
+function C_Calendar.SetCalendarEventChanged(event)
+    if Comms then
+        Comms:TransmitCalendarEvent_Changed(event:GetEventInfo())
+    end
+end
+
+--this is incoming data of a event info update
+function C_Calendar.OnCalendarEventChanged(data)
+    --here we need to check if this data is newer or not
+    --DevTools_Dump(data)
+    if data.id and addon.calendarEvents then
+        if addon.calendarEvents[data.id] then
+            --event data needs to be checked for version control
+            --SetInfoUpdate will check the obj version and update if the data is newer
+            addon.calendarEvents[data.id]:SetInfoUpdate(data)
+        else
+            --we dont have thsi event so we need to ask for it ?
+            return false
+        end
+    end
+end
+
+--this is called when a player changes their event attending status
+function C_Calendar.SetCalendarEventAttendingChanged(eventID, nameRealm, statusInfo)
+    if Comms then
+        Comms:TransmitCalendarEvent_AttendingChanged(eventID, nameRealm, statusInfo)
+    end
+end
+
+function C_Calendar.OnCalendarEventAttendingChanged(data)
+
+    --DevTools_Dump(data)
+
+    if data.id and addon.calendarEvents then
+        if addon.calendarEvents[data.id] then
+            addon.calendarEvents[data.id]:SetPlayerAttending(data.nameRealm, data.statusInfo)
+        else
+            --we dont have thsi event so we need to ask for it ?
+            return false
+        end
+    end
+end
+
+--when a new guild event is created this will be called
+function C_Calendar.CalendarEventCreate(event, transmit)
+    --tell the db to store it
+    Database:InsertCalendarEvent(event)
+
+    --check we have an addon wide table for events (like we do characters)
+    if not addon.calendarEvents then
+        addon.calendarEvents = {}
+    end
+
+    --if this event isnt in the table then make a new obj for it
+    if not addon.calendarEvents[event.id] then
+        local newEvent = Database:GetCalendarEvent(event.id)
+        addon.calendarEvents[newEvent.id] = CalendarEvent:CreateFromData(newEvent)
+
+
+        --now that the new event has been created and saved 2 things need to happen
+        -- 1. we need to inform the guild about it, this means sendign the event data across the GUILD comms
+        -- 2. update this users UI, the data being sent will bounce back here and go through the logic of a new event being sent across the GUILD comms
+        --but this might take time depending on the Comms queue size.
+
+        --update this UI first, this user will get confirmation of the event being created successfully
+        addon:TriggerEvent("Calendar_OnCalendarEventCreated", addon.calendarEvents[newEvent.id])
+        if Comms and transmit then
+            Comms:TransmitCalendarEvent_Created(addon.calendarEvents[newEvent.id]:GetData())
+        end
+
+    else
+        --we might get data here for an event that exists but the incoming data is newer
+    end
+end
+
+--this is when a full event data is received
+function C_Calendar.OnCalendarEventDataReceived(sender, data)
+    
+    --if its a brand new event to us, create it
+    if addon.calendarEvents and (addon.calendarEvents[data.id] == nil) then
+        C_Calendar.CalendarEventCreate(data)
+        return
+    end
+
+    --if we have the event then lets check version and update as required
+    if addon.calendarEvents and addon.calendarEvents[data.id] then
+
+        --check the event info, this checks for a lastUpdate
+        addon.calendarEvents[data.id]:SetInfoUpdate(data)
+
+        if type(data.attending) == "table" and (next(data.attending) ~= nil) then
+            for nameRealm, statusInfo in pairs(data.attending) do
+
+                --this will handle the version for each attendee
+                addon.calendarEvents[data.id]:SetPlayerAttending(nameRealm, statusInfo)
+            end
+        end
+    end
+end
+
+
+--this is the response we get after requesting version data
+--it needs to be handled and either events requested or sent as per version control
+--[[
+
+    NOTE - using version requests was removed in favour of just sending full event data in a staggered manner
+
+function C_Calendar.OnCalendarVersionsReceived(sender, data)
+
+    local myCalendarEventVersion = C_Calendar:GetCalendarEventVersions()
+    if next(myCalendarEventVersion) ~= nil then
+
+        for eventID, version in pairs(data) do
+            
+            --possible options
+            --1. we dont have the event > request it
+            --2. we have an older version > request it
+            --3. we have a newer version > send it
+
+
+            --options 1 and 2 will result in a full event data payload being sent to us and falling into
+            --function C_Calendar.OnCalendarEventDataReceived(sender, data)
+            --that function will create the event as a new event
+
+
+            --option 1:
+            if addon.calendarEvents[eventID] == nil then
+                
+                --we need to request this event
+                Comms:TransmitCalendarEvent_DataRequest(sender, eventID)
+                return;
+            end
+
+            --option 2:
+            if addon.calendarEvents[eventID] and (addon.calendarEvents[eventID].data.lastUpdate > version) then
+                
+                --request the newer data
+                Comms:TransmitCalendarEvent_DataRequest(sender, eventID)
+                return;
+            end
+
+            --option 3:
+            if addon.calendarEvents[eventID] and (addon.calendarEvents[eventID].data.lastUpdate < version) then
+
+                --we have newer data so lets tell the sender
+                --its probably better to just send the whole event data as the message will be compressed and hopefully consume very little comms traffic
+                --better than 40+ messages per attendee
+                Comms:OnCalendarEventRequestData(sender, {payload = eventID})
+                return;
+            end
+        end
+
+    end
+end
+]]
+
+function C_Calendar.GetCalendarEventVersions()
+    local t = {}
+    if addon.calendarEvents and next(addon.calendarEvents) ~= nil then
+        for eventID, event in pairs(addon.calendarEvents) do
+            t[eventID] = event.data.lastUpdate
+        end
+    end
+    return t;
+end
+
+function C_Calendar.GetCalendarEvents()
+    local today = date("*t", time())
+    today.hour = 0
+    today.min = 0
+    today.sec = 0
+    local events = C_Calendar.GetCalendarEventsBetween(today, 14) --restrict this to the next 14 days only
+    return events;
+end
+
+function C_Calendar.InitializeCalendarEvents()
+
+    local events = Database:GetCalendarEvents()
+
+    if not addon.calendarEvents then
+        addon.calendarEvents = {}
+    end
+
+    for eventID, eventData in pairs(events) do
+        if not addon.calendarEvents[eventID] then
+            addon.calendarEvents[eventID] = CalendarEvent:CreateFromData(eventData)
+        end
+    end
+
+end
+
+
+
+--[[
+
+    Some thoughts on guild events
+
+    You log in and request event version > GUILD channel
+    Everyone replies with their event lastUpdate values
+    You request per person in WHISPER if their lastUpdate is newer than yours
+    You tell the event to update itself
+    That covers the event info (title, desc, scheduledTime)
+
+    If you dont have this event data then request and or create an event
+    This should provide FULL event data including attending table
+
+    For attending data...?
+
+
+]]
+
+
+
+
+
+
+
+
 
 function C_Calendar.CheckDateTableExists(year, month, day)
     local tbls = {
@@ -242,6 +613,50 @@ function C_Calendar.GetDaysInMonth(month, year)
     return d
 end
 
+function C_Calendar.RegisterHolidayEvents(year, month)
+
+    month = month or C_Calendar.absDate.month
+    year = year or C_Calendar.absDate.year
+
+    if worldHolidayEvents[year] and worldHolidayEvents[year][month] then
+        for monthDay, holidays in pairs(worldHolidayEvents[year][month]) do
+            for _, holidayInfo in ipairs(holidays) do
+                if worldHolidayDurations[holidayInfo.id] > 1 then
+                    local holidayStartTime = CreateTimeForDate(year, month, monthDay, 0, 0, 0)
+
+                    C_Calendar.RegisterEvent(year, month, monthDay, {
+                        name = holidayInfo.name,
+                        id = holidayInfo.id,
+                        drawLayer = drawLayers[holidayInfo.id],
+                        eventType = 2,
+                        texture = worldHolidayTextures[holidayInfo.id].start,
+                    }, "holidayEvents")
+
+                    for i = 1, worldHolidayDurations[holidayInfo.id] - 1 do
+                        local dayDate = date("*t", holidayStartTime + (i * 24 * 60 * 60))
+                        C_Calendar.RegisterEvent(dayDate.year, dayDate.month, dayDate.day, {
+                            name = holidayInfo.name,
+                            id = holidayInfo.id,
+                            drawLayer = drawLayers[holidayInfo.id],
+                            eventType = 2,
+                            texture = worldHolidayTextures[holidayInfo.id].ongoing,
+                        }, "holidayEvents")
+                    end
+
+                    local holidayEndsDate = date("*t", holidayStartTime + (worldHolidayDurations[holidayInfo.id] * 24 * 60 * 60))
+                    C_Calendar.RegisterEvent(holidayEndsDate.year, holidayEndsDate.month, holidayEndsDate.day, {
+                        name = holidayInfo.name,
+                        id = holidayInfo.id,
+                        drawLayer = drawLayers[holidayInfo.id],
+                        eventType = 2,
+                        texture = worldHolidayTextures[holidayInfo.id].ends,
+                    }, "holidayEvents")
+                end
+            end
+        end
+    end
+end
+
 function C_Calendar.GetRaidResetsForMonth(year, month)
 
     --[[
@@ -289,7 +704,7 @@ function C_Calendar.GetRaidResetsForMonth(year, month)
 
             if (differenceToKnownReset / raidResetDurations[raidKey]) % 1 == 0 then
                 C_Calendar.RegisterEvent(year, month, dayIndex, {
-                    name = raidInstanceData[raidKey].name,
+                    name = raidKeyToName[raidKey].name,
                     id = string.format("raidreset-%s", raidKey),
                     eventType = 3,
                     texture = string.format("interface/encounterjournal/ui-ej-dungeonbutton-%s", raidKey),
@@ -347,6 +762,7 @@ function C_Calendar.GetBattlegroundsForMonth(month, year)
                         C_Calendar.RegisterEvent(year, month, day_date.day, {
                             name = worldEventIDs[battlegroundScheduleIndex],
                             id = eventDayIDs.battleground,
+                            drawLayer = drawLayers.battleground,
                             eventType = 4,
                             texture = 1129671,
                         }, "holidayEvents")
@@ -356,6 +772,7 @@ function C_Calendar.GetBattlegroundsForMonth(month, year)
                         C_Calendar.RegisterEvent(year, month, day_date.day, {
                             name = worldEventIDs[battlegroundScheduleIndex],
                             id = eventDayIDs.battleground,
+                            drawLayer = drawLayers.battleground,
                             eventType = 4,
                             texture = 1129669,
                         }, "holidayEvents")
@@ -365,6 +782,7 @@ function C_Calendar.GetBattlegroundsForMonth(month, year)
                         C_Calendar.RegisterEvent(year, month, day_date.day, {
                             name = worldEventIDs[battlegroundScheduleIndex],
                             id = eventDayIDs.battleground,
+                            drawLayer = drawLayers.battleground,
                             eventType = 4,
                             texture = 1129670,
                         }, "holidayEvents")
@@ -415,23 +833,26 @@ function C_Calendar.GetDarkmoonDataForMonth(month, year)
     C_Calendar.RegisterEvent(year, month, start_date.day, {
         name = worldEventIDs[0],
         id = eventDayIDs.dmf,
+        drawLayer = drawLayers.dmf,
         eventType = 2,
-        texture = (month % 2 == 0) and 235448 or 235451; --NOTE THIS WILL BREAK IN TBC DUE TO 3 LOCATIONS
+        texture = (month % 2 == 0) and 235451 or 235448; --NOTE THIS WILL BREAK IN TBC DUE TO 3 LOCATIONS
     }, "holidayEvents")
 
     C_Calendar.RegisterEvent(year, month, end_date.day, {
         name = worldEventIDs[0],
         id = eventDayIDs.dmf,
+        drawLayer = drawLayers.dmf,
         eventType = 2,
-        texture = (month % 2 == 0) and 235446 or 235449;
+        texture = (month % 2 == 0) and 235449 or 235446;
     }, "holidayEvents")
 
     for day = start_date.day + 1, end_date.day - 1, 1 do
         C_Calendar.RegisterEvent(year, month, day, {
             name = worldEventIDs[0],
             id = eventDayIDs.dmf,
+            drawLayer = drawLayers.dmf,
             eventType = 2,
-            texture = (month % 2 == 0) and 235447 or 235450,
+            texture = (month % 2 == 0) and 235450 or 235447,
         }, "holidayEvents")
     end
 
@@ -447,6 +868,7 @@ function C_Calendar.GetFishingEventForMonth(month, year)
             local event = {
                 name = worldEventIDs[5],
                 id = eventDayIDs.fishing,
+                drawLayer = drawLayers.fishing,
                 eventType = 2,
                 texture = 235458
             }
@@ -501,6 +923,7 @@ function C_Calendar.Calendar_OnMonthChanged()
     C_Calendar.GetBattlegroundsForMonth()
     C_Calendar.GetFishingEventForMonth()
     C_Calendar.GetRaidResetsForMonth()
+    C_Calendar.RegisterHolidayEvents()
 
 end
 
@@ -509,10 +932,15 @@ function C_Calendar:Init()
     self.absDate = now
     C_Calendar.SetAbsMonth(now.month, now.year)
 
+    Comms = addon.Comms;
+
+    C_Calendar.InitializeCalendarEvents()
+
     addon:RegisterCallback("Calendar_OnMonthChanged", self.Calendar_OnMonthChanged, self)
 
     if ViragDevTool_AddData then
-        ViragDevTool_AddData(addon.Calendar, "C_Calendar")
+        ViragDevTool_AddData(Database.db.calendar, "Database.db.calendar")
+        ViragDevTool_AddData(addon.calendarEvents, "addon.calendarEvents")
     end
 end
 

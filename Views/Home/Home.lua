@@ -276,6 +276,106 @@ function GuildbookHomeMixin:LoadData()
 
 end
 
+--[[
+function GuildbookCalendarMixin:UpdateLockouts()
+
+    local instances = {};
+
+    local t = {}
+    local sortTable = {}
+
+    if addon.characters then
+        for nameRealm, character in pairs(addon.characters) do
+            local lockouts = character:GetLockouts()
+            for k, v in ipairs(lockouts) do
+                local x = {}
+                x.player = nameRealm
+                for a, b in pairs(v) do
+                    x[a] = b;
+                end
+                table.insert(sortTable, x)
+            end
+        end
+    end
+
+    table.sort(sortTable, function(a, b)
+        if a.difficulty == b.difficulty then
+            if a.name == b.name then
+                return a.player < b.player
+            else
+                return a.name < b.name
+            end
+        else
+            return a.difficulty > b.difficulty;
+        end
+    end)
+
+    local inserted = {}
+    for k, lockout in ipairs(sortTable) do
+        if GetServerTime() < lockout.reset then
+
+            local instanceName = lockout.name:lower():gsub("[%c%p%s]", "")
+            local iconPath = "";
+            local iconCoords = {0,1,0,1}
+
+            local resetDate = date("*t", lockout.reset)
+
+            --not ideal but dungeons and raids have different artwork
+            if lockout.isRaid then
+                iconPath = string.format("Interface/encounterjournal/ui-ej-dungeonbutton-%s", instanceName)
+                iconCoords = {0.17578125, 0.49609375, 0.03125, 0.71875}         
+            else
+                iconPath = string.format("Interface/lfgframe/lfgicon-%s", instanceName)
+            end
+
+            local header = string.format("%s-%s", lockout.name, lockout.difficultyName)
+
+            if not inserted[header] then
+
+                table.insert(t, {
+                    label = string.format("%s\n|cffE5AC00%s|r", lockout.name, lockout.difficultyName),
+                    backgroundRGB = {r = 0.4, g = 0.4, b = 0.4,},
+                    backgroundAlpha = 0.4,
+                    icon = iconPath,
+                    iconCoords = iconCoords,
+                })
+                inserted[header] = true;
+            end
+
+            table.insert(t, {
+                label = string.format("%s\n|cffffffff%s|r", addon.characters[lockout.player]:GetName(true), date("%Y-%m-%d %H:%M:%S", lockout.reset)),
+                -- atlas = addon.characters[player]:GetProfileAvatar(),
+                -- showMask = true,
+                onMouseEnter = function(f)
+                    GameTooltip:SetOwner(f, "ANCHOR_RIGHT")
+                    GameTooltip:AddLine(name)
+                    for k, v in pairs(lockout) do
+                        GameTooltip:AddDoubleLine("|cffffffff"..k.."|r", tostring(v))
+                    end
+                    GameTooltip:Show()
+
+                    for i, day in ipairs(self.monthView.dayTiles) do
+                        if day.date and (day.date.month == resetDate.month) and (day.date.day == resetDate.day) then
+                            day.anim:Play()
+                        end
+                    end
+                end,
+                onMouseLeave = function()
+                    for i, day in ipairs(self.monthView.dayTiles) do
+                        day.anim:Stop()
+                    end
+                end
+            })
+
+        end
+    end
+
+
+    self.sidePanel.lockouts.scrollView:SetDataProvider(CreateDataProvider(t))
+end
+
+]]
+
 function GuildbookHomeMixin:LoadAgenda()
 
     self.agenda.listview.DataProvider:Flush()
@@ -312,29 +412,29 @@ function GuildbookHomeMixin:LoadAgenda()
     end
 
     --local today = date("*t", time())
-    local events = Database:GetCalendarEventsForPeriod(time(), 7)
+    -- local events = Database:GetCalendarEventsForPeriod(time(), 7)
 
-     for k, event in ipairs(events) do
-        if event.timestamp < (time() + 3600) then
-            table.insert(agenda, {
-                timestamp = event.timestamp,
-                displayText = string.format("%s|cff98DD1F%s\n|cffffffff%s", CreateAtlasMarkup("auctionhouse-icon-clock", 12, 12), date("%Y-%m-%d %H:%M:%S", event.timestamp), event.text),
-                --fontObject = GameFontNormalSmall,
-                onMouseDown = function()
-                    GuildbookUI:SelectView("Calendar")
-                end,
-            })
-        else
-            table.insert(agenda, {
-                timestamp = event.timestamp,
-                displayText = string.format("|cffFFC000%s\n|cffffffff%s", date("%Y-%m-%d %H:%M:%S", event.timestamp), event.text),
-                --fontObject = GameFontNormalSmall,
-                onMouseDown = function()
-                    GuildbookUI:SelectView("Calendar")
-                end,
-            })
-        end
-     end
+    -- for k, event in ipairs(events) do
+    --     if event.timestamp < (time() + 3600) then
+    --         table.insert(agenda, {
+    --             timestamp = event.timestamp,
+    --             displayText = string.format("%s|cff98DD1F%s\n|cffffffff%s", CreateAtlasMarkup("auctionhouse-icon-clock", 12, 12), date("%Y-%m-%d %H:%M:%S", event.timestamp), event.text),
+    --             --fontObject = GameFontNormalSmall,
+    --             onMouseDown = function()
+    --                 GuildbookUI:SelectView("Calendar")
+    --             end,
+    --         })
+    --     else
+    --         table.insert(agenda, {
+    --             timestamp = event.timestamp,
+    --             displayText = string.format("|cffFFC000%s\n|cffffffff%s", date("%Y-%m-%d %H:%M:%S", event.timestamp), event.text),
+    --             --fontObject = GameFontNormalSmall,
+    --             onMouseDown = function()
+    --                 GuildbookUI:SelectView("Calendar")
+    --             end,
+    --         })
+    --     end
+    -- end
 
     if addon.characters then
 

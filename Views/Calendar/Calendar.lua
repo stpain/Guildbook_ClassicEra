@@ -2,87 +2,12 @@ local name , addon = ...;
 
 local L = addon.Locales;
 local Database = addon.Database;
+local CalendarEvent = addon.CalendarEvent;
 local LibDeflate = LibStub:GetLibrary("LibDeflate")
 local LibSerialize = LibStub:GetLibrary("LibSerialize")
 
 local C_Calendar = addon.Calendar
 
-local Event = {}
-function Event:New(title, desc, type, starts)
-    if addon.thisCharacter then
-        local event = {
-            title = title,
-            icon = 134149,
-            desc = desc,
-            type = type,
-            starts = starts,
-            attendees = {},
-            owner = addon.thisCharacter,
-        }
-        return Mixin(event, self)
-    end
-end
-
-function Event:CreateFromString(str)
-
-        -- local serialized = LibSerialize:Serialize(census)
-        -- local compressed = LibDeflate:CompressDeflate(serialized)
-        -- local encoded = LibDeflate:EncodeForPrint(compressed)
-
-    local decoded = LibDeflate:DecodeForPrint(str)
-    if not decoded then
-        return;
-    end
-    local decompressed = LibDeflate:DecompressDeflate(decoded);
-    if not decompressed then
-        return;
-    end
-    local success, data = LibSerialize:Deserialize(decompressed);
-    if not success or type(data) ~= "table" then
-        return;
-    end
-
-    self:CreateFromData(data)
-
-end
-
-function Event:CreateFromData(data)
-    if data.title and data.icon and data.desc and data.type and data.starts and data.attendees and data.owner then
-        return Mixin({data = data}, self)
-    end
-end
-
-function Event:GetOwner()
-    return self.data.owner;
-end
-
-function Event:UpdateTitle(title)
-    self.data.title = title;
-end
-
-function Event:UpdateDescription(desc)
-    self.data.desc = desc;
-end
-
-function Event:UpdateStartTime(starts)
-    self.data.starts = starts;
-end
-
-function Event:UpdateType(type)
-    self.data.type = type;
-end
-
-function Event:UpdateAttendee(character, status)
-    self.data.group[character] = status;
-end
-
-
-
-
-local WorldEvent = {}
-function WorldEvent:CreateFromData(data)
-
-end
 
 local BACK_FADE_START, BLACK_FADE_END = CreateColor(0,0,0,1), CreateColor(0,0,0,0)
 
@@ -197,6 +122,7 @@ function GuildbookCalendarDayTileMixin:HideEventButtons()
     for i = 1, 3 do
         self["event"..i].topLabel:SetText("")
         self["event"..i].bottomLabel:SetText("")
+        self["event"..i]:SetScript("OnClick", nil)
         self["event"..i]:Hide()
     end
 end
@@ -262,46 +188,38 @@ function GuildbookCalendarMixin:UpdateCalendarEvents()
         day = 1,
         month = self.date.month,
         year = self.date.year,
+        hour = 0,
+        min = 0,
+        sec = 0,
     }
 
-    local to = {
-        day = daysInMonth,
-        month = self.date.month,
-        year = self.date.year,
-    }
 
-    local events = Database:GetCalendarEventsBetween(from, to)
+    local events = C_Calendar.GetCalendarEventsBetween(from, daysInMonth)
 
     table.sort(events, function(a, b)
-        return a.timestamp < b.timestamp
+        return a.data.scheduledTime < b.data.scheduledTime
     end)
 
     --DevTools_Dump(events)
 
     for k, v in ipairs(events) do
-        if type(v) == "table" then
-            local label = string.format("|cffE5AC00%s|r\n%s", date("%Y-%m-%d %H:%M:%S", v.timestamp), v.text)
-            local contextMenu = {
-                {
-                    text = DELETE,
-                    notCheckable = true,
-                    func = function ()
-                        Database:DeleteCalendarEvent(v)
-                    end
-                },
-        
-            }
-            -- table.insert(contextMenu, addon.contextMenuSeparator)
+        table.insert(t, {
+            label = string.format("|cffE5AC00%s|r\n%s", date("%Y-%m-%d", v.data.scheduledTime), v.data.title),
+            onMouseDown = function(f, button)
+                if button == "LeftButton" then
+                    GuildbookCalendarEventFrame:LoadEvent(v)
 
-            table.insert(t, {
-                label = label,
-                onMouseDown = function(f, button)
-                    if button == "RightButton" then
-                        EasyMenu(contextMenu, addon.contextMenu, "cursor", 0, 0, "MENU", 0.2)
-                    end
+                elseif button == "RightButton" then
+                    MenuUtil.CreateContextMenu(f, function(f, rootDescription)
+                        rootDescription:CreateTitle(v.data.title, WHITE_FONT_COLOR)
+                        rootDescription:CreateDivider()
+                        rootDescription:CreateButton("Delete Event", function()
+                            C_Calendar.DeleteCalendarEventID(v.data.id)
+                        end)
+                    end)
                 end
-            })
-        end
+            end
+        })
     end
 
 
@@ -431,10 +349,6 @@ function GuildbookCalendarMixin:OnTabSelected(tab, index)
     end
 end
 
-function GuildbookCalendarMixin:Blizzard_OnInitialGuildRosterScan()
-    self.sidePanel.lockouts.background:SetAtlas("QuestLogBackground")
-    --self.sidePanel.lockouts.background:SetAtlas(string.format("transmog-background-race-%s", addon.characters[addon.thisCharacter]:GetRace().clientFileString:lower()))
-end
 
 -- local CALENDAR_MONTH_NAMES = {
 -- 	MONTH_JANUARY,
@@ -453,8 +367,11 @@ end
 
 function GuildbookCalendarMixin:OnLoad()
 
-    addon:RegisterCallback("Blizzard_OnInitialGuildRosterScan", self.Blizzard_OnInitialGuildRosterScan, self)
+    self.sidePanel.lockouts.background:SetAtlas("QuestLogBackground")
+
     addon:RegisterCallback("Database_OnCalendarDataChanged", self.MonthChanged, self)
+    addon:RegisterCallback("Calendar_OnCalendarEventDeleted", self.MonthChanged, self) --MonthChanged is maybe overkill as it'll redo the whole month data
+    addon:RegisterCallback("Calendar_OnCalendarEventCreated", self.MonthChanged, self)
 
     self.tabsGroup = CreateRadioButtonGroup();
 
@@ -625,23 +542,56 @@ function GuildbookCalendarMixin:MonthChanged()
         end
 
         -- setup current months days
-        if i >= monthStart and thisMonthDay <= daysInMonth then
+        if (i >= monthStart) and (thisMonthDay <= daysInMonth) then
             day.dateLabel:SetText(thisMonthDay)
             day.dateLabel:SetTextColor(1,1,1,1)
             day.otherMonthOverlay:Hide()
             day:EnableMouse(true)
-            -- day.date = {
-            --     day = thisMonthDay,
-            --     month = self.date.month,
-            --     year = self.date.year,
-            -- }
 
+            --set the date for this day tile
             day:SetDate({
                 day = thisMonthDay,
                 month = self.date.month,
                 year = self.date.year,
+                hour = 0,
+                min = 0,
+                sec = 0,
             })
 
+            --grab any guild events
+            local guildEvents = C_Calendar.GetCalendarEventsBetween({
+                year = self.date.year,
+                month = self.date.month,
+                day = thisMonthDay,
+                hour = 0,
+                min = 0,
+                sec = 0
+            },
+            1)
+
+            if #guildEvents > 0 then
+                for k, v in ipairs(guildEvents) do
+
+                    --for the tooltip sorting to work events need a type value
+                    --this doesn't need to exist on the event data nor be sent via comms for now reason
+                    --this day.events table *ONLY* drives the tooltip so we can drop the event obj concept here
+                    table.insert(day.events, {
+                        eventType = 1, --1 is for guild events this keeps them top of the tooltip
+                        name = v.data.title
+                    })
+                end
+
+                for j = 1, 3 do
+                    if guildEvents[j] then
+                        day["event"..j].topLabel:SetText(guildEvents[j].data.title)
+                        day["event"..j].bottomLabel:SetText("")
+                        day["event"..j]:SetScript("OnClick", function()
+                            GuildbookCalendarEventFrame:LoadEvent(guildEvents[j])
+                        end)
+                        day["event"..j]:Show()
+                    end
+                end
+            end
 
             --instance resets
             local instanceResets = C_Calendar.GetInstanceResets(0, thisMonthDay)
@@ -652,13 +602,17 @@ function GuildbookCalendarMixin:MonthChanged()
                     table.insert(day.events, v)
                 end
 
-                for j = 1, 3 do
-                    if instanceResets[j] then
-                        day["event"..j].topLabel:SetText(instanceResets[j].name)
-                        day["event"..j].bottomLabel:SetText(RESET)
-                        day["event"..j]:Show()
+                --only do this if guildEvents left buttons available
+                if #guildEvents < 3 then
+                    for j = (#guildEvents + 1), 3 do
+                        if instanceResets[j] then
+                            day["event"..j].topLabel:SetText(instanceResets[j].name)
+                            day["event"..j].bottomLabel:SetText(RESET)
+                            day["event"..j]:Show()
+                        end
                     end
                 end
+
             end
 
             --grab the events for the day and loop in reverse order, do this as it seems larger events (events spanning weeks not just a day) are indexed lower
@@ -673,7 +627,7 @@ function GuildbookCalendarMixin:MonthChanged()
                         day.holidayTextures[i]:SetTexCoord(0.0, 0.71, 0.0, 0.71)
                     end
                     --day.holidayTextures[i]:SetDrawLayer("BORDER", subLayer)
-                    day.holidayTextures[i]:SetDrawLayer("BORDER", event.id)
+                    day.holidayTextures[i]:SetDrawLayer("BORDER", event.drawLayer)
                     day.holidayTextures[i]:SetTexture(event.texture)
                     day.holidayTextures[i]:Show()
 
@@ -692,89 +646,27 @@ function GuildbookCalendarMixin:MonthChanged()
 
                 day.showMore:SetScript("OnClick", function()
                     MenuUtil.CreateContextMenu(parent, function(parent, rootDescription)
-
                         for _, event in ipairs(day.events) do
-
                             local menuButton = rootDescription:CreateButton(event.name, function()
 
                             end)
-
-                            -- if element.isTitle then
-                            --     menuButton = rootDescription:CreateTitle(element.text)
-                
-                            -- elseif element.isSeparater then
-                            --     menuButton = rootDescription:CreateSpacer()
-                
-                            -- elseif element.isDivider then
-                            --     menuButton = rootDescription:CreateDivider()
-                
-                            -- else
-                            --     menuButton = rootDescription:CreateButton(element.text, function() if element.func then element.func() end end)
-                            -- end
-
-                            -- if element.menuList then
-                            --     for _, subElement in ipairs(element.menuList) do
-                            --         menuButton:CreateButton(subElement.text, function() if subElement.func then subElement.func() end end)
-                            --     end
-                            -- end
-
-
                         end
                     end)
                 end)
             end
-            
---[[
-    calendar event types
 
-    1 = birthday
-    2 = note
-
-]]
-            local contextMenu = {
-                {
-                    text = date("%d %B %Y", time(day.date)),
-                    isTitle = true,
-                    notCheckable = true,
-                    func = function()
-        
-                    end,
-                },
-                {
-                    text = "Add Note",
-                    notCheckable = true,
-                    func = function()
-                        StaticPopup_Show(
-                            "GuildbookCalendarAddEvent", --popup name
-                            string.format("Add note for %s", date("%d %B %Y", time(day.date))),
-                            nil, --arg2 for %s
-                            {
-                                timestamp = time(day.date), --data
-                                calendarTypeEnum = 2,
-                            }
-                        )
-                    end,
-                },
-                {
-                    text = "Add Birthday",
-                    notCheckable = true,
-                    func = function()
-                        StaticPopup_Show(
-                            "GuildbookCalendarAddEvent", --popup name
-                            string.format("Add Birthday %s\n\nEnter players name:", date("%d %B %Y", time(day.date))),
-                            nil, --arg2 for %s
-                            {
-                                timestamp = time(day.date), --data
-                                calendarTypeEnum = 1,
-                            }
-                        )            
-                    end,
-                },
-            }
             day:SetScript("OnMouseDown", function(f, b)
-                if b == "RightButton" then
-                    EasyMenu(contextMenu, addon.contextMenu, "cursor", 0, 0, "MENU", 0.2)
-                end
+                MenuUtil.CreateContextMenu(day, function(day, rootDescription)
+
+                    rootDescription:CreateTitle(date("%Y-%m-%d", time(day.date)), WHITE_FONT_COLOR)
+                    rootDescription:CreateDivider()
+
+                    local createEventButton = rootDescription:CreateButton("New event", function()
+                        GuildbookCalendarEventFrame:OpenForNewEvent(self.date)
+                    end)
+
+
+                end)
             end)
 
             thisMonthDay = thisMonthDay + 1
@@ -805,6 +697,334 @@ function GuildbookCalendarMixin:MonthChanged()
             end
 
             nextMonthDay = nextMonthDay + 1
+        end
+    end
+end
+
+
+
+
+local attendingStatus = {
+    [1] = "Yes",
+    [2] = "Late",
+    [3] = "Tentative",
+    [4] = "Declined",
+}
+
+
+
+GuildbookCalendarEventAttendingListItemMixin = {}
+function GuildbookCalendarEventAttendingListItemMixin:SetDataBinding(binding, height)
+    self:SetHeight(height)
+
+    self.name:SetText(binding.name or "")
+    self.status:SetText(attendingStatus[binding.status] or "")
+end
+
+function GuildbookCalendarEventAttendingListItemMixin:ResetDataBinding()
+    self.name:SetText("")
+    self.status:SetText("")
+end
+
+
+
+--groupfinder-icon-class-hunter
+
+local eventFrameDateTimeFormat = "%Y-%m-%d   %H:%M"
+local iconSize = 20
+local classIconStrings = {
+    CreateAtlasMarkup("groupfinder-icon-class-warrior", iconSize, iconSize),
+    CreateAtlasMarkup("groupfinder-icon-class-paladin", iconSize, iconSize),
+    CreateAtlasMarkup("groupfinder-icon-class-hunter", iconSize, iconSize),
+    CreateAtlasMarkup("groupfinder-icon-class-rogue", iconSize, iconSize),
+    CreateAtlasMarkup("groupfinder-icon-class-priest", iconSize, iconSize),
+    CreateAtlasMarkup("groupfinder-icon-class-deathknight", iconSize, iconSize),
+    CreateAtlasMarkup("groupfinder-icon-class-shaman", iconSize, iconSize),
+    CreateAtlasMarkup("groupfinder-icon-class-mage", iconSize, iconSize),
+    CreateAtlasMarkup("groupfinder-icon-class-warlock", iconSize, iconSize),
+    CreateAtlasMarkup("groupfinder-icon-class-monk", iconSize, iconSize), -- not used but keeps the indexes correct
+    CreateAtlasMarkup("groupfinder-icon-class-druid", iconSize, iconSize),
+}
+
+local function GetClassCountString(war, pal, hun, rog, pri, sha, mage, warl, druid)
+    return string.format("%s %d %s %d %s %d %s %d %s %d\n\n%s %d %s %d %s %d %s %d",
+        classIconStrings[1], war,
+        classIconStrings[2], pal,
+        classIconStrings[11], druid,
+        classIconStrings[5], pri,
+        classIconStrings[7], sha,
+
+        classIconStrings[3], hun,
+        classIconStrings[4], rog,
+        classIconStrings[8], mage,
+        classIconStrings[9], warl
+    )
+end
+
+GuildbookCalendarEventFrameMixin = {}
+function GuildbookCalendarEventFrameMixin:OnLoad()
+
+    NineSliceUtil.ApplyLayout(self, addon.Layouts.Flyout)
+    NineSliceUtil.ApplyLayout(self.attendingList, addon.api.getNineSliceTooltipBorder(0))
+
+    self.description.EditBox:SetMaxLetters(130)
+    self.description.CharCount:SetShown(true);
+
+    addon:RegisterCallback("Calendar_OnCalendarEventChanged", self.OnCalendarEventChanged, self)
+
+    self:SetPropagateMouseClicks(false)
+    self:SetPropagateMouseMotion(false)
+
+    self.title:SetScript("OnTextChanged", function(editBox)
+        if self.tempData then
+            self.tempData.title = editBox:GetText()
+        end
+    end)
+
+    self.description.EditBox:SetScript("OnTextChanged", function(editBox)
+        if self.tempData then
+            self.tempData.desc = editBox:GetText()
+        end
+    end)
+
+    self.datePicker:SetScript("OnClick", function()
+        GuildbookDatePicker:ClearAllPoints()
+        GuildbookDatePicker:SetParent(self.datePicker)
+        GuildbookDatePicker:SetPoint("TOPLEFT", self.datePicker, "BOTTOMLEFT")
+        GuildbookDatePicker:SetCallback(function(timeSelected)
+            self.tempData.scheduledTime = timeSelected
+            self.datePicker:SetText(date(eventFrameDateTimeFormat, timeSelected))
+        end)
+        GuildbookDatePicker:Show()
+    end)
+
+    local statusMenu = {}
+    for k, v in ipairs(attendingStatus) do
+        table.insert(statusMenu, {
+            text = v,
+            func = function()
+                if self.currentEvent then
+                    --print("set attending status")
+                    C_Calendar.SetCalendarEventAttendingChanged(self.currentEvent.data.id, addon.thisCharacter, string.format("%d-%d", k, GetServerTime()))
+                end
+            end,
+        })
+    end
+    self.statusDropdown:SetScript("OnClick", function()
+        MenuUtil.CreateContextMenu(self.statusDropdown, function(_, rootDescription)
+            for k, v in ipairs(statusMenu) do
+                rootDescription:CreateButton(v.text, v.func)
+            end
+        end)
+    end)
+
+    self:SetScript("OnHide", function()
+        self.tempData = nil;
+        self.currentEvent = nil;
+        self.createEvent:SetText("Create Event")
+        self.createEvent:SetEnabled(false)
+        self.deleteEvent:SetEnabled(false)
+        self.title:SetEnabled(false)
+        self.description.EditBox:SetEnabled(false)
+        self.datePicker:SetEnabled(false)
+        self.statusDropdown:SetEnabled(false)
+
+        self.title:SetText("")
+        self.description.EditBox:SetText("")
+        self:UpdateAttending()
+    end)
+end
+
+--the event here is a mixin obj, the ui will want to use .data to access the event data
+function GuildbookCalendarEventFrameMixin:LoadEvent(event)
+
+    self.currentEvent = event;
+
+    --DevTools_Dump(event)
+
+    if type(event.data) == "table" then
+        self.title:SetText(event.data.title or "")
+        self.description.EditBox:SetText(event.data.desc or "")
+        self.datePicker:SetText(date(eventFrameDateTimeFormat, event.data.scheduledTime))
+
+        self:UpdateAttending(event.data.attending)
+
+    else
+        self:Hide()
+        return
+    end
+
+
+    --check if this event belongs to us
+    local ownerName, ownerRealm, created = strsplit("-", event.data.id)
+    if (ownerName.."-"..ownerRealm) == addon.thisCharacter then
+
+        --this will hold any changes made to the event while the frame is open
+        --if we used any OnTextChanged to update automatically it would cause lots of Comms traffic - which is bad
+        --this table should only exist if the vent is owned by this player
+        self.tempData = {}
+
+        self.title:SetEnabled(true)
+        self.description.EditBox:SetEnabled(true)
+        self.datePicker:SetEnabled(true)
+        self.statusDropdown:SetEnabled(true)
+
+        --turn this into an update event button as its our event
+        self.createEvent:SetText("Update Event")
+        self.createEvent:SetEnabled(true)
+        self.createEvent:SetScript("OnClick", function()
+
+            --update the event data from the tempData
+            if self.tempData then
+                local hasChanged = false
+                if self.tempData.title then
+                    event.data.title = self.tempData.title
+                    hasChanged = true
+                end
+                if self.tempData.desc then
+                    event.data.desc = self.tempData.desc
+                    hasChanged = true
+                end
+                if self.tempData.scheduledTime then
+                    event.data.scheduledTime = self.tempData.scheduledTime
+                    hasChanged = true
+                end
+
+                if hasChanged == true then
+                    --call C_Calendar to handle the update
+                    C_Calendar.SetCalendarEventChanged(event)
+                end
+            end
+
+        end)
+
+        self.deleteEvent:SetEnabled(true)
+        self.deleteEvent:SetScript("OnClick", function()
+            C_Calendar.DeleteCalendarEventID(event.data.id)
+            self:Hide()
+        end)
+    end
+
+    self:Show()
+end
+
+function GuildbookCalendarEventFrameMixin:UpdateAttending(attending)
+
+    local classCounts = {
+        [1] = 0, --warrior
+        [2] = 0, --paladin
+        [3] = 0, --hunter
+        [4] = 0, --rogue
+        [5] = 0, --priest
+        --[6] = 0, --deathknight
+        [7] = 0, --shaman
+        [8] = 0, --mage
+        [9] = 0, --warlock
+        --[10] = 0, --monk
+        [11] = 0, --druid
+    }
+    local t = {}
+    if type(attending) == "table" then
+        for nameRealm, statusInfo in pairs(attending) do
+
+            local statusID, _ = strsplit("-", statusInfo)
+            statusID = tonumber(statusID)
+
+            if type(statusID) == "number" then
+                if addon.characters[nameRealm] then
+                    local character = addon.characters[nameRealm]
+
+                    --only count yes or late responses
+                    if statusID < 3 then
+                        classCounts[character.data.class] = classCounts[character.data.class] + 1
+                    end
+
+                    table.insert(t, {
+                        name = character:GetName(true, "short"),
+                        status = statusID,
+                    })
+                end
+            end
+        end
+
+        table.sort(t, function(a, b)
+            return a.status < b.status
+        end)
+    end
+
+    self.classCounts:SetText(GetClassCountString(classCounts[1], classCounts[2], classCounts[3], classCounts[4], classCounts[5], classCounts[7], classCounts[8], classCounts[9], classCounts[11]))
+
+    self.attendingList.scrollView:SetDataProvider(CreateDataProvider(t))
+
+end
+
+function GuildbookCalendarEventFrameMixin:OpenForNewEvent(dateTable)
+
+    --print("OpenForNewEvent", year, month, day)
+    
+    self.tempData = {}
+
+    if dateTable then
+        local now = time(dateTable)
+        self.tempData.scheduledTime = now
+        self.datePicker:SetText(date(eventFrameDateTimeFormat, now))
+    end
+
+
+    --this scripts for these will check for a self.temp table no need to config them again
+    self.title:SetEnabled(true)
+    self.description.EditBox:SetEnabled(true)
+    self.datePicker:SetEnabled(true)
+    self.statusDropdown:SetEnabled(true)
+    self.deleteEvent:SetEnabled(false)
+    self.createEvent:SetEnabled(true)
+
+    --make sure this is a create button again
+    self.createEvent:SetScript("OnClick", function()
+
+        if self.tempData.title and self.tempData.desc and self.tempData.scheduledTime then
+
+            --create an event table
+            local newEvent = CalendarEvent:CreateEventData(self.tempData.title, self.tempData.desc, self.tempData.scheduledTime)
+
+            -- inform C_Calendar of new event
+            C_Calendar.CalendarEventCreate(newEvent, true)
+            self:Hide()
+
+        else
+
+        end
+    end)
+    self:Show()
+end
+
+
+--if an event changes lets update the frame if its visible
+--the event object would have already been updated, so it doesn't need to be set as currentEvent
+function GuildbookCalendarEventFrameMixin:OnCalendarEventChanged(event)
+
+    -- print("======================")
+    -- print("CalendarEvent_Changed")
+    -- print("======================")
+
+    --DevTools_Dump(event)
+
+    if self:IsVisible() then
+
+        --check this event matches the current event
+        if self.currentEvent and (self.currentEvent.data.id == event.data.id) then
+
+            --if the event isn't this players then its liekly to just be a change to the event title, desc or date
+            self.title:SetText(event.data.title)
+            self.description.EditBox:SetText(event.data.desc)
+            self.datePicker:SetText(date(eventFrameDateTimeFormat, event.data.scheduledTime))
+
+            --it could be somebody setting the attending status so load the data provider
+            self:UpdateAttending(event.data.attending)
+
+            --nothing else to do here
+            --either its this players event and we've updated the UI in a roundabout way
+            --or its not this players event and we've updated the UI to reflect the changes
         end
     end
 end

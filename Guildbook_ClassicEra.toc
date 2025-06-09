@@ -1,6 +1,6 @@
 ## Interface: 11505
 ## Author: TheBoringDad
-## Version: 4.61
+## Version: 4.7
 ## Title: Guildbook_Classic
 ## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL
@@ -41,7 +41,6 @@ Widgets\TabFrame.xml
 ChangeLog.lua
 
 Locales.lua
-C_Calendar.lua
 
 Data\Tradeskill_Classic.lua
 Data\Tradeskill_TBC.lua
@@ -49,10 +48,14 @@ Data\Tradeskill_TBC.lua
 
 Database.lua
 
+
 Classes\Tradeskills.lua
 Classes\Character.lua
 Classes\Guild.lua
+Classes\CalendarEvent.lua
 Classes\Talents.lua
+
+C_Calendar.lua
 
 Dialogs.lua
 

@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.7",
+        notes = "Calendar Events (Guild events)!\n\nThe calendar has been updated to allow users to create events for the guild. Click on a calendar day tile and select New Event. Event data will be shared in a 'gossip' or p2p type manner. Due to addon and chat/comms limitations a fully sync'd calendar isn't possible without something server side.\n\nAlso fixed some minor bugs :)\n\nUpdate requires the latest version of TBDWidgets which is available from Curseforge.",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "4.61",
         notes = "Calendar!\n\nAdded raid reset data to the calendar.\nThis is currently only for EU non-sod servers but I will be adding the remaining data soon.\n\nSome minor bug fixes.",
         icon = "ClassHall-QuestIcon-Desaturated",

@@ -155,7 +155,9 @@
         "MONTH_OCTOBER",
         "MONTH_NOVEMBER",
         "MONTH_DECEMBER",
-        "RESET"
+        "RESET",
+        "Raid",
+        "Event"
     ],
     "Lua.runtime.version": "Lua 5.1",
     "Lua.runtime.builtin": {

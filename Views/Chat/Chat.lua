@@ -238,7 +238,7 @@ function GuildbookChatMixin:Update()
                 self.chatHistory.scrollView:SetDataProvider(dp)
                 self.chatHistory.scrollBox:ScrollToEnd()
             else
-                self.chatHistory.DataProvider:SetDataProvider({})
+                self.chatHistory.scrollView:SetDataProvider({})
             end
         end)
     end

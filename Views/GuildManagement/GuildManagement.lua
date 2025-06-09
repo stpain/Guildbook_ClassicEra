@@ -695,11 +695,21 @@ local function calculate_past_time(years, months, days, hours)
     return difference_in_seconds, past_time
 end
 
+local logTicker;
+
 -- local total_hours, past_time_string = calculate_past_time(years, months, days, hours)
 -- print("Total hours:", total_hours) -- Output the total hours
 -- print("Past time:", past_time_string) -- Output the past time as a formatted string
-
 function GuildbookGuildManagementMixin:LoadLog()
+
+    if addon.regenDisabled == true then
+        logTicker = C_Timer.NewTicker(3.0, function()
+            if addon.regenDisabled == false then
+                logTicker:Cancel()
+                self:LoadLog()
+            end
+        end)
+    end
 
     QueryGuildEventLog()
 

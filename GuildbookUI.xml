@@ -9,7 +9,6 @@
     </GameTooltip>
 
     <ScrollFrame name="GuildbookDatePicker" parent="UIParent" inherits="TBDDatePicker" hidden="true">
-        <Size x="160" y="160"/>
         <Anchors>
             <Anchor point="CENTER" x="0" y="90"/>
         </Anchors>

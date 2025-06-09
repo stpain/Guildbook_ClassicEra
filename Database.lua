@@ -37,7 +37,7 @@ local dbUpdates = {
         guild = {},
     },
     --agenda = {},
-    itemLists = {},
+    --itemLists = {},
 
     recruitment = {},
     recruitmentMessage = {},
@@ -45,6 +45,7 @@ local dbUpdates = {
 local dbToRemove = {
     "worldEvents",
     "calendar.birthdays",
+    "calendar.versions",
     "news",
 }
 
@@ -81,8 +82,15 @@ function Database:Init()
     self.db = GUILDBOOK_GLOBAL;
 
     for k, v in pairs(dbUpdates) do
-        if not self.db[k] then
+        if self.db[k] == nil then
             self.db[k] = v;
+        end
+        if type(v) == "table" then
+            for k1, v1 in pairs(v) do
+                if self.db[k][k1] == nil then
+                    self.db[k][k1] = v1;
+                end
+            end
         end
     end
     for k, v in ipairs(dbToRemove) do
@@ -316,64 +324,76 @@ end
 
     move this into the C_Calendar table
 ]]
+-- function Database:DoesCalendarEventExist(event)
+--     if self.db and self.db.calendar and self.db.calendar.events then
+--         if self.db.calendar.events[event.id] then
+--             return true;
+--         end
+--     end
+-- end
+
+-- function Database:SetCalendarEventChanged(event)
+--     if self.db and self.db.calendar and self.db.calendar.versions then
+--         if self.db.calendar.versions[event.id] then
+--             self.db.calendar.versions[event.id] = GetServerTime(); --use this as its the same on all clients
+--         end
+--     end
+-- end
+
+-- function Database:GetCalendarEventVersion(eventID)
+--     if self.db and self.db.calendar and self.db.calendar.versions then
+--         if self.db.calendar.versions[eventID] then
+--             return self.db.calendar.versions[eventID];
+--         end
+--     end
+-- end
+
+
+-- function Database:GetCalendarEventVersions()
+--     if self.db and self.db.calendar and self.db.calendar.versions then
+--         return self.db.calendar.versions
+--     end
+
+--     instead of having a seperate table for version, just loop the events and grab the .lastUpdate values
+-- end
+
+-- function Database:SetCalendarEventVersion(eventID, timestamp)
+--     if self.db and self.db.calendar and self.db.calendar.versions and self.db.calendar.versions[eventID] then
+--         self.db.calendar.versions[eventID] = timestamp
+--     end
+-- end
+
 function Database:InsertCalendarEvent(event)
     if self.db and self.db.calendar then
         if not self.db.calendar.events then
             self.db.calendar.events = {}
         end
-        event.guid = string.format("CalendarEvent-%s", time())
-        table.insert(self.db.calendar.events, event)
-        addon:TriggerEvent("Database_OnCalendarDataChanged")
-    end
-end
-
-function Database:DeleteCalendarEvent(event)
-    if self.db and self.db.calendar and self.db.calendar.events then
-        local keyToRemove;
-        for k, v in ipairs(self.db.calendar.events) do
-            if (v.guid == event.guid) then
-                keyToRemove = k
-            end
-        end
-        if keyToRemove then
-            table.remove(self.db.calendar.events, keyToRemove)
-            addon:TriggerEvent("Database_OnCalendarDataChanged")
+        if self.db.calendar.events[event.id] then
+            
+        else
+            self.db.calendar.events[event.id] = event
         end
     end
 end
 
-function Database:GetCalendarEventsBetween(_from, _to)
-
-    local t = {}
-    if not _to then
-        _to = _from
-    end
-    local from = time(_from)
-    local to = time(_to)
+function Database:GetCalendarEvent(eventID)
     if self.db and self.db.calendar and self.db.calendar.events then
-        for k, event in ipairs(self.db.calendar.events) do
-            if (event.timestamp >= from) and (event.timestamp <= to) then
-                table.insert(t, event)
-            end
+        if self.db.calendar.events[eventID] then
+            return self.db.calendar.events[eventID];
         end
-    end
-    return t;
+    end 
 end
 
-function Database:GetCalendarEventsForPeriod(fromTimestamp, period)
-
-    local t = {}
-    period = period or 1
-    local to = fromTimestamp + (60*60*24*period)
-
+function Database:DeleteCalendarEventID(eventID)
     if self.db and self.db.calendar and self.db.calendar.events then
-        for k, event in ipairs(self.db.calendar.events) do
-            if (event.timestamp >= fromTimestamp) and (event.timestamp <= to) then
-                table.insert(t, event)
-            end
-        end
+        self.db.calendar.events[eventID] = nil
     end
-    return t;
+end
+
+function Database:GetCalendarEvents()
+    if self.db and self.db.calendar and self.db.calendar.events then
+        return self.db.calendar.events;
+    end
 end
 
 
