@@ -700,15 +700,27 @@ local logTicker;
 -- local total_hours, past_time_string = calculate_past_time(years, months, days, hours)
 -- print("Total hours:", total_hours) -- Output the total hours
 -- print("Past time:", past_time_string) -- Output the past time as a formatted string
+local lastUpdate;
 function GuildbookGuildManagementMixin:LoadLog()
 
-    if addon.regenDisabled == true then
-        logTicker = C_Timer.NewTicker(3.0, function()
-            if addon.regenDisabled == false then
-                logTicker:Cancel()
+    local now = time()
+
+    if lastUpdate == nil then
+        lastUpdate = now
+    else
+        if lastUpdate < (now + 9) then
+            C_Timer.After(10, function()
                 self:LoadLog()
-            end
+            end)
+        end
+        return
+    end
+
+    if addon.regenDisabled == true then
+        C_Timer.After(10, function()
+            self:LoadLog()
         end)
+        return
     end
 
     QueryGuildEventLog()
@@ -769,70 +781,9 @@ function GuildbookGuildManagementMixin:LoadLog()
         end
 
         if addEvent then
-            --local now = date("*t")
-
-            --[[
-            local newDay, newMonth, newYear, msg
-
-            if (now.month - month) < 1 then
-                newMonth = (12 + (now.month - month))
-            else
-                newMonth = now.month - month;
-            end
-    
-            newYear = now.year - year;
-    
-            if (now.day - day) < 1 then
-                local daysInPreviousMonth = addon.api.getDaysInMonth(newMonth, newYear)
-    
-                newDay = (daysInPreviousMonth + (now.day - day))
-                newMonth = (newMonth - 1)
-            else
-                newDay = now.day - day
-            end
-    
-            if (now.hour - hour) < 1 then
-                now.hour = (24 + (now.hour - hour))
-    
-                --if this causes us to go before midnight then check if the day was the first, if so fallback a month
-                if now.day == 1 then
-                    now.month = now.month - 1
-                    local daysInPreviousMonth = addon.api.getDaysInMonth(now.month, newYear)
-                    now.day = daysInPreviousMonth
-    
-                else
-                    now.day = now.day - 1
-                end
-    
-            else
-                now.hour = now.hour - hour
-            end
-    
-    
-            now.year = newYear
-            now.month = newMonth
-            now.day = newDay
-
-            ]]
-
-            -- local main = "";
-
-            -- if player1:find("-", nil, true) then
-            --     if addon.characters[player1] then
-            --         main = addon.characters[player1]:GetMainCharacter()
-            --     end    
-            -- else
-            --     if addon.characters[string.format("%s-%s", player1, realm)] then
-            --         main = addon.characters[string.format("%s-%s", player1, realm)]:GetMainCharacter()
-            --     end  
-            -- end
-
-            -- if main then
-            --     player1 = string.format("%s [%s]", player1, main)
-            -- end
 
             local realm = GetNormalizedRealmName()
-            local nameRealm;
+            local nameRealm, msg;
             if player1:find("-", nil, true) then
                 nameRealm = player1
             else
@@ -868,7 +819,7 @@ function GuildbookGuildManagementMixin:LoadLog()
             end
     
             --DevTools_Dump({index = i, date = now})
-            local msg = string.format("[%s] %s", date("%c", past_time), msg)
+            msg = string.format("[%s] %s", date("%c", past_time), msg)
     
             msg = msg:gsub(":%d%d ", " ")
     
@@ -884,7 +835,11 @@ function GuildbookGuildManagementMixin:LoadLog()
 
     end
 
-    self.tabContainer.log.listview.scrollView:SetDataProvider(CreateDataProvider(t))
+    lastUpdate = now
+
+    if self.tabContainer.log.listview:IsVisible() then
+        self.tabContainer.log.listview.scrollView:SetDataProvider(CreateDataProvider(t))
+    end
 end
 
 

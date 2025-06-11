@@ -280,14 +280,14 @@ when an event info is changed, it is sent to online guild members
 
 =======================================
 ]]
-function C_Calendar.GetCalendarEventsBetween(startTime, duration)
 
+function C_Calendar.GetCalendarEventsBetween(startTime, duration)
     local t = {}
     local from = time(startTime)
     local to = from + (duration * 24 * 60 * 60) -1 --minus 1 sec so its only 23:59:59
-    if addon.calendarEvents then
+    if addon.calendarEvents and (next(addon.calendarEvents) ~= nil) then
         for k, event in pairs(addon.calendarEvents) do
-            if (event.data.scheduledTime >= from) and (event.data.scheduledTime <= to) then
+            if event.data.scheduledTime and (event.data.scheduledTime >= from) and (event.data.scheduledTime <= to) then
                 table.insert(t, event)
             end
         end
