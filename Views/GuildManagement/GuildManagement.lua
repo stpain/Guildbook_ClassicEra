@@ -228,13 +228,9 @@ function GuildbookGuildManagementMixin:OnShow()
     self:LoadAFK()
 end
 
-function GuildbookGuildManagementMixin:SetEditCharacterWidgetsLocked(locked)
+function GuildbookGuildManagementMixin:SetEditCharacterWidgetsMouseEnabled(locked)
     for k, widget in pairs(self.editCharacterControls) do
-        if locked then
-            widget:Disable()
-        else
-            widget:Enable()
-        end
+        widget:SetMouseClickEnabled(locked)
     end
 end
 
@@ -575,20 +571,26 @@ function GuildbookGuildManagementMixin:SetCharacterToEdit(character)
     --the length of ranks will be correct for the numRanks
     --ranks[#ranks].rankIndex will be 1 lower as tables start from index 1 ranks start index 0
 
+    --OLD
     --get the last rank from the table and test against its .rankIndex value
 
     local canEdit = false;
     if addon.thisCharacter and addon.characters[addon.thisCharacter] then
-        if addon.characters[addon.thisCharacter].data.rank < ranks[#ranks-1].rankIndex then
+        if addon.characters[addon.thisCharacter].data.rank < 2 then --GM or top level non GM member
             canEdit = true;
         end
     end
-
 
     for field, control in pairs(self.editCharacterControls) do
         if control.init then
             control.init(control, character)
         end
+    end
+
+    if canEdit then
+        self:SetEditCharacterWidgetsMouseEnabled(true)
+    else
+        self:SetEditCharacterWidgetsMouseEnabled(false)
     end
 end
 
@@ -697,29 +699,11 @@ end
 
 local logTicker;
 
--- local total_hours, past_time_string = calculate_past_time(years, months, days, hours)
--- print("Total hours:", total_hours) -- Output the total hours
--- print("Past time:", past_time_string) -- Output the past time as a formatted string
+
 local lastUpdate;
 function GuildbookGuildManagementMixin:LoadLog()
 
-    local now = time()
-
-    if lastUpdate == nil then
-        lastUpdate = now
-    else
-        if lastUpdate < (now + 9) then
-            C_Timer.After(10, function()
-                self:LoadLog()
-            end)
-        end
-        return
-    end
-
-    if addon.regenDisabled == true then
-        C_Timer.After(10, function()
-            self:LoadLog()
-        end)
+    if self.tabContainer.log:IsVisible() == false then
         return
     end
 
@@ -742,8 +726,6 @@ function GuildbookGuildManagementMixin:LoadLog()
         if ( not player2 ) then
             player2 = UNKNOWN;
         end
-
-        --local logEntry = string.format("%d:%d:%d:%d:%s:%s:%s:%s", year, month, day, hour, _type, player1, player2, rank)
 
         local difference_in_seconds, past_time = calculate_past_time(year, month, day, hour)
 
@@ -834,8 +816,6 @@ function GuildbookGuildManagementMixin:LoadLog()
         end
 
     end
-
-    lastUpdate = now
 
     if self.tabContainer.log.listview:IsVisible() then
         self.tabContainer.log.listview.scrollView:SetDataProvider(CreateDataProvider(t))

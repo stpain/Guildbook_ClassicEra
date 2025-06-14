@@ -57,7 +57,7 @@ local L = {
 	--guild management
 	--====================================================================================
 
-	EDIT_CHARACTER_HEADER = "Edit guild members data, this feature is available to all guild members above the lowest 2 ranks. Changes will be shared to all online guild members using the addon.",
+	EDIT_CHARACTER_HEADER = "Edit guild members data, this feature is available to the Guild Master and top rank below them.",
 	INVITES_HEADER = "Search using the in game /who, select a class you are looking for to see characters not currently in a guild. (/who restrictions apply)",
 
 	--====================================================================================

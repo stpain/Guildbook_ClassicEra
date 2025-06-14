@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.72",
+        notes = "Reverted the log changes. Added a check to only update if the log is visible on screen.\n\nChanged the character edit to only allow the GM and top rank to modify character data.",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "4.71",
         notes = "Bug fix for the calendar when trying to loop events (event.data not found).\n\nGuild log now only updates every 10s due to high activity causes a freezing effect.",
         icon = "PhotosensitivityWarning-questbang-icon",
