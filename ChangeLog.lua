@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.73",
+        notes = "Fixed bug with guild recruitment message not saving on reload / logout.",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "4.72",
         notes = "Reverted the log changes. Added a check to only update if the log is visible on screen.\n\nChanged the character edit to only allow the GM and top rank to modify character data.",
         icon = "PhotosensitivityWarning-questbang-icon",

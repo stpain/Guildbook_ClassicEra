@@ -536,10 +536,10 @@ function Database:SetGuildrecruitmentMessage(guild, message)
 end
 
 function Database:GetGuildrecruitmentMessage(guild)
+    print(guild)
     if self.db and self.db.recruitmentMessage then
-        return self.db.recruitmentMessage[guild] or "";
+        return self.db.recruitmentMessage[guild];
     end
-    return "";
 end
 
 function Database:AddGuildRecruitmentMessage(guild, msg)

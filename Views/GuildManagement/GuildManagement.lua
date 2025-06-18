@@ -87,6 +87,7 @@ function GuildbookGuildManagementMixin:OnLoad()
     --addon:RegisterCallback("Blizzard_OnGuildRankUpdate", self.LoadLog, self)
     addon:RegisterCallback("Blizzard_OnGuildRosterUpdate", self.LoadLog, self)
     addon:RegisterCallback("Database_OnGuildRecruitmentLogChanged", self.OnGuildRecruitmentLogChanged, self)
+    addon:RegisterCallback("Blizzard_OnInitialGuildRosterScan", self.Blizzard_OnInitialGuildRosterScan, self)
 
     self.tabContainer.log.filterTypeValue = false
     self.tabContainer.log.searchBox:SetScript("OnTextChanged", function()
@@ -192,6 +193,11 @@ function GuildbookGuildManagementMixin:OnLoad()
     end)
 
     addon.AddView(self)
+end
+
+function GuildbookGuildManagementMixin:Blizzard_OnInitialGuildRosterScan()
+    local msg = Database:GetGuildrecruitmentMessage(addon.thisGuild)
+    self.tabContainer.invites.recruitmentMessageInput.EditBox:SetText(msg)
 end
 
 function GuildbookGuildManagementMixin:OnShow()
@@ -1085,11 +1091,10 @@ function GuildbookGuildManagementMixin:SetupInvitesUI()
         self.tabContainer.invites[editbox].ScrollBar:SetPoint("BOTTOMRIGHT", self.tabContainer.invites[editbox], "BOTTOMRIGHT", 0, -4) 
     end
 
-    --self.tabContainer.invites.inviteMessageInput.EditBox:SetText(L.ENTER_YOUR_MESSAGE_HERE)
+
     self.tabContainer.invites.recruitmentMessageInput.EditBox:SetScript("OnTextChanged", function (eb)
         Database:SetGuildrecruitmentMessage(addon.thisGuild, eb:GetText())
     end)
-    self.tabContainer.invites.recruitmentMessageInput.EditBox:SetText(Database:GetGuildrecruitmentMessage(addon.thisGuild))
     
     local rowIndex = 0;
     local t = {}
