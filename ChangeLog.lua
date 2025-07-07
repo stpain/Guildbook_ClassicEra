@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.74",
+        notes = "Fixed bug with calendar delete comms looping.",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "4.73",
         notes = "Fixed bug with guild recruitment message not saving on reload / logout.",
         icon = "PhotosensitivityWarning-questbang-icon",

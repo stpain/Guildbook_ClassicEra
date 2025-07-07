@@ -214,7 +214,7 @@ function GuildbookCalendarMixin:UpdateCalendarEvents()
                         rootDescription:CreateTitle(v.data.title, WHITE_FONT_COLOR)
                         rootDescription:CreateDivider()
                         rootDescription:CreateButton("Delete Event", function()
-                            C_Calendar.DeleteCalendarEventID(v.data.id)
+                            C_Calendar.DeleteCalendarEventID(v.data.id, true)
                         end)
                     end)
                 end
@@ -900,7 +900,7 @@ function GuildbookCalendarEventFrameMixin:LoadEvent(event)
 
         self.deleteEvent:SetEnabled(true)
         self.deleteEvent:SetScript("OnClick", function()
-            C_Calendar.DeleteCalendarEventID(event.data.id)
+            C_Calendar.DeleteCalendarEventID(event.data.id, true)
             self:Hide()
         end)
     end

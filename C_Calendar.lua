@@ -295,7 +295,7 @@ function C_Calendar.GetCalendarEventsBetween(startTime, duration)
     return t;
 end
 
-function C_Calendar.DeleteCalendarEventID(eventID)
+function C_Calendar.DeleteCalendarEventID(eventID, transmit)
 
     addon.calendarEvents[eventID] = nil;
 
@@ -303,7 +303,7 @@ function C_Calendar.DeleteCalendarEventID(eventID)
     Database:DeleteCalendarEventID(eventID);
     addon:TriggerEvent("Calendar_OnCalendarEventDeleted")
 
-    if Comms then
+    if Comms and (transmit == true) then
         Comms:TransmitCalendarEvent_Deleted(eventID)
     end
 
