@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.741",
+        notes = "Fixed bug with guild management trying to SetText.",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "4.74",
         notes = "Fixed bug with calendar delete comms looping.",
         icon = "PhotosensitivityWarning-questbang-icon",

@@ -197,7 +197,9 @@ end
 
 function GuildbookGuildManagementMixin:Blizzard_OnInitialGuildRosterScan()
     local msg = Database:GetGuildrecruitmentMessage(addon.thisGuild)
-    self.tabContainer.invites.recruitmentMessageInput.EditBox:SetText(msg)
+    if type(msg) == "string" then
+        self.tabContainer.invites.recruitmentMessageInput.EditBox:SetText(msg)
+    end
 end
 
 function GuildbookGuildManagementMixin:OnShow()
