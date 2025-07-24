@@ -88,6 +88,7 @@ function GuildbookGuildManagementMixin:OnLoad()
     addon:RegisterCallback("Blizzard_OnGuildRosterUpdate", self.LoadLog, self)
     addon:RegisterCallback("Database_OnGuildRecruitmentLogChanged", self.OnGuildRecruitmentLogChanged, self)
     addon:RegisterCallback("Blizzard_OnInitialGuildRosterScan", self.Blizzard_OnInitialGuildRosterScan, self)
+    addon:RegisterCallback("Character_OnSetCharacterToEdit", self.SetCharacterToEdit, self)
 
     self.tabContainer.log.filterTypeValue = false
     self.tabContainer.log.searchBox:SetScript("OnTextChanged", function()
@@ -544,7 +545,7 @@ function GuildbookGuildManagementMixin:SetupEditCharacterTab()
 
         --     end
         -- end
-
+        local macro = ""
         for k, nameRealm in ipairs(Database:GetCharacterAlts(character.data.mainCharacter)) do
 
             if Database.db.characterDirectory[nameRealm] then
@@ -560,9 +561,19 @@ function GuildbookGuildManagementMixin:SetupEditCharacterTab()
                     end,
                 })
 
+                macro = string.format("%s/gremove %s\n", macro, Ambiguate(nameRealm, "short"))
+
             end
         end
         widget.scrollView:SetDataProvider(CreateDataProvider(alts))
+
+        parent.removeAltsMacroButton:SetAttribute("macrotext1", "")
+        parent.removeAltsMacroButton:Disable()
+
+        if addon.thisCharacter and addon.characters[addon.thisCharacter] and (addon.characters[addon.thisCharacter]:GetRank() < 2) then
+            parent.removeAltsMacroButton:SetAttribute("macrotext1", macro)
+            parent.removeAltsMacroButton:Enable()
+        end
     end
 
 
@@ -573,9 +584,9 @@ function GuildbookGuildManagementMixin:SetCharacterToEdit(character)
     --some widgets control their enabled state from their init calls
     --safer to just check the rank here
 
-    local ranks = addon.api.getGuildRanks()
+    --local ranks = addon.api.getGuildRanks()
 
-    --guild ranks star with GM=0
+    --guild ranks start with GM=0
     --the length of ranks will be correct for the numRanks
     --ranks[#ranks].rankIndex will be 1 lower as tables start from index 1 ranks start index 0
 

@@ -125,6 +125,12 @@
                                     </Layer>
                                 </Layers>
                             </Frame>
+                            <Button parentKey="removeAltsMacroButton" inherits="GuildbookMacroButton, UIPanelButtonTemplate" text="Kick player and alts">
+                                <Size x="200" y="22"/>
+                                <Anchors>
+                                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent.alts" relativePoint="TOPRIGHT" x="0" y="3"/>
+                                </Anchors>
+                            </Button>
                         </Frames>
                     </Frame>
                     <Frame parentKey="ranks" setAllPoints="true" hidden="true">

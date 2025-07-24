@@ -817,6 +817,13 @@ function GuildbookRosterListviewItemMixin:Update()
             notCheckable = true,
         },
         {
+            text = "Edit character",
+            func = function()
+                addon:TriggerEvent("Character_OnSetCharacterToEdit", self.character)
+                GuildbookUI:SelectView("GuildManagement")
+            end
+        },
+        {
             text = PUBLIC_NOTE,
             notCheckable = true,
             func = function()

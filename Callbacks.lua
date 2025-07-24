@@ -27,6 +27,8 @@ addon:GenerateCallbackEvents({
     "Character_BroadcastChange",
     "Character_ExportEquipment",
 
+    "Character_OnSetCharacterToEdit",
+
     "Character_Bags_Updated",
     
     "Profile_OnItemDataLoaded",
