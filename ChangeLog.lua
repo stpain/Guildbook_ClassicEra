@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "4.743",
+        notes = "Changed the calendar raid reset function as it seemed to bug.\n\nNow finds the first reset of the month and calculates from there.\n\nPlease report any calendar issues either on curse or the discord thanks.",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "4.742",
         notes = "Added button to the edit character screen, this enables the GM and top officer rank to remove a player and all known alts.\n\nAdded a context menu option via the roster to navigate direct to that edit that character in guild management.",
         icon = "PhotosensitivityWarning-questbang-icon",

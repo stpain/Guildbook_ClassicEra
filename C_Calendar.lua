@@ -167,9 +167,7 @@ local raidResetFixedDates = {
             --5 days
             onyxia = 1748332800, --may 27th 2025 8am (5 day reset)
 
-            --[[
-                these are the 3 day reset raids
-            ]]
+            --these are the 3 day reset raids
             zulgurub = 1748505600,
             ruinsofahnqiraj = 1748505600,
         },
@@ -685,34 +683,103 @@ function C_Calendar.GetRaidResetsForMonth(year, month)
 
     local daysInMonth = C_Calendar.GetDaysInMonth(month, year)
 
+    local timeForFirstDayOfMonth = CreateTimeForDate(year, month, 1, 0, 0, 1)
+
+
+
 
     --[[
-        using the known reset timestamps, loop the month days and check if the difference to the reset results in a whole number
-        if it does that means its a reset day
+    
+        to attempt to address a bug found for a player outside of the uk where time is +2
+
+        i took a different strategy, this will increment the hardcoded reset time until it falls within the selected month
+        from there we add the reset time and add the events
+    
     ]]
+
     for raidKey, fixedResetTime in pairs(resetData) do
-        
-        for dayIndex = 1, daysInMonth do
-            local dayTime = time({ year = year, month = month, day = dayIndex, hour = 8, min = 0, sec = 0})
 
-            local differenceToKnownReset = dayTime - fixedResetTime;
+        local raidResetTime = fixedResetTime - 3600;
+        while raidResetTime < timeForFirstDayOfMonth do
+            raidResetTime = raidResetTime + raidResetDurations[raidKey]
+        end
 
-            --add 1 hour for dst
-            if IsDaylightSaving(dayTime) then
-                differenceToKnownReset = differenceToKnownReset + 3600
-            end
+        local firstRaidResetOfMonth = date("*t", raidResetTime)
 
-            if (differenceToKnownReset / raidResetDurations[raidKey]) % 1 == 0 then
-                C_Calendar.RegisterEvent(year, month, dayIndex, {
+        C_Calendar.RegisterEvent(year, month, firstRaidResetOfMonth.day, {
+            name = raidKeyToName[raidKey].name,
+            id = string.format("raidreset-%s", raidKey),
+            eventType = 3,
+            texture = string.format("interface/encounterjournal/ui-ej-dungeonbutton-%s", raidKey),
+        }, "instanceResets")
+
+
+        for i = 1, math.ceil(daysInMonth / (raidResetDurations[raidKey] / 60 / 60 / 24)) do --this should reduce the loop for the weekly resets and also cover the shorter 3 day resets
+            
+            local nextRaidDate = date("*t", raidResetTime + (i * raidResetDurations[raidKey]))
+
+            if nextRaidDate.year == year and nextRaidDate.month == month then
+
+                C_Calendar.RegisterEvent(year, month, nextRaidDate.day, {
                     name = raidKeyToName[raidKey].name,
                     id = string.format("raidreset-%s", raidKey),
                     eventType = 3,
                     texture = string.format("interface/encounterjournal/ui-ej-dungeonbutton-%s", raidKey),
                 }, "instanceResets")
             end
+
         end
 
+
     end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    --[[
+        using the known reset timestamps, loop the month days and check if the difference to the reset results in a whole number
+        if it does that means its a reset day
+    ]]
+    --for raidKey, fixedResetTime in pairs(resetData) do
+
+
+        --[[
+            ok so found a bug with the hardcoded reset times being 9 not 8
+        ]]
+        --fixedResetTime = (fixedResetTime - 3600)
+        
+       -- for dayIndex = 1, daysInMonth do
+            --local dayTime = time({ year = year, month = month, day = dayIndex, hour = 8, min = 0, sec = 0})
+            --local dayTime = time({ year = year, month = month, day = dayIndex, hour = 9, min = 0, sec = 0})  --swapped to 9 to match the reset data 
+
+           -- local differenceToKnownReset = dayTime - fixedResetTime;
+
+            --add 1 hour for dst
+            --if IsDaylightSaving(dayTime) then
+                --differenceToKnownReset = differenceToKnownReset + 3600
+            --end
+
+            -- if (differenceToKnownReset / raidResetDurations[raidKey]) % 1 == 0 then
+            --     C_Calendar.RegisterEvent(year, month, dayIndex, {
+            --         name = raidKeyToName[raidKey].name,
+            --         id = string.format("raidreset-%s", raidKey),
+            --         eventType = 3,
+            --         texture = string.format("interface/encounterjournal/ui-ej-dungeonbutton-%s", raidKey),
+            --     }, "instanceResets")
+            -- end
+        --end
+    --end
 end
 
 function C_Calendar.GetBattlegroundsForMonth(month, year)
