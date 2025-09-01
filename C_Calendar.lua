@@ -96,10 +96,10 @@ local raidKeyToName = {
     moltencore = { name = "Molten Core", },
     blackwinglair = { name = "Blackwing lair", },
     onyxia = { name = "Onyxia", },
-    templeofahnqiraj = { name = "AQ20 Ruins of Ahn'Qiraj", },
+    templeofahnqiraj = { name = "AQ40 Temple of Ahn'Qiraj", },
     naxxramas = { name = "Naxxramas", },
     zulgurub = { name = "Zul'Gurub", },
-    ruinsofahnqiraj = { name = "AQ40 Temple of Ahn'Qiraj"},
+    ruinsofahnqiraj = { name = "AQ20 Ruins of Ahn'Qiraj"},
 }
 
 
