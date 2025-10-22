@@ -413,7 +413,7 @@
                     <Frame parentKey="reagents" inherits="TBDListviewTemplate">
                         <Size x="210"/>
                         <Anchors>
-                            <Anchor point="TOPLEFT" x="26" y="-284"/>
+                            <Anchor point="TOPLEFT" x="26" y="-244"/>
                             <Anchor point="BOTTOMLEFT" x="26" y="36"/>
                         </Anchors>
                         <KeyValues>
@@ -447,22 +447,16 @@
                         </Layers>
                     </Frame>
 
-                    <Frame parentKey="crafters" inherits="TBDListviewTemplate">
-                        <Size x="180"/>
+                    <Frame parentKey="reagentForRecipes" inherits="TBDTreeviewTemplate">
                         <Anchors>
-                            <Anchor point="TOPRIGHT" x="-28" y="-288"/>
-                            <Anchor point="BOTTOMRIGHT" x="-28" y="28"/>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.reagents" relativePoint="TOPRIGHT" x="24" y="0"/>
+                            <Anchor point="BOTTOMLEFT" relativeKey="$parent.reagents" relativePoint="BOTTOMRIGHT" x="24" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="OVERLAY">
-                                <FontString inherits="GameFontNormalSmall" text="Crafters">
+                                <FontString inherits="GameFontNormalSmall" text="Reagent for">
                                     <Anchors>
                                         <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="0" y="8"/>
-                                    </Anchors>
-                                </FontString>
-                                <FontString inherits="GameFontNormalSmall" text="Online" justifyH="RIGHT">
-                                    <Anchors>
-                                        <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="0" y="8"/>
                                     </Anchors>
                                 </FontString>
 
@@ -500,17 +494,21 @@
                         </KeyValues>
                     </Frame>
 
-                    <Frame parentKey="reagentForRecipes" inherits="TBDTreeviewTemplate">
+                    <Frame parentKey="crafters" inherits="TBDListviewTemplate">
                         <Anchors>
-                            <Anchor point="TOPRIGHT" relativeKey="$parent.crafters" relativePoint="TOPLEFT" x="-34" y="0"/>
-                            <Anchor point="BOTTOMRIGHT" relativeKey="$parent.crafters" relativePoint="BOTTOMLEFT" x="-34" y="0"/>
-                            <Anchor point="LEFT" relativeKey="$parent.reagents" relativePoint="RIGHT" x="34" y="0"/>
+                            <Anchor point="BOTTOMRIGHT" x="-28" y="36"/>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.reagentForRecipes" relativePoint="TOPRIGHT" x="16" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="OVERLAY">
-                                <FontString inherits="GameFontNormalSmall" text="Reagent for">
+                                <FontString inherits="GameFontNormalSmall" text="Crafters">
                                     <Anchors>
                                         <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="0" y="8"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString inherits="GameFontNormalSmall" text="Online" justifyH="RIGHT">
+                                    <Anchors>
+                                        <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="0" y="8"/>
                                     </Anchors>
                                 </FontString>
 

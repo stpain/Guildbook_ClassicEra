@@ -31,7 +31,7 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="listview" inherits="GuildbookWrathEraWidgetsListviewTemplate">
+                    <Frame parentKey="listview" inherits="TBDListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="10" y="-30"/>
                             <Anchor point="BOTTOMRIGHT" x="-11" y="10"/>
@@ -50,12 +50,12 @@
                     <Anchor point="TOPLEFT" relativeKey="$parent.agenda" relativePoint="TOPRIGHT" x="20" y="0"/>
                 </Anchors>
                 <Frames>
-                    <CheckButton parentKey="toggleOffline" inherits="GuildbookWrathEraWidgetsCheckButton">
+                    <CheckButton parentKey="toggleOffline" inherits="TBDCheckButton">
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" x="11" y="30"/>
                         </Anchors>
                     </CheckButton>
-                    <CheckButton parentKey="maxLevel" inherits="GuildbookWrathEraWidgetsCheckButton">
+                    <CheckButton parentKey="maxLevel" inherits="TBDCheckButton">
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" x="11" y="10"/>
                         </Anchors>
@@ -92,7 +92,7 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="listview" inherits="GuildbookWrathEraWidgetsListviewTemplate">
+                    <Frame parentKey="listview" inherits="TBDListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="10" y="-30"/>
                             <Anchor point="BOTTOMRIGHT" x="-11" y="10"/>

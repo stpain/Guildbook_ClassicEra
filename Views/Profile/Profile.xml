@@ -54,7 +54,7 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="listview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+                    <Frame parentKey="listview" inherits = "TBDListviewTemplate">
                         <Anchors>
                             <Anchor point="TOP" relativeKey="$parent.mainSpec" relativePoint="BOTTOM" x="0" y="-15"/>
                             <Anchor point="BOTTOMLEFT" x="0" y="0"/>
@@ -65,7 +65,7 @@
                             <KeyValue key="elementHeight" value="32" type="number"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="helptip" frameLevel="7" inherits = "GuildbookWrathEraHelpTipTemplate_RightArrow">
+                    <Frame parentKey="helptip" frameLevel="7" inherits = "TBDHelpTipTemplate">
                         <Size x="200" y="210"/>
                         <Anchors>
                             <Anchor point="RIGHT" relativeKey="$parent.listview" relativePoint="LEFT" x="-20" y="60"/>
@@ -83,24 +83,24 @@
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
                 <Frames>
-                    <ScrollFrame parentKey="resistanceGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
+                    <ScrollFrame parentKey="resistanceGridview" inherits = "TBDGridviewTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" x="0" y="0"/>
                         </Anchors>
                     </ScrollFrame>
-                    <Frame parentKey="equipmentHelptip" frameLevel="7" inherits = "GuildbookWrathEraHelpTipTemplate_RightArrow">
+                    <Frame parentKey="equipmentHelptip" frameLevel="7" inherits = "TBDHelpTipTemplate">
                         <Size x="360" y="140"/>
                         <Anchors>
                             <Anchor point="RIGHT" relativeKey="$parent.resistanceGridview" relativePoint="LEFT" x="-10" y="-80"/>
                         </Anchors>
                     </Frame>
-                    <ScrollFrame parentKey="auraGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
+                    <ScrollFrame parentKey="auraGridview" inherits = "TBDGridviewTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeKey="$parent.resistanceGridview" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
                             <Anchor point="TOPLEFT" relativeKey="$parent.resistanceGridview" relativePoint="BOTTOMLEFT" x="0" y="0"/>
                         </Anchors>
                     </ScrollFrame>
-                    <Frame parentKey="statsListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+                    <Frame parentKey="statsListview" inherits = "TBDListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeKey="$parent.auraGridview" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
                             <Anchor point="TOPLEFT" relativeKey="$parent.auraGridview" relativePoint="BOTTOMLEFT" x="0" y="0"/>
@@ -118,7 +118,7 @@
                             <KeyValue key="elementHeight" value="26" type="number"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="equipmentListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+                    <Frame parentKey="equipmentListview" inherits = "TBDListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="0" y="-32"/>
                             <Anchor point="BOTTOMLEFT" x="0" y="0"/>
@@ -323,7 +323,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
+                            <ScrollFrame parentKey="talentsGridview" inherits = "TBDGridviewTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="0"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
@@ -344,7 +344,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
+                            <ScrollFrame parentKey="talentsGridview" inherits = "TBDGridviewTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="0"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
@@ -366,7 +366,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="talentsGridview" inherits = "GuildbookWrathEraWidgetsGridviewTemplate">
+                            <ScrollFrame parentKey="talentsGridview" inherits = "TBDGridviewTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="0"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>

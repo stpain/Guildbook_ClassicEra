@@ -149,7 +149,7 @@
                             <KeyValue key="tabPanelkey" value="events" type="string"/>
                         </KeyValues>
                     </Button>
-                    <Frame parentKey="lockouts" inherits="GuildbookWrathEraWidgetsListviewTemplate">
+                    <Frame parentKey="lockouts" inherits="TBDListviewTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="0" y="-60"/>
                             <Anchor point="BOTTOMRIGHT" x="0" y="0"/>

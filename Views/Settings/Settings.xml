@@ -19,7 +19,7 @@
         </Layers>
 
         <Frames>
-            <Frame parentKey="categoryListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+            <Frame parentKey="categoryListview" inherits = "TBDListviewTemplate">
                 <Size x="170"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="0"/>
@@ -123,25 +123,25 @@
                                             </Layer>
                                         </Layers>
                                         <Frames>
-                                            <CheckButton parentKey="mainSpec1" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                            <CheckButton parentKey="mainSpec1" inherits = "TBDCheckButton">
                                                 <Size x="24" y="24"/>
                                                 <Anchors>
                                                     <Anchor point="TOPLEFT" x="26" y="-42"/>
                                                 </Anchors>
                                             </CheckButton>
-                                            <CheckButton parentKey="mainSpec2" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                            <CheckButton parentKey="mainSpec2" inherits = "TBDCheckButton">
                                                 <Size x="24" y="24"/>
                                                 <Anchors>
                                                     <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.mainSpec1" x="0" y="-8"/>
                                                 </Anchors>
                                             </CheckButton>
-                                            <CheckButton parentKey="mainSpec3" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                            <CheckButton parentKey="mainSpec3" inherits = "TBDCheckButton">
                                                 <Size x="24" y="24"/>
                                                 <Anchors>
                                                     <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.mainSpec2" x="0" y="-8"/>
                                                 </Anchors>
                                             </CheckButton>
-                                            <CheckButton parentKey="mainSpec4" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                            <CheckButton parentKey="mainSpec4" inherits = "TBDCheckButton">
                                                 <Size x="24" y="24"/>
                                                 <Anchors>
                                                     <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.mainSpec3" x="0" y="-8"/>
@@ -149,25 +149,25 @@
                                             </CheckButton>
 
 
-                                            <CheckButton parentKey="offSpec1" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                            <CheckButton parentKey="offSpec1" inherits = "TBDCheckButton">
                                                 <Size x="24" y="24"/>
                                                 <Anchors>
                                                     <Anchor point="TOPLEFT" x="26" y="-202"/>
                                                 </Anchors>
                                             </CheckButton>
-                                            <CheckButton parentKey="offSpec2" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                            <CheckButton parentKey="offSpec2" inherits = "TBDCheckButton">
                                                 <Size x="24" y="24"/>
                                                 <Anchors>
                                                     <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.offSpec1" x="0" y="-8"/>
                                                 </Anchors>
                                             </CheckButton>
-                                            <CheckButton parentKey="offSpec3" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                            <CheckButton parentKey="offSpec3" inherits = "TBDCheckButton">
                                                 <Size x="24" y="24"/>
                                                 <Anchors>
                                                     <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.offSpec2" x="0" y="-8"/>
                                                 </Anchors>
                                             </CheckButton>
-                                            <CheckButton parentKey="offSpec4" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                            <CheckButton parentKey="offSpec4" inherits = "TBDCheckButton">
                                                 <Size x="24" y="24"/>
                                                 <Anchors>
                                                     <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.offSpec3" x="0" y="-8"/>
@@ -236,7 +236,7 @@
                     </Frame>
 
 
-                    <!-- GuildbookTabFrameTemplate -->
+                    <!-- TBDTabFrameTemplate -->
                     <Frame parentKey="guild" parentArray="panels" hidden="true" inherits="InsetFrameTemplate3">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="0" y="0"/>
@@ -262,7 +262,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <CheckButton parentKey="modBlizzRoster" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                            <CheckButton parentKey="modBlizzRoster" inherits = "TBDCheckButton">
                                 <Size x="24" y="24"/>
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="16" y="-32"/>
@@ -309,7 +309,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <ScrollFrame parentKey="scrollFrame" inherits = "GuildbookWrathEraScrollFrameTemplate">
+                            <ScrollFrame parentKey="scrollFrame" inherits = "TBDScrollFrameTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="-60"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
@@ -343,13 +343,13 @@
                                                     </Layer>
                                                 </Layers>
                                                 <Frames>
-                                                    <CheckButton parentKey="tradeskillsShowAllRecipeInfoTooltip" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                                    <CheckButton parentKey="tradeskillsShowAllRecipeInfoTooltip" inherits = "TBDCheckButton">
                                                         <Size x="24" y="24"/>
                                                         <Anchors>
                                                             <Anchor point="TOPLEFT" x="16" y="-32"/>
                                                         </Anchors>
                                                     </CheckButton>
-                                                    <CheckButton parentKey="tradeskillsShowMyRecipeInfoTooltip" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                                    <CheckButton parentKey="tradeskillsShowMyRecipeInfoTooltip" inherits = "TBDCheckButton">
                                                         <Size x="24" y="24"/>
                                                         <Anchors>
                                                             <Anchor point="TOPLEFT" x="16" y="-74"/>
@@ -374,13 +374,13 @@
                                                     </Layer>
                                                 </Layers>
                                                 <Frames>
-                                                    <CheckButton parentKey="tradeskillsShowAllRecipesUsingTooltip" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                                    <CheckButton parentKey="tradeskillsShowAllRecipesUsingTooltip" inherits = "TBDCheckButton">
                                                         <Size x="24" y="24"/>
                                                         <Anchors>
                                                             <Anchor point="TOPLEFT" x="16" y="-32"/>
                                                         </Anchors>
                                                     </CheckButton>
-                                                    <CheckButton parentKey="tradeskillsShowMyRecipesUsingTooltip" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                                                    <CheckButton parentKey="tradeskillsShowMyRecipesUsingTooltip" inherits = "TBDCheckButton">
                                                         <Size x="24" y="24"/>
                                                         <Anchors>
                                                             <Anchor point="TOPLEFT" x="16" y="-74"/>
@@ -421,13 +421,13 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <Slider name="GuildbookSettingsChatGuildHistoryLimitSlider" parentKey="chatGuildHistoryLimit" inherits = "GuildbookWrathEraSliderTopLabel">
+                            <Slider name="GuildbookSettingsChatGuildHistoryLimitSlider" parentKey="chatGuildHistoryLimit" inherits = "TBDSliderTopLabel">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="24" y="-92"/>
                                 </Anchors>
                                 <Size x="180" y="16"/>
                             </Slider>
-                            <Slider name="GuildbookSettingsChatWhisperHistoryLimitSlider" parentKey="chatWhisperHistoryLimit" inherits = "GuildbookWrathEraSliderTopLabel">
+                            <Slider name="GuildbookSettingsChatWhisperHistoryLimitSlider" parentKey="chatWhisperHistoryLimit" inherits = "TBDSliderTopLabel">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" relativeKey="$parent.chatGuildHistoryLimit" relativePoint="BOTTOMLEFT" x="0" y="-40"/>
                                 </Anchors>
@@ -440,14 +440,14 @@
                                 <Size x="160" y="22"/>
                             </Button>
 
-                            <CheckButton parentKey="showMainCharacterInChat" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                            <CheckButton parentKey="showMainCharacterInChat" inherits = "TBDCheckButton">
                                 <Size x="24" y="24"/>
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="320" y="-86"/>
                                 </Anchors>
                             </CheckButton>
 
-                            <CheckButton parentKey="showMainCharacterSpecInChat" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                            <CheckButton parentKey="showMainCharacterSpecInChat" inherits = "TBDCheckButton">
                                 <Size x="24" y="24"/>
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="320" y="-136"/>
@@ -481,7 +481,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <Frame parentKey="listview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+                            <Frame parentKey="listview" inherits = "TBDListviewTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="0" y="-60"/>
                                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
@@ -551,21 +551,21 @@
                                 </Anchors>
                             </Button>
 
-                            <CheckButton parentKey="debug" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                            <CheckButton parentKey="debug" inherits = "TBDCheckButton">
                                 <Size x="24" y="24"/>
                                 <Anchors>
                                     <Anchor point="LEFT" relativeKey="$parent.discord" relativePoint="RIGHT" x="60" y="0"/>
                                 </Anchors>
                             </CheckButton>
 
-                            <CheckButton parentKey="enhancedPaperDoll" inherits = "GuildbookWrathEraWidgetsCheckButton">
+                            <CheckButton parentKey="enhancedPaperDoll" inherits = "TBDCheckButton">
                                 <Size x="24" y="24"/>
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="16" y="-180"/>
                                 </Anchors>
                             </CheckButton>
 
-                            <CheckButton parentKey="wholeNineYards" inherits = "GuildbookWrathEraWidgetsCheckButton" hidden="true">
+                            <CheckButton parentKey="wholeNineYards" inherits = "TBDCheckButton" hidden="true">
                                 <Size x="24" y="24"/>
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="16" y="-305"/>

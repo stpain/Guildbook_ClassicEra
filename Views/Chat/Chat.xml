@@ -26,7 +26,7 @@
 
         <Frames>
 
-            <Frame parentKey="charactersListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+            <Frame parentKey="charactersListview" inherits = "TBDListviewTemplate">
                 <Size x="200"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="-30"/>
@@ -39,7 +39,7 @@
                 </KeyValues>
             </Frame>
 
-            <Frame parentKey="chatHistory" inherits = "GuildbookWrathEraWidgetsListviewTemplate, InsetFrameTemplate3">
+            <Frame parentKey="chatHistory" inherits = "TBDListviewTemplate, InsetFrameTemplate3">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.charactersListview" relativePoint="TOPRIGHT" x="6" y="0"/>
                     <Anchor point="BOTTOMRIGHT" x="-6" y="65"/>

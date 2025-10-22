@@ -13,7 +13,7 @@
         </Layers>
 
         <Frames>
-            <Frame parentKey="listview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+            <Frame parentKey="listview" inherits = "TBDListviewTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="0"/>
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>

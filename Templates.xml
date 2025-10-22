@@ -338,19 +338,19 @@
             </Layer>
         </Layers>
         <Frames>
-            <CheckButton parentKey="shareBank" inherits = "GuildbookWrathEraWidgetsCheckButton">
+            <CheckButton parentKey="shareBank" inherits = "TBDCheckButton">
                 <Size x="24" y="24"/>
                 <Anchors>
                     <Anchor point="RIGHT" x="-40" y="0"/>
                 </Anchors>
             </CheckButton>
-            <CheckButton parentKey="shareBags" inherits = "GuildbookWrathEraWidgetsCheckButton">
+            <CheckButton parentKey="shareBags" inherits = "TBDCheckButton">
                 <Size x="24" y="24"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.shareBank" relativePoint="LEFT" x="-40" y="0"/>
                 </Anchors>
             </CheckButton>
-            <CheckButton parentKey="shareCopper" inherits = "GuildbookWrathEraWidgetsCheckButton">
+            <CheckButton parentKey="shareCopper" inherits = "TBDCheckButton">
                 <Size x="24" y="24"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.shareBags" relativePoint="LEFT" x="-60" y="0"/>

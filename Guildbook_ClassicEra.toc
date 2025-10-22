@@ -23,21 +23,6 @@ Libs\LibSerialize\lib.xml
 #Libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
 Libs\LibCustomGlow-1.0\LibCustomGlow-1.0.xml
 
-Widgets\Listview.lua
-Widgets\Listview.xml
-Widgets\Gridview.lua
-Widgets\Gridview.xml
-#Widgets\Dropdown.lua
-#Widgets\Dropdown.xml
-Widgets\Checkbox.xml
-Widgets\ScrollFrame.lua
-Widgets\ScrollFrame.xml
-Widgets\Slider.xml
-Widgets\Helptips.lua
-Widgets\Helptips.xml
-Widgets\TabFrame.lua
-Widgets\TabFrame.xml
-
 ChangeLog.lua
 
 Locales.lua

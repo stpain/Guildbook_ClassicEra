@@ -75,9 +75,9 @@ function GuildbookGuildRosterMixin:OnLoad()
 
         self[slider].label:SetText(label)
 
-        _G[self[slider]:GetName().."Low"]:SetText(" ")
-        _G[self[slider]:GetName().."High"]:SetText(" ")
-        _G[self[slider]:GetName().."Text"]:SetText(" ")
+        -- _G[self[slider]:GetName().."Low"]:SetText(" ")
+        -- _G[self[slider]:GetName().."High"]:SetText(" ")
+        -- _G[self[slider]:GetName().."Text"]:SetText(" ")
 
         self[slider]:SetScript("OnMouseWheel", function(s, delta)
             s:SetValue(s:GetValue() + delta)

@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "5.0",
+        notes = "Updated to recent Blizzard changes.\n\nRemoved all old widgets from previous versions, now uses TBDWidgets for templates.\n\nMinor UI tweek to tradeskills view, now always shows both info boxes.",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "4.744",
         notes = "Fixed a typo where the AQ raids were displaying the opposite raid name.",
         icon = "PhotosensitivityWarning-questbang-icon",

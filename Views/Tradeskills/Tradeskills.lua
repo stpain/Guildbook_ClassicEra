@@ -119,7 +119,7 @@ function GuildbookTradskillsMixin:OnLoad()
 
     self.details.craftingOptions.quantityToCraft:SetMinMaxValues(1,100)
 
-    self:InitAddToListButton()
+    --self:InitAddToListButton()
 
     addon:RegisterCallback("Character_OnTradeskillSelected", self.OnCharacterTradeskillSelected, self)
     addon:RegisterCallback("Character_Bags_Updated", self.OnCharacterBagsUpdated, self)
@@ -321,32 +321,9 @@ end
 
 function GuildbookTradskillsMixin:UpdateLayout()
 
-    if self.details.reagentForRecipes:GetWidth() < 190 then
-        self.details.reagentForRecipes:Hide()
-        self.details.crafters:SetWidth(240)
-    else
-        self.details.reagentForRecipes:Show()
-        self.details.crafters:SetWidth(200)
-    end
-
-    -- self.details:ClearAllPoints()
-    -- self.details:SetPoint("TOPLEFT", 270, -40)
-    -- self.details:SetPoint("BOTTOMRIGHT", -4, 4)
-    
-    -- local x, y = self.details:GetSize()
-
-    -- local craftersBoxWidth = ((x - 240 - (3 * 28)) * 0.4)
-
-    -- if craftersBoxWidth < 150 then
-    --     self.details.crafters:SetWidth(craftersBoxWidth)
-    --     self.details.reagentForRecipes:Hide()
-    --     self.details.crafters:SetWidth(150)
-    -- else
-
-    --     self.details.crafters:SetWidth(craftersBoxWidth)
-    --     self.details.reagentForRecipes:Show()
-    -- end
-
+    local widgetWidth = (self.details:GetWidth() - 260) / 2
+    self.details.reagentForRecipes:SetWidth(widgetWidth)
+    --self.details.crafters:SetWidth(widgetWidth)
 
 end
 
@@ -646,16 +623,16 @@ function GuildbookTradskillsMixin:SetRecipe(recipe, isEnchanting)
 
         --adding to lists
         self.details.addToList.itemID = recipe.itemID
-        self.details.addToList:Show()
+        --self.details.addToList:Show()
 
         local t = {}
         local nodes = {}
         local recipesUsingItem = Tradeskills.GetAllRecipesThatUseItem(recipe.itemID)
         if not next(recipesUsingItem) then
-            self.details.reagentForRecipes:Hide()
+            --self.details.reagentForRecipes:Hide()
 
         else
-            self.details.reagentForRecipes:Show()
+            --self.details.reagentForRecipes:Show()
 
             for tradeskillID, recipes in pairs(recipesUsingItem) do
     
@@ -688,7 +665,7 @@ function GuildbookTradskillsMixin:SetRecipe(recipe, isEnchanting)
         end
 
     else
-        self.details.reagentForRecipes:Hide()
+        --self.details.reagentForRecipes:Hide()
 
         self.details.addToList.itemID = nil
         self.details.addToList:Hide()

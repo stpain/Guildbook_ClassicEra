@@ -22,7 +22,7 @@
                 </Anchors>
                 <NormalTexture atlas="common-icon-redx"/>
             </Button>
-            <CheckButton parentKey="completed" inherits="GuildbookWrathEraWidgetsCheckButton" hidden="true" enableMouse="false">
+            <CheckButton parentKey="completed" inherits="TBDCheckButton" hidden="true" enableMouse="false">
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.favorite" relativePoint="RIGHT" x="4" y="0"/>
                 </Anchors>
@@ -70,7 +70,7 @@
 
     <Frame name="GuildbookDailies" mixin="GuildbookWrathDailiesMixin">
         <Frames>
-            <Frame parentKey="charactersListview" inherits="GuildbookWrathEraWidgetsListviewTemplate">
+            <Frame parentKey="charactersListview" inherits="TBDListviewTemplate">
                 <Size x="160"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="0"/>
@@ -100,7 +100,7 @@
                 </Anchors>
                 <NormalTexture atlas="auctionhouse-icon-favorite-off"/>
             </Button>
-            <Frame parentKey="questsListview" inherits="GuildbookWrathEraWidgetsListviewTemplate">
+            <Frame parentKey="questsListview" inherits="TBDListviewTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.charactersListview" relativePoint="TOPRIGHT" x="0" y="-30"/>
                     <Anchor point="BOTTOMRIGHT" x="0" y="0"/>

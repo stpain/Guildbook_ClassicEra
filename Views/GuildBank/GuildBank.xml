@@ -30,7 +30,7 @@
         </Layers>
 
         <Frames>
-            <Frame parentKey="bankCharactersHelptip" inherits = "GuildbookWrathEraHelpTipTemplate_RightArrow">
+            <Frame parentKey="bankCharactersHelptip" inherits = "TBDHelpTipTemplate">
                 <Size x="140" y="180"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativePoint="LEFT" x="-10" y="0"/>
@@ -53,13 +53,13 @@
                     </Layer>
                 </Layers>
             </Frame>
-            <Frame parentKey="refreshHelptip" inherits = "GuildbookWrathEraHelpTipTemplate_RightArrow">
+            <Frame parentKey="refreshHelptip" inherits = "TBDHelpTipTemplate">
                 <Size x="200" y="120"/>
                 <Anchors>
                     <Anchor point="RIGHT" relativeKey="$parent.refresh" relativePoint="LEFT" x="-20" y="0"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="charactersListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate">
+            <Frame parentKey="charactersListview" inherits = "TBDListviewTemplate">
                 <Size x="300"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="-30"/>

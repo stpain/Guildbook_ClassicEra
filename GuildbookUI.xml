@@ -390,7 +390,7 @@
                             <Anchor point="TOPLEFT" x="90" y="0"/>
                         </Anchors>
                     </Button>
-                    <Frame parentKey="messageLogListview" inherits = "GuildbookWrathEraWidgetsListviewTemplate,InsetFrameTemplate">
+                    <Frame parentKey="messageLogListview" inherits = "TBDListviewTemplate,InsetFrameTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="1" y="-30"/>
                             <Anchor point="BOTTOMRIGHT" x="-1" y="1"/>
