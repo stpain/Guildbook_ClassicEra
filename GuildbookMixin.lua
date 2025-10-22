@@ -751,7 +751,9 @@ end
 
 function GuildbookUpdatesMixin:SayHello()
     
-    local version = tonumber(GetAddOnMetadata(name, "Version"));
+    local version = tonumber(C_AddOns.GetAddOnMetadata(name, "Version"));
+
+    --print(version, Database.db.version)
 
     if version > Database.db.version then
 
