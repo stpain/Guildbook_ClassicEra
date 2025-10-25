@@ -751,6 +751,7 @@ function GuildbookProfileMixin:LoadTalentsAndGlyphs()
             self.character.data.talents[spec] = talentString;
         end
 
+        --[[
 		if type(self.character.data.talents[spec]) == "string" then
 
             --this converts the string back into the giant table (string is better for comms and sharing)
@@ -780,6 +781,7 @@ function GuildbookProfileMixin:LoadTalentsAndGlyphs()
 				end
 			end
 		end
+        ]]
 	end
 
 

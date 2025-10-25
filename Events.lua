@@ -1133,22 +1133,22 @@ local function setPlayerTalentsAndGlyphs(...)
 
     local talentString = "";
 
-    if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+    -- if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 
-        talentString = Talents:GetPlayerTalentString(...)
+    --     talentString = Talents:GetPlayerTalentString(...)
 
-        local spec = ...
-        local specKey = "primary"
-        if spec == 1 then
-            specKey = "primary";
-        elseif spec == 2 then
-            specKey = "secondary"
-        end
+    --     local spec = ...
+    --     local specKey = "primary"
+    --     if spec == 1 then
+    --         specKey = "primary";
+    --     elseif spec == 2 then
+    --         specKey = "secondary"
+    --     end
 
-        if addon.characters[addon.thisCharacter] then
-            addon.characters[addon.thisCharacter]:SetTalents(specKey, talentString, true)
-        end
-    end
+    --     if addon.characters[addon.thisCharacter] then
+    --         addon.characters[addon.thisCharacter]:SetTalents(specKey, talentString, true)
+    --     end
+    -- end
     
 
     -- local spec, tabs, talents, glyphs;

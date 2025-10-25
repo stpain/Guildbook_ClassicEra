@@ -845,6 +845,18 @@ end
 
 
 
+function Talents:GetTalentIndex()
+    for tabIndex = 1, GetNumTalentTabs() do
+        local id, name, description, icon, pointsSpent, fileName, previewPointsSpent, isUnlocked = GetTalentTabInfo(tabIndex)
+
+        for talentIndex = 1, GetNumTalents(tabIndex) do
+            local _, _, row, column, rank = GetTalentInfo(tabIndex, talentIndex)
+
+        end
+    end
+end
+
+
 --https://www.wowhead.com/classic/talent-calc/paladin/550001-053051331301051-05202
 
 function Talents:GetPlayerTalentString(...)
@@ -869,11 +881,27 @@ function Talents:GetPlayerTalentString(...)
         Get all the talents in 1 table and sort tabIndex > row > col
         Then loop the table and concat the rank values, using the tabIndex to check if a "-" needs inserting
     ]]
-    for tabIndex = 1, GetNumTalentTabs() do
+    for tabIndex = 1, 3 do -- GetNumTalentTabs() do
         local id, name, description, icon, pointsSpent, fileName, previewPointsSpent, isUnlocked = GetTalentTabInfo(tabIndex)
 
-        for talentIndex = 1, GetNumTalents(tabIndex) do
-            local _, _, row, column, rank = GetTalentInfo(tabIndex, talentIndex)
+        for talentIndex = 1, 28 do -- GetNumTalents(tabIndex) do
+            local _, _, row, column, rank = GetTalentInfo(tabIndex, talentIndex) --C_SpecializationInfo.GetTalentInfo
+
+            local query = {
+                groupIndex = newSpec, --dual spec stuff
+                isInspect = false,
+                tier = 1,
+                column = 1,
+                target = "player",
+                specializationIndex = tabIndex,
+                talentIndex = talentIndex,
+                isPet = false,
+            }
+            local talentInfo = C_SpecializationInfo.GetTalentInfo(query)
+            if talentInfo ~= nil then
+                DevTools_Dump(talentInfo)
+            end
+
             
             --local _, _, row, column, rank, _, _, _, _, _, _, talentID = GetTalentInfo(tabIndex, talentIndex)
             --print(string.format("idx = %d > row = %d > col = %d > rank = %d > id = %d", talentIndex, row, column, rank, talentID))
@@ -909,6 +937,8 @@ function Talents:GetPlayerTalentString(...)
         end
         talentString = talentString..v.rank
     end
+
+    --print(talentString)
 
     return talentString --550001-053051331301051-05202 but with trailing zeros (not a problem)
 end
@@ -982,6 +1012,8 @@ function Talents:DecodeTalentStringForClass(talentString, classID)
     
     local t = {}
 
+    --print("talentString", talentString, ": classID", classID)
+
     local tab1, tab2, tab3 = strsplit("-", talentString)
     local talentTabStrings = { tab1, tab2, tab3, }
 
@@ -991,9 +1023,13 @@ function Talents:DecodeTalentStringForClass(talentString, classID)
 
         local talents = talentTabStrings[k]
 
+        --print(k, talents)
+
         for j, talentInfo in ipairs(info.talents) do
 
-            local talentRank = tonumber(string.sub(talents, j, j))
+            local talentRank = 0 -- tonumber(string.sub(talents, j, j))
+
+            --print(k, j, talentRank)
 
             local spellID
             if talentRank == 0 then

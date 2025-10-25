@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "5.1",
+        notes = "While Blizzard fix their Talents I have temporarily stopped the addon from touching Talents.\n\nHopefully they will get this fixed asap but with little to no information or statement from them who knows.....\n\nGood luck if you're levelling!",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "5.01",
         notes = "Updated to recent Blizzard changes.\n\nRemoved all old widgets from previous versions, now uses TBDWidgets for templates.\n\nMinor UI tweek to tradeskills view, now always shows both info boxes.",
         icon = "PhotosensitivityWarning-questbang-icon",

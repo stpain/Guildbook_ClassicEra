@@ -1708,6 +1708,16 @@ function GuildbookTalentIconFrameMixin:SetTalent(talent)
         else
             self.border:SetAtlas("orderhalltalents-spellborder-green")
         end
+
+        self:SetScript("OnMouseDown", function()
+
+            DevTools_Dump({self.talent})
+        
+            --AddPreviewTalentPoints(self.tabIndex, self.talentIndex, -1, self.isPet, activeTalentGroup);
+            --AddPreviewTalentPoints(1, 1, -1, false, 1);
+            --local activeTalentGroup = GetActiveTalentGroup(false, false)
+
+        end)
     end
 end
 function GuildbookTalentIconFrameMixin:ClearTalent()

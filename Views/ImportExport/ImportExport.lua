@@ -127,7 +127,7 @@ function GuildbookImportExportMixin:Character_ExportEquipment(character, setName
         setName = "current"
     end
     
-    if character.data and character.data.inventory[setName] then
+    if (1==2) and character.data and character.data.inventory[setName] then
         
         if type(character.data.inventory[setName][1]) == "number" then
 
