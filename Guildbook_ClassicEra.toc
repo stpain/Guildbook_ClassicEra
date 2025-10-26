@@ -1,6 +1,6 @@
 ## Interface: 11505
 ## Author: TheBoringDad
-## Version: 5.1
+## Version: 5.2
 ## Title: Guildbook_Classic
 ## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL
@@ -18,7 +18,6 @@ Libs\json.lua
 Libs\LibDeflate\LibDeflate.lua
 Libs\AceComm-3.0\AceComm-3.0.xml
 Libs\LibSerialize\lib.xml
-#Libs\LibCraftInfo-1.0\LibCraftInfo-1.0.xml
 #Libs\HereBeDragons\HereBeDragons-2.0.lua
 #Libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
 Libs\LibCustomGlow-1.0\LibCustomGlow-1.0.xml

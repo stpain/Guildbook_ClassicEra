@@ -21,6 +21,16 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "5.2",
+        notes = "Added ZG Madness Boss rotation to the Home View and Calendar day tooltip.",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
+        version = "5.11",
+        notes = "Added the Talents functionality back :)",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "5.1",
         notes = "While Blizzard fix their Talents I have temporarily stopped the addon from touching Talents.\n\nHopefully they will get this fixed asap but with little to no information or statement from them who knows.....\n\nGood luck if you're levelling!",
         icon = "PhotosensitivityWarning-questbang-icon",

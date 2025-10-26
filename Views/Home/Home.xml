@@ -73,7 +73,7 @@
                 </Layers>
             </Frame>
 
-            <Frame parentKey="challenges">
+            <Frame parentKey="whatsOn">
                 <Size x="160" y="160"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.census" relativePoint="BOTTOMLEFT" x="0" y="-20"/>
@@ -82,7 +82,7 @@
                 </Anchors>
                 <Layers>
                     <Layer level="OVERLAY">
-                        <FontString parentKey="header" inherits="GameFontNormal" justifyV="BOTTOM" text="GUILD_FRAME_CHALLENGES">
+                        <FontString parentKey="header" inherits="GameFontNormal" justifyV="BOTTOM" text="Whats On.">
                             <Anchors>
                                 <Anchor point="TOPLEFT" x="0" y="-10"/>
                                 <Anchor point="TOPRIGHT" x="0" y="-10"/>
@@ -94,12 +94,12 @@
                 <Frames>
                     <Frame parentKey="listview" inherits="TBDListviewTemplate">
                         <Anchors>
-                            <Anchor point="TOPLEFT" x="10" y="-30"/>
-                            <Anchor point="BOTTOMRIGHT" x="-11" y="10"/>
+                            <Anchor point="TOPLEFT" x="10" y="-40"/>
+                            <Anchor point="BOTTOMRIGHT" x="-16" y="10"/>
                         </Anchors>
                         <KeyValues>
                             <KeyValue key="itemTemplate" value="TBDSimpleIconLabelFrame" type="string"/>
-                            <KeyValue key="elementHeight" value="26" type="number"/>
+                            <KeyValue key="elementHeight" value="30" type="number"/>
                         </KeyValues>
                     </Frame>
                 </Frames>

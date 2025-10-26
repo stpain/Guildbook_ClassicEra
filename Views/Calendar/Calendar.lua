@@ -62,6 +62,13 @@ function GuildbookCalendarDayTileMixin:OnLoad()
         GameTooltip:AddLine(date("%d %B %Y", time(self.date)))
         --GameTooltip:AddLine(time(self.date))
 
+        local zgMadnessBoss = C_Calendar.GetMadnessBoss(self.date.year, self.date.month, self.date.day)
+        if type(zgMadnessBoss) == "string" then
+            GameTooltip:AddLine(" ")
+            GameTooltip:AddLine("ZG Madness Boss")
+            GameTooltip:AddLine(zgMadnessBoss, 1,1,1,1)
+        end
+
         if self.events and (#self.events > 0) then
             GameTooltip:AddLine(" ")
 

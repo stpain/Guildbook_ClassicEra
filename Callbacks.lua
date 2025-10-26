@@ -42,6 +42,7 @@ addon:GenerateCallbackEvents({
     "Guildbank_OnDataReceived",
     "Guildbank_StatusInfo",
 
+    "Calendar_OnInitialized",
     "Calendar_OnDayItemAdded",
     "Calendar_OnMonthChanged",
     "Calendar_OnCalendarEventCreated",

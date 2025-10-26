@@ -10,6 +10,7 @@ local Comms;
         This file has a lot of random local data, it should have a sort and tidy into a proper C_Calendar namespace
 ]]
 
+
 local worldHolidayTextures = {
     midsummer = { start = 235474, ongoing = 235473, ends = 235472 },
     hallowsend = { start = 235462, ongoing = 235461, ends = 235460,},
@@ -42,7 +43,29 @@ local worldHolidayEvents = {
         },
         [11] = {},
         [12] = {},
-    }
+    },
+    [2026] = {
+        [1] = {},
+        [2] = {},
+        [3] = {},
+        [4] = {},
+        [5] = {},
+        [6] = {
+            [21] = {
+                { id = "midsummer", name = "MidSummer Fire Festival",}
+            }
+        },
+        [7] = {},
+        [8] = {},
+        [9] = {},
+        [10] = {
+            [17] = {
+                { id = "hallowsend", name = "Hallows End",}
+            }
+        },
+        [11] = {},
+        [12] = {},
+    },
 }
 
 
@@ -123,7 +146,7 @@ local raidKeyToName = {
 local raidResetDurations = {
     moltencore = 7 * 24 * 60 * 60,
     blackwinglair = 7 * 24 * 60 * 60,
-    onyxia = 5 * 24 * 60 * 60, --apparently this is a 5 day reset?
+    onyxia = 5 * 24 * 60 * 60,
     templeofahnqiraj = 7 * 24 * 60 * 60,
     naxxramas = 7 * 24 * 60 * 60,
     zulgurub = 3 * 24 * 60 * 60,
@@ -243,8 +266,40 @@ local function CreateTimeForDate(year, month, day, hour, min, sec)
 end
 
 
+local zgMadnessSchedule = {
+    "Hazza'rah",
+    "Renataki",
+    "Wushoolay",
+    "Gri'lek",
+}
+local knownMaddnessStart = 1757462401; -- 1761091300; --october 22 2025 1am ish start of Gri'lek
+local fortnight = (14 * 24 * 60 * 60)
+function C_Calendar.GetMadnessBoss(year, month, day)
 
+    local today = CreateTimeForDate(year, month, day, 1, 1, 1)
 
+    local timeDiff = today - knownMaddnessStart;
+
+    if timeDiff < fortnight then
+        --print(string.format("Madness Boss: %s", zgMadnessSchedule[1]))
+
+    else
+        local bossPeriods = timeDiff / fortnight;
+
+        local currentBossIndex = (math.floor(bossPeriods) % 4) + 1;
+
+        -- DevTools_Dump({
+        --     today = today,
+        --     knownMaddnessStart = knownMaddnessStart,
+        --     timeDiff = timeDiff,
+        --     bossPeriods = bossPeriods,
+        --     currentBossIndex = currentBossIndex,
+        -- })
+
+        return zgMadnessSchedule[currentBossIndex]
+    end
+
+end
 
 
 
@@ -1009,6 +1064,8 @@ function C_Calendar:Init()
         ViragDevTool_AddData(Database.db.calendar, "Database.db.calendar")
         ViragDevTool_AddData(addon.calendarEvents, "addon.calendarEvents")
     end
+
+    addon:TriggerEvent("Calendar_OnInitialized")
 end
 
 --C_Calendar:Init()

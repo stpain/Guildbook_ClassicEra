@@ -67,7 +67,7 @@ function GuildbookHomeMixin:OnLoad()
         self:UpdateCensus()
     end)
 
-    NineSliceUtil.ApplyLayout(self.challenges, agendaNineSliceLayout)
+    NineSliceUtil.ApplyLayout(self.whatsOn, agendaNineSliceLayout)
     NineSliceUtil.ApplyLayout(self.agenda, agendaNineSliceLayout)
     NineSliceUtil.ApplyLayout(self.census, agendaNineSliceLayout)
     NineSliceUtil.ApplyLayout(self.gmotd, gmotdNineSliceLayout)
@@ -79,9 +79,14 @@ function GuildbookHomeMixin:OnLoad()
     addon:RegisterCallback("UI_OnSizeChanged", self.UpdateLayout, self)
     addon:RegisterCallback("Blizzard_OnGuildRosterUpdate", self.UpdateCensus, self)
     addon:RegisterCallback("Character_OnNewsEvent", self.Character_OnNewsEvent, self)
+    --addon:RegisterCallback("Calendar_OnInitialized", self.Calendar_OnInitialized, self)
 
     addon.AddView(self)
 end
+
+-- function GuildbookHomeMixin:Calendar_OnInitialized()
+--     addon.Calendar.GetMadnessBoss(2025, 11, 5)
+-- end
 
 function GuildbookHomeMixin:OnShow()
     self:LoadData()
@@ -272,7 +277,7 @@ function GuildbookHomeMixin:LoadData()
 
     self:LoadAgenda()
 
-    self:LoadChallenges()
+    self:LoadWhatsOn()
 
 end
 
@@ -518,22 +523,20 @@ function GuildbookHomeMixin:Character_OnNewsEvent(news)
     --Database:InsertNewsEevnt(news)
 end
 
-function GuildbookHomeMixin:LoadChallenges()
-    
-    RequestGuildChallengeInfo()
+function GuildbookHomeMixin:LoadWhatsOn()
 
     local dp = CreateDataProvider()
 
-    for i = 1, GetNumGuildChallenges() do
-        
-        local index, numComplete, totalComplete, x, gold = GetGuildChallengeInfo(i)
-        local text = _G["GUILD_CHALLENGE_TYPE"..i]
+    local today = date("*t")
+    local zgMadnessBoss = addon.Calendar.GetMadnessBoss(today.year, today.month, today.day)
 
-        dp:Insert({
-            label = text,
-            labelRight = string.format("%d / %d  ", numComplete, totalComplete)
-        })
-    end
+    dp:Insert({
+        label = "ZG Madness Boss:",
+        labelRight = zgMadnessBoss,
+        init = function(f)
+            f.labelRight:SetFontObject("GameFontNormalLarge")
+        end,
+    })
 
-    self.challenges.listview.scrollView:SetDataProvider(dp)
+    self.whatsOn.listview.scrollView:SetDataProvider(dp)
 end

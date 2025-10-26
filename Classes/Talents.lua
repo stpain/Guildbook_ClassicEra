@@ -845,18 +845,6 @@ end
 
 
 
-function Talents:GetTalentIndex()
-    for tabIndex = 1, GetNumTalentTabs() do
-        local id, name, description, icon, pointsSpent, fileName, previewPointsSpent, isUnlocked = GetTalentTabInfo(tabIndex)
-
-        for talentIndex = 1, GetNumTalents(tabIndex) do
-            local _, _, row, column, rank = GetTalentInfo(tabIndex, talentIndex)
-
-        end
-    end
-end
-
-
 --https://www.wowhead.com/classic/talent-calc/paladin/550001-053051331301051-05202
 
 function Talents:GetPlayerTalentString(...)
@@ -876,42 +864,47 @@ function Talents:GetPlayerTalentString(...)
 
     local t = {}
 
+    -- local newT = {}
+    -- if ViragDevTool_AddData then
+    --     ViragDevTool_AddData(newT, "Guildbook_NewTalents")
+    -- end
+
 
     --[[
         Get all the talents in 1 table and sort tabIndex > row > col
         Then loop the table and concat the rank values, using the tabIndex to check if a "-" needs inserting
     ]]
     for tabIndex = 1, 3 do -- GetNumTalentTabs() do
-        local id, name, description, icon, pointsSpent, fileName, previewPointsSpent, isUnlocked = GetTalentTabInfo(tabIndex)
+        --local id, name, description, icon, pointsSpent, fileName, previewPointsSpent, isUnlocked = GetTalentTabInfo(tabIndex)
 
-        for talentIndex = 1, 28 do -- GetNumTalents(tabIndex) do
-            local _, _, row, column, rank = GetTalentInfo(tabIndex, talentIndex) --C_SpecializationInfo.GetTalentInfo
-
-            local query = {
-                groupIndex = newSpec, --dual spec stuff
-                isInspect = false,
-                tier = 1,
-                column = 1,
-                target = "player",
-                specializationIndex = tabIndex,
-                talentIndex = talentIndex,
-                isPet = false,
-            }
-            local talentInfo = C_SpecializationInfo.GetTalentInfo(query)
-            if talentInfo ~= nil then
-                DevTools_Dump(talentInfo)
-            end
-
-            
-            --local _, _, row, column, rank, _, _, _, _, _, _, talentID = GetTalentInfo(tabIndex, talentIndex)
-            --print(string.format("idx = %d > row = %d > col = %d > rank = %d > id = %d", talentIndex, row, column, rank, talentID))
-
+        for talentIndex = 1, GetNumTalents(tabIndex) do
+            local _, _, row, column, rank = GetTalentInfo(tabIndex, talentIndex)
             table.insert(t, {
                 row = row,
                 col = column,
                 rank = rank,
                 tabIndex = tabIndex,
             })
+
+            -- local query = {
+            --     groupIndex = newSpec, --dual spec stuff
+            --     isInspect = false,
+            --     --tier = 1,
+            --     --column = 1,
+            --     target = "player",
+            --     specializationIndex = tabIndex,
+            --     talentIndex = talentIndex,
+            --     isPet = false,
+            -- }
+            -- local talentInfo = C_SpecializationInfo.GetTalentInfo(query)
+            -- if talentInfo ~= nil then
+            --     table.insert(newT, talentInfo)
+            --     --DevTools_Dump({talentInfo})
+            -- end
+
+            
+            --local _, _, row, column, rank, _, _, _, _, _, _, talentID = GetTalentInfo(tabIndex, talentIndex)
+            --print(string.format("idx = %d > row = %d > col = %d > rank = %d > id = %d", talentIndex, row, column, rank, talentID))
 
         end
 
@@ -1027,7 +1020,7 @@ function Talents:DecodeTalentStringForClass(talentString, classID)
 
         for j, talentInfo in ipairs(info.talents) do
 
-            local talentRank = 0 -- tonumber(string.sub(talents, j, j))
+            local talentRank = tonumber(string.sub(talents, j, j))
 
             --print(k, j, talentRank)
 
