@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "5.21",
+        notes = "Fixed a bug with Battlegrounds showing incorrectly or not at all.",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "5.2",
         notes = "Added ZG Madness Boss rotation to the Home View and Calendar day tooltip.",
         icon = "PhotosensitivityWarning-questbang-icon",

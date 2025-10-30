@@ -70,7 +70,7 @@ function GuildbookCalendarDayTileMixin:OnLoad()
         end
 
         if self.events and (#self.events > 0) then
-            GameTooltip:AddLine(" ")
+            --GameTooltip:AddLine(" ")
 
             local eventTypeIndex = 0
             for k, v in ipairs(self.events) do

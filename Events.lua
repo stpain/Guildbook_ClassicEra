@@ -291,7 +291,7 @@ ERR_GUILD_WITHDRAW_LIMIT = "You cannot withdraw that much from the guild bank.";
 
 ]]
 
-local dfui, ranker = false, false
+--local dfui, ranker = false, false
 function e:ADDON_LOADED(...)
 
     -- if ... == "Guildbook_TSDB" then

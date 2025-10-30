@@ -844,38 +844,69 @@ function C_Calendar.GetBattlegroundsForMonth(month, year)
     month = month or C_Calendar.absDate.month
     year = year or C_Calendar.absDate.year
 
-    local first_friday
-    for day = 1, 7 do
-        local t = time({year = year, month = month, day = day})
-            if date("*t", t).wday == 6 then  -- Friday = 6
-                first_friday = t
+    local monthStartsOnSaturday = false;
 
-                --print("got first friday", date("*t", t).day)
-            break
+    local first_friday = nil;
+    for day = 1, 7 do
+        local t = time({year = year, month = month, day = day, hour = 0, min = 1, sec = 0})
+        local d = date("*t", t)
+        if d.wday == 6 then  -- Friday = 6
+            first_friday = t
+            if d.day == 7 then
+                monthStartsOnSaturday = true
+            end
         end
     end
 
     --make sure this friday is still with the current month
     local daysInMonth = C_Calendar.GetDaysInMonth(month, year)
-    local lastDayInMonth = time({ year = year, month = month, day = daysInMonth, hour = 0, min = 1, sec = 0})
+    local lastDayInMonth = time({ year = year, month = month, day = daysInMonth, hour = 23, min = 59, sec = 0})
 
     for i = 0, 4 do
         local this_friday = first_friday + (i * one_week)
 
-        --print("weekend iter", date("*t", this_friday).day)
+       -- print("weekend iter", date("*t", this_friday).day)
 
         if this_friday < lastDayInMonth then
 
+            -- local battlegroundSchedule = {
+            --     [1] = "Alterac Valley",
+            --     [2] = "Warsong Gulch",
+            --     [3] = "Arathi Basin",
+            -- }
+
             local num_weeks_passed = (this_friday - battlegroundFixedDates.EU) / one_week
-            local battlegroundScheduleIndex = math.ceil(num_weeks_passed % #battlegroundSchedule)
+            local battlegroundScheduleIndex = math.ceil(num_weeks_passed % #battlegroundSchedule) + 1
+
+            if monthStartsOnSaturday == true then
+                --lets just fix the start of the month
+                --get the previous index, if thats less than 1 that means it was already 1 and should now be the last entry
+                local previousBgIndex = battlegroundScheduleIndex - 1;
+                if previousBgIndex < 1 then
+                    previousBgIndex = #battlegroundSchedule;
+                end
+
+                for dy = 1, 2 do
+                    C_Calendar.RegisterEvent(year, month, dy, {
+                        name = worldEventIDs[previousBgIndex],
+                        id = eventDayIDs.battleground,
+                        drawLayer = drawLayers.battleground,
+                        eventType = 4,
+                        texture = 1129670,
+                    }, "holidayEvents")
+                end
+
+            end
 
             for offset = 0, 3 do
                 local fri = this_friday + (offset * 86400)
                 local day_date = date("*t", fri)
 
-                --print("day iter", day_date.day, day_date.month, month, battlegroundSchedule[battlegroundScheduleIndex])
+                --print(string.format("BG: Date=%d Month=%d CalendarMonth=%d BgIndex=%d", day_date.day, day_date.month, month, battlegroundScheduleIndex))
 
-                if day_date.month == month and day_date.wday ~= 5 and day_date.wday ~= 3 and day_date.wday ~= 4 then
+                if (day_date.month == month) and (day_date.wday ~= 5) and (day_date.wday ~= 3) and (day_date.wday ~= 4) then
+
+                    --print("day date checks passed adding event")
                     
                     C_Calendar.CheckDateTableExists(year, month, day_date.day)
 
