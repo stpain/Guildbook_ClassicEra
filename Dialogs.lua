@@ -40,6 +40,25 @@ StaticPopupDialogs['Reload'] = {
     showAlert = 1,
 }
 
+StaticPopupDialogs['GuildbookCopyCharacterName'] = {
+    text = "%s",
+    button1 = "OK",
+    OnAccept = function(self)
+
+    end,
+    OnShow = function(self, data)
+        self.EditBox:SetText(data)
+        self.EditBox:HighlightText()
+        --self.EditBox:ClearFocus()
+    end,
+    hasEditBox = true,
+    timeout = 0,
+    whileDead = true,
+    hideOnEscape = false,
+    preferredIndex = 3,
+    showAlert = 1,
+}
+
 StaticPopupDialogs['GuildbookReport'] = {
     text = 'Oops, something went wrong, is it Tuesday?\n\n%s',
     button1 = "OK",
@@ -48,7 +67,7 @@ StaticPopupDialogs['GuildbookReport'] = {
 
     end,
     OnShow = function(self)
-        self.editBox:SetText("https://discord.gg/st5uDAX5Cn")
+        self.EditBox:SetText("https://discord.gg/st5uDAX5Cn")
     end,
     hasEditBox = true,
     timeout = 0,
@@ -136,7 +155,7 @@ StaticPopupDialogs['GuildbookCalendarAddEvent'] = {
     button1 = YES,
     button2 = NO,
     OnAccept = function(self, data)
-        local str = self.editBox:GetText()
+        local str = self.EditBox:GetText()
         if str and (#str > 0) and (str ~= " ") then
             local event = {
                 calendarTypeEnum = data.calendarTypeEnum,

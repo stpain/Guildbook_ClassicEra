@@ -580,77 +580,92 @@ function GuildbookSettingsMixin:PreparePanels()
 
     self.content.chat.deleteAllChats:SetScript("OnClick", function()
         Database:ResetKey("chats", {
-            guild = {},
+            guild = {
+                [addon.thisGuild] = {},
+            },
         })
+        addon:TriggerEvent("Chat_OnHistoryDeleted")
     end)
 
 
-    local function myChatFilter(_, event, msg, author, ...)
-        if addon.thisCharacter and (addon.thisCharacter ~= author) and addon.characters and addon.characters[author] then
-            local mainCharacter = addon.characters[author]:GetMainCharacter()
-            if mainCharacter then
+    local function ChatFilter_AddCharacterInfo(_, event, originalMessage, author, ...)
+        local showMainCharacterName = Database:GetConfig("showMainCharacterInChat")
+        local showMainCharacterSpec = Database:GetConfig("showMainCharacterSpecInChat")
+        local showCharacterSpec = Database:GetConfig("showCharacterSpecInChat")
 
-                if addon.characters[mainCharacter] then
-
-                    local _, class = GetClassInfo(addon.characters[mainCharacter].data.class)
-                    if class then
-                        local specAtlas = ""
-                        if Database:GetConfig("showMainCharacterSpecInChat") then
-                            if addon.characters[mainCharacter].data.mainSpec ~= false then
-                                specAtlas = CreateAtlasMarkup(addon.characters[mainCharacter]:GetClassSpecAtlasName("primary"))
-                            end
-                        end
-                        return false, string.format("[%s%s] %s", specAtlas, RAID_CLASS_COLORS[class]:WrapTextInColorCode(Ambiguate(mainCharacter, "short")), msg), author, ...
-                    else
-                        return false, string.format("[%s] %s", Ambiguate(mainCharacter, "short"), msg), author, ...
-                    end
-                end
-            end
-        else
-            return false, msg, author, ...
+        --if nothign is to be shown then just get the heck out with normal message data
+        if (showCharacterSpec ~= true) and (showMainCharacterName ~= true) then
+            return false, originalMessage, author, ...
         end
+
+        --get data about spec and main character
+        local mainCharacter, mainCharacterSpecIcon, characterSpecIcon;
+        if addon.characters and addon.characters[author] then
+            mainCharacter = addon.characters[author]:GetMainCharacter()
+            if type(mainCharacter) == "string" then
+                mainCharacterSpecIcon = CreateAtlasMarkup(addon.characters[mainCharacter]:GetClassSpecAtlasName("primary"))
+            end
+            characterSpecIcon = CreateAtlasMarkup(addon.characters[author]:GetClassSpecAtlasName("primary"))
+        end
+
+        --if the main and sending author are the same, check if the icon should be added
+        if (mainCharacter == author) then
+            if (showCharacterSpec == true) and (characterSpecIcon ~= nil) then
+                return false, string.format("[%s] %s", characterSpecIcon, originalMessage), author, ...;
+            else
+                return false, originalMessage, author, ...;
+            end
+        end
+
+        --if we aren't showing main character data, check for spec icon
+        if (showMainCharacterName ~= true) then
+            if (showCharacterSpec == true) and (characterSpecIcon ~= nil) then
+                return false, string.format("[%s] %s", characterSpecIcon, originalMessage), author, ...;
+            else
+                return false, originalMessage, author, ...;
+            end
+        end
+
+        --add the main character and spec icons 
+        local s = "";
+        if (showMainCharacterName == true) and (type(mainCharacter) == "string") then
+            if (showCharacterSpec == true) and (type(characterSpecIcon) == "string") then
+                s = string.format("%s[%s] ", s, characterSpecIcon)
+            end
+            if (showMainCharacterSpec == true) and (type(mainCharacterSpecIcon) == "string") then
+                s = string.format("%s[%s %s] ", s, Ambiguate(mainCharacter, "short"), mainCharacterSpecIcon) 
+            else
+                s = string.format("%s[%s] ", s, Ambiguate(mainCharacter, "short"))
+            end
+        end
+
+        return false, string.format("%s%s", s, originalMessage), author, ...
     end
 
-    --could probably just accept the boolean val from the db here but this is maybe more readable
-    local showMain = Database:GetConfig("showMainCharacterInChat")
-    if showMain then
-        self.content.chat.showMainCharacterInChat:SetChecked(true)
-        ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", myChatFilter)
-        ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", myChatFilter)
-    else
-        self.content.chat.showMainCharacterInChat:SetChecked(false)
-        ChatFrame_RemoveMessageEventFilter("CHAT_MSG_GUILD", myChatFilter)
-        ChatFrame_RemoveMessageEventFilter("CHAT_MSG_WHISPER", myChatFilter)
-    end
+    ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", ChatFilter_AddCharacterInfo)
+    ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", ChatFilter_AddCharacterInfo)
+
+    self.content.chat.showMainCharacterInChat:SetChecked(Database:GetConfig("showMainCharacterInChat"))
+    self.content.chat.showCharacterSpecInChat:SetChecked(Database:GetConfig("showCharacterSpecInChat"))
+    self.content.chat.showMainCharacterSpecInChat:SetChecked(Database:GetConfig("showMainCharacterSpecInChat"))
+
+
+    self.content.chat.showCharacterSpecInChat.label:SetText(L.SETTINGS_CHAT_SHOW_SPEC)
+    self.content.chat.showCharacterSpecInChat:SetScript("OnClick", function(cb)
+        Database:SetConfig("showCharacterSpecInChat", cb:GetChecked())
+        --DevTools_Dump({Database.db.config})
+    end)
 
     self.content.chat.showMainCharacterInChat.label:SetText(L.SETTINGS_CHAT_SHOW_MAIN)
     self.content.chat.showMainCharacterInChat:SetScript("OnClick", function(cb)
-        
-        local showMain = cb:GetChecked()
-        if showMain then
-            self.content.chat.showMainCharacterInChat:SetChecked(true)
-            Database:SetConfig("showMainCharacterInChat", true)
-            ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", myChatFilter)
-        else
-            self.content.chat.showMainCharacterInChat:SetChecked(false)
-            Database:SetConfig("showMainCharacterInChat", false)
-            ChatFrame_RemoveMessageEventFilter("CHAT_MSG_GUILD", myChatFilter)
-        end
+        Database:SetConfig("showMainCharacterInChat", cb:GetChecked())
     end)
 
 
     self.content.chat.showMainCharacterSpecInChat.label:SetText(L.SETTINGS_CHAT_SHOW_MAIN_SPEC)
     self.content.chat.showMainCharacterSpecInChat:SetChecked(Database:GetConfig("showMainCharacterSpecInChat"))
     self.content.chat.showMainCharacterSpecInChat:SetScript("OnClick", function(cb)
-        
-        local showMainSpec = cb:GetChecked()
-        if showMainSpec then
-            self.content.chat.showMainCharacterSpecInChat:SetChecked(true)
-            Database:SetConfig("showMainCharacterSpecInChat", true)
-        else
-            self.content.chat.showMainCharacterSpecInChat:SetChecked(false)
-            Database:SetConfig("showMainCharacterSpecInChat", false)
-        end
+        Database:SetConfig("showMainCharacterSpecInChat", cb:GetChecked())
     end)
 
 

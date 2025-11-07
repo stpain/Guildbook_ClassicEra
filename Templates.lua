@@ -817,6 +817,13 @@ function GuildbookRosterListviewItemMixin:Update()
             notCheckable = true,
         },
         {
+            text = "Copy character name",
+            func = function()
+                --CopyToClipboard(self.character.data.name)
+                StaticPopup_Show("GuildbookCopyCharacterName", self.character.data.name, nil, Ambiguate(self.character.data.name, "short"))
+            end
+        },
+        {
             text = "Edit character",
             func = function()
                 addon:TriggerEvent("Character_OnSetCharacterToEdit", self.character)

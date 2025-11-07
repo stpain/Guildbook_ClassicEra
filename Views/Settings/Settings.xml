@@ -440,17 +440,24 @@
                                 <Size x="160" y="22"/>
                             </Button>
 
-                            <CheckButton parentKey="showMainCharacterInChat" inherits = "TBDCheckButton">
+                            <CheckButton parentKey="showCharacterSpecInChat" inherits = "TBDCheckButton">
                                 <Size x="24" y="24"/>
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="320" y="-86"/>
                                 </Anchors>
                             </CheckButton>
 
-                            <CheckButton parentKey="showMainCharacterSpecInChat" inherits = "TBDCheckButton">
+                            <CheckButton parentKey="showMainCharacterInChat" inherits = "TBDCheckButton">
                                 <Size x="24" y="24"/>
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="320" y="-136"/>
+                                </Anchors>
+                            </CheckButton>
+
+                            <CheckButton parentKey="showMainCharacterSpecInChat" inherits = "TBDCheckButton">
+                                <Size x="24" y="24"/>
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="320" y="-186"/>
                                 </Anchors>
                             </CheckButton>
                         </Frames>                  

@@ -19,6 +19,7 @@ local configUpdates = {
     chatWhisperHistoryLimit = 30,
     showMainCharacterInChat = true,
     showMainCharacterSpecInChat = true,
+    showCharacterSpecInChat = false,
     wholeNineYards = false,
     enhancedPaperDoll = true,
 
@@ -56,8 +57,8 @@ function Database:Init()
     if not GUILDBOOK_GLOBAL then
         GUILDBOOK_GLOBAL = {
             config = {
-                chatGuildHistoryLimit = 50,
-                chatWhisperHistoryLimit = 50,
+                chatGuildHistoryLimit = 30,
+                chatWhisperHistoryLimit = 30,
             },
             minimapButton = {},
             calendarButton = {},
@@ -80,6 +81,10 @@ function Database:Init()
     end
 
     self.db = GUILDBOOK_GLOBAL;
+
+    if self.db.config.showMainCharactshowMainCharacterSpecInChatrInChat then
+        self.db.config.showMainCharactshowMainCharacterSpecInChatrInChat = nil
+    end
 
     for k, v in pairs(dbUpdates) do
         if self.db[k] == nil then

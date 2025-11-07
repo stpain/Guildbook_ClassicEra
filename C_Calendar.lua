@@ -12,13 +12,17 @@ local Comms;
 
 
 local worldHolidayTextures = {
-    midsummer = { start = 235474, ongoing = 235473, ends = 235472 },
-    hallowsend = { start = 235462, ongoing = 235461, ends = 235460,},
+    midsummer = { start = 235474, ongoing = 235473, ends = 235472, },
+    hallowsend = { start = 235462, ongoing = 235461, ends = 235460, },
+    winterveil = { start = 235485, ongoing = 235484, ends = 235482, },
+    lunarfestival = { start = 235471, ongoing = 235470, ends = 235469, },
 }
 
 local worldHolidayDurations = {
     midsummer = 14,
     hallowsend = 14,
+    winterveil = 19,
+    lunarfestival = 14,
 }
 
 local worldHolidayEvents = {
@@ -42,11 +46,19 @@ local worldHolidayEvents = {
             }
         },
         [11] = {},
-        [12] = {},
+        [12] = {
+            [15] = {
+                { id = "winterveil", name = "Feast of Winter Veil"}
+            }
+        },
     },
     [2026] = {
         [1] = {},
-        [2] = {},
+        [2] = {
+            [16] = {
+                { id = "lunarfestival", name = "Lunar Festival", }
+            }
+        },
         [3] = {},
         [4] = {},
         [5] = {},
@@ -64,7 +76,11 @@ local worldHolidayEvents = {
             }
         },
         [11] = {},
-        [12] = {},
+        [12] = {
+            [15] = {
+                { id = "winterveil", name = "Feast of Winter Veil"}
+            }
+        },
     },
 }
 
@@ -209,7 +225,8 @@ local raidResetFixedDates = {
 
 --i think this is the same on servers as it covers a long weekend rather than specific days/times
 local battlegroundFixedDates = {
-    EU = 1746144060 --may 2nd 2025 00:01:00 alterac valley
+    EU = 1746144060, --may 2nd 2025 00:01:00 alterac valley
+    EU2 = 1746144060+7200, --Paris time zone adjustment
 }
 
 local C_Calendar = {
@@ -276,9 +293,13 @@ local knownMaddnessStart = 1757462401; -- 1761091300; --october 22 2025 1am ish 
 local fortnight = (14 * 24 * 60 * 60)
 function C_Calendar.GetMadnessBoss(year, month, day)
 
+    --print(string.format("Getting Madness Boss for: %d-%d-%d", year, month, day))
+
     local today = CreateTimeForDate(year, month, day, 1, 1, 1)
 
     local timeDiff = today - knownMaddnessStart;
+
+    --print(string.format("Time diff to known start: %d", timeDiff))
 
     if timeDiff < fortnight then
         --print(string.format("Madness Boss: %s", zgMadnessSchedule[1]))
@@ -875,8 +896,15 @@ function C_Calendar.GetBattlegroundsForMonth(month, year)
             --     [3] = "Arathi Basin",
             -- }
 
-            local num_weeks_passed = (this_friday - battlegroundFixedDates.EU) / one_week
-            local battlegroundScheduleIndex = math.ceil(num_weeks_passed % #battlegroundSchedule) + 1
+            local num_weeks_passed = (this_friday - battlegroundFixedDates.EU2) / one_week
+            local battlegroundScheduleIndex = (math.ceil(num_weeks_passed) % #battlegroundSchedule) + 1
+
+            -- DevTools_Dump({
+            --     i = i,
+            --     scheduleLength = #battlegroundSchedule,
+            --     num_weeks_passed = num_weeks_passed,
+            --     battlegroundScheduleIndex = battlegroundScheduleIndex,
+            -- })
 
             if monthStartsOnSaturday == true then
                 --lets just fix the start of the month

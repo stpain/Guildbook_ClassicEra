@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "5.22",
+        notes = "Another fix to Battlegrounds! (I had added brackets to the wrong part of some math....)",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "5.21",
         notes = "Fixed a bug with Battlegrounds showing incorrectly or not at all.",
         icon = "PhotosensitivityWarning-questbang-icon",
