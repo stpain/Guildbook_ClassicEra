@@ -252,5 +252,5 @@ function GuildbookGuildRosterMixin:Blizzard_OnGuildRosterUpdate()
 end
 
 function GuildbookGuildRosterMixin:OnShow()
-    GuildRoster() --this will trigger a callback to self:Update
+    C_GuildInfo.GuildRoster()
 end

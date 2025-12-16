@@ -1,6 +1,6 @@
 ## Interface: 11508
 ## Author: TheBoringDad
-## Version: 5.22
+## Version: 5.3
 ## Title: Guildbook_Classic
 ## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL

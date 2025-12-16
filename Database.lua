@@ -52,7 +52,7 @@ local dbToRemove = {
 
 function Database:Init()
 
-    local version = tonumber(GetAddOnMetadata(addonName, "Version"));
+    local version = tonumber(C_AddOns.GetAddOnMetadata(addonName, "Version"));
 
     if not GUILDBOOK_GLOBAL then
         GUILDBOOK_GLOBAL = {
@@ -81,6 +81,10 @@ function Database:Init()
     end
 
     self.db = GUILDBOOK_GLOBAL;
+
+    if ViragDevTool_AddData then
+        ViragDevTool_AddData(GUILDBOOK_GLOBAL, addonName)
+    end
 
     if self.db.config.showMainCharactshowMainCharacterSpecInChatrInChat then
         self.db.config.showMainCharactshowMainCharacterSpecInChatrInChat = nil
@@ -225,12 +229,13 @@ function Database:GetGuildList()
     return t;
 end
 
-function Database:RemoveGuild(guildName)
+function Database:RemoveGuild(guildName, callBack)
     StaticPopup_Show("GuildbookDeleteGeneric", DELETE.." "..guildName, nil, {
         callback = function()
             if self.db and self.db.guilds then
                 self.db.guilds[guildName] = nil;
             end
+            callBack()
         end,
     })
 end

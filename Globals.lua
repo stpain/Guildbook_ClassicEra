@@ -949,7 +949,7 @@ end
 
 function addon.api.getGuildRosterIndex(nameOrGUID)
     if IsInGuild() and GetGuildInfo("player") then
-        GuildRoster()
+        C_GuildInfo.GuildRoster()
         local totalMembers, onlineMember, _ = GetNumGuildMembers()
         for i = 1, totalMembers do
             local name, rankName, rankIndex, level, _, zone, publicNote, officerNote, isOnline, status, class, _, _, _, _, _, guid = GetGuildRosterInfo(i)

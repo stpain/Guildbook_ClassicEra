@@ -882,43 +882,76 @@ local function setCharacterTradeskill(prof, recipes, tradeskillCooldowns, onlyCo
         end
         --print("setting prof data", prof)
 
+
+        --if this character has duplicate tradeskills lets remove 1 of them and allow the addon to collect missing data
+        if type(addon.characters[addon.thisCharacter].data.profession1) == "number" then
+            if addon.characters[addon.thisCharacter].data.profession1 == addon.characters[addon.thisCharacter].data.profession2 then
+                
+                --wipe prof 2 as these should be set in order
+                addon.characters[addon.thisCharacter].data.profession2 = "-"
+                addon.characters[addon.thisCharacter].data.profession2Level = 0;
+                addon.characters[addon.thisCharacter].data.profession2Spec = false;
+                addon.characters[addon.thisCharacter].data.profession2Recipes = {};
+            end
+        end
+
+
+
+        --[[
+            First check if prof1 has data
+            -no data > set prof1 with data
+
+            Then check if prof1 is a match for data
+            -yes > update prof1 with data
+
+            Then check if prof2 has data
+            -no data > set data
+
+            Then check if prof2 is a match
+            - yes > update data
+        ]]
         if addon.characters[addon.thisCharacter].data.profession1 == "-" then
             addon.characters[addon.thisCharacter]:SetTradeskill(1, prof, true);
             addon.characters[addon.thisCharacter]:SetTradeskillRecipes(1, recipes, true)
-
-            --print("updated prof 1 as new prof")
             return;
-        else
-            if addon.characters[addon.thisCharacter].data.profession1 == prof then
-                addon.characters[addon.thisCharacter]:SetTradeskillRecipes(1, recipes, true)
+        end
 
-                --although this client knows about the profession ID the data needs to be shared across the guild
-                --simply reset the data to trigger the data share
-                addon.characters[addon.thisCharacter]:SetTradeskill(1, prof, true);
-
-                --print("updated prof 1 as existign prof")
-                return;
-            end
+        if addon.characters[addon.thisCharacter].data.profession1 == prof then
+            addon.characters[addon.thisCharacter]:SetTradeskillRecipes(1, recipes, true)
+            addon.characters[addon.thisCharacter]:SetTradeskill(1, prof, true);
+            return;
         end
 
         if addon.characters[addon.thisCharacter].data.profession2 == "-" then
             addon.characters[addon.thisCharacter]:SetTradeskill(2, prof, true);
             addon.characters[addon.thisCharacter]:SetTradeskillRecipes(2, recipes, true)
-
-            --print("updated prof 2 as new prof")
             return;
-        else
-            if addon.characters[addon.thisCharacter].data.profession2 == prof then
-                addon.characters[addon.thisCharacter]:SetTradeskillRecipes(2, recipes, true)
-
-                --although this client knows about the profession ID the data needs to be shared across the guild
-                --simply reset the data to trigger the data share
-                addon.characters[addon.thisCharacter]:SetTradeskill(2, prof, true);
-
-                --print("updated prof 2 as existign prof")
-                return;
-            end
         end
+
+        if addon.characters[addon.thisCharacter].data.profession2 == prof then
+            addon.characters[addon.thisCharacter]:SetTradeskillRecipes(2, recipes, true)
+            addon.characters[addon.thisCharacter]:SetTradeskill(2, prof, true);
+            return;
+        end
+
+
+
+
+
+        -- if addon.characters[addon.thisCharacter].data.profession2 == "-" then
+        --     addon.characters[addon.thisCharacter]:SetTradeskill(2, prof, true);
+        --     addon.characters[addon.thisCharacter]:SetTradeskillRecipes(2, recipes, true)
+
+        --     --print("updated prof 2 as new prof")
+        --     return;
+        -- else
+        --     if addon.characters[addon.thisCharacter].data.profession2 == prof then
+        --         addon.characters[addon.thisCharacter]:SetTradeskillRecipes(2, recipes, true)
+        --         addon.characters[addon.thisCharacter]:SetTradeskill(2, prof, true);
+        --         return;
+        --     end
+        -- end
+
     end
 end
 
@@ -1212,7 +1245,11 @@ function e:Database_OnInitialised()
 
     addon.Calendar:Init()
 
-    GuildRoster()
+    if C_GuildInfo and C_GuildInfo.GuildRoster then
+        C_GuildInfo.GuildRoster()
+    elseif GuildRoster then
+        GuildRoster()
+    end
     self:GUILD_ROSTER_UPDATE()
 
     local reps = addon.api.getCurrentReputations()

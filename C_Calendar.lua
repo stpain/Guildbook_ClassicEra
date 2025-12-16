@@ -21,7 +21,7 @@ local worldHolidayTextures = {
 local worldHolidayDurations = {
     midsummer = 14,
     hallowsend = 14,
-    winterveil = 19,
+    winterveil = 17,
     lunarfestival = 14,
 }
 
@@ -47,7 +47,7 @@ local worldHolidayEvents = {
         },
         [11] = {},
         [12] = {
-            [15] = {
+            [16] = {
                 { id = "winterveil", name = "Feast of Winter Veil"}
             }
         },
@@ -867,12 +867,12 @@ function C_Calendar.GetBattlegroundsForMonth(month, year)
 
     local monthStartsOnSaturday = false;
 
-    local first_friday = nil;
+    local firstFridayOfMonth = nil;
     for day = 1, 7 do
         local t = time({year = year, month = month, day = day, hour = 0, min = 1, sec = 0})
         local d = date("*t", t)
         if d.wday == 6 then  -- Friday = 6
-            first_friday = t
+            firstFridayOfMonth = t
             if d.day == 7 then
                 monthStartsOnSaturday = true
             end
@@ -884,7 +884,7 @@ function C_Calendar.GetBattlegroundsForMonth(month, year)
     local lastDayInMonth = time({ year = year, month = month, day = daysInMonth, hour = 23, min = 59, sec = 0})
 
     for i = 0, 4 do
-        local this_friday = first_friday + (i * one_week)
+        local this_friday = firstFridayOfMonth + (i * one_week)
 
        -- print("weekend iter", date("*t", this_friday).day)
 
@@ -981,37 +981,35 @@ end
 
 function C_Calendar.GetDarkmoonDataForMonth(month, year)
 
-    --local now = date("*t")
-
     month = month or C_Calendar.absDate.month
     year = year or C_Calendar.absDate.year
 
     -- Step 1: Find the first Friday of the month
-    local first_friday
+    local firstFridayOfMonth
     for day = 1, 7 do
         local t = time({year = year, month = month, day = day})
             if date("*t", t).wday == 6 then  -- Friday = 6
-                first_friday = t
+                firstFridayOfMonth = t
             break
         end
     end
   
     -- Step 2: Find the first Sunday *after* that Friday
-    local first_sunday_after_friday
+    local firstSundayAfterFirstFriday
     for offset = 1, 7 do
-        local t = first_friday + offset * 86400  -- 86400 seconds in a day
+        local t = firstFridayOfMonth + offset * 86400  -- 86400 seconds in a day
             if date("*t", t).wday == 1 then  -- Sunday = 1
-                first_sunday_after_friday = t
+                firstSundayAfterFirstFriday = t
             break
         end
     end
   
     -- Step 3: Define the end of the range (next Sunday)
-    local second_sunday = first_sunday_after_friday + 7 * 86400
+    local endingSunday = firstSundayAfterFirstFriday + 7 * 86400
 
-    local start_date, end_date = date("*t", first_sunday_after_friday), date("*t", second_sunday)
+    local dmfStartDate, dmfEndDate = date("*t", firstSundayAfterFirstFriday), date("*t", endingSunday)
 
-    C_Calendar.RegisterEvent(year, month, start_date.day, {
+    C_Calendar.RegisterEvent(year, month, dmfStartDate.day, {
         name = worldEventIDs[0],
         id = eventDayIDs.dmf,
         drawLayer = drawLayers.dmf,
@@ -1019,7 +1017,7 @@ function C_Calendar.GetDarkmoonDataForMonth(month, year)
         texture = (month % 2 == 0) and 235451 or 235448; --NOTE THIS WILL BREAK IN TBC DUE TO 3 LOCATIONS
     }, "holidayEvents")
 
-    C_Calendar.RegisterEvent(year, month, end_date.day, {
+    C_Calendar.RegisterEvent(year, month, dmfEndDate.day, {
         name = worldEventIDs[0],
         id = eventDayIDs.dmf,
         drawLayer = drawLayers.dmf,
@@ -1027,7 +1025,7 @@ function C_Calendar.GetDarkmoonDataForMonth(month, year)
         texture = (month % 2 == 0) and 235449 or 235446;
     }, "holidayEvents")
 
-    for day = start_date.day + 1, end_date.day - 1, 1 do
+    for day = dmfStartDate.day + 1, dmfEndDate.day - 1, 1 do
         C_Calendar.RegisterEvent(year, month, day, {
             name = worldEventIDs[0],
             id = eventDayIDs.dmf,
@@ -1036,7 +1034,6 @@ function C_Calendar.GetDarkmoonDataForMonth(month, year)
             texture = (month % 2 == 0) and 235450 or 235447,
         }, "holidayEvents")
     end
-
 end
 
 function C_Calendar.GetFishingEventForMonth(month, year)

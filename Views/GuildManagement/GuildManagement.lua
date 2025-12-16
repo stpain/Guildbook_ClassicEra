@@ -845,7 +845,7 @@ end
 
 function GuildbookGuildManagementMixin:LoadAFK()
     
-    GuildRoster()
+    C_GuildInfo.GuildRoster()
 
     local ranks = addon.api.getGuildRanks()
     local rankMenu = {

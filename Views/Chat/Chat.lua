@@ -142,7 +142,7 @@ function GuildbookChatMixin:Update()
     local t = {}
     for name, chat in pairs(self.chats) do
         if name == "guild" then
-            if addon.thisGuild and self.chats.guild[addon.thisGuild] and (#self.chats.guild[addon.thisGuild].history > Database.db.config.chatGuildHistoryLimit) then
+            if addon.thisGuild and self.chats.guild[addon.thisGuild] and self.chats.guild[addon.thisGuild].history and (#self.chats.guild[addon.thisGuild].history > Database.db.config.chatGuildHistoryLimit) then
 
                 addon.LogDebugMessage("warning", string.format("chat history to long removing %d messages", (#self.chats.guild[addon.thisGuild].history - Database.db.config.chatWhisperHistoryLimit)))
 
@@ -238,7 +238,7 @@ function GuildbookChatMixin:Update()
                 self.chatHistory.scrollView:SetDataProvider(dp)
                 self.chatHistory.scrollBox:ScrollToEnd()
             else
-                self.chatHistory.scrollView:SetDataProvider({})
+                self.chatHistory.scrollView:SetDataProvider(CreateDataProvider())
             end
         end)
     end
@@ -263,12 +263,25 @@ function GuildbookChatMixin:Chat_OnMessageReceived(data)
         local now = time();
 
         if data.channel == "guild" then
-            if not self.chats.guild[addon.thisGuild] then
+            if self.chats.guild[addon.thisGuild] == nil then
                 self.chats.guild[addon.thisGuild] = {
                     lastActive = now,
                     history = {},
                 }
             end
+            if self.chats.guild[addon.thisGuild].history == nil then
+                self.chats.guild[addon.thisGuild] = {
+                    lastActive = now,
+                    history = {},
+                }
+            end
+            if self.chats.guild[addon.thisGuild].lastActive == nil then
+                self.chats.guild[addon.thisGuild] = {
+                    lastActive = now,
+                    history = {},
+                }
+            end
+            
             table.insert(self.chats.guild[addon.thisGuild].history, {
                 sender = data.sender,
                 message = data.message,

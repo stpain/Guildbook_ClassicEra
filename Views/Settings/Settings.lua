@@ -709,8 +709,9 @@ function GuildbookSettingsMixin:PreparePanels()
                     size = {24, 24,},
                     atlas = "common-icon-redx",
                     onClick = function()
-                        Database:RemoveGuild(guildName)
-                        RefreshGuildList()
+                        Database:RemoveGuild(guildName, function()
+                            RefreshGuildList()
+                        end)
                     end,
                 }
             })
