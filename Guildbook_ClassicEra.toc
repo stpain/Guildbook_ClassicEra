@@ -1,6 +1,6 @@
-## Interface: 11508
+## Interface: 11508, 20505
 ## Author: TheBoringDad
-## Version: 5.3
+## Version: 5.31
 ## Title: Guildbook_Classic
 ## Notes: An addon for guilds
 ## SavedVariables: GUILDBOOK_GLOBAL
@@ -26,12 +26,14 @@ ChangeLog.lua
 
 Locales.lua
 
+#Api_Classic.lua
+
+#Constants.lua
+
 Data\Tradeskill_Classic.lua
 Data\Tradeskill_TBC.lua
 
-
 Database.lua
-
 
 Classes\Tradeskills.lua
 Classes\Character.lua

@@ -1392,14 +1392,6 @@ local resistanceIDs = {
 }
 function addon.api.getPlayerResistances(level)
     local res = {}
-    -- res.physical = addon.api.trimNumber(ResistancePercent(0,level))
-    -- res.holy = addon.api.trimNumber(ResistancePercent(1,level))
-    -- res.fire = addon.api.trimNumber(ResistancePercent(2,level))
-    -- res.nature = addon.api.trimNumber(ResistancePercent(3,level))
-    -- res.frost = addon.api.trimNumber(ResistancePercent(4,level))
-    -- res.shadow = addon.api.trimNumber(ResistancePercent(5,level))
-    -- res.arcane = addon.api.trimNumber(ResistancePercent(6,level))
-
     for i = 0, 6 do
         local base, total, bonus, minus = UnitResistance("player", i)
         res[resistanceIDs[i]] = {
@@ -1705,23 +1697,6 @@ function addon.api.classic.getPlayerEquipment()
     return equipment;
 end
 
-function addon.api.getDaysInMonth(month, year)
-    local days_in_month = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
-    local d = days_in_month[month]
-    -- check for leap year
-    if (month == 2) then
-        if year % 4 == 0 then
-            if year % 100 == 0 then
-                if year % 400 == 0 then
-                    d = 29
-                end
-            else
-                d = 29
-            end
-        end
-    end
-    return d
-end
 
 
 function addon.api.getLockouts()

@@ -2,89 +2,15 @@
 
 local GuildbookName, Guildbook = ...;
 
-local Database = Guildbook.Database;
-
 if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
     return;
 end
 
+if WOW_PROJECT_ID ~= WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    return;
+end
 
-
---[[
-
-    WIP: Any constants can be listed here for now, then moved as a whole into a Constants.lua file
-
-
-]]
-local socketFileIDs = {
-    EMPTY_SOCKET_BLUE = 136256,
-    EMPTY_SOCKET_META = 136257,
-    EMPTY_SOCKET_RED = 136258,
-    EMPTY_SOCKET_YELLOW = 136259,
-    EMPTY_SOCKET_PRISMATIC = 458977,
-}
-local socketOrder = {
-    [1] = "EMPTY_SOCKET_META",
-    [2] = "EMPTY_SOCKET_RED",
-    [3] = "EMPTY_SOCKET_YELLOW",
-    [4] = "EMPTY_SOCKET_BLUE",
-    [5] = "EMPTY_SOCKET_PRISMATIC",
-}
-Guildbook.Layouts = {
-    GenericMetal = {
-		TopLeftCorner =	{ atlas = "UI-Frame-GenericMetal-Corner", x = -6, y = 6, mirrorLayout = true, },
-		TopRightCorner =	{ atlas = "UI-Frame-GenericMetal-Corner", x = 6, y = 6, mirrorLayout = true, },
-		BottomLeftCorner =	{ atlas = "UI-Frame-GenericMetal-Corner", x = -6, y = -6, mirrorLayout = true, },
-		BottomRightCorner =	{ atlas = "UI-Frame-GenericMetal-Corner", x = 6, y = -6, mirrorLayout = true, },
-		TopEdge = { atlas = "_UI-Frame-GenericMetal-EdgeTop", },
-		BottomEdge = { atlas = "_UI-Frame-GenericMetal-EdgeBottom", },
-		LeftEdge = { atlas = "!UI-Frame-GenericMetal-EdgeLeft", },
-		RightEdge = { atlas = "!UI-Frame-GenericMetal-EdgeRight", },
-	},
-    DarkTooltip = {
-        TopLeftCorner =	{ atlas = "ChatBubble-NineSlice-CornerTopLeft", x = -2, y = 2, },
-        TopRightCorner =	{ atlas = "ChatBubble-NineSlice-CornerTopRight", x = 2, y = 2, },
-        BottomLeftCorner =	{ atlas = "ChatBubble-NineSlice-CornerBottomLeft", x = -2, y = -2, },
-        BottomRightCorner =	{ atlas = "ChatBubble-NineSlice-CornerBottomRight", x = 2, y = -2, },
-        TopEdge = { atlas = "_ChatBubble-NineSlice-EdgeTop", },
-        BottomEdge = { atlas = "_ChatBubble-NineSlice-EdgeBottom"},
-        LeftEdge = { atlas = "!ChatBubble-NineSlice-EdgeLeft", },
-        RightEdge = { atlas = "!ChatBubble-NineSlice-EdgeRight", },
-        Center = { atlas = "ChatBubble-NineSlice-Center", },
-	},
-    ParentBorder = {
-        TopLeftCorner =	{ atlas = "Tooltip-NineSlice-CornerTopLeft", x=-3, y=3 },
-        TopRightCorner =	{ atlas = "Tooltip-NineSlice-CornerTopRight", x=3, y=3 },
-        BottomLeftCorner =	{ atlas = "Tooltip-NineSlice-CornerBottomLeft", x=-3, y=-3 },
-        BottomRightCorner =	{ atlas = "Tooltip-NineSlice-CornerBottomRight", x=3, y=-3 },
-        TopEdge = { atlas = "_Tooltip-NineSlice-EdgeTop", },
-        BottomEdge = { atlas = "_Tooltip-NineSlice-EdgeBottom", },
-        LeftEdge = { atlas = "!Tooltip-NineSlice-EdgeLeft", },
-        RightEdge = { atlas = "!Tooltip-NineSlice-EdgeRight", },
-    },
-    ListviewMetal = {
-        TopLeftCorner =	{ atlas = "UI-Frame-DiamondMetal-CornerTopLeft", x=-15, y=15 },
-        TopRightCorner =	{ atlas = "UI-Frame-DiamondMetal-CornerTopRight", x=15, y=15 },
-        BottomLeftCorner =	{ atlas = "UI-Frame-DiamondMetal-CornerBottomLeft", x=-15, y=-15 },
-        BottomRightCorner =	{ atlas = "UI-Frame-DiamondMetal-CornerBottomRight", x=15, y=-15 },
-        TopEdge = { atlas = "_UI-Frame-DiamondMetal-EdgeTop", },
-        BottomEdge = { atlas = "_UI-Frame-DiamondMetal-EdgeBottom", },
-        LeftEdge = { atlas = "!UI-Frame-DiamondMetal-EdgeLeft", },
-        RightEdge = { atlas = "!UI-Frame-DiamondMetal-EdgeRight", },
-        Center = { layer = "BACKGROUND", atlas = "ClassHall_InfoBoxMission-BackgroundTile", x = -20, y = 20, x1 = 20, y1 = -20 },
-    },
-	Flyout = {
-		TopLeftCorner =	{ atlas = "CharacterCreateDropdown-NineSlice-CornerTopLeft", x = -36, y = 20, },
-		TopRightCorner =	{ atlas = "CharacterCreateDropdown-NineSlice-CornerTopRight", x = 36, y = 20, },
-		BottomLeftCorner =	{ atlas = "CharacterCreateDropdown-NineSlice-CornerBottomLeft", x = -36, y = -40, },
-		BottomRightCorner =	{ atlas = "CharacterCreateDropdown-NineSlice-CornerBottomRight", x = 36, y = -40, },
-		TopEdge = { atlas = "_CharacterCreateDropdown-NineSlice-EdgeTop", },
-		BottomEdge = { atlas = "_CharacterCreateDropdown-NineSlice-EdgeBottom", },
-		LeftEdge = { atlas = "!CharacterCreateDropdown-NineSlice-EdgeLeft", },
-		RightEdge = { atlas = "!CharacterCreateDropdown-NineSlice-EdgeRight", },
-		Center = { atlas = "CharacterCreateDropdown-NineSlice-Center", },
-	},
-}
+local Database = Guildbook.Database;
 
 
 --[[
@@ -164,10 +90,10 @@ function Guildbook.Api.GetItemSocketInfo(link)
 
     if ret.numSockets > 0 then
 
-        for k, socketType in ipairs(socketOrder) do
+        for k, socketType in ipairs(Guildbook.Constants.SocketOrder) do
             if type(sockets[socketType]) == "number" and (sockets[socketType] > 0) then
                 for i = 1, sockets[socketType] do
-                    table.insert(itemSocketsOrderd, socketFileIDs[socketType])
+                    table.insert(itemSocketsOrderd, Guildbook.Constants.SocketFileIDs[socketType])
                 end
             end
         end
@@ -340,4 +266,86 @@ function Guildbook.Api.GetLockouts()
         end
     end
     return t
+end
+
+function Guildbook.Api.GetCurrentReputations()
+    local reputations = {};
+
+    --local numFactions = C_Reputation.GetNumFactions()
+    local numFactions = GetNumFactions()
+    local factionIndex = 1
+    local preHeader;
+    while (factionIndex <= numFactions) do
+        local name, description, standingId, bottomValue, topValue, earnedValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild, factionID, hasBonusRepGain, canBeLFGBonus = GetFactionInfo(factionIndex)
+        
+        if isHeader then
+
+            if name and (not reputations[name]) then
+                reputations[name] = {}
+            end
+
+            preHeader = name
+            if isCollapsed then
+                ExpandFactionHeader(factionIndex)
+                numFactions = GetNumFactions()
+            end
+        end
+        if name and (hasRep or not isHeader) then
+
+            local currentValue = (earnedValue-bottomValue)
+            local barMaxValue = (topValue-bottomValue)
+
+            local repData = string.format("%d:%d:%d:%d", factionID, standingId, currentValue, barMaxValue)
+
+            table.insert(reputations[preHeader], repData)
+
+        end
+        factionIndex = factionIndex + 1
+    end
+
+    return reputations;
+end
+
+---Get player currencies
+---@return table currencies a key/value paired table where [header] = {ipairs list of formatted strings ("%d:%d", itemID, count)}
+function Guildbook.Api.GetCurrentCurrencies()
+    local currencies = {};
+    local preHeader;
+    for i = 1, GetCurrencyListSize() do
+        local name, isHeader, isExpanded, isUnused, isWatched, count, icon, maximum, hasWeeklyLimit, currentWeeklyAmount, unknown, itemID = GetCurrencyListInfo(i)
+        --local link = C_CurrencyInfo.GetCurrencyListLink(i)
+        --local currencyID = C_CurrencyInfo.GetCurrencyIDFromLink(link)
+
+        if isHeader then
+            preHeader = name;
+        end
+
+        if not currencies[preHeader] then
+            currencies[preHeader] = {}
+        end
+
+        local currencyStrinig = string.format("%d:%d", itemID, count)
+
+        table.insert(currencies[preHeader], currencyStrinig)
+    end
+
+    return currencies;
+end
+
+---Get resistances for unit (defaults to "player")
+---@return table resistances a key/value paired table where [name] = { base, total, bonus, minus, } 
+function Guildbook.Api.GetPlayerResistances(unit)
+    unit = unit or "player"
+    local resistances = {}
+    for i = 0, 6 do
+        local base, total, bonus, minus = UnitResistance(unit, i)
+        resistances[Guildbook.Constants.ResistanceIDs[i]] = {
+            base = base,
+            total = total,
+            bonus = bonus,
+            minus = minus,
+        }
+    end
+
+    return resistances;
 end
