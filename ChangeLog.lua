@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "5.32",
+        notes = "Fixed a bug preventing the addon from modifying the classic guild UI.",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "5.3",
         notes = "Minor bug fixes\n* Chat error when deleting a chat history.\n*Winterveil event dates corrected.\n*Tradeskill scanning should pick up each profession correctly.",
         icon = "PhotosensitivityWarning-questbang-icon",

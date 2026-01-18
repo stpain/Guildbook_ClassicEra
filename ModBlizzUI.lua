@@ -92,7 +92,7 @@ function addon:ModBlizzUI()
     GuildInfoFrameScrollFrame:SetPoint('BOTTOMRIGHT', GuildInfoTextBackground, 'BOTTOMRIGHT', -31, 7)
 
     -- because elvui alters the column order we just need to know if its loaded to then adjust anchor point
-    local anchor = IsAddOnLoaded('ElvUI') and GuildFrameColumnHeader2 or GuildFrameColumnHeader4
+    local anchor = C_AddOns.IsAddOnLoaded('ElvUI') and GuildFrameColumnHeader2 or GuildFrameColumnHeader4
     for k, col in ipairs(self.GuildFrame.ColumnHeaders) do
         local tab = CreateFrame('BUTTON', 'GuildbookGuildFrameColumnHeader'..col.Text, GuildFrame)--, "OptionsFrameTabButtonTemplate")
         if col.Text == 'Rank' then
@@ -135,7 +135,7 @@ function addon:ModBlizzUI()
     GuildFrameButton1Class:SetWidth(80)
     GuildFrameButton1:SetHyperlinksEnabled(true)
 
-    local x = IsAddOnLoaded('ElvUI') and 86.0 or 7.0
+    local x = C_AddOns.IsAddOnLoaded('ElvUI') and 86.0 or 7.0
     for i = 1, 13 do
         -- adjust Name column position
         _G['GuildFrameButton'..i..'Name']:ClearAllPoints()
@@ -156,8 +156,8 @@ function addon:ModBlizzUI()
         button.GuildbookColumnOnline:SetText(" ")
     end
 
-    local anchor = IsAddOnLoaded('ElvUI') and GuildFrameButton1Zone or GuildFrameButton1Class
-    --local x = IsAddOnLoaded('ElvUI') and 12.0 or 0
+    local anchor = C_AddOns.IsAddOnLoaded('ElvUI') and GuildFrameButton1Zone or GuildFrameButton1Class
+    --local x = C_AddOns.IsAddOnLoaded('ElvUI') and 12.0 or 0
     GuildFrameButton1.GuildbookColumnRank = GuildFrameButton1:CreateFontString('$parentGuildbookRank', 'OVERLAY', 'GameFontNormalSmall')
     GuildFrameButton1.GuildbookColumnRank:SetPoint('LEFT', anchor, 'RIGHT', 12, 0)
     GuildFrameButton1.GuildbookColumnRank:SetSize(self.GuildFrame.ColumnWidths['Rank'], GuildFrameButton1:GetHeight())
@@ -189,7 +189,7 @@ function addon:ModBlizzUI()
     formatGuildFrameButton(GuildFrameButton1.GuildbookColumnOnline, {1,1,1,1})
     
     for i = 2, 13 do
-        local anchor = IsAddOnLoaded('ElvUI') and _G['GuildFrameButton'..i..'Zone'] or _G['GuildFrameButton'..i..'Class']
+        local anchor = C_AddOns.IsAddOnLoaded('ElvUI') and _G['GuildFrameButton'..i..'Zone'] or _G['GuildFrameButton'..i..'Class']
         local button = _G['GuildFrameButton'..i]
         button:ClearAllPoints()
         button:SetHyperlinksEnabled(true)
@@ -199,7 +199,7 @@ function addon:ModBlizzUI()
 
         _G['GuildFrameButton'..i..'Class']:SetWidth(80)
     
-        --local x = IsAddOnLoaded('ElvUI') and 12.0 or 0
+        --local x = C_AddOns.IsAddOnLoaded('ElvUI') and 12.0 or 0
         button.GuildbookColumnRank = button:CreateFontString('$parentGuildbookRank', 'OVERLAY', 'GameFontNormalSmall')
         button.GuildbookColumnRank:SetPoint('LEFT', anchor, 'RIGHT', 12, 0)
         button.GuildbookColumnRank:SetSize(self.GuildFrame.ColumnWidths['Rank'], button:GetHeight())
