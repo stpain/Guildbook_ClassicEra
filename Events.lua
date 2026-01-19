@@ -962,10 +962,18 @@ local function scanTradeskills()
 
     local tradeskillCooldowns = {}
 
-    local tradeskillTitle = TradeSkillFrameTitleText:GetText()
-    if tradeskillTitle then
-        prof = Tradeskills:GetTradeskillIDFromLocale(tradeskillTitle)
+-- #### Caused a LUA error if TSM addon used because TradeSkillFrameTitleText not available
+    -- local tradeskillTitle = TradeSkillFrameTitleText:GetText()
+    -- if tradeskillTitle then
+    --     prof = Tradeskills:GetTradeskillIDFromLocale(tradeskillTitle)
+    -- end
+-- #### Replaced with GetTradeSkillLine() API call which returns the tradeskillName by default
+
+    local tradeskillTitle = GetTradeSkillLine()
+    if not tradeskillTitle then
+        return
     end
+    local prof = Tradeskills:GetTradeskillIDFromLocale(tradeskillTitle)
 
     if type(prof) == "number" then
         addon.LogDebugMessage("tradeskills", string.format("function [scanTradeskills] prof = %s", prof))
