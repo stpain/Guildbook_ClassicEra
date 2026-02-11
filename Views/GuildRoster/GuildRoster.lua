@@ -13,6 +13,10 @@ GuildbookGuildRosterMixin = {
 
 function GuildbookGuildRosterMixin:OnLoad()
 
+    if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+        self.selectedMaxLevel = 70;
+    end
+
     addon:RegisterCallback("Blizzard_OnGuildRosterUpdate", self.Blizzard_OnGuildRosterUpdate, self)
     addon:RegisterCallback("Roster_OnSelectionChanged", self.Update, self)
 
@@ -84,8 +88,16 @@ function GuildbookGuildRosterMixin:OnLoad()
         end)
     end
 
-    self.minLevel:SetMinMaxValues(self.selectedMinLevel, self.selectedMaxLevel)
-    self.maxLevel:SetMinMaxValues(self.selectedMinLevel, self.selectedMaxLevel)
+    if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+        
+        self.minLevel:SetMinMaxValues(self.selectedMinLevel, 60)
+        self.maxLevel:SetMinMaxValues(self.selectedMinLevel, 60)
+
+    elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+
+        self.minLevel:SetMinMaxValues(self.selectedMinLevel, 70)
+        self.maxLevel:SetMinMaxValues(self.selectedMinLevel, 70)
+    end
 
     self.minLevel:SetScript("OnValueChanged", function(s)
         s.value:SetText(math.ceil(s:GetValue()))

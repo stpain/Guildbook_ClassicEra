@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "5.321",
+        notes = "Updated roster for 70 and fixed invite bug.",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "5.32",
         notes = "Fixed a bug preventing the addon from modifying the classic guild UI.",
         icon = "PhotosensitivityWarning-questbang-icon",

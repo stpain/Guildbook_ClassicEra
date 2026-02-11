@@ -229,8 +229,8 @@ function GuildbookChatCharacterListviewItemMixin:SetDataBinding(info, height)
         text = "Invite",
         notCheckable = true,
         func = function()
-            InviteUnit(info.characterName)
-            print(info.characterName)
+            C_PartyInfo.InviteUnit(info.characterName)
+            --print(info.characterName)
         end,
     })
 
@@ -651,7 +651,7 @@ function GuildbookRosterListviewItemMixin:OnLoad()
 
     self.inviteToGroup:SetScript("OnMouseDown", function()
         if self.character then
-            InviteUnit(self.character.data.name)
+            C_PartyInfo.InviteUnit(self.character.data.name)
         end
     end)
     self.openProfile:SetScript("OnMouseDown", function()
