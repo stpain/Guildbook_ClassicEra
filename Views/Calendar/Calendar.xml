@@ -214,9 +214,6 @@
         <Anchors>
             <Anchor point="CENTER"/>
         </Anchors>
-        <Layers>
-
-        </Layers>
         <Frames>
             <Button parentKey="close" inherits="UIPanelCloseButton">
                 <Anchors>
@@ -277,6 +274,15 @@
             </Button>
         </Frames>
         <Layers>
+            <Layer level="BACKGROUND">
+                <Texture>
+                    <Color r="0" g="0" b="0" a="0.75"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="1" y="-1"/>
+                        <Anchor point="BOTTOMRIGHT" x="-1" y="1"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
             <Layer level="OVERLAY">
                 <FontString parentKey="titleLabel" inherits="GameFontnormalSmall" justifyH="LEFT" text="Title">
                     <Anchors>

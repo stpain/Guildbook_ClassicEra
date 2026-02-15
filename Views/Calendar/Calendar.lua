@@ -771,7 +771,7 @@ end
 GuildbookCalendarEventFrameMixin = {}
 function GuildbookCalendarEventFrameMixin:OnLoad()
 
-    NineSliceUtil.ApplyLayout(self, addon.Layouts.Flyout)
+    NineSliceUtil.ApplyLayout(self, addon.Layouts.DarkTooltip)
     NineSliceUtil.ApplyLayout(self.attendingList, addon.api.getNineSliceTooltipBorder(0))
 
     self.description.EditBox:SetMaxLetters(130)

@@ -21,6 +21,11 @@ local name, addon = ...;
 
 addon.changeLog = {
     {
+        version = "5.322",
+        notes = "Fixed texture bug on calendar event frame where it doesn't exist in TBC.",
+        icon = "PhotosensitivityWarning-questbang-icon",
+    },
+    {
         version = "5.321",
         notes = "Updated roster for 70 and fixed invite bug.",
         icon = "PhotosensitivityWarning-questbang-icon",

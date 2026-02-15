@@ -32,6 +32,17 @@ addon.Layouts = {
         LeftEdge = { atlas = "!Tooltip-NineSlice-EdgeLeft", },
         RightEdge = { atlas = "!Tooltip-NineSlice-EdgeRight", },
     },
+    ParentBorder2 = {
+        TopLeftCorner =	{ atlas = "Tooltip-NineSlice-CornerTopLeft", x=0, y=0 },
+        TopRightCorner =	{ atlas = "Tooltip-NineSlice-CornerTopRight", x=0, y=0 },
+        BottomLeftCorner =	{ atlas = "Tooltip-NineSlice-CornerBottomLeft", x=0, y=0 },
+        BottomRightCorner =	{ atlas = "Tooltip-NineSlice-CornerBottomRight", x=0, y=0 },
+        TopEdge = { atlas = "_Tooltip-NineSlice-EdgeTop", },
+        BottomEdge = { atlas = "_Tooltip-NineSlice-EdgeBottom", },
+        LeftEdge = { atlas = "!Tooltip-NineSlice-EdgeLeft", },
+        RightEdge = { atlas = "!Tooltip-NineSlice-EdgeRight", },
+        Center = { atlas = "Tooltip-NineSlice-Center", },
+    },
     ListviewMetal = {
         TopLeftCorner =	{ atlas = "UI-Frame-DiamondMetal-CornerTopLeft", x=-15, y=15 },
         TopRightCorner =	{ atlas = "UI-Frame-DiamondMetal-CornerTopRight", x=15, y=15 },
