@@ -144,8 +144,13 @@ function GuildbookProfileMixin:OnLoad()
         self.talents["tree"..i].talentsGridview:InitFramePool("FRAME", "GuildbookWrathEraTalentIconFrame")
         self.talents["tree"..i].talentsGridview:SetFixedColumnCount(4)
 
+        local numTalentRows = 7;
+        if (WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC) then
+            numTalentRows = 9;
+        end
+
         C_Timer.After(0.1, function()
-            for row = 1, 7 do
+            for row = 1, numTalentRows do
                 for col = 1, 4 do
                     self.talents["tree"..i].talentsGridview:Insert({
                         rowId = row,

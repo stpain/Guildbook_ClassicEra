@@ -335,16 +335,16 @@ function GuildbookGuildManagementMixin:SetupEditCharacterTab()
                 widget:SetMenu(classMenu)
             end,
         },
-        {
-            label = "Race",
-            control = "TbdDropdownTemplate",
-            field = "race"
-        },
-        {
-            label = "Gender",
-            control = "TbdDropdownTemplate",
-            field = "gender",
-        },
+        -- {
+        --     label = "Race",
+        --     control = "TbdDropdownTemplate",
+        --     field = "race"
+        -- },
+        -- {
+        --     label = "Gender",
+        --     control = "TbdDropdownTemplate",
+        --     field = "gender",
+        -- },
         {
             label = "Level",
             control = "InputBoxTemplate",
