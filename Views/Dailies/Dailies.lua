@@ -91,27 +91,39 @@ function GuildbookWrathDailiesMixin:ScanQuestLog()
 
     currentQuestLog = {}
 
+    -- Save current header collapse states
+    local savedHeaderState = {}
+    local savedSelection = GetQuestLogSelection()
+
+    do
+        local numEntries = GetNumQuestLogEntries()
+        for i = 1, numEntries do
+            local title, level, suggestedGroup, isHeader, isCollapsed = GetQuestLogTitle(i)
+            if isHeader and title then
+                savedHeaderState[title] = (isCollapsed == true)
+            end
+        end
+    end
+
+    -- Temporarily expand all headers to ensure full scan
     ExpandQuestHeader(0)
 
-    local header;
-    for i = 1, GetNumQuestLogEntries() do
+    local header
+    local numEntries = GetNumQuestLogEntries()
 
+    for i = 1, numEntries do
         local title, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questId = GetQuestLogTitle(i)
 
-        if not isHeader then
-            currentQuestLog[questId] = true;
-        end
-
-        -- if title:find("Die!") then
-        --     print(frequency)
-        -- end
-
         if isHeader then
-            header = title;
+            header = title
+        else
+            currentQuestLog[questId] = true
         end
+
+        -- Daily (2) and Weekly (3) detection
         if frequency == 2 or frequency == 3 then
-            --local questDescription, questObjectives = GetQuestLogQuestText(i)
             local questLink = GetQuestLink(questId)
+
             local questData = {
                 link = questLink,
                 title = title,
@@ -125,7 +137,27 @@ function GuildbookWrathDailiesMixin:ScanQuestLog()
         end
     end
 
-    CollapseQuestHeader(0)    
+    -- Restore previous header collapse states
+    do
+        local numEntriesAfter = GetNumQuestLogEntries()
+
+        for i = 1, numEntriesAfter do
+            local title, level, suggestedGroup, isHeader = GetQuestLogTitle(i)
+
+            if isHeader and title then
+                if savedHeaderState[title] then
+                    CollapseQuestHeader(i)
+                else
+                    ExpandQuestHeader(i)
+                end
+            end
+        end
+    end
+
+    -- Restore previously selected quest entry
+    if savedSelection and savedSelection > 0 then
+        SelectQuestLogEntry(savedSelection)
+    end
 end
 
 function GuildbookWrathDailiesMixin:Quest_OnAccepted()
